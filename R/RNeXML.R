@@ -1,0 +1,60 @@
+require("XML")
+
+require("RCurl")
+
+
+## Can be also URL or single file name
+filename <- "/tests/examples/trees.xml"
+
+
+## Usage: nexmldoc <- read.doc(filename)
+read.doc <- function(filename) {
+   
+    return xmlTreeParse(filename, getDTD=FALSE, useInternalNodes = TRUE)
+}
+
+
+## Usage: doc.release(nexmldoc)
+doc.release <- function(doc) {
+
+    free(doc)
+}
+
+
+## Usage: trees <- readTrees(doc)
+readTrees <- function(doc) {
+   
+    return readNeXML(doc, "tree")
+}
+ 
+
+## Read DOM nodes into set of NeXML.Node
+readNeXML <- function(doc, type=c("all", "tree", "taxa", "character")) {
+
+## In progress
+##TODO (check what necessary to return)
+
+# Returns a list containing:
+#  names of the taxa (from taxa block, implied or declared)
+#  names of the trees
+#  set of Tree nodes
+#  data type for each character block of the nexml file
+#  number of characters in each block
+#  the labels for the characters
+
+}
+
+
+
+##TODO: methods to process nodes
+
+#setMethod("nNodes", signature(x="Node"), function(x) {
+#})
+
+#setMethod("nodeType", signature(x="Node"), function(x) {
+#})
+
+#setMethod("nodeId", signature(x="Node"),
+# function(x, type=c("trees", "taxes","characters")) {
+#})
+
