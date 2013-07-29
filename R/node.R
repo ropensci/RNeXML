@@ -26,33 +26,33 @@ setClass("node",
 )
 
 #' validate input NeXML data
-setValidity("node", function(object){
-		obj.id <- object@id
-		obj.label <- object@label
-		obj.otu <- object@otu
-		obj.about <- object@about
-		obj.meta <- object@meta
-
-		if(isTRUE(!nchar(obj.id) > 0) & isTRUE(!nchar(obj.otu) > 0)){
-			print(str(object))
-			stop(simpleError("Invalid object: A node must at least have an id or a value!"))
-		} else {}
-
-		meta <- object@meta
-		obj.meta.id <- meta@id
-		obj.meta.content <- meta@content
-
-		# if there are attributes, check that they all have names
-		if(!length(obj.meta.content) > 0){
-			stop(simpleError("Invalid object: Meta must have content!"))
-
-		} else {}
-
-		# check meta of node
-		if(isTRUE(!nchar(obj.meta.id) > 0) || isTRUE(!nchar(obj.meta.datatype) > 0)){
-			print(str(object))
-			stop(simpleError("Invalid object: Meta must have at least have an id or a datatype!"))
-		} else {}
-
-	return(TRUE)
-})
+#setValidity("node", function(object){
+#		obj.id <- object@id
+#		obj.label <- object@label
+#		obj.otu <- object@otu
+#		obj.about <- object@about
+#		obj.meta <- object@meta
+#
+#		if(isTRUE(!nchar(obj.id) > 0) & isTRUE(!nchar(obj.otu) > 0)){
+#			print(str(object))
+#			stop(simpleError("Invalid object: A node must at least have an id or a value!"))
+#		} else {}
+#
+#		meta <- object@meta
+#		obj.meta.id <- meta@id
+#		obj.meta.content <- meta@content
+#
+#		# if there are attributes, check that they all have names
+#		if(!length(obj.meta.content) > 0){
+#			stop(simpleError("Invalid object: Meta must have content!"))
+#
+#		} else {}
+#
+#		# check meta of node
+#		if(isTRUE(!nchar(obj.meta.id) > 0) || isTRUE(!nchar(obj.meta.datatype) > 0)){
+#			print(str(object))
+#			stop(simpleError("Invalid object: Meta must have at least have an id or a datatype!"))
+#		} else {}
+#
+#	return(TRUE)
+#})

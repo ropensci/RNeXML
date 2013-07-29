@@ -27,4 +27,4 @@ setClass("meta",
     datatype="character")
 )
 
-setAs("XMLInternalElementNode", "meta", function(from) xmlToS4(from))
+#setAs("XMLInternalElementNode", "meta", function(from) xmlToS4(from))

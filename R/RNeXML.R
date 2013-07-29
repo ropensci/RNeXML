@@ -4,32 +4,43 @@ require("RCurl")
 
 
 ## Can be also URL or single file name
-filename <- "/tests/examples/trees.xml"
+filename <- "../tests/examples/trees.xml"
+
+doc <- xmlParse(filename)
+
+edges <- getNodeSet(doc, "//x:tree[@id = 'tree1']/x:edge", namespaces="x")
+edges <- lapply(edges, xmlToS4)
+
+nodes <- getNodeSet(doc, "//x:tree[@id = 'tree1']/x:node", namespaces="x")
+nodes <- lapply(nodes, xmlToS4)
+
+XML:::xmlAttrsToDataFrame(getNodeSet(doc, "//x:tree[@id = 'tree1']/x:node", namespaces="x"))
+XML:::xmlAttrsToDataFrame(getNodeSet(doc, "//x:tree[@id = 'tree1']/x:edge", namespaces="x"))
 
 
 ## Usage: nexmldoc <- read.doc(filename)
-read.doc <- function(filename) {
-   
-    return xmlTreeParse(filename, getDTD=FALSE, useInternalNodes = TRUE)
-}
+#read.doc <- function(filename) {
+#   
+#    return xmlParse(filename, getDTD=FALSE, useInternalNodes = TRUE)
+#}
 
 
 ## Usage: doc.release(nexmldoc)
-doc.release <- function(doc) {
-
-    free(doc)
-}
+#doc.release <- function(doc) {
+#
+#    free(doc)
+#}
 
 
 ## Usage: trees <- readTrees(doc)
-readTrees <- function(doc) {
-   
-    return readNeXML(doc, "tree")
-}
+#readTrees <- function(doc) {
+#   
+#    return readNeXML(doc, "tree")
+#}
  
 
 ## Read DOM nodes into set of NeXML.Node
-readNeXML <- function(doc, type=c("all", "tree", "taxa", "character")) {
+#readNeXML <- function(doc, type=c("all", "tree", "taxa", "character")) {
 
 ## In progress
 ##TODO (check what necessary to return)
@@ -42,7 +53,7 @@ readNeXML <- function(doc, type=c("all", "tree", "taxa", "character")) {
 #  number of characters in each block
 #  the labels for the characters
 
-}
+#}
 
 
 
