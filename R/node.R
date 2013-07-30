@@ -19,9 +19,9 @@
 
 setClass("node",
     representation(id="character",
-        label = "character"
-        otu = "character"
-        about = "character"
+        label = "character",
+        otu = "character",
+        about = "character",
         meta="meta")
 )
 

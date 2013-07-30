@@ -4,7 +4,7 @@ require("RCurl")
 
 
 ## Can be also URL or single file name
-filename <- "../tests/examples/trees.xml"
+filename <- "tests/examples/trees.xml"
 
 doc <- xmlParse(filename)
 
