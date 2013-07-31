@@ -7,8 +7,6 @@
 #'
 #'  }
 
-require("XML")
-
 #' @name annotation-class
 #' @rdname annotation-class
 #' @exportClass annotation
@@ -18,14 +16,14 @@ setClass("annotation",
 )
 
 ## Get annotation value
-setMethod(f="getAnnotation", signature="annotation", definition=function(object)
-{
-    value <- object@literal
-    return(value)
-})
+#setMethod(f="getAnnotation", signature="annotation", definition=function(object)
+#{
+#    value <- object@literal
+#    return(value)
+#})
 
 ## Set annotation value
-setMethod(f="setAnnotation", signature="annotation", definition=function(object, value)
-{
-    object@literal<- value
-})
+#setMethod(f="setAnnotation", signature="annotation", definition=function(object, value)
+#{
+#    object@literal<- value
+#})

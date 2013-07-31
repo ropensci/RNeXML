@@ -1,1 +1,3 @@
-exportPattern("^[[:alpha:]]+")
+exportClasses(edge, tree, meta, node)
+exportClasses(annotation, annotatable, identifiable)
+exportClasses(ListOfNode, ListOfEdge, ListOfMeta)

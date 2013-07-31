@@ -7,25 +7,23 @@
 #'
 #'  }
 
-require("XML")
-
 #' @name identifiable-class
 #' @rdname identifiable-class
 #' @exportClass identifiable
 
-setClass("identifiable",
-    representation(id = "character")
-)
+#setClass("identifiable",
+#    representation(id = "character")
+#)
 
 ## Id getter
-setMethod(f="getId", signature="identifiable", definition=function(object)
-{
-    value <- object@id
-    return(value)
-})
+#setMethod(f="getId", signature="identifiable", definition=function(object)
+#{
+#    value <- object@id
+#    return(value)
+#})
 
 ## Id setter
-setMethod(f="setId", signature="identifiable", definition=function(object, value)
-{
-    object@id <- value
-})
+#setMethod(f="setId", signature="identifiable", definition=function(object, value)
+#{
+#    object@id <- value
+#})
