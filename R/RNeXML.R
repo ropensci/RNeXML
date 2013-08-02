@@ -1,7 +1,20 @@
 require("XML")
 
-require("RCurl")
+setAs("XMLInternalElementNode", "node", function(from) xmlToS4(from))
+setAs("XMLInternalElementNode", "meta", function(from) xmlToS4(from))
+setAs("XMLInternalElementNode", "edge", function(from) xmlToS4(from))
 
+setAs("XMLInternalElementNode", "tree",
+       function(from) {
+         obj = new("tree")
+         kids = xmlChildren(from)
+         obj@edges = new("ListOfedge", lapply(kids[names(kids) == "edge"], as, "edge"))
+         obj@nodes = new("ListOfnode", lapply(kids[names(kids) == "node"], as, "edge"))
+         ats = xmlAttrs(from, addNamespacePrefix = TRUE)
+         for(i in names(ats))
+            slot(obj, i) = ats[i]
+         obj
+       })
 
 ## Can be also URL or single file name
 filename <- "tests/examples/trees.xml"

@@ -12,9 +12,6 @@
 #'    \item{datatype}{Type of presented metadata.}
 #'
 #'  }
-
-require("XML")
-
 #' @name meta-class
 #' @rdname meta-class
 #' @exportClass meta
@@ -26,5 +23,3 @@ setClass("meta",
     'xsi:type'="character",
     datatype="character")
 )
-
-#setAs("XMLInternalElementNode", "meta", function(from) xmlToS4(from))

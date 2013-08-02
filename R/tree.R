@@ -14,7 +14,6 @@
 #'    \item{edges}{Set of edge items}
 #'
 #'  }
-
 #' @name tree-class
 #' @rdname tree-class
 #' @exportClass tree

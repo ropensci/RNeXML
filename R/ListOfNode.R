@@ -6,7 +6,6 @@
 #'    \item{list}{Contain list of node class objects}
 #'
 #'  }
-
 #' @name ListOfNode-class
 #' @rdname ListOfNode-class
 #' @exportClass ListOfNode

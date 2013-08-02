@@ -12,9 +12,6 @@
 #'    \item{length}{Edge lenght}
 #'
 #'  }
-
-require("XML")
-
 #' @name edge-class
 #' @rdname edge-class
 #' @exportClass edge

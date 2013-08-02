@@ -6,7 +6,6 @@
 #'    \item{literal}{A literal  note value}
 #'
 #'  }
-
 #' @name annotation-class
 #' @rdname annotation-class
 #' @exportClass annotation

@@ -6,7 +6,6 @@
 #'    \item{list}{Contain list of edge class objects}
 #'
 #'  }
-
 #' @name ListOfEdge-class
 #' @rdname ListOfEdge-class
 #' @exportClass ListOfEdge

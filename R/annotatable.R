@@ -6,7 +6,6 @@
 #'    \item{annotations}{A list of annotations that represent node}
 #'
 #'  }
-
 #' @name annotatable-class
 #' @rdname annotatable-class
 #' @exportClass annotatable

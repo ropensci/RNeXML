@@ -6,14 +6,13 @@
 #'    \item{id}{An identifying value of node instance}
 #'
 #'  }
-
 #' @name identifiable-class
 #' @rdname identifiable-class
 #' @exportClass identifiable
 
-#setClass("identifiable",
-#    representation(id = "character")
-#)
+setClass("identifiable",
+    representation(id = "character")
+)
 
 ## Id getter
 #setMethod(f="getId", signature="identifiable", definition=function(object)

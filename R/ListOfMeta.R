@@ -6,7 +6,6 @@
 #'    \item{list}{Contain list of meta class objects}
 #'
 #'  }
-
 #' @name ListOfMeta-class
 #' @rdname ListOfMeta-class
 #' @exportClass ListOfMeta
