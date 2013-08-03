@@ -74,7 +74,10 @@ setAs("tree", "phylo",
 )
 
 
+# Method to go directly from XML to phylo via S4 "tree"
+setAs("XMLInternalElementNode", "phylo", function(from){
+      as(as(from, "tree"), "phylo")
+})
 
-## Really this method should be written at the level of the nexml file as well?   
 
 

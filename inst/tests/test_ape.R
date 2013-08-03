@@ -53,5 +53,17 @@ test_that("We can convert from ape back into a S4 RNeXML::tree object", {
 })
 
 
+test_that("We can go from ape::phylo to RNeXML::nexml", {
 
+  ## Get ape::phylo tree the hard way. 
+  library(RNeXML)
+  library(XML)
+  root <- xmlRoot(xmlParse(system.file("examples", "trees.xml", package="RNeXML")))
+  ## Checks that we can go straight from XML to phylo (invisibly via RNeXML::tree
+  phy <- as(root[["trees"]][["tree"]], "phylo")
+
+  ## Actual test of coercing ape::phylo into RNeXML::nexml
+  nexml <- as(phy, "nexml")
+  
+})
 

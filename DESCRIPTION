@@ -14,3 +14,5 @@ License: BSD-3
 Collate:
     'classes.R'
     'ape.R'
+    'nexml_read.R'
+    'nexml_write.R'
