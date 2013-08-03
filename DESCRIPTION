@@ -3,11 +3,13 @@ Type: Package
 Title: Implement semantically rich I/O for NeXML format
 Version: 1.0
 Date: 2013-06-30
-Author: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia Shumelchyk, Rutger Vos
-Maintainer: Carl Boettiger
+Author: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia Shumelchyk,
+    Rutger Vos
+Maintainer: Carl Boettiger <cboettig@ropensci.org>
 Description: R package that allows access to phyloinformatic data in NeXML
     format.  The package should add new functionality to R such as the
     possibility to manipulate NeXML objects in more various and refined way and
     compatibility with 'ape' objects.
 License: BSD-3
-
+Collate:
+    'classes.R'
