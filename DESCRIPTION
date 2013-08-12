@@ -11,6 +11,12 @@ Description: R package that allows access to phyloinformatic data in NeXML
     possibility to manipulate NeXML objects in more various and refined way and
     compatibility with 'ape' objects.
 License: BSD-3
+Suggests:
+    testthat
+Imports:
+    XML,
+    ape,
+    plyr
 Collate:
     'classes.R'
     'ape.R'

@@ -48,7 +48,8 @@ setClass("ListOfedge", contains = "list",
                          TRUE)
 
 setClass("otu", 
-         representation(id = "character"))
+         representation(id = "character",
+                        label = "character"))
 setClass("ListOfotu", contains = "list") 
 
 setClass("otus", 

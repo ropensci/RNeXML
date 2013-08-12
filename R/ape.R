@@ -13,9 +13,12 @@ setAs("phylo", "tree", function(from){
   edges <- new("ListOfedge", edges)
 
   ## Generate the ListOfnode made of "node" objects
-  nodes <- lapply(unique(as.numeric(phy$edge)), function(i)
-    new("node", id = paste("n", i, sep=""), otu = phy$tip.label[i])
-  )
+  nodes <- lapply(unique(as.numeric(phy$edge)), function(i){
+    if(is.na(phy$tip.label[i]))
+      new("node", id = paste("n", i, sep=""))
+    else if(is.character(phy$tip.label[i]))
+      new("node", id = paste("n", i, sep=""), otu = phy$tip.label[i])
+  })
   nodes <- new("ListOfnode", nodes)
 
   ## Create the "tree" S4 object
