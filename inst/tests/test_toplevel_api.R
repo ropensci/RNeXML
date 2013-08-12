@@ -16,6 +16,7 @@ test_that("write.nexml works (from ape::phylo)", {
   ## The short version using an RNeXML API
   library(ape)
   library(RNeXML)
+  library(XML)
 
   data(bird.orders)
   nexml_write(bird.orders, file="example.xml")

@@ -88,7 +88,8 @@ setAs("trees", "XMLInternalNode", function(from)
 setAs("nexml", "XMLInternalNode", function(from){
   nexml <- newXMLNode("nex:nexml", 
             attrs = c(version = from@version, generator = from@generator,
-                      "xsi:schemaLocation" = slot(from, "xsi:schemaLocation")), 
+                      "xsi:schemaLocation" = slot(from, "xsi:schemaLocation"),
+                      xmlns = "http://www.nexml.org/2009"), # FIXME not sure that this is the best way to do this... Do we need it?
             namespaceDefinitions = from@namespaces)
   if(!is_class_empty(from@meta))
     addChildren(nexml, from@meta)

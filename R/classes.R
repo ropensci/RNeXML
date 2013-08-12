@@ -1,7 +1,7 @@
 nexml_namespaces <- 
-  c("xsi" = "http://www.w3.org/2001/XMLSchema-instance",
+  c("nex" = "http://www.nexml.org/2009",
+    "xsi" = "http://www.w3.org/2001/XMLSchema-instance",
     "xml" = "http://www.w3.org/XML/1998/namespace",
-    "nex" = "http://www.nexml.org/2009",
     "cdao" = "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#",
     "xsd" = "http://www.w3.org/2001/XMLSchema#")
 
@@ -53,7 +53,8 @@ setClass("otu",
 setClass("ListOfotu", contains = "list") 
 
 setClass("otus", 
-         representation(otu = "ListOfotu"))
+         representation(id = "character",
+                        otu = "ListOfotu"))
 
 
 setClass("tree",
@@ -65,7 +66,8 @@ setClass("tree",
 
 setClass("ListOfTree", contains = "list") # Also includes "networks"
 setClass("trees", 
-         representation(tree = "ListOfTree"))
+         representation(id = "character",
+                        tree = "ListOfTree"))
 
 
 
