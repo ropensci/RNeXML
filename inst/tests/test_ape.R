@@ -67,3 +67,25 @@ test_that("We can go from ape::phylo to RNeXML::nexml", {
   
 })
 
+
+
+test_that("We can go from various orderings of ape::phylo to RNeXML::nexml", {
+
+  ## Get ape::phylo tree the hard way. 
+  library(RNeXML)
+  library(ape)
+  data(bird.orders)
+  nexml <- as(bird.orders, "nexml")
+  
+})
+
+
+test_that("We can serialize the various versions of the ape format", {
+  library(RNeXML)
+  library(ape)
+  data(bird.orders)
+  nexml <- as(bird.orders, "nexml")
+  nexml_write(nexml, "test.xml")
+  unlink("test.xml")
+})
+

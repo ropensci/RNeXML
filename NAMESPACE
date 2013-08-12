@@ -1,4 +1,5 @@
 export(nexml_read)
+export(nexml_write)
 import(XML)
 import(ape)
 import(plyr)

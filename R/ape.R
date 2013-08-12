@@ -14,7 +14,7 @@ setAs("phylo", "tree", function(from){
 
   ## Generate the ListOfnode made of "node" objects
   nodes <- lapply(unique(as.numeric(phy$edge)), function(i)
-    new("node", id = paste("n", i, sep=""), otu = phy$tip.labels[i])
+    new("node", id = paste("n", i, sep=""), otu = phy$tip.label[i])
   )
   nodes <- new("ListOfnode", nodes)
 
@@ -47,7 +47,7 @@ setAs("tree", "phylo",
         nodes <- data.frame(t(nodes), stringsAsFactors=FALSE)
         names(nodes) <- c("node", "label")
 
-## Identifies tip.labels based on being named with OTUs while others are NULL
+## Identifies tip.label based on being named with OTUs while others are NULL
 ## Should instead decide that these are tips based on the edge labels?
         nodes <- cbind(arrange(nodes, label), id = 1:dim(nodes)[1])
 
@@ -59,13 +59,13 @@ setAs("tree", "phylo",
 
 ##      Define elements of a phylo class object
         edge = unname(cbind(source_nodes, target_nodes))
-        tip.labels = as.character(na.omit(nodes$label))
-        Nnode = length(tip.labels) - 1 
+        tip.label = as.character(na.omit(nodes$label))
+        Nnode = length(tip.label) - 1 
         edge.length = as.numeric(edges["length",])
 
 
 
-        phy = list(edge=edge, tip.labels = tip.labels, Nnode = Nnode, # required fields
+        phy = list(edge=edge, tip.label = tip.label, Nnode = Nnode, # required fields
                     edge.length = edge.length # optional fields
                     )
         class(phy) = "phylo"
@@ -79,5 +79,22 @@ setAs("XMLInternalElementNode", "phylo", function(from){
       as(as(from, "tree"), "phylo")
 })
 
+
+
+
+
+## Convience coercions 
+
+setAs("phylo", "nexml", function(from)
+  as(as(from, "tree"), "nexml"))
+
+setAs("multiPhylo", "trees", function(from)
+  new("trees", tree = from))
+
+setAs("multiPhylo", "nexml", function(from)
+      as(as(from, "trees"), "nexml"))
+
+setAs("phylo", "XMLInternalDocument", function(from)
+  as(as(as(from, "nexml"), "XMLInternalNode"), "XMLInternalDocument"))
 
 

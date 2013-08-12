@@ -17,8 +17,8 @@ test_that("write.nexml works (from ape::phylo)", {
   library(ape)
   library(RNeXML)
 
-  phy <- data(bird.orders)
-  write.nexml(phy, file="example.xml")
+  data(bird.orders)
+  nexml_write(bird.orders, file="example.xml")
 
 ## Check that that example is valid NeXML
   xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "example.xml")
