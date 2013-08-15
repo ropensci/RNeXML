@@ -20,7 +20,10 @@ nexml_write <- function(x, file = "nexml.xml"){
 setAs("tree", "XMLInternalElementNode",
       function(from){
         tree <- from
-        obj <- newXMLNode("tree", attrs = c(id = tree@id, label = tree@label, 'xsi:type' = slot(tree, 'xsi:type'))) 
+        obj <- newXMLNode("tree", 
+                          attrs = c(id = tree@id, 
+                                    label = tree@label, 
+                                    'xsi:type' = slot(tree, 'xsi:type'))) 
         addChildren(obj, kids = tree@nodes) # kids envokes coercion 
         addChildren(obj, kids = tree@edges) # kids envokes coercion 
       })
@@ -38,7 +41,11 @@ setAs("edge", "XMLInternalNode",
           kids <- x@meta
 
 
-         newXMLNode("edge", attrs = c(source = x@source, target = x@target, id = x@id, length = x@length), kids = kids)
+         newXMLNode("edge", attrs = c(source = unname(x@source), 
+                                      target = unname(x@target), 
+                                      id = unname(x@id), 
+                                      length = x@length), 
+                    kids = kids)
       })
 
 setAs("node", "XMLInternalNode", 
@@ -52,14 +59,21 @@ setAs("node", "XMLInternalNode",
           kids <- x@meta
 
 
-         newXMLNode("node", attrs = c(id = unname(x@id), label = unname(x@label), otu=unname(x@otu)), kids = kids)
+         newXMLNode("node", attrs = c(id = unname(x@id), 
+                                      label = unname(x@label), 
+                                      otu = unname(x@otu)), 
+                    kids = kids)
       })
 
 
 setAs("meta", "XMLInternalNode",
       function(from){
         x <- from
-        attrs = c(id = x@id, property = x@property, content = x@content, type = x@type,  datatype = x@datatype)
+        attrs = c(id = x@id, 
+                  property = x@property, 
+                  content = x@content, 
+                  'xsi:type' = slot(x, 'xsi:type'),  
+                  datatype = x@datatype)
         newXMLNode("meta", attrs = attrs)
       })
 
@@ -75,12 +89,20 @@ setAs("otu", "XMLInternalElementNode", # probably not needed
 
 
 setAs("otus", "XMLInternalNode", function(from)
-  newXMLNode("otus", lapply(from@otu, as, "XMLInternalNode")))
+  newXMLNode("otus", 
+             lapply(from@otu, as, "XMLInternalNode"),
+             attrs = c(id = unname(from@id),
+                       label = unname(from@label))))
 
 
 
 setAs("trees", "XMLInternalNode", function(from)
-  newXMLNode("trees", lapply(from@trees, as, "XMLInternalNode")))
+  newXMLNode("trees", 
+             lapply(from@tree, as, "XMLInternalNode"),
+             attrs = c(id = unname(from@id),
+                        label = unname(from@label),
+                        otus = unname(from@otus))
+                        ))
 
 
 
@@ -88,14 +110,13 @@ setAs("trees", "XMLInternalNode", function(from)
 setAs("nexml", "XMLInternalNode", function(from){
   nexml <- newXMLNode("nex:nexml", 
             attrs = c(version = from@version, generator = from@generator,
-                      "xsi:schemaLocation" = slot(from, "xsi:schemaLocation"),
-                      xmlns = "http://www.nexml.org/2009"), # FIXME not sure that this is the best way to do this... Do we need it?
+                      "xsi:schemaLocation" = slot(from, "xsi:schemaLocation")), 
             namespaceDefinitions = from@namespaces)
   if(!is_class_empty(from@meta))
     addChildren(nexml, from@meta)
   if(!is_class_empty(from@otus))
     addChildren(nexml, from@otus)
-  addChildren(nexml, newXMLNode("trees", kids = from@trees@tree))
+  addChildren(nexml,  from@trees)
               
   nexml
 })
@@ -113,10 +134,17 @@ is_class_empty <- function(x){
 
 ############## Promotion methods ########
 
+## want generator methods that can handle id creation better
+
 setAs("tree", "nexml", function(from){
+  trees = as(from, "trees")
+  otus = as(from, "otus")
+  otus@id = "tax1" #UUIDgenerate()
+  trees@id = "Trees" #UUIDgenerate()
+  trees@otus = otus@id
   new("nexml", 
-      trees = as(from, "trees"),
-      otus = as(from, "otus"))
+      trees = trees,
+      otus = otus)
 })
 
 setAs("tree", "otus", function(from){

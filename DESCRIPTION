@@ -16,7 +16,8 @@ Suggests:
 Imports:
     XML,
     ape,
-    plyr
+    plyr,
+    uuid
 Collate:
     'classes.R'
     'ape.R'

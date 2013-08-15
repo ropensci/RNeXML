@@ -3,14 +3,15 @@ nexml_namespaces <-
     "xsi" = "http://www.w3.org/2001/XMLSchema-instance",
     "xml" = "http://www.w3.org/XML/1998/namespace",
     "cdao" = "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#",
-    "xsd" = "http://www.w3.org/2001/XMLSchema#")
-
+    "xsd" = "http://www.w3.org/2001/XMLSchema#", 
+     "http://www.nexml.org/2009")
 setClass("meta", 
           representation(id       = "character", 
                          property = "character", 
                          content  = "character", 
-                         type     = "character", 
+                         'xsi:type' = "character", 
                          datatype = "character"))
+
 
 setClass("node",
     representation(id    = "character",
@@ -18,7 +19,8 @@ setClass("node",
                    otu   = "character",
                    about = "character",
                    root  = "logical",
-                   meta = "meta"))
+                   meta = "meta"))  ## FIXME meta should really be ListOfMeta
+
 setClass("edge",
     representation(source = "character",
                    target = "character",
@@ -54,6 +56,7 @@ setClass("ListOfotu", contains = "list")
 
 setClass("otus", 
          representation(id = "character",
+                        label = "character",
                         otu = "ListOfotu"))
 
 
@@ -67,6 +70,8 @@ setClass("tree",
 setClass("ListOfTree", contains = "list") # Also includes "networks"
 setClass("trees", 
          representation(id = "character",
+                        label = "character",
+                        otus = "character",
                         tree = "ListOfTree"))
 
 

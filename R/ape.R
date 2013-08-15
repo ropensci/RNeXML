@@ -22,7 +22,12 @@ setAs("phylo", "tree", function(from){
   nodes <- new("ListOfnode", nodes)
 
   ## Create the "tree" S4 object
-  new("tree", nodes = nodes, edges = edges)
+  new("tree", 
+      nodes = nodes, 
+      edges = edges,
+      'xsi:type' = 'nex:FloatTree',
+      id = "tree1")  # Okay if we update ids later to avoid clashes?  
+  ##  UUIDs create errors: is not a valid value of the atomic type 'xs:ID'
 })
 
 
