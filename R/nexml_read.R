@@ -42,7 +42,7 @@ setAs("XMLInternalElementNode", "edge", function(from) xmlToS4(from))
 #setAs("XMLInternalElementNode", "node", function(from){
 #         obj = new("node")
 #         kids = xmlChildren(from)
-#         obj@meta = new("ListOfMeta", lapply(kids[names(kids) == "meta"], as, "meta"))
+#         obj@meta = new("ListOfmeta", lapply(kids[names(kids) == "meta"], as, "meta"))
 #         ats = xmlAttrs(from, addNamespacePrefix = TRUE)
 #         for(i in names(ats))
 #            slot(obj, i) = ats[i]
@@ -52,7 +52,7 @@ setAs("XMLInternalElementNode", "edge", function(from) xmlToS4(from))
 #setAs("XMLInternalElementNode", "edge", function(from) {
 #         obj = new("edge")
 #         kids = xmlChildren(from)
-#         obj@meta = new("ListOfMeta", lapply(kids[names(kids) == "meta"], as, "meta"))
+#         obj@meta = new("ListOfmeta", lapply(kids[names(kids) == "meta"], as, "meta"))
 #         ats = xmlAttrs(from, addNamespacePrefix = TRUE)
 #         for(i in names(ats))
 #            slot(obj, i) = ats[i]

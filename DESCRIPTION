@@ -23,3 +23,4 @@ Collate:
     'ape.R'
     'nexml_read.R'
     'nexml_write.R'
+    'inherited_classes.R'

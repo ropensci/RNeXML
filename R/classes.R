@@ -19,7 +19,7 @@ setClass("node",
                    otu   = "character",
                    about = "character",
                    root  = "logical",
-                   meta = "meta"))  ## FIXME meta should really be ListOfMeta
+                   meta = "meta"))  ## FIXME meta should really be ListOfmeta
 
 setClass("edge",
     representation(source = "character",
@@ -28,7 +28,7 @@ setClass("edge",
                    length = "numeric",
                    meta   = "meta"))
 
-setClass("ListOfMeta", contains = "list",
+setClass("ListOfmeta", contains = "list",
           validity = function(object)
                        if(!all(sapply(object, is, "meta")))
                           "not all elements are meta objects"
@@ -81,7 +81,7 @@ setClass("nexml",
                         generator = "character",
                         "xsi:schemaLocation" = "character",
                         namespaces = "character",
-                        meta = "ListOfMeta",
+                        meta = "ListOfmeta",
                         otus = "otus",
                         trees = "trees"),
          prototype(version = "0.9",
