@@ -63,7 +63,7 @@ setAs("XMLInternalElementNode", "tree",
          obj = new("tree")
          kids = xmlChildren(from)
          obj@edges = new("ListOfedge", lapply(kids[names(kids) == "edge"], as, "edge"))
-         obj@nodes = new("ListOfnode", lapply(kids[names(kids) == "node"], as, "edge"))
+         obj@nodes = new("ListOfnode", lapply(kids[names(kids) == "node"], as, "node"))
          ats = xmlAttrs(from, addNamespacePrefix = TRUE)
          for(i in names(ats))
             slot(obj, i) = ats[i]
