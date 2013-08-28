@@ -23,8 +23,8 @@ setAs("phylo", "tree", function(from){
 
   ## Create the "tree" S4 object
   new("tree", 
-      nodes = nodes, 
-      edges = edges,
+      node = nodes, 
+      edge = edges,
       'xsi:type' = 'nex:FloatTree',
       id = "tree1")  # Okay if we update ids later to avoid clashes?  
   ##  UUIDs create errors: is not a valid value of the atomic type 'xs:ID'
@@ -45,8 +45,8 @@ setAs("tree", "phylo",
             unname(x)
         }
 
-        nodes <- sapply(unname(tree@nodes), function(x) c(node = unname(x@id), otu = missing_as_na(x@otu)))
-        edges <- sapply(unname(tree@edges), function(x) c(source = unname(x@source), 
+        nodes <- sapply(unname(tree@node), function(x) c(node = unname(x@id), otu = missing_as_na(x@otu)))
+        edges <- sapply(unname(tree@edge), function(x) c(source = unname(x@source), 
                                                           target = unname(x@target), 
                                                           length = x@length, 
                                                           id = unname(x@id)))

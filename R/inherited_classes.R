@@ -72,21 +72,21 @@ setMethod("toNeXML",
           signature("LiteralMeta", "XMLInternalElementNode"), 
           function(object, parent){
             parent <- callNextMethod()
-            attrs <- c(object@property,  # required
-                       object@datatype,  # optional
-                       object@content)   # required
+            attrs <- c(property = unname(object@property),  # required
+                       datatype = unname(object@datatype),  # optional
+                       content = unname(object@content))   # required
             attrs <- plyr::compact(attrs)
             addAttributes(parent, .attrs = attrs)
 })
 setAs("XMLInternalElementNode", "LiteralMeta", function(from) fromNeXML(new("LiteralMeta"), from)) 
-setAs("LiteralMeta", "XMLInternalElementNode", function(from) toNeXML(from, newXMLNode("meta")))
+setAs("LiteralMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode("meta")))
 
 
 ##############################################
 
 setClass("meta", contains="LiteralMeta")
-setAs("XMLInternalElementNode", "meta", function(from) xmlToS4(from))
-setAs("meta", "XMLInternalElementNode", function(from) 
+setAs("XMLInternalElementNode", "meta", function(from) xmlToS4(from))  ## FIXME, not recursive!
+setAs("meta", "XMLInternalNode", function(from) 
       toNeXML(as(from, "LiteralMeta"), newXMLNode("meta")))
 setAs("meta", "XMLInternalNode", function(from)  ## Really, do we need this?
       toNeXML(as(from, "LiteralMeta"), newXMLNode("meta")))
@@ -130,9 +130,9 @@ setMethod("toNeXML",
            function(object, parent){
              parent <- callNextMethod()
              addChildren(parent, kids = object@meta)
-             addAttributes(parent, 
-                           "about" = slot(object, "about"), 
-                           suppressNamespaceWarning=TRUE)
+             if(length(object@about) > 0)
+               addAttributes(parent, "about" = object@about)
+             parent
           })
 
 
@@ -199,7 +199,7 @@ setMethod("fromNeXML",
           }
 )
 setMethod("toNeXML", 
-          signature("IDTagged", "XMLInternalElementNode"),
+          signature("OptionalTaxonLinked", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             if(length(object@otu) > 0)
@@ -216,7 +216,7 @@ setMethod("fromNeXML", signature("node", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod() 
              if(!is.na(xmlAttrs(from)["root"]))
-               obj@root <- xmlAttrs(from)["root"]
+               obj@root <- as.logical(xmlAttrs(from)["root"])
              obj
           }
 )
@@ -228,7 +228,7 @@ setMethod("toNeXML",
                addAttributes(parent, "root" = object@root)
             parent
           })
-setAs("node", "XMLInternalElementNode",
+setAs("node", "XMLInternalNode",
       function(from) toNeXML(from, newXMLNode("node")))
 setAs("XMLInternalElementNode", "node",
       function(from) fromNeXML(new("node"), from))
@@ -250,7 +250,7 @@ setMethod("fromNeXML",
             obj@source <- attrs["source"]
             obj@target <- attrs["target"]
              if(!is.na(attrs["length"]))
-               obj@length <- attrs["length"]
+               obj@length <- as.numeric(attrs["length"])
              obj
           }
 )
@@ -264,7 +264,7 @@ setMethod("toNeXML",
                addAttributes(parent, "length" = object@length)
             parent
           })
-setAs("edge", "XMLInternalElementNode",
+setAs("edge", "XMLInternalNode",
       function(from) toNeXML(from, newXMLNode("edge")))
 setAs("XMLInternalElementNode", "edge",
       function(from) fromNeXML(new("edge"), from))
@@ -284,7 +284,7 @@ setMethod("fromNeXML",
             attrs <- xmlAttrs(from)
             obj@target <- attrs["target"]
              if(!is.na(attrs["length"]))
-               obj@length <- attrs["length"]
+               obj@length <- as.numeric(attrs["length"])
              obj
           }
 )
@@ -297,8 +297,8 @@ setMethod("toNeXML",
                addAttributes(parent, "length" = object@length)
             parent
           })
-setAs("rootEdge", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("edge"))) #FIXME is this still called 'edge' in the XML
+setAs("rootEdge", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("rootedge"))) #FIXME is this still called 'edge' in the XML
 setAs("XMLInternalElementNode", "rootEdge",
       function(from) fromNeXML(new("rootEdge"), from))
 
@@ -309,20 +309,23 @@ setAs("XMLInternalElementNode", "rootEdge",
 setClass("otu", contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("otu", "XMLInternalElementNode"),
-          function(obj, from)
-            callNextMethod()
-          
-)
+          function(obj, from){
+            obj <- callNextMethod()
+            obj
+          })
 setMethod("toNeXML", 
           signature("otu", "XMLInternalElementNode"),
           function(object, parent){
-            callNextMethod()
+            parent <- callNextMethod()
+            parent
           })
-setAs("otu", "XMLInternalElementNode",
+setAs("otu", "XMLInternalNode",
       function(from) toNeXML(from, newXMLNode("otu")))
 setAs("XMLInternalElementNode", "otu",
       function(from) fromNeXML(new("otu"), from))
 
+setAs("otu", "XMLInternalNode",
+           function(from) toNeXML(from, newXMLNode("otu")))
 
 ################################ alternatively called Taxa by the schema
 
@@ -357,7 +360,7 @@ setMethod("toNeXML",
             addChildren(parent, kids = object@otu)
             parent
           })
-setAs("otus", "XMLInternalElementNode",
+setAs("otus", "XMLInternalNode",
       function(from) toNeXML(from, newXMLNode("otus")))
 setAs("XMLInternalElementNode", "otus",
       function(from) fromNeXML(new("otus"), from))
@@ -411,7 +414,7 @@ setMethod("toNeXML",
             addChildren(parent, kids = object@edge)
             parent
           })
-setAs("tree", "XMLInternalElementNode",
+setAs("tree", "XMLInternalNode",
       function(from) toNeXML(from, newXMLNode("tree")))
 setAs("XMLInternalElementNode", "tree",
       function(from) fromNeXML(new("tree"), from))
@@ -443,7 +446,7 @@ setMethod("toNeXML",
 #            addChildren(parent, kids = object@network)
             parent
           })
-setAs("trees", "XMLInternalElementNode",
+setAs("trees", "XMLInternalNode",
       function(from) toNeXML(from, newXMLNode("trees")))
 setAs("XMLInternalElementNode", "trees",
       function(from) fromNeXML(new("trees"), from))
@@ -496,10 +499,10 @@ setMethod("fromNeXML",
 
             # Handle children
             kids <- xmlChildren(from)
+            obj@otus <- as(from[["otus"]], "otus")
             obj@trees <- new("ListOftrees", 
                             lapply(kids[names(kids) == "trees"], 
                                    as, "trees"))
-            obj@otus <- as(kids["otus"], "otus")
             obj
           })
 setMethod("toNeXML", 
@@ -515,7 +518,7 @@ setMethod("toNeXML",
             addChildren(parent, object@otus) # a single "otus" object
             parent
           })
-setAs("nexml", "XMLInternalElementNode",
+setAs("nexml", "XMLInternalNode",
       function(from) toNeXML(from, newXMLNode("nexml")))
 setAs("XMLInternalElementNode", "nexml",
       function(from) fromNeXML(new("nexml"), from))
