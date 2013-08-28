@@ -1,18 +1,23 @@
-setGeneric("toPhylo", function(from, nexml) standardGeneric("toPhylo"))
-setGeneric("getTaxonNames", function(nexml, ids) standardGeneric("getTaxonNames"))
+## These are really more like specific functions rather than generic methods .... 
+setGeneric("toPhylo", function(tree, otus) standardGeneric("toPhylo"))
+setGeneric("getTaxonNames", function(otus, ids) standardGeneric("getTaxonNames"))
 
-
-
-setMethod("toPhylo", 
-          signature("nexml"),
-          function(from){
+#' @import plyr
+setAs("nexml", "phylo", function(from){ 
   # If there are mutiple trees nodes, return list of multiphylo with warning
+  if(length(from@trees) > 1){ 
+    warning("Returning a list of multiPhylo objects")
 
-  # If there are multiple tree nodes in a trees node, return a multiphylo with warning
+  } else if(length(from@trees) == 1){
+    # If there are multiple tree nodes in a trees node, return a multiphylo with warning
+    if(length(from@trees[[1]]@tree) > 1){
+    warning("Returning multiple trees as a multiPhylo ojbect")
 
   # If there is one tree node, return "phylo"
-
-  # OTUs 
+    } else if(length(from@trees[[1]]@tree) == 1){
+      toPhylo(from@trees[[1]]@tree[[1]], from@otus)
+    }
+  }
 })
 
 
@@ -35,7 +40,7 @@ setAs("phylo", "tree", function(from){
     if(is.na(phy$tip.label[i]))
       new("node", id = paste("n", i, sep=""))
     else if(is.character(phy$tip.label[i]))
-      new("node", id = paste("n", i, sep=""), otu = phy$tip.label[i])
+      new("node", id = paste("n", i, sep=""), otu = paste0("t", i))  #phy$tip.label[i])  ## OTUs get abstract names
   })
   nodes <- new("ListOfnode", nodes)
 
@@ -49,28 +54,22 @@ setAs("phylo", "tree", function(from){
 })
 
 
-#' @import plyr
-#' @import XML
-setAs("tree", "phylo", function(from) toPhylo(from, nexml))
-
-
 setMethod("getTaxonNames",
-          signature("nexml", "character"),
-          function(nexml, ids){
-            taxon <- sapply(nexml@otus@otu, 
+          signature("otus", "character"),
+          function(otus, ids){
+            taxon <- sapply(otus@otu, 
                             function(x){
                               c(x@id, x@label)
                             })
-            out <- taxon["label", ] # FIXME better as taxon[2,] ?  what about if label not given?  
-            names(out) <- taxon["id", ]
+            out <- taxon[2, ] # FIXME better as taxon["label",] ?  what about if label not given?  
+            names(out) <- taxon[1, ]
             out[ids]
           })
 
 setMethod("toPhylo",
-          signature("tree", "nexml"),
-          function(from, nexml){
+          signature("tree", "otus"),
+          function(tree, otus){
 
-        tree <- from
 ## Consider for loops instead here
         missing_as_na <- function(x){
           if(length(x) == 0)
@@ -91,7 +90,7 @@ setMethod("toPhylo",
 
 ## Identifies tip.label based on being named with OTUs while others are NULL
 ## Should instead decide that these are tips based on the edge labels?
-        nodes <- cbind(arrange(nodes, otu), id = 1:dim(nodes)[1])
+        nodes <- cbind(plyr::arrange(nodes, otu), id = 1:dim(nodes)[1])
 
 
 ##  nodes$node lists tip taxa first.  APE expects nodes numbered 1:n_tips to be
@@ -104,7 +103,7 @@ setMethod("toPhylo",
         edge.length <- as.numeric(edges["length",])        ## FIXME don't create an edge.length element if lengths are missing
 
         tip_otus <- as.character(na.omit(nodes$otu))   
-        tip.label <- getTaxonNames(nexml, tip_otus)
+        tip.label <- getTaxonNames(otus, tip_otus)
 
         Nnode <- length(tip.label) - 1 
         phy = list(edge=edge, 
@@ -123,13 +122,32 @@ setAs("XMLInternalElementNode", "phylo", function(from){
 })
 
 
+##################### phylo -> nexml #################################3
+
+
+setAs("phylo", "nexml", function(from){
+  trees = new("trees", tree=new("ListOftree", list( as(from, "tree") )))
+  otus = as(from, "otus")
+  otus@id = "tax1" #UUIDgenerate()
+  trees@id = "Trees" #UUIDgenerate()
+  trees@otus = otus@id
+  new("nexml", 
+      trees = new("ListOftrees", list(trees)),
+      otus = otus)
+})
+
+setAs("phylo", "otus", function(from){
+  otu_list <- lapply(1:length(from$tip.label), 
+                     function(i)
+                       new("otu", id = paste0("t",i), label = from$tip.label[i]) )
+  new("otus", otu=new("ListOfotu", otu_list))
+})
+
 
 
 
 ## Convience coercions 
-### FIXME definitely not 
-setAs("phylo", "nexml", function(from)
-  as(as(from, "tree"), "nexml"))
+
 
 setAs("multiPhylo", "trees", function(from)
   new("trees", tree = from))

@@ -36,18 +36,18 @@ setAs("tree", "nexml", function(from){
       otus = otus)
 })
 
-setAs("tree", "otus", function(from){
-  nodes_with_otus <- 
-    plyr::compact(sapply(from@node, 
-                         function(n) if(length(n@otu > 0)) n))
-  new("otus", otu=new("ListOfotu", lapply(nodes_with_otus, as, "otu")))
-})
+#setAs("tree", "otus", function(from){
+#  nodes_with_otus <- 
+#    plyr::compact(sapply(from@node, 
+#                         function(n) if(length(n@otu > 0)) n))
+#  new("otus", otu=new("ListOfotu", lapply(nodes_with_otus, as, "otu")))
+#})
 
 setAs("ListOfnode", "otus", function(from)
   new("otus", otu = from))
 
-setAs("node", "otu", function(from)
-  new("otu", id = unname(from@otu)))
+#setAs("node", "otu", function(from)
+#  new("otu", id = unname(from@otu)))
 
 
 setAs("tree", "trees", function(from)
