@@ -1,27 +1,6 @@
 context("ape")
 
 
-test_that("From nexml to phylo and plot", {
-
-  library(RNeXML)
-
-  # part of base testing, could be replaced with higher level, but why 
-  library(XML)
-  f <- system.file("examples", "trees.xml", package="RNeXML")
-  doc <- xmlParse(f)
-  root <- xmlRoot(doc)
-  nexml <- as(root, "nexml")  ## parse the XML into S4
-
-  ## APE TEST:  Coerce the S4 into phylo S3 object
-  phy <- as(nexml, "phylo")
-  ## Demonstrate that we now have a phylo object
-  library(ape)
-  plot(phy)
-
-
-})
-
-
 test_that("From ape::phylo to RNeXML::nexml object", {
    library(RNeXML)
    library(ape)
@@ -37,7 +16,29 @@ test_that("We can go from various orderings of ape::phylo to RNeXML::nexml", {
   library(ape)
   data(bird.orders)
   nexml <- as(bird.orders, "nexml")
-  as(nexml, "phylo")
+  phy <- as(nexml, "phylo")
+
+  ## Demonstrate that we now have a phylo object
+  library(ape)
+  plot(phy)
+})
+
+
+test_that("From nexml to multiPhylo", {
+
+  library(RNeXML)
+
+  # part of base testing, could be replaced with higher level, but why 
+  library(XML)
+  f <- system.file("examples", "trees.xml", package="RNeXML")
+  doc <- xmlParse(f)
+  root <- xmlRoot(doc)
+  nexml <- as(root, "nexml")  ## parse the XML into S4
+
+  ## APE TEST:  Coerce the S4 into phylo S3 object
+  phy <- as(nexml, "phylo")
+  expect_is(phy, "multiPhylo")
+
 })
 
 
