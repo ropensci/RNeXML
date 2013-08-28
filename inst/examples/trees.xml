@@ -14,11 +14,11 @@
 	xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
 	xmlns="http://www.nexml.org/2009">	        
 	<otus id="tax1" label="RootTaxaBlock">
-		<otu id="t1"/>
-		<otu id="t2"/>
-		<otu id="t3"/>
-		<otu id="t4"/>
-		<otu id="t5"/>
+		<otu id="t1" label="species 1"/>
+		<otu id="t2" label="species 2"/>
+		<otu id="t3" label="species 3"/>
+		<otu id="t4" label="species 4"/>
+		<otu id="t5" label="species 5"/>
 	</otus>
 	<!--
 		The trees block is structured as follows:

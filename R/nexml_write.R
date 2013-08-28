@@ -20,6 +20,10 @@ nexml_write <- function(x, file = "nexml.xml"){
 
 
 ## want generator methods that can handle id creation better
+# consider:
+# setMethod("promote", 
+#           signature("tree", "character"),
+#           function(object, target_type)
 
 setAs("tree", "nexml", function(from){
   trees = as(from, "trees")

@@ -79,6 +79,7 @@ setMethod("toNeXML",
             addAttributes(parent, .attrs = attrs)
 })
 setAs("XMLInternalElementNode", "LiteralMeta", function(from) fromNeXML(new("LiteralMeta"), from)) 
+setAs("LiteralMeta", "XMLInternalElementNode", function(from) toNeXML(from, newXMLNode("meta")))
 setAs("LiteralMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode("meta")))
 
 
@@ -86,7 +87,7 @@ setAs("LiteralMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode(
 
 setClass("meta", contains="LiteralMeta")
 setAs("XMLInternalElementNode", "meta", function(from) xmlToS4(from))  ## FIXME, not recursive!
-setAs("meta", "XMLInternalNode", function(from) 
+setAs("meta", "XMLInternalElementNode", function(from) 
       toNeXML(as(from, "LiteralMeta"), newXMLNode("meta")))
 setAs("meta", "XMLInternalNode", function(from)  ## Really, do we need this?
       toNeXML(as(from, "LiteralMeta"), newXMLNode("meta")))
@@ -255,6 +256,8 @@ setMethod("toNeXML",
           })
 setAs("node", "XMLInternalNode",
       function(from) toNeXML(from, newXMLNode("node")))
+setAs("node", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode("node")))
 setAs("XMLInternalElementNode", "node",
       function(from) fromNeXML(new("node"), from))
 
@@ -291,6 +294,8 @@ setMethod("toNeXML",
           })
 setAs("edge", "XMLInternalNode",
       function(from) toNeXML(from, newXMLNode("edge")))
+setAs("edge", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode("edge")))
 setAs("XMLInternalElementNode", "edge",
       function(from) fromNeXML(new("edge"), from))
 
@@ -323,7 +328,9 @@ setMethod("toNeXML",
             parent
           })
 setAs("rootEdge", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("rootedge"))) #FIXME is this still called 'edge' in the XML
+      function(from) toNeXML(from, newXMLNode("rootedge"))) 
+setAs("rootEdge", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode("rootedge"))) 
 setAs("XMLInternalElementNode", "rootEdge",
       function(from) fromNeXML(new("rootEdge"), from))
 
@@ -346,10 +353,14 @@ setMethod("toNeXML",
           })
 setAs("otu", "XMLInternalNode",
       function(from) toNeXML(from, newXMLNode("otu")))
+setAs("otu", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode("otu")))
 setAs("XMLInternalElementNode", "otu",
       function(from) fromNeXML(new("otu"), from))
 
 setAs("otu", "XMLInternalNode",
+           function(from) toNeXML(from, newXMLNode("otu")))
+setAs("otu", "XMLInternalElementNode",
            function(from) toNeXML(from, newXMLNode("otu")))
 
 ################################ alternatively called Taxa by the schema
@@ -386,6 +397,8 @@ setMethod("toNeXML",
             parent
           })
 setAs("otus", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("otus")))
+setAs("otus", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("otus")))
 setAs("XMLInternalElementNode", "otus",
       function(from) fromNeXML(new("otus"), from))
@@ -441,6 +454,8 @@ setMethod("toNeXML",
           })
 setAs("tree", "XMLInternalNode",
       function(from) toNeXML(from, newXMLNode("tree")))
+setAs("tree", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode("tree")))
 setAs("XMLInternalElementNode", "tree",
       function(from) fromNeXML(new("tree"), from))
 
@@ -472,6 +487,8 @@ setMethod("toNeXML",
             parent
           })
 setAs("trees", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("trees")))
+setAs("trees", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("trees")))
 setAs("XMLInternalElementNode", "trees",
       function(from) fromNeXML(new("trees"), from))
@@ -544,6 +561,8 @@ setMethod("toNeXML",
             parent
           })
 setAs("nexml", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("nexml")))
+setAs("nexml", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("nexml")))
 setAs("XMLInternalElementNode", "nexml",
       function(from) fromNeXML(new("nexml"), from))

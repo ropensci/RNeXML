@@ -1,7 +1,6 @@
 
-#source("R/inherited_classes.R")
 require(XML)
-
+require(RNeXML)
 # basic example
 node <- newXMLNode("meta", 
                    attrs = c(id="dict1",
@@ -17,8 +16,8 @@ n2 <- newXMLNode("node",
                  .children = node)
 
 # check conversions to/from NeXML
-s4 <- as(n2, "node")
-as(s4, "XMLInternalElementNode")
+ s4 <- as(n2, "node")
+ as(s4, "XMLInternalNode")
 
 
 # Parse NeXML and toggle back and forth

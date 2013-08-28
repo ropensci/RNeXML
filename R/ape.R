@@ -1,3 +1,21 @@
+setGeneric("toPhylo", function(from, nexml) standardGeneric("toPhylo"))
+setGeneric("getTaxonNames", function(nexml, ids) standardGeneric("getTaxonNames"))
+
+
+
+setMethod("toPhylo", 
+          signature("nexml"),
+          function(from){
+  # If there are mutiple trees nodes, return list of multiphylo with warning
+
+  # If there are multiple tree nodes in a trees node, return a multiphylo with warning
+
+  # If there is one tree node, return "phylo"
+
+  # OTUs 
+})
+
+
 
 setAs("phylo", "tree", function(from){
   phy <- from
@@ -33,8 +51,24 @@ setAs("phylo", "tree", function(from){
 
 #' @import plyr
 #' @import XML
-setAs("tree", "phylo", 
-      function(from){
+setAs("tree", "phylo", function(from) toPhylo(from, nexml))
+
+
+setMethod("getTaxonNames",
+          signature("nexml", "character"),
+          function(nexml, ids){
+            taxon <- sapply(nexml@otus@otu, 
+                            function(x){
+                              c(x@id, x@label)
+                            })
+            out <- taxon["label", ] # FIXME better as taxon[2,] ?  what about if label not given?  
+            names(out) <- taxon["id", ]
+            out[ids]
+          })
+
+setMethod("toPhylo",
+          signature("tree", "nexml"),
+          function(from, nexml){
 
         tree <- from
 ## Consider for loops instead here
@@ -53,29 +87,30 @@ setAs("tree", "phylo",
 
 
         nodes <- data.frame(t(nodes), stringsAsFactors=FALSE)
-        names(nodes) <- c("node", "label")
+        names(nodes) <- c("node", "otu")
 
 ## Identifies tip.label based on being named with OTUs while others are NULL
 ## Should instead decide that these are tips based on the edge labels?
-        nodes <- cbind(arrange(nodes, label), id = 1:dim(nodes)[1])
+        nodes <- cbind(arrange(nodes, otu), id = 1:dim(nodes)[1])
 
 
 ##  nodes$node lists tip taxa first.  APE expects nodes numbered 1:n_tips to be
 ## to correspond to tips... 
-        source_nodes = match(edges["source",], nodes$node)
-        target_nodes = match(edges["target",], nodes$node)
+        source_nodes <- match(edges["source",], nodes$node)
+        target_nodes <- match(edges["target",], nodes$node)
 
 ##      Define elements of a phylo class object
-        edge = unname(cbind(source_nodes, target_nodes))
-        tip.label = as.character(na.omit(nodes$label))
-        Nnode = length(tip.label) - 1 
-        edge.length = as.numeric(edges["length",])
+        edge <- unname(cbind(source_nodes, target_nodes))
+        edge.length <- as.numeric(edges["length",])        ## FIXME don't create an edge.length element if lengths are missing
 
+        tip_otus <- as.character(na.omit(nodes$otu))   
+        tip.label <- getTaxonNames(nexml, tip_otus)
 
-
-        phy = list(edge=edge, tip.label = tip.label, Nnode = Nnode, # required fields
-                    edge.length = edge.length # optional fields
-                    )
+        Nnode <- length(tip.label) - 1 
+        phy = list(edge=edge, 
+                   tip.label = tip.label, 
+                   Nnode = Nnode, # required fields
+                   edge.length = edge.length) # optional fields
         class(phy) = "phylo"
         phy
       }
@@ -92,7 +127,7 @@ setAs("XMLInternalElementNode", "phylo", function(from){
 
 
 ## Convience coercions 
-
+### FIXME definitely not 
 setAs("phylo", "nexml", function(from)
   as(as(from, "tree"), "nexml"))
 
