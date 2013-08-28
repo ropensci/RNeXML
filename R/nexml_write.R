@@ -16,7 +16,7 @@ nexml_write <- function(x, file = "nexml.xml"){
 
 
 ############## Promotion methods ########
-## FIXME -- this is probably not the way to go about any of this
+## FIXME -- Coercion is not the way to go about any of this
 
 
 ## want generator methods that can handle id creation better
@@ -28,13 +28,13 @@ setAs("tree", "nexml", function(from){
   trees@id = "Trees" #UUIDgenerate()
   trees@otus = otus@id
   new("nexml", 
-      trees = trees,
+      trees = new("ListOftrees", list(trees)),
       otus = otus)
 })
 
 setAs("tree", "otus", function(from){
   nodes_with_otus <- 
-    plyr::compact(sapply(from@nodes, 
+    plyr::compact(sapply(from@node, 
                          function(n) if(length(n@otu > 0)) n))
   new("otus", otu=new("ListOfotu", lapply(nodes_with_otus, as, "otu")))
 })
@@ -47,7 +47,7 @@ setAs("node", "otu", function(from)
 
 
 setAs("tree", "trees", function(from)
-  new("trees", tree = new("ListOfTree", list(from))))
+  new("trees", tree = new("ListOftree", list(from))))
 
 setAs("XMLInternalNode", "XMLInternalDocument", 
       function(from) newXMLDoc(node = from))

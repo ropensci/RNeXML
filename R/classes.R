@@ -207,6 +207,31 @@ setMethod("toNeXML",
             parent
           })
 
+##############################
+
+
+setClass("TaxaLinked", 
+         representation(otus = "character"),
+         contains = "IDTagged")
+setMethod("fromNeXML", 
+          signature("TaxaLinked", "XMLInternalElementNode"),
+          function(obj, from){
+            obj <- callNextMethod()
+             if(!is.na(xmlAttrs(from)["otus"]))
+               obj@otus <- xmlAttrs(from)["otus"]       
+             obj
+          }
+)
+setMethod("toNeXML", 
+          signature("TaxaLinked", "XMLInternalElementNode"),
+          function(object, parent){
+            parent <- callNextMethod()
+            if(length(object@otus) > 0)
+               addAttributes(parent, "otus" = object@otus)
+            parent
+          })
+
+
 ############################## Really AbstractNode
 
 setClass("node", 
@@ -427,7 +452,7 @@ setClass("ListOftree", contains = "list") # validity can contain tree or network
 
 setClass("trees", 
          representation(tree = "ListOftree"), # Can contain networks...
-         contains = "IDTagged")
+         contains = "TaxaLinked")
 setMethod("fromNeXML", 
           signature("trees", "XMLInternalElementNode"),
           function(obj, from){

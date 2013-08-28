@@ -4,7 +4,7 @@
 \title{Read NeXML files into various R formats}
 \usage{
   nexml_read(x,
-    type = c("phylo", "phylo4", "ouch", "character_matrix", "nexml"))
+    type = c("phylo", "phylo4", "ouch", "matrix", "nexml"))
 }
 \arguments{
   \item{x}{Path to the file to be read in}
