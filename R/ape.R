@@ -3,6 +3,7 @@ setGeneric("toPhylo", function(tree, otus) standardGeneric("toPhylo"))
 setGeneric("getTaxonNames", function(otus, ids) standardGeneric("getTaxonNames"))
 
 #' @import plyr
+#' @import ape 
 setAs("nexml", "phylo", function(from){ 
   # If there are mutiple trees nodes, return list of multiphylo with warning
   if(length(from@trees) > 1){ 
