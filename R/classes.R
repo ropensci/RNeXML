@@ -547,6 +547,8 @@ setMethod("fromNeXML",
                                    as, "trees"))
             obj
           })
+
+## FIXME handle namespaces properly!
 setMethod("toNeXML", 
           signature("nexml", "XMLInternalElementNode"),
           function(object, parent){
