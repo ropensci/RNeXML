@@ -13,10 +13,6 @@ test_that("We can serialize ape to S4 RNeXML into valid NeXML",{
   nexml <- as(bird.orders, "nexml") 
 
   as(nexml, "XMLInternalNode")
-
-  as(nexml, "XMLInternalDocument")
-
-
   ###  Higher level API tests
   nexml_write(bird.orders, "test.xml")
 

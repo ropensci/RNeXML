@@ -563,9 +563,9 @@ setMethod("toNeXML",
             parent
           })
 setAs("nexml", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("nexml")))
+      function(from) toNeXML(from, newXMLNode("nex:nexml")))
 setAs("nexml", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("nexml")))
+      function(from) toNeXML(from, newXMLNode("nex:nexml")))
 setAs("XMLInternalElementNode", "nexml",
       function(from) fromNeXML(new("nexml"), from))
 
