@@ -6,7 +6,7 @@ test_that("read.nexml works (to ape::phylo)", {
   library(ape)
   library(RNeXML)
 
-  f <- system.file("examples", "tree.xml", "RNeXML")
+  f <- system.file("examples", "trees.xml", package="RNeXML")
   phy <- nexml_read(f, type="phylo")
 #  phy <- read.nexml(f, type="phylo")
   plot(phy)

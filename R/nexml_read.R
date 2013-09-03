@@ -22,17 +22,9 @@ nexml_read <- function(x, type = c("phylo", "phylo4", "ouch",
 
 
 # possibly not a good conversion to define
-setAs("XMLInternalDocument", "phylo", function(from){
-  trees <- getNodeSet(from, "//nex:trees/nex:tree", namespaces="nex")
-  out <- lapply(trees, as, "phylo")
-  if(length(out) == 1)
-    out == out[[1]]
-  else if(length(out) > 1)
-     class(out) = "multiPhylo"
-  else 
-    warning("No NeXML trees found in file")
-  out
-})
+setAs("XMLInternalDocument", "phylo", function(from)
+   as(as(xmlRoot(doc), "nexml"), "phylo")
+)
 
 
 
