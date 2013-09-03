@@ -17,14 +17,14 @@ nexml_read <- function(x, type = c("phylo", "phylo4", "ouch",
   type <- match.arg(type) 
   doc <- xmlParse(x) 
   # will return class multiphylo if phylo is asked for and multiple trees are given.  
-  as(doc, type)
+  as(xmlRoot(doc), type)
 }
 
 
-# possibly not a good conversion to define
-setAs("XMLInternalDocument", "phylo", function(from)
-   as(as(xmlRoot(from), "nexml"), "phylo")
+setAs("XMLInternalNode", "phylo", function(from)
+   as(as(from, "nexml"), "phylo")
 )
+
 
 
 

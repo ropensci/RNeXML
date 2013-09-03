@@ -126,11 +126,6 @@ setMethod("toPhylo",
 )
 
 
-# Method to go directly from XML to phylo via S4 "tree"
-setAs("XMLInternalElementNode", "phylo", function(from){
-      as(as(from, "tree"), "phylo")
-})
-
 
 ##################### phylo -> nexml #################################3
 
@@ -164,8 +159,5 @@ setAs("multiPhylo", "trees", function(from)
 
 setAs("multiPhylo", "nexml", function(from)
       as(as(from, "trees"), "nexml"))
-
-setAs("phylo", "XMLInternalDocument", function(from)
-  as(as(as(from, "nexml"), "XMLInternalNode"), "XMLInternalDocument"))
 
 

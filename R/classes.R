@@ -26,8 +26,8 @@ setMethod("toNeXML",
 setMethod("fromNeXML", 
           signature("Base", "XMLInternalElementNode"),
           function(obj, from){
-            if(!is.na(xmlAttrs(from)["xsi:type"]))
-                 slot(obj, "xsi:type") <- xmlAttrs(from)["xsi:type"]
+            if(!is.na(xmlAttrs(from)["type"]))
+                 slot(obj, "xsi:type") <- xmlAttrs(from)["type"]
                obj
           }
 )
@@ -51,7 +51,8 @@ setMethod("toNeXML",
 #########################
 
 setClass("LiteralMeta", 
-         representation(property = "character", #actually xs:QName
+         representation(id = "character",
+                        property = "character", 
                         datatype = "character",
                         content = "character"),
          contains="Meta")
@@ -62,9 +63,11 @@ setMethod("fromNeXML",
             attrs <- xmlAttrs(from)
             obj@property <- attrs["property"]
             if(!is.na(attrs["datatype"]))
-                 obj@label <- attrs["datatype"]
+                 obj@datatype <- attrs["datatype"]
             if(!is.na(attrs["content"]))
-                 obj@label <- attrs["content"]
+                 obj@content <- attrs["content"]
+            if(!is.na(attrs["id"]))
+                 obj@id <- attrs["id"]
                obj
           }
 )
@@ -72,7 +75,8 @@ setMethod("toNeXML",
           signature("LiteralMeta", "XMLInternalElementNode"), 
           function(object, parent){
             parent <- callNextMethod()
-            attrs <- c(property = unname(object@property),  # required
+            attrs <- c(id = unname(object@id),
+                       property = unname(object@property),  # required
                        datatype = unname(object@datatype),  # optional
                        content = unname(object@content))   # required
             attrs <- plyr::compact(attrs)
@@ -86,7 +90,7 @@ setAs("LiteralMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode(
 ##############################################
 
 setClass("meta", contains="LiteralMeta")
-setAs("XMLInternalElementNode", "meta", function(from) xmlToS4(from))  ## FIXME, not recursive!
+setAs("XMLInternalElementNode", "meta", function(from) fromNeXML(new("meta"), from)) 
 setAs("meta", "XMLInternalElementNode", function(from) 
       toNeXML(as(from, "LiteralMeta"), newXMLNode("meta")))
 setAs("meta", "XMLInternalNode", function(from)  ## Really, do we need this?
@@ -251,7 +255,7 @@ setMethod("toNeXML",
           function(object, parent){
             parent <- callNextMethod()
             if(length(object@root) > 0)
-               addAttributes(parent, "root" = object@root)
+               addAttributes(parent, "root" = tolower(object@root))
             parent
           })
 setAs("node", "XMLInternalNode",

@@ -43,11 +43,4 @@ setAs("ListOfnode", "otus", function(from)
 setAs("tree", "trees", function(from)
   new("trees", tree = new("ListOftree", list(from))))
 
-## don't need InternalDocument, can use node with saveXML
-#setAs("XMLInternalNode", "XMLInternalDocument", 
-#      function(from) newXMLDoc(node = from))
-#
-#setAs("nexml", "XMLInternalDocument", function(from)
-#  as(as(from, "XMLInternalNode"), "XMLInternalDocument"))
-
 

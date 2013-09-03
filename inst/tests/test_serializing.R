@@ -1,11 +1,11 @@
 context("serializing")
 
+library(XML)
+library(RNeXML)
 
 ## More tests at lower-level serializing from S4 to XML in inheritance.R
 
 test_that("We can serialize ape to S4 RNeXML into valid NeXML",{
-  library(XML)
-  library(RNeXML)
   library(ape)
   data(bird.orders)
 
@@ -28,8 +28,6 @@ test_that("We can serialize ape to S4 RNeXML into valid NeXML",{
 
 
 test_that("We can serialize parsed NeXML to S4 RNeXML into valid NeXML",{
-  library(XML)
-  library(RNeXML)
   root <- xmlRoot(xmlParse(system.file("examples", "trees.xml", package="RNeXML")))
   tree <- as(root, "nexml")
   nexml_write(tree, "test.xml")
@@ -43,5 +41,12 @@ test_that("We can serialize parsed NeXML to S4 RNeXML into valid NeXML",{
   unlink("test.xml")
 
   })
+
+
+
+#root <- xmlRoot(xmlParse(system.file("examples", "trees.xml", package="RNeXML")))
+#tree <- as(root, "nexml")
+#tree@trees[[1]]@tree[[1]]@node[[4]]@meta
+#as(root[["trees"]][["tree"]][[4]][["meta"]], "meta")
 
 
