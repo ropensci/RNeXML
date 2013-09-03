@@ -23,7 +23,7 @@ nexml_read <- function(x, type = c("phylo", "phylo4", "ouch",
 
 # possibly not a good conversion to define
 setAs("XMLInternalDocument", "phylo", function(from)
-   as(as(xmlRoot(doc), "nexml"), "phylo")
+   as(as(xmlRoot(from), "nexml"), "phylo")
 )
 
 
