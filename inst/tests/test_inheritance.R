@@ -31,7 +31,7 @@ n2 <- newXMLNode("node",
 
 ## Should be separate unit tests here to facilitate debugging...
 
-test_that("We can parse a complete NeXML file and toggle back and forth between XML and S4"{
+test_that("We can parse a complete NeXML file and toggle back and forth between XML and S4", {
   doc <- xmlParse(system.file("examples", "trees.xml", package="RNeXML"))
   root <- xmlRoot(doc)
 
