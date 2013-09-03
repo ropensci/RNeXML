@@ -22,7 +22,9 @@ test_that("write.nexml works (from ape::phylo)", {
   nexml_write(bird.orders, file="example.xml")
 
 ## Check that that example is valid NeXML
-  xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "example.xml")
+  results <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "example.xml")
+  expect_equal(results$status, 0)
+  expect_equal(length(results$errors), 0)
   unlink("example.xml") # cleanup
 
 })

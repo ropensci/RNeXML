@@ -515,13 +515,12 @@ setClass("nexml",
          representation(version = "character",
                         generator = "character",
                         "xsi:schemaLocation" = "character", # part of base?
-                        namespaces = "character",           # part of base? 
+#                        namespaces = "character",           # part of base? 
                         otus = "otus",
                         trees = "ListOftrees"), 
-         prototype = prototype(version = "1.0",
+         prototype = prototype(version = "0.9",
                    generator = "RNeXML",
-                   "xsi:schemaLocation" = "http://www.nexml.org/2009/nexml.xsd",
-                   namespaces = nexml_namespaces),
+                   "xsi:schemaLocation" = "http://www.nexml.org/2009/nexml.xsd"),
          contains = "Annotated")
 
 setMethod("fromNeXML", 
@@ -537,7 +536,6 @@ setMethod("fromNeXML",
 
             # handle these guys, kinda attributes? Are they optional?
             slot(obj, "xsi:schemaLocation") <- attrs["xsi:schemaLocation"]
-            obj@namespaces <- attrs["namespaces"]
 
             # Handle children
             kids <- xmlChildren(from)
@@ -558,14 +556,14 @@ setMethod("toNeXML",
               addAttributes(parent, "generator" = object@generator)
 
             # Coercion of object to XML happens automatically
-            addChildren(parent, kids = object@trees) # a list of "trees" objects
             addChildren(parent, object@otus) # a single "otus" object
+            addChildren(parent, kids = object@trees) # a list of "trees" objects
             parent
           })
 setAs("nexml", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("nex:nexml")))
+      function(from) toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = nexml_namespaces)))
 setAs("nexml", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("nex:nexml")))
+      function(from) toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = nexml_namespaces)))
 setAs("XMLInternalElementNode", "nexml",
       function(from) fromNeXML(new("nexml"), from))
 
