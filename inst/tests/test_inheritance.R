@@ -1,4 +1,6 @@
 context("inheritance")
+require(XML)
+require(RNeXML)
 
 ## FIXME
 ## Should include expect_that tests, rather than just running without errors.  
@@ -6,8 +8,6 @@ context("inheritance")
 ## Add tests to check values on some nodes/attributes...
 
 test_that("we can perform simple conversions between NeXML XML and S4", {
-  require(XML)
-  require(RNeXML)
   # basic example
   node <- newXMLNode("meta", 
                      attrs = c(id="dict1",
@@ -37,6 +37,12 @@ test_that("Parse a complete NeXML file to a single otu", {
   expect_that(otu, is_a("otu"))
   as(otu, "XMLInternalNode")
 })
+
+
+doc <- xmlParse(system.file("examples", "trees.xml", package="RNeXML"))
+root <- xmlRoot(doc)
+
+
 
 test_that("Parse a complete NeXML file to trees", {
   trees <- as(root[["trees"]], "trees")
