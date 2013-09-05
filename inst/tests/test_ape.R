@@ -5,11 +5,8 @@ test_that("From ape::phylo to RNeXML::nexml object", {
    library(RNeXML)
    library(ape)
    data(bird.orders)
-   as(bird.orders, "nexml")
-
+   expect_is(as(bird.orders, "nexml"), class="nexml") 
 })
-
-
 
 test_that("We can go from various orderings of ape::phylo to RNeXML::nexml", {
   library(RNeXML)
@@ -21,8 +18,9 @@ test_that("We can go from various orderings of ape::phylo to RNeXML::nexml", {
   ## Demonstrate that we now have a phylo object
   library(ape)
   plot(phy)
+  expect_that(plot(phy), is_a("list"))
+  expect_that(phy, is_a("phylo"))
 })
-
 
 test_that("From nexml to multiPhylo", {
 
@@ -41,7 +39,6 @@ test_that("From nexml to multiPhylo", {
 
 })
 
-
 ## This unit test is really not testing ape functions but just the higher-level nexml_write function...
 test_that("We can serialize the various versions of the ape format", {
   library(RNeXML)
@@ -51,4 +48,3 @@ test_that("We can serialize the various versions of the ape format", {
   nexml_write(nexml, "test.xml")
   unlink("test.xml")
 })
-
