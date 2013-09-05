@@ -9,7 +9,9 @@ test_that("read.nexml works (to ape::phylo)", {
   f <- system.file("examples", "trees.xml", package="RNeXML")
   phy <- nexml_read(f, type="phylo")
 #  phy <- read.nexml(f, type="phylo")
-  plot(phy)
+  layout(matrix(1:2, 1, 2), c(5, 4))
+  plot(phy[[1]])
+  plot(phy[[2]])
 })
 
 test_that("write.nexml works (from ape::phylo)", {
