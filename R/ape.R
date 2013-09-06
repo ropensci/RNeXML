@@ -4,6 +4,8 @@ setGeneric("getTaxonNames", function(otus, ids) standardGeneric("getTaxonNames")
 
 #' @import plyr
 #' @import ape 
+# Developer Note: This function simply calls `toPhylo` in the appropriate way 
+# depending on the approriate number of trees in the nexml.  
 setAs("nexml", "phylo", function(from){ 
   # If there are mutiple trees nodes, return list of multiphylo with warning
   if(length(from@trees) > 1){ 
@@ -34,17 +36,21 @@ setAs("nexml", "phylo", function(from){
 
 setAs("phylo", "tree", function(from){
   phy <- from
-
   ## Generate the "ListOfedge" made of "edge" objects
-  edges <- lapply(1:dim(phy$edge)[1], function(i)
-    new("edge", 
-        source = paste("n",phy$edge[i,1], sep=""), 
-        target = paste("n",phy$edge[i,2], sep=""), 
-        length = as.numeric(phy$edge.length[i]), # Add this only if provided! shouldn't error on null edge lengths
-        id = paste("e", i, sep=""))
+
+  edges <- 
+    lapply(1:dim(phy$edge)[1], 
+           function(i){
+            e <- new("edge", 
+                source = paste("n",phy$edge[i,1], sep=""), 
+                target = paste("n",phy$edge[i,2], sep=""), 
+                id = paste("e", i, sep=""))
+           if(!is.null(phy$edge.length))
+             e@length <- as.numeric(phy$edge.length[i])
+           e
+           }
   )
   edges <- new("ListOfedge", edges)
-
   ## Generate the ListOfnode made of "node" objects
   nodes <- lapply(unique(as.numeric(phy$edge)), function(i){
     if(is.na(phy$tip.label[i]))
@@ -110,16 +116,20 @@ setMethod("toPhylo",
 
 ##      Define elements of a phylo class object
         edge <- unname(cbind(source_nodes, target_nodes))
-        edge.length <- as.numeric(edges["length",])        ## FIXME don't create an edge.length element if lengths are missing
+        if("length" %in% rownames(edges))
+          edge.length <- as.numeric(edges["length",])        ## FIXME don't create an edge.length element if lengths are missing
+        else
+          edge.length <- NULL
 
         tip_otus <- as.character(na.omit(nodes$otu))   
         tip.label <- getTaxonNames(otus, tip_otus)
 
         Nnode <- length(tip.label) - 1 
         phy = list(edge=edge, 
-                   tip.label = tip.label, 
-                   Nnode = Nnode, # required fields
-                   edge.length = edge.length) # optional fields
+                   tip.label = unname(tip.label), 
+                   Nnode = Nnode)
+        if(!is.null(edge.length))
+          phy$edge.length = edge.length # optional fields
         class(phy) = "phylo"
         phy
       }

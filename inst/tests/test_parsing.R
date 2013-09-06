@@ -11,3 +11,5 @@ test_that("We can parse a NeXML file to an S4 RNeXML::tree object", {
   nexml <- as(root, "nexml")  ## parse the XML into S4
   expect_is(nexml,"nexml")
 })
+
+

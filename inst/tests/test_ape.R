@@ -17,7 +17,7 @@ test_that("We can go from various orderings of ape::phylo to RNeXML::nexml", {
 
   ## Demonstrate that we now have a phylo object
   library(ape)
-  plot(phy)
+  p <- plot(phy)
   expect_that(plot(phy), is_a("list"))
   expect_that(phy, is_a("phylo"))
 })
@@ -48,3 +48,20 @@ test_that("We can serialize the various versions of the ape format", {
   nexml_write(nexml, "test.xml")
   unlink("test.xml")
 })
+
+
+
+
+
+test_that("We can read and write NeXML to phylo and back without edge.lengths", {
+           s <- "owls(((Strix_aluco,Asio_otus),Athene_noctua),Tyto_alba);"
+           cat(s, file = "ex.tre", sep = "\n")
+           owls <- read.tree("ex.tre")
+           nexml_write(owls, "ex.xml")
+           owls2 <- nexml_read("ex.xml")
+           expect_equal(owls, owls2)
+           expect_identical(unlist(owls), unlist(owls2)) # FIXME cannot tell what the difference is when not unlisted.  oh well.  
+           unlink("ex.tre")
+           unlink("ex.xml")
+})
+
