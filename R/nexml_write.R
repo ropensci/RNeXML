@@ -1,18 +1,18 @@
 #' Write nexml files
 #' 
-#' @aliases write.nexml
 #' @param x any phylogeny object (e.g. phylo, phylo4, or internal type)
 #' @param file the name of the file to write out
 #' @return Writes out a nexml file
 #' @import ape 
 #' @import XML
-#' @export
+#' @aliases nexml_write write.nexml
+#' @export nexml_write write.nexml
 nexml_write <- function(x, file = "nexml.xml"){
   out <- as(as(x, "nexml"), "XMLInternalNode")
   saveXML(out, file = file)
 }
 
-
+write.nexml <- nexml_write
 
 
 ############## Promotion methods ########

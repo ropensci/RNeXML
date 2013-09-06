@@ -1,14 +1,13 @@
-
 #' Read NeXML files into various R formats
 #' 
 #' @param x Path to the file to be read in 
 #' @param type the type of object to be returned.  If the file 
 #' contains multiple trees, all will be read into the appropriate 
 #' multi-tree container, or else returned as a list of such objects.  
-#' @aliases read.nexml 
 #' @import XML
 #' @import ape 
-#' @export
+#' @aliases nexml_read read.nexml 
+#' @export nexml_read read.nexml 
 #' @examples
 #' f <- system.file("examples", "trees.xml", package="RNeXML")
 #' nexml_read(f) 
@@ -25,6 +24,6 @@ setAs("XMLInternalNode", "phylo", function(from)
    as(as(from, "nexml"), "phylo")
 )
 
-
+read.nexml <- nexml_read
 
 

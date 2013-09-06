@@ -13,6 +13,8 @@ Description: R package that allows access to phyloinformatic data in NeXML
 License: BSD-3
 Suggests:
     testthat
+Depends:
+    ape
 Imports:
     XML,
     ape,
