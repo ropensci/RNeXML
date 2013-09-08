@@ -26,8 +26,10 @@ setMethod("toNeXML",
 setMethod("fromNeXML", 
           signature("Base", "XMLInternalElementNode"),
           function(obj, from){
-            if(!is.na(xmlAttrs(from)["type"]))
-                 slot(obj, "xsi:type") <- xmlAttrs(from)["type"]
+            if(!is.na(xmlAttrs(from)["type"]))  ## FIXME use [["type"]] or ["type"]
+                slot(obj, "xsi:type") <- xmlAttrs(from)["type"]
+            if(!is.na(xmlAttrs(from)["xsi:type"])) ## Shouldn't be necessary but seems to be for first test in test_inheritance.R...
+                slot(obj, "xsi:type") <- xmlAttrs(from)["xsi:type"]
                obj
           }
 )
@@ -61,13 +63,13 @@ setMethod("fromNeXML",
           function(obj, from){
             obj <- callNextMethod()
             attrs <- xmlAttrs(from)
-            obj@property <- attrs["property"]
+            obj@property <- attrs[["property"]]
             if(!is.na(attrs["datatype"]))
-                 obj@datatype <- attrs["datatype"]
+                 obj@datatype <- attrs[["datatype"]]
             if(!is.na(attrs["content"]))
-                 obj@content <- attrs["content"]
+                 obj@content <- attrs[["content"]]
             if(!is.na(attrs["id"]))
-                 obj@id <- attrs["id"]
+                 obj@id <- attrs[["id"]]
                obj
           }
 )
@@ -89,25 +91,60 @@ setAs("LiteralMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode(
 
 ##############################################
 
-setClass("meta", contains="LiteralMeta")
-setAs("XMLInternalElementNode", "meta", function(from) fromNeXML(new("meta"), from)) 
-setAs("meta", "XMLInternalElementNode", function(from) 
-      toNeXML(as(from, "LiteralMeta"), newXMLNode("meta")))
+setClass("ResourceMeta", 
+         representation(id = "character",
+                        rel = "character", 
+                        href = "character"),
+         contains="Meta")
+setMethod("fromNeXML", 
+          signature("ResourceMeta", "XMLInternalElementNode"),
+          function(obj, from){
+            obj <- callNextMethod()
+            attrs <- xmlAttrs(from)
+            obj@href <- attrs[["href"]]
+            if(!is.na(attrs[["rel"]]))
+                 obj@rel <- attrs[["rel"]]
+               obj
+          }
+)
+setMethod("toNeXML", 
+          signature("ResourceMeta", "XMLInternalElementNode"), 
+          function(object, parent){
+            parent <- callNextMethod()
+            attrs <- c(id = unname(object@id),
+                       href = unname(object@href),
+                       rel = unname(object@rel))  
+            attrs <- plyr::compact(attrs)
+            addAttributes(parent, .attrs = attrs)
+})
+setAs("XMLInternalElementNode", "ResourceMeta", function(from) fromNeXML(new("ResourceMeta"), from)) 
+setAs("ResourceMeta", "XMLInternalElementNode", function(from) toNeXML(from, newXMLNode("meta")))
+setAs("ResourceMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode("meta")))
+
+
+
+##############################################
+
+setClass("meta", contains=c("LiteralMeta", "ResourceMeta"))
+setAs("XMLInternalElementNode", "meta", function(from){ 
+      type <- xmlAttrs(from)["type"]
+      if(is.na(type)) ## FIXME This is CRUDE
+        type <- xmlAttrs(from)["xsi:type"]
+      type <- gsub("nex:", "", type) ## FIXME This is CRUDE
+      fromNeXML(new(type[1]), from)
+}) 
+setAs("meta", "XMLInternalElementNode", function(from){ 
+      toNeXML(as(from, slot(from, "xsi:type")), newXMLNode("meta"))
+})
 setAs("meta", "XMLInternalNode", function(from)  ## Really, do we need this?
-      toNeXML(as(from, "LiteralMeta"), newXMLNode("meta")))
+      toNeXML(as(from, slot(from, "xsi:type")), newXMLNode("meta")))
 # Methods inherited automatically?
 
 
 
 ###############################################
 
-setClass("ListOfmeta", 
-         contains = "list",
-         validity = function(object)
-                       if(!all(sapply(object, is, "meta")))
-                          "not all elements are meta objects"
-                       else
-                         TRUE)
+setClass("ListOfmeta", contains = "list")
       
 
 ###############################################
@@ -507,12 +544,14 @@ setClass("ListOftrees", contains = "list")
 
 
 nexml_namespaces <- 
-  c("nex" = "http://www.nexml.org/2009",
-    "xsi" = "http://www.w3.org/2001/XMLSchema-instance",
-    "xml" = "http://www.w3.org/XML/1998/namespace",
-    "cdao" = "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#",
-    "xsd" = "http://www.w3.org/2001/XMLSchema#", 
-     "http://www.nexml.org/2009")
+  c("nex"   = "http://www.nexml.org/2009",
+    "xsi"   = "http://www.w3.org/2001/XMLSchema-instance",
+    "xml"   = "http://www.w3.org/XML/1998/namespace",
+    "cdao"  = "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#",
+    "xsd"   = "http://www.w3.org/2001/XMLSchema#",
+    "dc"    = "http://purl.org/dc/elements/1.1/",
+    "cc"    = "http://creativecommons.org/ns#",
+              "http://www.nexml.org/2009")
 
 
 setClass("nexml", 

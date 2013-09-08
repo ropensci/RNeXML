@@ -7,8 +7,29 @@
 #' @import XML
 #' @aliases nexml_write write.nexml
 #' @export nexml_write write.nexml
-nexml_write <- function(x, file = "nexml.xml"){
+nexml_write <- function(x, 
+                        file = "nexml.xml", 
+                        title = NULL, 
+                        description = NULL,
+                        creator = NULL,
+                        pubdate = Sys.Date(),
+                        rights = "CC0",
+                        publisher = NULL){
   out <- as(as(x, "nexml"), "XMLInternalNode")
+
+  if(!is.null(publisher))
+      addChildren(out, publisher(publisher), at = 0)
+  if(!is.null(rights))
+      addChildren(out, rights(rights), at = 0)
+  if(!is.null(pubdate))
+      addChildren(out, pubdate(pubdate), at = 0)
+  if(!is.null(creator))
+      addChildren(out, creator(creator), at = 0)
+  if(!is.null(description))
+      addChildren(out, description(description), at = 0)
+  if(!is.null(title))
+      addChildren(out, title(title), at = 0)
+
   saveXML(out, file = file)
 }
 

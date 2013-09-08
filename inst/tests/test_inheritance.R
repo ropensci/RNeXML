@@ -10,22 +10,24 @@ require(RNeXML)
 test_that("we can perform simple conversions between NeXML XML and S4", {
   # basic example
   node <- newXMLNode("meta", 
-                     attrs = c(id="dict1",
+                     attrs = c('xsi:type'="LiteralMeta",
+                               id="dict1",
                                property="cdao:has_tag",
-                               content="true", 
-                               'xsi:type'="nex:LiteralMeta",
-                               datatype="xsd:boolean"),
+                               datatype="xsd:boolean",
+                               content="true"), 
                      suppressNamespaceWarning=TRUE)
   n2 <- newXMLNode("node", 
-                   attrs = c(id = "n4", 
+                   attrs = c(about="#n4",
                              label="n4", 
-                             about="#n4"), 
+                             id = "n4"), 
                    .children = node)
   
   # check conversions to/from NeXML
   s4 <- as(n2, "node")
   xmlfroms4 <- as(s4, "XMLInternalNode")
-  expect_that(identical(n2, xmlfroms4), is_true())
+##  expect_identical(n2, xmlfroms4) #cannot compare two external pointers
+  expect_identical(show(n2), show(xmlfroms4))
+
 })
 
 # test_that("We can parse a complete NeXML file and toggle back and forth between XML and S4", {
