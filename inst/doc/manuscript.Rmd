@@ -1,0 +1,102 @@
+
+## Abstract
+
+Why RNeXML?
+
+* Why NeXML -- because Nexus standard isn't a standard.  Developers extend it arbitrarily to meet their needs, making it incompatible.  Cannot represent horizontal gene transfer, ambiguous use of symbols, cannot be extended reliably, no validator.  NeXML solves all of these problems [Vos et al] with a state-of-the-art data management format.  
+
+* Why RNeXML: Huge ecosystem of phylogenetics packages. (1) Read nexml.  All would benefit by being able to read NeXML, both as a robust standard free of the pitfalls of Nexus, and more importantly, as a much richer source of data thanks to its extendable annotation model.  (2) Write nexml.  R packages and R users add rich information to the phylogenies they work with, but need a platform independent data exchange format to share and archive this. (3) Annotate and extend nexml.  
+
+* as your own personal treebase
+
+* Adding metadata to capture workflow
+
+
+## Background
+
+### Challenges with existing formats
+See [Vos _et al._ 2012].  
+
+### Challenges with R formats
+
+See [phylobase vignette, 2010]
+
+### NeXML
+
+See [Vos _et al._ 2012].
+
+
+
+
+
+Mention of data sharing challenges and opportunities.  See [Drew et al 2013](10.1371/journal.pbio.1001636)
+
+
+## Introduction to RNeXML
+
+
+### Reading NeXML phylogenies
+
+```{r}
+phy = read.nexml("trees.xml", as="phylo")
+plot(phy)
+```
+
+### Reading NeXML metadata
+
+Replicate examples from [treebase] metadata section: publication information, tree size, taxanomic coverage
+
+### Writing NeXML phylogenies
+
+```{r}
+write.nexml(phy, "example.xml")
+```
+
+### Writing NeXML metadata
+
+Writing in authorship/publication information, copyright.
+Writing in methodological information
+
+Writing annotations on otus.  Annotations on nodes.  
+
+ 
+
+
+
+### Implementation and architecture
+
+The `RNeXML` package is built for the NeXML Schema, [version 2009], using the R software environment and the XML package for parsing and generating XML [Temple Lang 2013, XML]. 
+
+<!-- Possibly cite all dependencies and suggests from the DESCRIPTION --> 
+<!-- Reference any installation and configuration instructions necessary (e.g. API credentials for figshare) -->
+
+[Temple Lang 2013, XML]: http://cran.r-project.org/web/packages/XML/
+
+### Quality control
+
+The `RNeXML` package can performs two levels of validation on NeXML files written from or read into R: validating the XML, and validating against the current NeXML schema.
+
+Several mechanisms are in place to evaluate the quality of the `RNeXML` package functions themselves.  In addition to the examples from the documentation and the automated package checks provided for the R system, the `RNeXML` package includes a complete test suite using the testthat package [Wickham 2011].  
+
+[Wickham 2011]: http://vita.had.co.nz/papers/testthat.html
+
+### Software reuse and support
+
+The `RNeXML` package is available through the CRAN repository under a CC0 license. At the time of writing, the current version is `r packageDescription("RNeXML", fields="Version")`. The current development branch can be found on Github at [https://github.com/ropensci/RNeXML].  See the NEWS file for changes in recent versions. Users are encouraged to submit bug reports or feature requests in the issues log.  Contact ropensci-discuss@googlegroups.com or the package maintainer for help. 
+
+There are many promising directions for further development of the `RNeXML` package.  The project's Milestones page provides a list of steps currently planned or under consideration.  In particular, these milestones include increased support for interactive mode of entering data (wizards), and support for integration of semantics defined through the Web Ontology language (OWL), as discussed in the Challenges section.  
+
+
+
+### Acknowledgements
+
+This project was supported in part by a grant from the Alfred P Sloan Foundation (CB and KR), NSF Grant DBI-1306697 (CB), ... `RNeXML` is part of the rOpenSci project, [http://ropensci.org].  
+
+
+
+
+
+phylobase::phylo4 was an attempt to solve the problems associated with the popular ape::phylo format (unpredictable errors, loose and multiple conflicting specifications).  
+
+
+
