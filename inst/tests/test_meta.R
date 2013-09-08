@@ -28,11 +28,13 @@ test_that("We can add additional metadata", {
               creator = "Carl Boettiger <cboettig@gmail.com>",
               publisher = "unpublished data",
               pubdate = "2012-04-01")
-  nex <- nexml_read("meta_example.xml", "nexml")
- 
+  
   results <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "meta_example.xml")
   expect_equal(results$status, 0)
   expect_equal(length(results$errors), 0)
+
+##  Add some tests actually checking content is correct
+  nex <- nexml_read("meta_example.xml", "nexml")
 
   unlink("meta_example.xml") # cleanup
 
