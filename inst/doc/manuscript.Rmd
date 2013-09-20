@@ -52,14 +52,29 @@ Replicate examples from [treebase] metadata section: publication information, tr
 write.nexml(phy, "example.xml")
 ```
 
+### Reading NeXML metadata
+
+One of the most powerful features of the NeXML format is the ability add arbitrary metadata information using the RDFa annotation standard [cite W3C](). 
+
+Metadata from treebase NeXML
+- article citation information
+- Summary data: taxa, number of taxa, number of trees, number of tips.  
+- Metadata of nodes, complete RDF extraction
+
 ### Writing NeXML metadata
 
-Writing in authorship/publication information, copyright.
-Writing in methodological information
+`RNeXML` also helps users add richer metadata when producing NeXML files. This occurs on several levels:
+
+- Automatic annotation.  `RNeXML` automatically adds basic metadata by default such as a timestamp of when the tree was produced and an open data license (CC0, compatible with deposition on Dryad data repository), which can be configured as needed.  
+
+- Utilities to add common metadata
+
+  - Add a citation to any papers associated with the phylogeny data.  
+  - Writing in methodological information on how tree has been generated or analyzed (including R code)
+  - Add annotations to any taxon.  
 
 Writing annotations on otus.  Annotations on nodes.  
 
- 
 
 
 
