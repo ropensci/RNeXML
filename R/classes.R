@@ -558,12 +558,13 @@ setClass("nexml",
          representation(version = "character",
                         generator = "character",
                         "xsi:schemaLocation" = "character", # part of base?
-#                        namespaces = "character",           # part of base? 
+                        namespaces = "character",           # part of base? 
                         otus = "otus",
                         trees = "ListOftrees"), 
          prototype = prototype(version = "0.9",
                    generator = "RNeXML",
-                   "xsi:schemaLocation" = "http://www.nexml.org/2009/nexml.xsd"),
+                   "xsi:schemaLocation" = "http://www.nexml.org/2009/nexml.xsd",
+                   namespaces = nexml_namespaces),
          contains = "Annotated")
 
 setMethod("fromNeXML", 
@@ -589,7 +590,6 @@ setMethod("fromNeXML",
             obj
           })
 
-## FIXME handle namespaces properly!
 setMethod("toNeXML", 
           signature("nexml", "XMLInternalElementNode"),
           function(object, parent){
@@ -604,9 +604,10 @@ setMethod("toNeXML",
             parent
           })
 setAs("nexml", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = nexml_namespaces)))
+      function(from) toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces)))
+
 setAs("nexml", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = nexml_namespaces)))
+      function(from) toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces)))
 setAs("XMLInternalElementNode", "nexml",
       function(from) fromNeXML(new("nexml"), from))
 

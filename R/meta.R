@@ -1,5 +1,7 @@
 ## Utilities for adding additional metadata
 
+
+
 creator <- function(creator){
   creator <- as.person(creator)
   string <- format(creator, include=c("family", "given"), 

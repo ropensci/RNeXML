@@ -41,3 +41,37 @@ test_that("We can add additional metadata", {
 })
 
 
+
+test_that("We can add arbitrary metadata", {
+  ## The short version using an RNeXML API
+  library(ape)
+  library(RNeXML)
+
+  history <- new("meta", 
+      content = "Mapped from the bird.orders data in the ape package using RNeXML",
+      datatype = "xsd:string", id = "meta5144", property = "skos:historyNote", 
+      'xsi:type' = "LiteralMeta")
+  modified <- new("meta",
+                  content = "2013-10-04", datatype = "xsd:string", id = "meta5128",
+                  property = "prism:modificationDate", 'xsi:type' = "LiteralMeta")
+  website <- new("meta", 
+                 href = "http://carlboettiger.info", 
+                 rel = "foaf:homepage", 'xsi:type' = "ResourceMeta")
+  nexml_write(bird.orders, 
+              file = "example.xml", 
+              additional_metadata = list(history, modified, website), 
+              additional_namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
+                                        prism = "http://prismstandard.org/namespaces/1.2/basic/",
+                                        foaf = "http://xmlns.com/foaf/0.1/"))
+
+  
+  nex <- nexml_read("example.xml", "nexml")
+
+  require(XML) 
+  ## xmlParse and check with xpath
+
+  unlink("example.xml") # cleanup
+
+})
+
+
