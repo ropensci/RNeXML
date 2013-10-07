@@ -1,3 +1,4 @@
+export(meta)
 export(nexml_read)
 export(nexml_write)
 export(read.nexml)

@@ -13,16 +13,18 @@
 #'  library(ape); data(bird.orders)
 #'  nexml_write(bird.orders, file="example.xml")
 #' 
+#'  ## Adding citation to a publication
+#'  nexml_write(bird.orders, file="example.xml",
+#'              citation=citation("ape"))
+#' 
 #'  ## Adding custom metadata 
-#'  history <- new("meta", 
-#'      content="Mapped from the bird.orders data in the ape package using RNeXML",
-#'      datatype="xsd:string", id="meta5144", property="skos:historyNote", 'xsi:type'="LiteralMeta")
-#'  modified <- new("meta",
-#'                  content="2013-10-04", datatype="xsd:string", id="meta5128",
-#'                  property="prism:modificationDate", 'xsi:type'="LiteralMeta")
-#'  website <- new("meta", 
-#'                 href="http://carlboettiger.info", 
-#'                 rel="foaf:homepage", 'xsi:type' = "ResourceMeta")
+#'  history <- meta(content="Mapped from the bird.orders data in the ape package using RNeXML",
+#'                  datatype="xsd:string", 
+#'                  id="meta5144", 
+#'                  property="skos:historyNote")
+#'  modified <- meta(content="2013-10-04", datatype="xsd:string", id="meta5128",
+#'                  property="prism:modificationDate")
+#'  website <- meta(href="http://carlboettiger.info", rel="foaf:homepage")
 #'  nexml_write(bird.orders, 
 #'              file = "example.xml", 
 #'              additional_metadata = list(history, modified, website), 
@@ -30,33 +32,46 @@
 #'                                        prism="http://prismstandard.org/namespaces/1.2/basic/",
 #'                                        foaf = "http://xmlns.com/foaf/0.1/"))
 nexml_write <- function(x, 
-                        file = "nexml.xml", 
+                        file = NULL, 
                         title = NULL, 
                         description = NULL,
                         creator = NULL,
                         pubdate = Sys.Date(),
                         rights = "CC0",
                         publisher = NULL,
+                        citation = NULL,
                         additional_metadata = NULL,
                         additional_namespaces = NULL){
   nex <- as(x, "nexml")
+
+  ## FIXME Check for duplicates first. Only a duplicate if prefix is also duplicated.  
   nex@namespaces = c(nex@namespaces, additional_namespaces)
   out <- as(nex, "XMLInternalNode")
 
-  if(!is.null(publisher))
-      addChildren(out, publisher(publisher), at = 0)
+  if(!is.null(additional_metadata))
+      addChildren(out, kids = additional_metadata, at = 0)
+  if(!is.null(description))
+      addChildren(out, description(description), at = 0)
+   if(!is.null(citation)){
+     citations <- nexml_citation(citation)
+     if(is.list(citations[[1]])){
+      for(entry in citations) 
+        addChildren(out, kids = entry, at = 0)
+     } else if(is(citations[[1]], "meta")){
+       addChildren(out, kids = citations, at = 0)
+     }
+  }
   if(!is.null(rights))
       addChildren(out, rights(rights), at = 0)
+  if(!is.null(publisher))
+      addChildren(out, publisher(publisher), at = 0)
   if(!is.null(pubdate))
       addChildren(out, pubdate(pubdate), at = 0)
   if(!is.null(creator))
       addChildren(out, creator(creator), at = 0)
-  if(!is.null(description))
-      addChildren(out, description(description), at = 0)
   if(!is.null(title))
       addChildren(out, title(title), at = 0)
-  if(!is.null(additional_metadata))
-      addChildren(out, kids = additional_metadata, at = 0)
+
 
   saveXML(out, file = file)
 }

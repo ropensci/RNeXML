@@ -41,11 +41,29 @@ test_that("We can add additional metadata", {
 })
 
 
+test_that("We can add R bibentry type metadata", {
+  ## The short version using an RNeXML API
+  library(ape)
+  library(RNeXML)
+  data(bird.orders)
+
+  nexml_write(bird.orders, file="example.xml", citation=citation("ape")) 
+  nex <- nexml_read("example.xml", "nexml")
+
+  require(XML) 
+  ## xmlParse and check with xpath
+
+  unlink("example.xml") # cleanup
+
+})
+
+
 
 test_that("We can add arbitrary metadata", {
   ## The short version using an RNeXML API
   library(ape)
   library(RNeXML)
+  data(bird.orders)
 
   history <- new("meta", 
       content = "Mapped from the bird.orders data in the ape package using RNeXML",

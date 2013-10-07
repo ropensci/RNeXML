@@ -3,10 +3,10 @@
 \alias{write.nexml}
 \title{Write nexml files}
 \usage{
-  nexml_write(x, file = "nexml.xml", title = NULL,
+  nexml_write(x, file = NULL, title = NULL,
     description = NULL, creator = NULL,
     pubdate = Sys.Date(), rights = "CC0", publisher = NULL,
-    additional_metadata = NULL,
+    citation = NULL, additional_metadata = NULL,
     additional_namespaces = NULL)
 }
 \arguments{
@@ -27,16 +27,18 @@
 library(ape); data(bird.orders)
  nexml_write(bird.orders, file="example.xml")
 
+ ## Adding citation to a publication
+ nexml_write(bird.orders, file="example.xml",
+             citation=citation("ape"))
+
  ## Adding custom metadata
- history <- new("meta",
-     content="Mapped from the bird.orders data in the ape package using RNeXML",
-     datatype="xsd:string", id="meta5144", property="skos:historyNote", 'xsi:type'="LiteralMeta")
- modified <- new("meta",
-                 content="2013-10-04", datatype="xsd:string", id="meta5128",
-                 property="prism:modificationDate", 'xsi:type'="LiteralMeta")
- website <- new("meta",
-                href="http://carlboettiger.info",
-                rel="foaf:homepage", 'xsi:type' = "ResourceMeta")
+ history <- meta(content="Mapped from the bird.orders data in the ape package using RNeXML",
+                 datatype="xsd:string",
+                 id="meta5144",
+                 property="skos:historyNote")
+ modified <- meta(content="2013-10-04", datatype="xsd:string", id="meta5128",
+                 property="prism:modificationDate")
+ website <- meta(href="http://carlboettiger.info", rel="foaf:homepage")
  nexml_write(bird.orders,
              file = "example.xml",
              additional_metadata = list(history, modified, website),
