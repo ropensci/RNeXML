@@ -52,6 +52,9 @@ test_that("We can add R bibentry type metadata", {
 
   require(XML) 
   ## xmlParse and check with xpath
+  results <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "example.xml")
+  expect_equal(results$status, 0)
+  expect_equal(length(results$errors), 0)
 
   unlink("example.xml") # cleanup
 
@@ -87,6 +90,9 @@ test_that("We can add arbitrary metadata", {
 
   require(XML) 
   ## xmlParse and check with xpath
+  results <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "example.xml")
+  expect_equal(results$status, 0)
+  expect_equal(length(results$errors), 0)
 
   unlink("example.xml") # cleanup
 

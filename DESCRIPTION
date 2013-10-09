@@ -25,3 +25,4 @@ Collate:
     'nexml_read.R'
     'nexml_write.R'
     'meta.R'
+    'extend_phylo.R'

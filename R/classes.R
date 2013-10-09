@@ -553,6 +553,7 @@ nexml_namespaces <-
     "cdao"  = "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#",
     "xsd"   = "http://www.w3.org/2001/XMLSchema#",
     "dc"    = "http://purl.org/dc/elements/1.1/",
+    "prism" = "http://prismstandard.org/namespaces/1.2/basic/",
     "cc"    = "http://creativecommons.org/ns#",
               "http://www.nexml.org/2009")
 

@@ -11,7 +11,15 @@
 #' @param id optional id element
 #' @param type optional xsi:type.  If not given, will use either "LiteralMeta" or "ReferenceMeta" as 
 #'  determined by the presence of either a property or a href value.  
-#' @details User must either provide property+content or rel+href.  Mixing these will result in potential garbage.  
+#' @details User must either provide property+content or rel+href.  Mixing these will result in potential garbage. 
+#' The datatype attribute will be detected automatically from the class of the content argument.  Maps from R class
+#' to schema datatypes are as follows: 
+#' character - xs:string, 
+#' Date - xs:date,
+#' integer - xs:integer,
+#' numeric - xs:decimal
+#' logical - xs:boolean
+#' 
 #' @export 
 #' @seealso \code{\link{nexml_write}}
 # FIXME generate id elements??
@@ -22,6 +30,19 @@ meta <- function(property = character(0),
                  href = character(0), 
                  id = character(0),
                  type = character(0)){
+  if(is.logical(content))
+    datatype <- "xsd:boolean"
+  else if(is(content, "Date"))
+    datatype <- "xsd:date"
+  else if(is.numeric(content))
+    datatype <- "xsd:decimal"
+  else if(is.character(content))
+    datatype <- "xsd:string"
+  else if(is.integer(content))
+    datatype <- "xsd:integer"
+  else 
+    datatype <- "xsd:string"
+
   if(length(property) > 0)
     new("meta", content = content, datatype = datatype, 
         property = property, id = id, 'xsi:type' = "LiteralMeta")
@@ -65,10 +86,11 @@ nexml_citation <- function(obj){
             property="prism:publicationDate"),
         meta(content=obj$title,
             datatype="xsd:string", 
-            property="dc:title"),
-        meta(content=format(obj, "text"),
-            datatype="xsd:string",
-            property="dcterms:bibliographicCitation")),
+            property="dc:title")#,
+#        meta(content=format(obj, "text"),              ## Some invalid type errors here, probably need to cgi escape first?
+#            datatype="xsd:string",
+#            property="dcterms:bibliographicCitation")
+        ),
         lapply(obj$author, function(x){
         meta(content = format(x, c("given", "family")),
              property="dc:contributor", 

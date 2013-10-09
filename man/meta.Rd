@@ -31,7 +31,12 @@
 }
 \details{
   User must either provide property+content or rel+href.
-  Mixing these will result in potential garbage.
+  Mixing these will result in potential garbage. The
+  datatype attribute will be detected automatically from
+  the class of the content argument.  Maps from R class to
+  schema datatypes are as follows: character - xs:string,
+  Date - xs:date, integer - xs:integer, numeric -
+  xs:decimal logical - xs:boolean
 }
 \seealso{
   \code{\link{nexml_write}}
