@@ -12,8 +12,9 @@ An R package for reading, writing, integrating and publishing data using the Eco
 An extensive and rapidly growing collection of richly annotated phylogenetics data is now available in the NeXML format. NeXML relies on state-of-the-art data exchange technology to provide a format that can be both validated and extended, providing a data quality assurance and and adaptability to the future that is lacking in other formats [Vos et al 2012](http://doi.org/10.1093/sysbio/sys025 "NeXML: Rich, Extensible, and Verifiable Representation of Comparative Data and Metadata."). 
 
 
-```{r include=FALSE}
-opts_chunk$set(tidy=FALSE)
+```{r echo=FALSE}
+opts_knit$set(upload.fun = socialR::flickr.url)
+opts_chunk$set(tidy=FALSE, warning=FALSE, cache=FALSE)
 ```
 
 Getting Started
@@ -24,7 +25,6 @@ The development version of RNeXML is [available on Github](https://github.com/ro
 ```{r eval=FALSE}
 library(devtools)
 install_github("RNeXML", "ropensci")
-library(RNeXML)
 ```
 
 
@@ -32,6 +32,7 @@ library(RNeXML)
 Read in a `nexml` file into the `ape::phylo` format:
 
 ```{r}
+library(RNeXML)
 f <- system.file("examples", "trees.xml", package="RNeXML")
 tr <- nexml_read(f, "phylo")
 plot(tr[[1]])
@@ -44,17 +45,23 @@ data(bird.orders)
 nexml_write(bird.orders, "test.xml")
 ```
 
-
+<!--
 Extract metadata from the NeXML file: 
 
-```{r } 
-ex2 <- nexml_read("treebase1.xml", "nexml")
+```{r eval=FALSE} 
+ex2 <- nexml_read(f, "nexml")
 metadata(ex2)
 ```
+-->
+
+--------------------------------------------
+
+### Advanced annotation
+
 
 Add metadata to a NeXML tree:  
 
-```{r eval=FALSE}
+```{r }
   history <- new("meta", 
       content = "Mapped from the bird.orders data in the ape package using RNeXML",
       datatype = "xsd:string", id = "meta5144", property = "skos:historyNote", 
@@ -72,6 +79,15 @@ Add metadata to a NeXML tree:
                                         prism = "http://prismstandard.org/namespaces/1.2/basic/",
                                         foaf = "http://xmlns.com/foaf/0.1/"))
 
+
+```
+
+
+
+
+
+<!--
+```{r eval=FALSE}
  nexml_write(bird.orders, "birds.xml", 
             author="Carl Boettiger <cboettig@ropensci.org>", 
             title = "example NeXML file for bird orders", 
@@ -79,7 +95,7 @@ Add metadata to a NeXML tree:
             in_publication = "doi:10.1010/fakedoi.1234",
             add_itis = TRUE)
 ```
-
+-->
 
 
 
