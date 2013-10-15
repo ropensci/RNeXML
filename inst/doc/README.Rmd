@@ -44,12 +44,10 @@ data(bird.orders)
 nexml_write(bird.orders, "test.xml")
 ```
 
-<!---
-NOT IMPLEMENTED YET
 
 Extract metadata from the NeXML file: 
 
-```{r eval=FALSE} 
+```{r } 
 ex2 <- nexml_read("treebase1.xml", "nexml")
 metadata(ex2)
 ```
@@ -57,7 +55,24 @@ metadata(ex2)
 Add metadata to a NeXML tree:  
 
 ```{r eval=FALSE}
-nexml_write(bird.orders, "birds.xml", 
+  history <- new("meta", 
+      content = "Mapped from the bird.orders data in the ape package using RNeXML",
+      datatype = "xsd:string", id = "meta5144", property = "skos:historyNote", 
+      'xsi:type' = "LiteralMeta")
+  modified <- new("meta",
+                  content = "2013-10-04", datatype = "xsd:string", id = "meta5128",
+                  property = "prism:modificationDate", 'xsi:type' = "LiteralMeta")
+  website <- new("meta", 
+                 href = "http://carlboettiger.info", 
+                 rel = "foaf:homepage", 'xsi:type' = "ResourceMeta")
+  nexml_write(bird.orders, 
+              file = "example.xml", 
+              additional_metadata = list(history, modified, website), 
+              additional_namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
+                                        prism = "http://prismstandard.org/namespaces/1.2/basic/",
+                                        foaf = "http://xmlns.com/foaf/0.1/"))
+
+ nexml_write(bird.orders, "birds.xml", 
             author="Carl Boettiger <cboettig@ropensci.org>", 
             title = "example NeXML file for bird orders", 
             description = "Example phylogeny taken from the ape documentation showing the major bird orders", 
@@ -66,7 +81,6 @@ nexml_write(bird.orders, "birds.xml",
 ```
 
 
--->
 
 
 

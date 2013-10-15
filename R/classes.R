@@ -39,7 +39,9 @@ setMethod("fromNeXML",
 
 #########################
 
-setClass("Meta", contains = "Base")
+setClass("Meta",
+         representation(children = "list"), 
+         contains = "Base")
 setMethod("fromNeXML", 
           signature("Meta", "XMLInternalElementNode"),
           function(obj, from){
@@ -128,19 +130,24 @@ setAs("ResourceMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode
 
 ##############################################
 
-setClass("meta", contains=c("LiteralMeta", "ResourceMeta"))
+setClass("meta", 
+         contains=c("LiteralMeta", "ResourceMeta"))
 setAs("XMLInternalElementNode", "meta", function(from){ 
       type <- xmlAttrs(from)["type"]
       if(is.na(type)) ## FIXME This is CRUDE
         type <- xmlAttrs(from)["xsi:type"]
-      type <- gsub("nex:", "", type) ## FIXME This is CRUDE
-      fromNeXML(new(type[1]), from)
+      if(is.na(type)) # if still not defined...
+        fromNeXML(new("meta", from))
+      else {
+        type <- gsub("nex:", "", type) ## FIXME This is CRUDE
+        fromNeXML(new(type[1]), from)
+      }
 }) 
 setAs("meta", "XMLInternalElementNode", function(from){ 
-      toNeXML(as(from, slot(from, "xsi:type")), newXMLNode("meta"))
+      toNeXML(as(from, slot(from, "xsi:type")), newXMLNode("meta", .children = from@children))
 })
 setAs("meta", "XMLInternalNode", function(from)  ## Really, do we need this?
-      toNeXML(as(from, slot(from, "xsi:type")), newXMLNode("meta")))
+      toNeXML(as(from, slot(from, "xsi:type")), newXMLNode("meta", .children = from@children)))
 # Methods inherited automatically?
 
 

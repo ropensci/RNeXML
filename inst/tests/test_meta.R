@@ -1,11 +1,13 @@
+context("meta")
+
+
+library(ape)
+library(RNeXML)
+library(XML)
+data(bird.orders)
 
 test_that("We can add license and pubdate by default in metadata", {
   ## The short version using an RNeXML API
-  library(ape)
-  library(RNeXML)
-  library(XML)
-
-  data(bird.orders)
   nexml_write(bird.orders, file="example.xml")
   nex <- nexml_read("example.xml", "nexml")
   
@@ -17,11 +19,7 @@ test_that("We can add license and pubdate by default in metadata", {
 
 test_that("We can add additional metadata", {
   ## The short version using an RNeXML API
-  library(ape)
-  library(RNeXML)
-  library(XML)
 
-  data(bird.orders)
   nexml_write(bird.orders, file="meta_example.xml",
               title = "My test title",
               description = "A description of my test",
@@ -43,9 +41,6 @@ test_that("We can add additional metadata", {
 
 test_that("We can add R bibentry type metadata", {
   ## The short version using an RNeXML API
-  library(ape)
-  library(RNeXML)
-  data(bird.orders)
 
   nexml_write(bird.orders, file="example.xml", citation=citation("ape")) 
   nex <- nexml_read("example.xml", "nexml")
@@ -64,9 +59,6 @@ test_that("We can add R bibentry type metadata", {
 
 test_that("We can add arbitrary metadata", {
   ## The short version using an RNeXML API
-  library(ape)
-  library(RNeXML)
-  data(bird.orders)
 
   history <- new("meta", 
       content = "Mapped from the bird.orders data in the ape package using RNeXML",
@@ -97,5 +89,54 @@ test_that("We can add arbitrary metadata", {
   unlink("example.xml") # cleanup
 
 })
+
+
+
+
+
+test_that("We can add arbitrary metadata", {
+  ## The short version using an RNeXML API
+
+  rdfa <- '<div typeof="foaf:Person" about="">
+             <a rel="foaf:account" href="https://twitter.com/cboettig">twitter</a> 
+             <a rel="foaf:account" href="https://github.com/cboettig">github</a>
+           </div>'
+  parsed <- xmlRoot(xmlParse(rdfa))
+  arbitrary_rdfa <- meta(property="eml:additionalMetadata", content="additional metadata", children = parsed)
+  nexml_write(bird.orders, 
+            file = "example.xml", 
+            additional_metadata = list(arbitrary_rdfa), 
+            additional_namespaces = c(foaf = "http://xmlns.com/foaf/0.1/", 
+                                      eml = "eml://ecoinformatics.org/eml-2.1.1"))
+
+  
+  nex <- nexml_read("example.xml", "nexml")
+
+  require(XML) 
+  ## xmlParse and check with xpath
+  results <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "example.xml")
+  expect_equal(results$status, 0)
+  expect_equal(length(results$errors), 0)
+
+  unlink("example.xml") # cleanup
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

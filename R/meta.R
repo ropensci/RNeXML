@@ -29,7 +29,8 @@ meta <- function(property = character(0),
                  rel = character(0), 
                  href = character(0), 
                  id = character(0),
-                 type = character(0)){
+                 type = character(0),
+                 children = NULL){
   if(is.logical(content))
     datatype <- "xsd:boolean"
   else if(is(content, "Date"))
