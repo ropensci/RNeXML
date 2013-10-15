@@ -97,7 +97,7 @@ test_that("We can add arbitrary metadata", {
 test_that("We can add arbitrary metadata", {
   ## The short version using an RNeXML API
 
-  rdfa <- '<div typeof="foaf:Person" about="">
+  rdfa <- '<div typeof="foaf:Person" about="http://carlboettiger.info#me">
              <a rel="foaf:account" href="https://twitter.com/cboettig">twitter</a> 
              <a rel="foaf:account" href="https://github.com/cboettig">github</a>
            </div>'
