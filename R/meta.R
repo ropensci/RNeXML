@@ -87,10 +87,10 @@ nexml_citation <- function(obj){
             property="prism:publicationDate"),
         meta(content=obj$title,
             datatype="xsd:string", 
-            property="dc:title")#,
-#        meta(content=format(obj, "text"),              ## Some invalid type errors here, probably need to cgi escape first?
-#            datatype="xsd:string",
-#            property="dcterms:bibliographicCitation")
+            property="dc:title"),
+        meta(content=format(obj, "text"), 
+            datatype="xsd:string",
+            property="dcterms:bibliographicCitation")
         ),
         lapply(obj$author, function(x){
         meta(content = format(x, c("given", "family")),

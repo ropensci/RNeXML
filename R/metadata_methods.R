@@ -1,0 +1,86 @@
+#' @export
+setGeneric("get_license", function(object) standardGeneric("get_license"))
+
+#' @export
+setGeneric("get_citation", function(object) standardGeneric("get_citation"))
+
+
+setMethod("summary", 
+          signature("nexml"), 
+          function(object, ...) 
+            summary(as(object, "phylo"))
+          )
+setMethod("summary", 
+          signature("nexmlTree"), 
+          function(object, ...)
+            summary(as(object, "nexml"))
+          )
+
+
+## Ironically, it is easier to extract the license from the XML representation using XPath than to extract it from the R S4 representation.  
+
+
+
+## Using newXMLDoc(object) leads invariably to segfaults....
+## safer to write out and parse.  
+setxpath <- function(object){
+            suppressWarnings(saveXML(object, "tmp.xml"))
+            doc <- xmlParse("tmp.xml")
+            unlink("tmp.xml")
+            doc
+}
+
+## FIXME handle namespaces correctly!  
+setMethod("get_citation", 
+          signature("nexml"), 
+          function(object){
+            b <- setxpath(as(object, "XMLInternalElementNode"))
+            unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dcterms:bibliographicCitation']/@content"))
+          })
+
+setMethod("get_license",
+          signature("nexml"),
+          function(object){
+            b <- setxpath(as(object, "XMLInternalElementNode"))
+            dc_rights <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dc:rights']/@content"))
+            cc_license <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@rel='cc:license']/@href"))
+          if(length(dc_rights) > 0)
+            dc_rights
+          else
+            cc_license
+          })
+
+#' get all top-level metadata
+setMethod("get_metadata", signature("nexml"), function(object){
+            b <- setxpath(as(object, "XMLInternalElementNode"))
+            references <- getNodeSet(b, "/nex:nexml/nex:meta[@property]")
+            rel = sapply(references, 
+                              function(x) 
+                                xmlAttrs(x)['rel'])
+            href = sapply(references, 
+                             function(x) 
+                               xmlAttrs(x)['href'])
+            names(href) = rel
+  literals <- getNodeSet(b, "/nex:nexml/nex:meta[@rel]")
+            property = sapply(literals, 
+                              function(x) 
+                                xmlAttrs(x)['property'])
+            content = sapply(literals, 
+                             function(x) 
+                               xmlAttrs(x)['content'])
+            names(content) = property
+            c(content, href)
+          })
+
+
+
+
+
+## Would be convenient to inherit these automatically...
+setMethod("get_metadata", signature("nexmlTree"), function(object)
+          get_metadata(as(object, "nexml")))
+setMethod("get_citation", signature("nexmlTree"), function(object)
+          get_citation(as(object, "nexml")))
+setMethod("get_license", signature("nexmlTree"), function(object)
+          get_license(as(object, "nexml")))
+

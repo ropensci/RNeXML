@@ -11,7 +11,7 @@
 #' @examples
 #' f <- system.file("examples", "trees.xml", package="RNeXML")
 #' nexml_read(f) 
-nexml_read <- function(x, type = c("phylo", "phylo4", "ouch",
+nexml_read <- function(x, type = c("nexmlTree", "phylo", "phylo4", "ouch",
                                    "matrix", "nexml")){
   type <- match.arg(type) 
   doc <- xmlParse(x) 

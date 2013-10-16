@@ -560,6 +560,7 @@ nexml_namespaces <-
     "cdao"  = "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#",
     "xsd"   = "http://www.w3.org/2001/XMLSchema#",
     "dc"    = "http://purl.org/dc/elements/1.1/",
+  "dcterms" = "http://purl.org/dc/terms/",
     "prism" = "http://prismstandard.org/namespaces/1.2/basic/",
     "cc"    = "http://creativecommons.org/ns#",
               "http://www.nexml.org/2009")
@@ -615,10 +616,10 @@ setMethod("toNeXML",
             parent
           })
 setAs("nexml", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces)))
+      function(from) suppressWarnings(toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces))))
 
 setAs("nexml", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces)))
+      function(from) suppressWarnings(toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces))))
 setAs("XMLInternalElementNode", "nexml",
       function(from) fromNeXML(new("nexml"), from))
 
