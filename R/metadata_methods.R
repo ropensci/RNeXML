@@ -35,6 +35,7 @@ setMethod("get_citation",
           signature("nexml"), 
           function(object){
             b <- setxpath(as(object, "XMLInternalElementNode"))
+## FIXME should return a citaiton class object! 
             unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dcterms:bibliographicCitation']/@content"))
           })
 
