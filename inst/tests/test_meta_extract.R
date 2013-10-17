@@ -1,4 +1,4 @@
-content("extract_metadata")
+context("extract_metadata")
 
 library(ape)
 library(RNeXML)
@@ -22,7 +22,7 @@ nexml_write(bird.orders, file="example.xml",
             publisher = "unpublished data",
             pubdate = "2012-04-01",
             citation = citation("ape"),
-            additional_metadata = list(history, modified, website, rdfa), 
+            additional_metadata = list(history, modified, website), 
             additional_namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
                                       prism = "http://prismstandard.org/namespaces/1.2/basic/",
                                       foaf = "http://xmlns.com/foaf/0.1/"))

@@ -11,7 +11,7 @@ setMethod("addIdentifiers", signature("nexml"), function(object, type, ...){
               else 
                 object@otus@otu[[i]]@meta <- new("ListOfmeta", list(
                                meta(href = paste0("http://ncbi.nlm.nih.gov/taxonomy/", id),
-                                    rel = "ncbi:id")))
+                                    rel = "tc:toTaxon")))
 
             }
           }

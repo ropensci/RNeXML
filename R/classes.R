@@ -563,7 +563,9 @@ nexml_namespaces <-
     "dc"    = "http://purl.org/dc/elements/1.1/",
   "dcterms" = "http://purl.org/dc/terms/",
     "prism" = "http://prismstandard.org/namespaces/1.2/basic/",
-    "cc"    = "http://creativecommons.org/ns#")
+    "cc"    = "http://creativecommons.org/ns#",
+    "ncbi"  = "http://www.ncbi.nlm.nih.gov/taxonomy#",
+    "tc"    = "http://rs.tdwg.org/ontology/voc/TaxonConcept#")
 
 
 setClass("nexml", 
