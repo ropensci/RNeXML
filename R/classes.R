@@ -563,8 +563,7 @@ nexml_namespaces <-
     "dc"    = "http://purl.org/dc/elements/1.1/",
   "dcterms" = "http://purl.org/dc/terms/",
     "prism" = "http://prismstandard.org/namespaces/1.2/basic/",
-    "cc"    = "http://creativecommons.org/ns#",
-              "http://www.nexml.org/2009")
+    "cc"    = "http://creativecommons.org/ns#")
 
 
 setClass("nexml", 
@@ -577,7 +576,8 @@ setClass("nexml",
          prototype = prototype(version = "0.9",
                    generator = "RNeXML",
                    "xsi:schemaLocation" = "http://www.nexml.org/2009/nexml.xsd",
-                   namespaces = nexml_namespaces),
+                   namespaces = c(nexml_namespaces, 
+                                  "http://www.nexml.org/2009")),
          contains = "Annotated")
 
 setMethod("fromNeXML", 

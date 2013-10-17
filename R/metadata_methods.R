@@ -33,21 +33,21 @@ setxpath <- function(object){
             doc
 }
 
-## FIXME handle namespaces correctly!  
+## Note that we define our namespace prefixes explicitly, so that should the NeXML use a different abberivation, this should still work.  
 setMethod("get_citation", 
           signature("nexml"), 
           function(object){
             b <- setxpath(as(object, "XMLInternalElementNode"))
 ## FIXME should return a citaiton class object! 
-            unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dcterms:bibliographicCitation']/@content"))
+            unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dcterms:bibliographicCitation']/@content", namespaces = nexml_namespaces))
           })
 
 setMethod("get_license",
           signature("nexml"),
           function(object){
             b <- setxpath(as(object, "XMLInternalElementNode"))
-            dc_rights <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dc:rights']/@content"))
-            cc_license <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@rel='cc:license']/@href"))
+            dc_rights <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dc:rights']/@content", namespaces = nexml_namespaces))
+            cc_license <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@rel='cc:license']/@href", namespaces = nexml_namespaces))
           if(length(dc_rights) > 0)
             dc_rights
           else
@@ -57,7 +57,7 @@ setMethod("get_license",
 #' get all top-level metadata
 setMethod("get_metadata", signature("nexml"), function(object){
             b <- setxpath(as(object, "XMLInternalElementNode"))
-            references <- getNodeSet(b, "/nex:nexml/nex:meta[@property]")
+            references <- getNodeSet(b, "/nex:nexml/nex:meta[@property]", namespaces = nexml_namespaces)
             rel = sapply(references, 
                               function(x) 
                                 xmlAttrs(x)['rel'])
@@ -65,7 +65,7 @@ setMethod("get_metadata", signature("nexml"), function(object){
                              function(x) 
                                xmlAttrs(x)['href'])
             names(href) = rel
-  literals <- getNodeSet(b, "/nex:nexml/nex:meta[@rel]")
+  literals <- getNodeSet(b, "/nex:nexml/nex:meta[@rel]", namespaces = nexml_namespaces)
             property = sapply(literals, 
                               function(x) 
                                 xmlAttrs(x)['property'])
