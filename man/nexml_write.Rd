@@ -7,7 +7,8 @@
     description = NULL, creator = NULL,
     pubdate = Sys.Date(), rights = "CC0", publisher = NULL,
     citation = NULL, additional_metadata = NULL,
-    additional_namespaces = NULL)
+    additional_namespaces = NULL,
+    add_identifiers = c("NCBI"))
 }
 \arguments{
   \item{x}{any phylogeny object (e.g. phylo, phylo4, or

@@ -7,7 +7,7 @@ setMethod("addIdentifiers", signature("nexml"), function(object, type, ...){
             for(i in 1:length(object@otus@otu)){
               id <- get_uid(object@otus@otu[[i]]@label)
               if(is.na(id))
-                warning(paste("ID for otu", object@otus@otu[[i]]@label, "not found. Consider checking the spelling or alternate classification")
+                warning(paste("ID for otu", object@otus@otu[[i]]@label, "not found. Consider checking the spelling or alternate classification"))
               else 
                 object@otus@otu[[i]]@meta <- new("ListOfmeta", list(
                                meta(href = paste0("http://ncbi.nlm.nih.gov/taxonomy/", id),
