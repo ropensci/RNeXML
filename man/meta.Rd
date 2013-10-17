@@ -23,7 +23,7 @@
   \item{id}{optional id element}
 
   \item{type}{optional xsi:type.  If not given, will use
-  either "LiteralMeta" or "ReferenceMeta" as determined by
+  either "LiteralMeta" or "ResourceMeta" as determined by
   the presence of either a property or a href value.}
 }
 \description{

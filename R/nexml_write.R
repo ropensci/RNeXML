@@ -41,13 +41,18 @@ nexml_write <- function(x,
                         publisher = NULL,
                         citation = NULL,
                         additional_metadata = NULL,
-                        additional_namespaces = NULL){
+                        additional_namespaces = NULL,
+                        add_identifiers = c("NCBI")){
   nex <- as(x, "nexml")
 
   ## FIXME Check for duplicates first. Only a duplicate if prefix is also duplicated.  
   nex@namespaces = c(nex@namespaces, additional_namespaces)
-  out <- as(nex, "XMLInternalNode")
 
+  if(length(add_identifiers) > 0)
+    nex <- addIdentifiers(nex, type = add_identifiers)
+  out <- as(nex, "XMLInternalNode")
+  ## FIXME Kind of strange to add these to the XML representation instead of directly to the S4 nexml representation....
+  ## would be easy to add to a ListOfmeta...
   if(!is.null(additional_metadata))
       addChildren(out, kids = additional_metadata, at = 0)
   if(!is.null(description))

@@ -1,4 +1,7 @@
 #' @export
+setGeneric("get_metadata", function(object) standardGeneric("get_metadata"))
+
+#' @export
 setGeneric("get_license", function(object) standardGeneric("get_license"))
 
 #' @export

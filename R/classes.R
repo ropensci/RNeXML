@@ -142,7 +142,8 @@ setAs("XMLInternalElementNode", "meta", function(from){
         type <- gsub("nex:", "", type) ## FIXME This is CRUDE
         fromNeXML(new(type[1]), from)
       }
-}) 
+})
+
 setAs("meta", "XMLInternalElementNode", function(from){ 
       toNeXML(as(from, slot(from, "xsi:type")), newXMLNode("meta", .children = from@children))
 })

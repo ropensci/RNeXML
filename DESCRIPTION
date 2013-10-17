@@ -27,3 +27,4 @@ Collate:
     'meta.R'
     'extend_phylo.R'
     'metadata_methods.R'
+    'taxize.R'

@@ -9,7 +9,7 @@
 #' @param rel Ontological definition of the reference provided in href 
 #' @param href A link to some reference
 #' @param id optional id element
-#' @param type optional xsi:type.  If not given, will use either "LiteralMeta" or "ReferenceMeta" as 
+#' @param type optional xsi:type.  If not given, will use either "LiteralMeta" or "ResourceMeta" as 
 #'  determined by the presence of either a property or a href value.  
 #' @details User must either provide property+content or rel+href.  Mixing these will result in potential garbage. 
 #' The datatype attribute will be detected automatically from the class of the content argument.  Maps from R class
@@ -49,7 +49,7 @@ meta <- function(property = character(0),
         property = property, id = id, 'xsi:type' = "LiteralMeta")
   else if(length(rel) > 0)
     new("meta", rel = rel, href = href, 
-        id = id, 'xsi:type' = "ReferenceMeta")
+        id = id, 'xsi:type' = "ResourceMeta")
   else 
     new("meta", content = content, datatype = datatype, 
         rel = rel, href = href, id = id, 'xsi:type' = type)
