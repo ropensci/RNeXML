@@ -20,7 +20,7 @@ setAs("nexml", "phylo", function(from){
   } else if(length(from@trees) == 1){
     # If there are multiple tree nodes in a trees node, return a multiphylo with warning
     if(length(from@trees[[1]]@tree) > 1){
-      warning("Returning multiple trees as a multiPhylo ojbect")
+      warning("Returning multiple trees as a multiPhylo object")
       out <- lapply(from@trees[[1]]@tree,  toPhylo, from@otus)
       class(out) <- "multiPhylo"
       out

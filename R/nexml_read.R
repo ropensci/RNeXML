@@ -16,7 +16,9 @@ nexml_read <- function(x, type = c("nexmlTree", "phylo", "phylo4", "ouch",
   type <- match.arg(type) 
   doc <- xmlParse(x) 
   # will return class multiphylo if phylo is asked for and multiple trees are given.  
-  as(xmlRoot(doc), type)
+  output <- as(xmlRoot(doc), type)
+  free(doc)
+  output
 }
 
 
