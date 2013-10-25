@@ -65,3 +65,15 @@ test_that("We can read and write NeXML to phylo and back without edge.lengths", 
            unlink("ex.xml")
 })
 
+
+
+test_that("Rooted trees remain rooted on conversions", {
+          expect_true(is.rooted(bird.orders))
+          expect_true(is.rooted(as(as(bird.orders, "nexml"), "phylo")))
+          write.nexml(bird.orders, "tmp.xml")
+          expect_true(is.rooted(read.nexml("tmp.xml", "phylo")))
+          unlink("tmp.xml")
+})
+
+
+
