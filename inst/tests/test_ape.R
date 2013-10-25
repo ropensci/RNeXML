@@ -75,7 +75,13 @@ test_that("Rooted trees remain rooted on conversions", {
           unlink("tmp.xml")
 })
 
-
+phy <- unroot(bird.orders)
+test_that("Unrooted trees remain unrooted on conversions", {
+  expect_false(is.rooted(phy))
+  expect_false(is.rooted(as(as(phy, "nexml"), "phylo")))
+  write.nexml(phy, "tmp.xml")
+  expect_false(is.rooted(read.nexml("tmp.xml", "phylo")))
+})
 
 test_that("We can convert trees with only some edge lengths into ape::phylo", {
           f <- system.file("examples", "missing_some_branchlengths.xml", package="RNeXML")

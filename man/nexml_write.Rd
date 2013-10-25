@@ -18,8 +18,8 @@
   \item{additional_metadata}{list of}
 
   \item{add_identifiers}{either logical or name of an
-  identifer (see details or \code{\link{add_identifiers}})
-  If TRUE, default identifer (NCBI) will be added.  If
+  identifier (see details or \code{\link{add_identifiers}})
+  If TRUE, default identifier (NCBI) will be added.  If
   FALSE, no identifier is added.}
 }
 \value{
