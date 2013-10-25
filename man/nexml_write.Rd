@@ -7,8 +7,7 @@
     description = NULL, creator = NULL,
     pubdate = Sys.Date(), rights = "CC0", publisher = NULL,
     citation = NULL, additional_metadata = NULL,
-    additional_namespaces = NULL,
-    add_identifiers = c("NCBI"))
+    additional_namespaces = NULL, add_identifiers = TRUE)
 }
 \arguments{
   \item{x}{any phylogeny object (e.g. phylo, phylo4, or
@@ -17,6 +16,11 @@
   \item{file}{the name of the file to write out}
 
   \item{additional_metadata}{list of}
+
+  \item{add_identifiers}{either logical or name of an
+  identifer (see details or \code{\link{add_identifiers}})
+  If TRUE, default identifer (NCBI) will be added.  If
+  FALSE, no identifier is added.}
 }
 \value{
   Writes out a nexml file
