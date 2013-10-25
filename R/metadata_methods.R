@@ -1,5 +1,5 @@
 #' @export
-setGeneric("get_metadata", function(object) standardGeneric("get_metadata"))
+setGeneric("get_metadata", function(object, level=c("nexml", "otus", "trees", "tree")) standardGeneric("get_metadata"))
 
 #' @export
 setGeneric("get_license", function(object) standardGeneric("get_license"))
@@ -55,9 +55,14 @@ setMethod("get_license",
           })
 
 #' get all top-level metadata
-setMethod("get_metadata", signature("nexml"), function(object){
+setMethod("get_metadata", signature("nexml"), function(object, level){
+
+            level <- match.arg(level) 
+            string <- paste0("//nex:", level, "/nex:meta" )
             b <- setxpath(as(object, "XMLInternalElementNode"))
-            references <- getNodeSet(b, "/nex:nexml/nex:meta[@property]", namespaces = nexml_namespaces)
+            references <- getNodeSet(b, paste0(string, "[@property]"), namespaces = nexml_namespaces)
+
+
             rel = sapply(references, 
                               function(x) 
                                 xmlAttrs(x)['rel'])
@@ -65,7 +70,7 @@ setMethod("get_metadata", signature("nexml"), function(object){
                              function(x) 
                                xmlAttrs(x)['href'])
             names(href) = rel
-  literals <- getNodeSet(b, "/nex:nexml/nex:meta[@rel]", namespaces = nexml_namespaces)
+  literals <- getNodeSet(b, paste0(string, "[@rel]"), namespaces = nexml_namespaces)
             property = sapply(literals, 
                               function(x) 
                                 xmlAttrs(x)['property'])
