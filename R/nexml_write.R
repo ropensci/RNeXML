@@ -2,7 +2,9 @@
 #' 
 #' @param x any phylogeny object (e.g. phylo, phylo4, or internal type)
 #' @param file the name of the file to write out
-#' @param additional_metadata list of 
+#' @param additional_metadata list of
+#' @param add_identifiers either logical or name of an identifier (see details or \code{\link{add_identifiers}})
+#'        If TRUE, default identifier (NCBI) will be added.  If FALSE, no identifier is added.  
 #' @return Writes out a nexml file
 #' @import ape 
 #' @import XML
@@ -42,13 +44,16 @@ nexml_write <- function(x,
                         citation = NULL,
                         additional_metadata = NULL,
                         additional_namespaces = NULL,
-                        add_identifiers = c("NCBI")){
+                        add_identifiers = TRUE){
   nex <- as(x, "nexml")
 
   ## FIXME Check for duplicates first. Only a duplicate if prefix is also duplicated.  
   nex@namespaces = c(nex@namespaces, additional_namespaces)
 
-  if(length(add_identifiers) > 0)
+  if(is.logical(add_identifiers))
+    if(add_identifiers)
+      add_identifiers = "NCBI"
+  if(is.character(add_identifiers))
     nex <- addIdentifiers(nex, type = add_identifiers)
   out <- as(nex, "XMLInternalNode")
   ## FIXME Kind of strange to add these to the XML representation instead of directly to the S4 nexml representation....
