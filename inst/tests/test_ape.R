@@ -77,3 +77,9 @@ test_that("Rooted trees remain rooted on conversions", {
 
 
 
+test_that("We can convert trees with only some edge lengths into ape::phylo", {
+          f <- system.file("examples", "missing_some_branchlengths.xml", package="RNeXML")
+          a <- read.nexml(f, "phylo")
+          # We can parse it, goodness knows what anyone will do with it.  Better to hack off the branch lengths or convert to 0, but that's for the user.   
+})
+
