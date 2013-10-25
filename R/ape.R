@@ -95,11 +95,18 @@ setMethod("toPhylo",
         }
 
         nodes <- sapply(unname(tree@node), function(x) c(node = unname(x@id), otu = missing_as_na(x@otu)))
-        edges <- sapply(unname(tree@edge), function(x) c(source = unname(x@source), 
-                                                          target = unname(x@target), 
-                                                          length = x@length, 
-                                                          id = unname(x@id)))
 
+        
+        # If any edges have lengths
+        if(any(sapply(tree@edge, function(x) length(x@length) > 0)))
+          edges <- sapply(unname(tree@edge), function(x) c(source = unname(x@source), 
+                                                          target = unname(x@target), 
+                                                          length = if(identical(x@length, numeric(0))) NA else unname(x@length), 
+                                                          id = unname(x@id)))
+        else # no edge lengths 
+          edges <- sapply(unname(tree@edge), function(x) c(source = unname(x@source), 
+                                                          target = unname(x@target), 
+                                                          id = unname(x@id)))
 
         nodes <- data.frame(t(nodes), stringsAsFactors=FALSE)
         names(nodes) <- c("node", "otu")
@@ -117,7 +124,7 @@ setMethod("toPhylo",
 ##      Define elements of a phylo class object
         edge <- unname(cbind(source_nodes, target_nodes))
         if("length" %in% rownames(edges))
-          edge.length <- as.numeric(edges["length",])        ## FIXME don't create an edge.length element if lengths are missing
+          edge.length <- as.numeric(edges["length",])       
         else
           edge.length <- NULL
 
