@@ -4,7 +4,8 @@
 \title{Read NeXML files into various R formats}
 \usage{
   nexml_read(x,
-    type = c("nexmlTree", "phylo", "phylo4", "ouch", "matrix", "nexml"))
+    type = c("nexmlTree", "phylo", "phylo4", "ouch", "matrix", "nexml"),
+    ...)
 }
 \arguments{
   \item{x}{Path to the file to be read in}
@@ -13,6 +14,8 @@
   file contains multiple trees, all will be read into the
   appropriate multi-tree container, or else returned as a
   list of such objects.}
+
+  \item{...}{Further arguments passed on to XML::xmlParse}
 }
 \description{
   Read NeXML files into various R formats
