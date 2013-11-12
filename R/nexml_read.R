@@ -1,9 +1,7 @@
 #' Read NeXML files into various R formats
 #' 
 #' @param x Path to the file to be read in 
-#' @param as the as of object to be returned.  If the file 
-#' contains multiple trees, all will be read into the appropriate 
-#' multi-tree container, or else returned as a list of such objects.  
+#' @param ... Further arguments passed on to XML::xmlParse
 #' @import XML
 #' @import ape 
 #' @aliases nexml_read read.nexml 
@@ -11,11 +9,10 @@
 #' @examples
 #' f <- system.file("examples", "trees.xml", package="RNeXML")
 #' nexml_read(f) 
-nexml_read <- function(x){
-  doc <- xmlParse(x) 
-  # will return class multiphylo if phylo is asked for and multiple trees are given.  
+nexml_read <- function(x, ...){
+  doc <- xmlParse(x, ...) 
   output <- as(xmlRoot(doc), "nexml")
-  free(doc)
+  free(doc) # explicitly free the pointers after conversion into S4
   output
 }
 

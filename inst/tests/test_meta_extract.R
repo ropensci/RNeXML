@@ -15,6 +15,7 @@ data(bird.orders)
   website <- new("meta", 
                  href = "http://carlboettiger.info", 
                  rel = "foaf:homepage", 'xsi:type' = "ResourceMeta")
+suppressMessages( # do so quietly...
 nexml_write(bird.orders, file="example.xml",
             title = "My test title",
             description = "A description of my test",
@@ -26,6 +27,7 @@ nexml_write(bird.orders, file="example.xml",
             additional_namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
                                       prism = "http://prismstandard.org/namespaces/1.2/basic/",
                                       foaf = "http://xmlns.com/foaf/0.1/"))
+)
 
 
 

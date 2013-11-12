@@ -58,7 +58,7 @@ test_that("We can read and write NeXML to phylo and back without edge.lengths", 
            cat(s, file = "ex.tre", sep = "\n")
            owls <- read.tree("ex.tre")
            nexml_write(owls, "ex.xml")
-           owls2 <- nexml_read("ex.xml")
+           owls2 <- as(nexml_read("ex.xml"), "phylo")
            expect_equal(owls, owls2)
            expect_identical(unlist(owls), unlist(owls2)) # FIXME cannot tell what the difference is when not unlisted.  oh well.  
            unlink("ex.tre")
@@ -71,7 +71,7 @@ test_that("Rooted trees remain rooted on conversions", {
           expect_true(is.rooted(bird.orders))
           expect_true(is.rooted(as(as(bird.orders, "nexml"), "phylo")))
           write.nexml(bird.orders, "tmp.xml")
-          expect_true(is.rooted(read.nexml("tmp.xml", "phylo")))
+          expect_true(is.rooted(as(read.nexml("tmp.xml"), "phylo")))
           unlink("tmp.xml")
 })
 
@@ -80,12 +80,12 @@ test_that("Unrooted trees remain unrooted on conversions", {
   expect_false(is.rooted(phy))
   expect_false(is.rooted(as(as(phy, "nexml"), "phylo")))
   write.nexml(phy, "tmp.xml")
-  expect_false(is.rooted(read.nexml("tmp.xml", "phylo")))
+  expect_false(is.rooted(as(read.nexml("tmp.xml"), "phylo")))
 })
 
 test_that("We can convert trees with only some edge lengths into ape::phylo", {
           f <- system.file("examples", "missing_some_branchlengths.xml", package="RNeXML")
-          a <- read.nexml(f, "phylo")
+          a <- as(read.nexml(f), "phylo")
           # We can parse it, goodness knows what anyone will do with it.  Better to hack off the branch lengths or convert to 0, but that's for the user.   
 })
 

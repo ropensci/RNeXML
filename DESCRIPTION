@@ -19,7 +19,7 @@ Imports:
     XML,
     ape,
     plyr,
-    taxize 
+    taxize
 Collate:
     'classes.R'
     'ape.R'
