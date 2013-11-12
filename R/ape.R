@@ -6,31 +6,47 @@ setGeneric("getTaxonNames", function(otus, ids) standardGeneric("getTaxonNames")
 #' @import ape 
 # Developer Note: This function simply calls `toPhylo` in the appropriate way 
 # depending on the approriate number of trees in the nexml.  
-setAs("nexml", "phylo", function(from){ 
-  # If there are mutiple trees nodes, return list of multiphylo with warning
-  if(length(from@trees) > 1){ 
-    warning("Returning a list of multiPhylo objects")
-    lapply(from@trees, 
+
+
+setAs("nexml", "multiPhylo", function(from){
+   unname(lapply(from@trees, 
            function(X){
-            out <- lapply(X@tree,  toPhylo, from@otus)
-            class(out) <- "multiPhylo"
-            out 
-           })
-
-  } else if(length(from@trees) == 1){
-    # If there are multiple tree nodes in a trees node, return a multiphylo with warning
-    if(length(from@trees[[1]]@tree) > 1){
-      warning("Returning multiple trees as a multiPhylo object")
-      out <- lapply(from@trees[[1]]@tree,  toPhylo, from@otus)
-      class(out) <- "multiPhylo"
-      out
-
-  # If there is one tree node, return "phylo"
-    } else if(length(from@trees[[1]]@tree) == 1){
-      toPhylo(from@trees[[1]]@tree[[1]], from@otus)
-    }
-  }
+             out <- unname(lapply(X@tree,  toPhylo, from@otus))
+             class(out) <- "multiPhylo"
+             out
+           }))
 })
+
+
+#' Flatten a multiphylo object
+#' 
+#' NeXML has the concept of multiple <trees> nodes, each with multiple child <tree> nodes.
+#' This maps naturally to a list of multiphylo (heirachical multiphylo) objects.  Sometimes
+#' this heirarchy conveys important structural information, so it is not discarded by default. 
+#' Occassionally it is useful to flatten the structure though, hence this function.  Note that this
+#' discards the original structure, and the nexml file must be parsed again to recover it.  
+#' @param object a multiphylo object (list) containing 1 or multiphylo objects (lists of phylo objects)
+#' @export
+flatten_multiphylo <- function(object){
+  out <- unlist(object, FALSE, FALSE)
+  class(out) <- "multiPhylo"
+  out
+}
+
+
+
+setAs("nexml", "phylo", function(from){ 
+    if(length(from@trees[[1]]@tree) == 1){
+      out <- toPhylo(from@trees[[1]]@tree[[1]], from@otus)
+    } else { 
+      warning("Multiple trees found, Returning multiPhylo object")
+      out <- as(from, "multiPhylo") 
+    }
+    out 
+  })
+
+
+
 
 
 
