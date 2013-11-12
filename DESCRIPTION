@@ -12,13 +12,14 @@ Description: R package that allows access to phyloinformatic data in NeXML
     compatibility with 'ape' objects.
 License: BSD-3
 Suggests:
-    testthat
+    taxize
 Depends:
     ape
 Imports:
     XML,
     ape,
-    plyr
+    plyr,
+    taxize 
 Collate:
     'classes.R'
     'ape.R'

@@ -7,6 +7,18 @@ setGeneric("get_license", function(object) standardGeneric("get_license"))
 #' @export
 setGeneric("get_citation", function(object) standardGeneric("get_citation"))
 
+#' @export
+setGeneric("get_taxa", function(object) standardGeneric("get_taxa"))
+
+setMethod("get_taxa", 
+          signature("nexml"), 
+          function(object) 
+           sapply(object@otus@otu, function(otu) otu@label)
+          )
+
+
+
+
 
 setMethod("summary", 
           signature("nexml"), 
@@ -33,6 +45,40 @@ setxpath <- function(object){
             doc
 }
 
+
+#' get all top-level metadata  More extensible than hardwired functions
+setMethod("get_metadata", signature("nexml"), function(object, level){
+
+            level <- match.arg(level) 
+            string <- paste0("//nex:", level, "/nex:meta" )
+            b <- setxpath(as(object, "XMLInternalElementNode"))
+
+            references <- getNodeSet(b, 
+                                     paste0(string, "[@rel]"),
+                                     namespaces = nexml_namespaces)
+            rel = sapply(references, 
+                              function(x) 
+                                xmlAttrs(x)['rel'])
+            href = sapply(references, 
+                             function(x) 
+                               xmlAttrs(x)['href'])
+            names(href) = rel
+            literals <- getNodeSet(b, 
+                                   paste0(string, "[@property]"), 
+                                   namespaces = nexml_namespaces)
+            property = sapply(literals, 
+                              function(x) 
+                                xmlAttrs(x)['property'])
+            content = sapply(literals, 
+                             function(x) 
+                               xmlAttrs(x)['content'])
+            names(content) = property
+            c(content, href)
+          })
+
+
+
+
 ## Note that we define our namespace prefixes explicitly, so that should the NeXML use a different abberivation, this should still work.  
 setMethod("get_citation", 
           signature("nexml"), 
@@ -53,36 +99,6 @@ setMethod("get_license",
           else
             cc_license
           })
-
-#' get all top-level metadata
-setMethod("get_metadata", signature("nexml"), function(object, level){
-
-            level <- match.arg(level) 
-            string <- paste0("//nex:", level, "/nex:meta" )
-            b <- setxpath(as(object, "XMLInternalElementNode"))
-            references <- getNodeSet(b, paste0(string, "[@property]"), namespaces = nexml_namespaces)
-
-
-            rel = sapply(references, 
-                              function(x) 
-                                xmlAttrs(x)['rel'])
-            href = sapply(references, 
-                             function(x) 
-                               xmlAttrs(x)['href'])
-            names(href) = rel
-  literals <- getNodeSet(b, paste0(string, "[@rel]"), namespaces = nexml_namespaces)
-            property = sapply(literals, 
-                              function(x) 
-                                xmlAttrs(x)['property'])
-            content = sapply(literals, 
-                             function(x) 
-                               xmlAttrs(x)['content'])
-            names(content) = property
-            c(content, href)
-          })
-
-
-
 
 
 ## Would be convenient to inherit these automatically...

@@ -25,10 +25,6 @@ See [phylobase vignette, 2010]
 
 See [Vos _et al._ 2012].
 
-
-
-
-
 Mention of data sharing challenges and opportunities.  See [Drew et al 2013](10.1371/journal.pbio.1001636)
 
 
@@ -54,12 +50,15 @@ write.nexml(phy, "example.xml")
 
 ### Reading NeXML metadata
 
-One of the most powerful features of the NeXML format is the ability add arbitrary metadata information using the RDFa annotation standard [cite W3C](). 
+One of the most powerful features of the NeXML format is the ability add arbitrary metadata information using the RDFa annotation standard [cite W3C]().   
 
 Metadata from treebase NeXML
 - article citation information
 - Summary data: taxa, number of taxa, number of trees, number of tips.  
 - Metadata of nodes, complete RDF extraction
+
+Using the nexml and nexmlTree class for metadata.  
+
 
 ### Writing NeXML metadata
 
@@ -75,12 +74,11 @@ Metadata from treebase NeXML
 
 Writing annotations on otus.  Annotations on nodes.  
 
-
-
+Temporal, spatial, taxonomic coverage for dryad/knb?
 
 ### Implementation and architecture
 
-The `RNeXML` package is built for the NeXML Schema, [version 2009], using the R software environment and the XML package for parsing and generating XML [Temple Lang 2013, XML]. 
+The `RNeXML` package is built for the NeXML Schema, [version 2009], using the R software environment and the XML package for parsing and generating XML [Temple Lang 2013, XML], and provides conversions into the popular `phylo` format provided by the `ape` package [Paradis 2004].  `RNeXML` can automatically check taxonomic names and add taxonomic identifiers when generating NeXML using methods from the `taxize` package ([Chamberlain 2013]). 
 
 <!-- Possibly cite all dependencies and suggests from the DESCRIPTION --> 
 <!-- Reference any installation and configuration instructions necessary (e.g. API credentials for figshare) -->
@@ -89,7 +87,7 @@ The `RNeXML` package is built for the NeXML Schema, [version 2009], using the R 
 
 ### Quality control
 
-The `RNeXML` package can performs two levels of validation on NeXML files written from or read into R: validating the XML, and validating against the current NeXML schema.
+The `RNeXML` package performs two levels of validation on NeXML files written from or read into R: validating the XML, and validating against the current NeXML schema.
 
 Several mechanisms are in place to evaluate the quality of the `RNeXML` package functions themselves.  In addition to the examples from the documentation and the automated package checks provided for the R system, the `RNeXML` package includes a complete test suite using the testthat package [Wickham 2011].  
 
