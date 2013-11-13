@@ -1,26 +1,61 @@
+#' retrieve all available metadata 
+#' @param object a representation of the nexml object from  which the data is to be retrieved
+#' @param level the level in the nexml for which the metadata is desired
+#' @return a named character vector containing all available metadata.  names indicate `property` (or `rel` in the case of links/resourceMeta), while values indicate the `content` (or `href` for links).  
 #' @export
+#' @seealso  \code{\link{get_item}}
 setGeneric("get_metadata", function(object, level=c("nexml", "otus", "otu", "trees", "tree", "edge", "node")) standardGeneric("get_metadata"))
 
-#' @export
+#' Retrieve names of all species/otus otus (operational taxonomic units) included in the nexml 
+#' @aliases get_taxa  get_otu
+#' @export get_taxa get_otu
+#' @seealso  \code{\link{get_item}}
+setGeneric("get_otu", function(object) standardGeneric("get_otu"))
 setGeneric("get_taxa", function(object) standardGeneric("get_taxa"))
 
+#' extract a phylogenetic tree from the nexml
+#' 
+#' @param object a representation of the nexml object from  which the data is to be retrieved
+#' @return an ape::phylo tree, if only one tree is represented.  Otherwise returns a list of lists of multiphylo trees.  To consistently recieve the list of lists format (preserving the heriarchical nature of the nexml), use \code{\link{get_trees}} instead.  
 #' @export
+#' @seealso \code{\link{get_trees}} \code{\link{get_flat_trees}} \code{\link{get_item}}
 setGeneric("get_tree", function(object) standardGeneric("get_tree"))
 
+#' extract a single multiPhylo object containing all trees in the nexml
+#' @details Note that this method collapses any heirachical structure that may have been present as multiple `trees` nodes in the original nexml (though such a feature is rarely used).  To preserve that structure, use \code{\link{get_trees}} instead.  
+#' @return a multiPhylo object (list of ape::phylo objects).  See details.  
+#' @param object a representation of the nexml object from  which the data is to be retrieved
 #' @export
+#' @seealso \code{\link{get_tree}} \code{\link{get_trees}} \code{\link{get_item}} 
+setGeneric("get_flat_trees", function(object) standardGeneric("get_flat_trees"))
+#' extract all phylogenetic trees in ape format
+#' 
+#' @param object a representation of the nexml object from  which the data is to be retrieved
+#' @return returns a list of lists of multiphylo trees, even if all trees are in the same `trees` node (and hence the outer list will be of length 1) or if there is only a single tree (and hence the inner list will also be of length 1.  This guarentees a consistent return type regardless of the number of trees present in the nexml file, and also preserves any heirarchy/grouping of trees.  
+#' @export
+#' @seealso \code{\link{get_tree}} \code{\link{get_flat_trees}} \code{\link{get_item}}
 setGeneric("get_trees", function(object) standardGeneric("get_trees"))
-
-
-setMethod("get_tree", signature("nexml"), function(object){
-          get_item(object, "tree", "phylo")
-})
 
 
 #' Get the desired element from the nexml object
 #' @param nexml a nexml object (from read_nexml)
-#' @param element 
+#' @param element the kind of object desired, see details.  
 #' @param level metadata argument only.  Define whose metadata we want. See examples for details.  
+#' @details
+#'  
+#' \itemize{
+#'  \item{"tree"}{ an ape::phylo tree, if only one tree is represented.  Otherwise returns a list of lists of multiphylo trees.  To consistently recieve the list of lists format (preserving the heriarchical nature of the nexml), use \code{trees} instead.}
+#'  \item{"trees"}{ returns a list of lists of multiphylo trees, even if all trees are in the same `trees` node (and hence the outer list will be of length 1) or if there is only a single tree (and hence the inner list will also be of length 1.  This guarentees a consistent return type regardless of the number of trees present in the nexml file, and also preserves any heirarchy/grouping of trees.  }
+#'  \item{"flat_trees"}{ a multiPhylo object (list of ape::phylo objects) Note that this method collapses any heirachical structure that may have been present as multiple `trees` nodes in the original nexml (though such a feature is rarely used).  To preserve that structure, use `trees` instead.}
+#'  \item{"metadata"}{ }
+#'  \item{"otu"}{ returns a named character vector containing all available metadata.  names indicate \code{property} (or \code{rel} in the case of links/resourceMeta), while values indicate the \code{content} (or \code{href} for links). }
+#' }
+#' For a slightly cleaner interface, each of these elements is also defined as an S4 method
+#' for a nexml object.  So in place of `get_item(nexml, "tree")`, one could use `get_tree(nexml)`,
+#' and so forth for each element type.  
+#' @return return type depends on the element requested.  See details.  
 #' @export
+#' @seealso \code{\link{get_tree}}
 get_item <- function(nexml, 
                      element = c("tree", "trees", "flat_trees", "metadata", "otu"), 
                      level = c("nexml", "otus", "otu", "trees", "tree")){
@@ -36,6 +71,12 @@ get_item <- function(nexml,
 }
 
 
+# NOTE: See the generics (above) for the documentation of these methods
+
+setMethod("get_tree", signature("nexml"), function(object) get_item(object, "tree"))
+setMethod("get_trees", signature("nexml"), function(object) get_item(object, "trees"))
+setMethod("get_flat_trees", signature("nexml"), function(object) get_item(object, "flat_trees"))
+setMethod("get_otu", signature("nexml"), function(object) get_item(object, "tree"))
 
 setMethod("get_taxa", 
           signature("nexml"), 
