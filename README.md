@@ -35,11 +35,12 @@ Read in a `nexml` file into the `ape::phylo` format:
 ```r
 library(RNeXML)
 f <- system.file("examples", "trees.xml", package="RNeXML")
-tr <- nexml_read(f, "phylo")
+nexml <- nexml_read(f)
+tr <- get_tree(nexml) # or: as(nexml, "phylo")
 plot(tr[[1]])
 ```
 
-![plot of chunk unnamed-chunk-3](http://farm8.staticflickr.com/7366/10300074655_271d380ab6_o.png) ![plot of chunk unnamed-chunk-3](http://farm4.staticflickr.com/3671/10299999004_1cc1c4c3b3_o.png) 
+![plot of chunk unnamed-chunk-3](http://farm6.staticflickr.com/5537/10832187714_0fa845336b_o.png) ![plot of chunk unnamed-chunk-3](http://farm6.staticflickr.com/5519/10832021175_94eddd096f_o.png) 
 
 
 Write an `ape::phylo` tree into the `nexml` format:
@@ -50,46 +51,118 @@ data(bird.orders)
 nexml_write(bird.orders, "test.xml")
 ```
 
-```
-## [1] "test.xml"
-```
 
 
-<!--
 Extract metadata from the NeXML file: 
 
 
 ```r
-ex2 <- nexml_read(f, "nexml")
-metadata(ex2)
+get_taxa(nexml)
 ```
 
--->
+```
+##   otu.label   otu.label   otu.label   otu.label   otu.label 
+## "species 1" "species 2" "species 3" "species 4" "species 5"
+```
+
+```r
+get_metadata(nexml) 
+```
 
 --------------------------------------------
+
+
+Add basic additional metadata:  
+
+
+```r
+  nexml_write(bird.orders, file="meta_example.xml",
+              title = "My test title",
+              description = "A description of my test",
+              creator = "Carl Boettiger <cboettig@gmail.com>",
+              publisher = "unpublished data",
+              pubdate = "2012-04-01")
+```
+
+```
+## [1] "meta_example.xml"
+```
+
+By default, `RNeXML` adds certain metadata, including the NCBI taxon id numbers for all named taxa.  This acts a check on the spelling and definitions of the taxa as well as providing a link to additional metadata about each taxonomic unit described in the dataset.  
+
 
 ### Advanced annotation
 
 
-Add metadata to a NeXML tree:  
+We can also add arbitrary metadata to a NeXML tree by define `meta` objects:
 
 
 ```r
-  history <- new("meta", 
-      content = "Mapped from the bird.orders data in the ape package using RNeXML",
-      datatype = "xsd:string", id = "meta5144", property = "skos:historyNote", 
-      'xsi:type' = "LiteralMeta")
-  modified <- new("meta",
-                  content = "2013-10-04", datatype = "xsd:string", id = "meta5128",
-                  property = "prism:modificationDate", 'xsi:type' = "LiteralMeta")
-  website <- new("meta", 
-                 href = "http://carlboettiger.info", 
-                 rel = "foaf:homepage", 'xsi:type' = "ResourceMeta")
+modified <- meta(property = "prism:modificationDate",
+                 content = "2013-10-04")
+```
+
+
+Advanced use requires specifying the namespace used.  Metadata follows the RDFa conventions.  Here we indicate the modification date using the prism vocabulary. This namespace is included by default, as it is used for some of the basic metadata shown in the previous example.  We can see from this list:
+
+
+```r
+RNeXML:::nexml_namespaces
+```
+
+```
+##                                                      nex 
+##                              "http://www.nexml.org/2009" 
+##                                                      xsi 
+##              "http://www.w3.org/2001/XMLSchema-instance" 
+##                                                      xml 
+##                   "http://www.w3.org/XML/1998/namespace" 
+##                                                     cdao 
+## "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#" 
+##                                                      xsd 
+##                      "http://www.w3.org/2001/XMLSchema#" 
+##                                                       dc 
+##                       "http://purl.org/dc/elements/1.1/" 
+##                                                  dcterms 
+##                              "http://purl.org/dc/terms/" 
+##                                                    prism 
+##         "http://prismstandard.org/namespaces/1.2/basic/" 
+##                                                       cc 
+##                         "http://creativecommons.org/ns#" 
+##                                                     ncbi 
+##                  "http://www.ncbi.nlm.nih.gov/taxonomy#" 
+##                                                       tc 
+##          "http://rs.tdwg.org/ontology/voc/TaxonConcept#"
+```
+
+
+This next block defines a resource (link), described by the `rel` attribute as a homepage, a term in the `foaf` vocabulalry.  Becuase `foaf` is not a default namespace, we will have to provide its URL in the full definition below. 
+
+
+```r
+website <- meta(href = "http://carlboettiger.info", 
+                rel = "foaf:homepage")
+```
+
+
+Here we create a history node using the `skos` namespace.  We can also add id values to any metadata element to make the element easier to reference externally: 
+
+
+```r
+  history <- meta(property = "skos:historyNote", 
+                  content = "Mapped from the bird.orders data in the ape package using RNeXML",
+                  id = "meta123")
+```
+
+
+Once we have created the `meta` elements, we can pass them to our `nexml_write` function, along with definitions of the namespaces.  
+
+
+```r
   nexml_write(bird.orders, 
               file = "example.xml", 
               additional_metadata = list(history, modified, website), 
               additional_namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
-                                        prism = "http://prismstandard.org/namespaces/1.2/basic/",
                                         foaf = "http://xmlns.com/foaf/0.1/"))
 ```
 
@@ -97,27 +170,9 @@ Add metadata to a NeXML tree:
 ## [1] "example.xml"
 ```
 
-```r
-
-```
 
 
 
-
-
-
-<!--
-
-```r
- nexml_write(bird.orders, "birds.xml", 
-            author="Carl Boettiger <cboettig@ropensci.org>", 
-            title = "example NeXML file for bird orders", 
-            description = "Example phylogeny taken from the ape documentation showing the major bird orders", 
-            in_publication = "doi:10.1010/fakedoi.1234",
-            add_itis = TRUE)
-```
-
--->
 
 
 

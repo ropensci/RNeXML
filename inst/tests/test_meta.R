@@ -74,7 +74,7 @@ test_that("We can add arbitrary metadata", {
               file = "example.xml", 
               additional_metadata = list(history, modified, website), 
               additional_namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
-                                        prism = "http://prismstandard.org/namespaces/1.2/basic/",
+#                                        prism = "http://prismstandard.org/namespaces/1.2/basic/", # FIXME check and remove duplicates
                                         foaf = "http://xmlns.com/foaf/0.1/"))
 
   

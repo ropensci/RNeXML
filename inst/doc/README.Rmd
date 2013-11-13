@@ -14,7 +14,7 @@ An extensive and rapidly growing collection of richly annotated phylogenetics da
 
 ```{r echo=FALSE}
 opts_knit$set(upload.fun = socialR::flickr.url)
-opts_chunk$set(tidy=FALSE, warning=FALSE, cache=FALSE)
+opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE)
 ```
 
 Getting Started
@@ -36,7 +36,7 @@ library(RNeXML)
 f <- system.file("examples", "trees.xml", package="RNeXML")
 nexml <- nexml_read(f)
 tr <- get_tree(nexml) # or: as(nexml, "phylo")
-plot(tr)
+plot(tr[[1]])
 ```
 
 Write an `ape::phylo` tree into the `nexml` format:
@@ -49,8 +49,9 @@ nexml_write(bird.orders, "test.xml")
 Extract metadata from the NeXML file: 
 
 ```{r } 
-get_taxa(nexml)
-get_metadata(nexml) 
+birds <- nexml_read("test.xml")
+get_taxa(birds)
+get_metadata(birds) 
 ```
 
 --------------------------------------------
@@ -67,6 +68,8 @@ Add basic additional metadata:
               pubdate = "2012-04-01")
 
 ```
+By default, `RNeXML` adds certain metadata, including the NCBI taxon id numbers for all named taxa.  This acts a check on the spelling and definitions of the taxa as well as providing a link to additional metadata about each taxonomic unit described in the dataset.  
+
 
 ### Advanced annotation
 
@@ -74,8 +77,7 @@ Add basic additional metadata:
 We can also add arbitrary metadata to a NeXML tree by define `meta` objects:
 
 ```{r}
-modified <- new("meta",
-                 property = "prism:modificationDate",
+modified <- meta(property = "prism:modificationDate",
                  content = "2013-10-04")
 ```
 
@@ -88,18 +90,16 @@ RNeXML:::nexml_namespaces
 This next block defines a resource (link), described by the `rel` attribute as a homepage, a term in the `foaf` vocabulalry.  Becuase `foaf` is not a default namespace, we will have to provide its URL in the full definition below. 
 
 ```{r}
-website <- new("meta", 
-               href = "http://carlboettiger.info", 
-               rel = "foaf:homepage")
+website <- meta(href = "http://carlboettiger.info", 
+                rel = "foaf:homepage")
 ```
 
 Here we create a history node using the `skos` namespace.  We can also add id values to any metadata element to make the element easier to reference externally: 
 
 ```{r }
-  history <- new("meta", 
-      property = "skos:historyNote", 
-      content = "Mapped from the bird.orders data in the ape package using RNeXML",
-      id = "meta123")
+  history <- meta(property = "skos:historyNote", 
+                  content = "Mapped from the bird.orders data in the ape package using RNeXML",
+                  id = "meta123")
 ```
 
 Once we have created the `meta` elements, we can pass them to our `nexml_write` function, along with definitions of the namespaces.  
@@ -109,7 +109,6 @@ Once we have created the `meta` elements, we can pass them to our `nexml_write` 
               file = "example.xml", 
               additional_metadata = list(history, modified, website), 
               additional_namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
-                                        prism = "http://prismstandard.org/namespaces/1.2/basic/",
                                         foaf = "http://xmlns.com/foaf/0.1/"))
 
 ```
