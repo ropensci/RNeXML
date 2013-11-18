@@ -8,7 +8,9 @@ setGeneric("getTaxonNames", function(otus, ids) standardGeneric("getTaxonNames")
 # depending on the approriate number of trees in the nexml.  
 
 
-setAs("nexml", "multiPhylo", function(from){
+
+#' 
+setAs("nexml", "multiPhyloList", function(from){
    unname(lapply(from@trees, 
            function(X){
              out <- unname(lapply(X@tree,  toPhylo, from@otus))
@@ -18,10 +20,22 @@ setAs("nexml", "multiPhylo", function(from){
 })
 
 
+#' Always collapses all trees nodes into a multiphylo
+setAs("nexml", "multiPhylo", function(from){
+   out <- unname(lapply(from@trees, 
+           function(X){
+             out <- unname(lapply(X@tree,  toPhylo, from@otus))
+             class(out) <- "multiPhylo"
+             out
+           }))
+  flatten_multiphylo(out)
+})
+
+
 #' Flatten a multiphylo object
 #' 
 #' NeXML has the concept of multiple <trees> nodes, each with multiple child <tree> nodes.
-#' This maps naturally to a list of multiphylo (heirachical multiphylo) objects.  Sometimes
+#' This maps naturally to a list of multiphylo  objects.  Sometimes
 #' this heirarchy conveys important structural information, so it is not discarded by default. 
 #' Occassionally it is useful to flatten the structure though, hence this function.  Note that this
 #' discards the original structure, and the nexml file must be parsed again to recover it.  
@@ -34,7 +48,6 @@ flatten_multiphylo <- function(object){
 }
 
 
-
 setAs("nexml", "phylo", function(from){ 
     if(length(from@trees[[1]]@tree) == 1){
       out <- toPhylo(from@trees[[1]]@tree[[1]], from@otus)
@@ -42,7 +55,9 @@ setAs("nexml", "phylo", function(from){
       warning("Multiple trees found, Returning multiPhylo object")
       out <- as(from, "multiPhylo") 
     }
-    out 
+    if(length(out) == 1)
+     out <- flatten_multiphylo(out)
+   out 
   })
 
 

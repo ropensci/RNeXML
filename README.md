@@ -36,11 +36,31 @@ Read in a `nexml` file into the `ape::phylo` format:
 library(RNeXML)
 f <- system.file("examples", "trees.xml", package="RNeXML")
 nexml <- nexml_read(f)
+```
+
+```
+## Error: could not find function "as"
+```
+
+```coffee
 tr <- get_tree(nexml) # or: as(nexml, "phylo")
+```
+
+```
+## recover called non-interactively; frames dumped, use debugger() to view
+```
+
+```
+## Error: error in evaluating the argument 'object' in selecting a method for function 'get_tree': Error: object 'nexml' not found
+```
+
+```coffee
 plot(tr[[1]])
 ```
 
-![plot of chunk unnamed-chunk-3](http://farm4.staticflickr.com/3755/10911281774_421cdd110d_o.png) ![plot of chunk unnamed-chunk-3](http://farm8.staticflickr.com/7434/10911144615_4370f34c3d_o.png) 
+```
+## Error: object 'tr' not found
+```
 
 
 Write an `ape::phylo` tree into the `nexml` format:
@@ -51,32 +71,46 @@ data(bird.orders)
 nexml_write(bird.orders, "test.xml")
 ```
 
+```
+## Error: could not find function "as"
+```
+
+
+A key feature of NeXML is the ability to formally validate the construction of the data file against the standard (the lack of such a feature in nexus files had lead to inconsistencies across different software platforms, and some files that cannot be read at all).  While it is difficult to make an invalid NeXML file from `RNeXML`, it never hurts to validate just to be sure:
+
+
+```coffee
+nexml_validate("test.xml")
+```
+
+```
+## Error: could not find function "as"
+```
+
+
+
 
 Extract metadata from the NeXML file: 
 
 
 ```coffee
 birds <- nexml_read("test.xml")
+```
+
+```
+## Error: could not find function "as"
+```
+
+```coffee
 get_taxa(birds)
 ```
 
 ```
-##          otu.label          otu.label          otu.label 
-## "Struthioniformes"     "Tinamiformes"      "Craciformes" 
-##          otu.label          otu.label          otu.label 
-##      "Galliformes"     "Anseriformes"    "Turniciformes" 
-##          otu.label          otu.label          otu.label 
-##       "Piciformes"    "Galbuliformes"   "Bucerotiformes" 
-##          otu.label          otu.label          otu.label 
-##      "Upupiformes"    "Trogoniformes"    "Coraciiformes" 
-##          otu.label          otu.label          otu.label 
-##      "Coliiformes"     "Cuculiformes"   "Psittaciformes" 
-##          otu.label          otu.label          otu.label 
-##      "Apodiformes"   "Trochiliformes"  "Musophagiformes" 
-##          otu.label          otu.label          otu.label 
-##     "Strigiformes"    "Columbiformes"       "Gruiformes" 
-##          otu.label          otu.label 
-##    "Ciconiiformes"    "Passeriformes"
+## recover called non-interactively; frames dumped, use debugger() to view
+```
+
+```
+## Error: error in evaluating the argument 'object' in selecting a method for function 'get_taxa': Error: object 'birds' not found
 ```
 
 ```coffee
@@ -84,10 +118,11 @@ get_metadata(birds)
 ```
 
 ```
-##                                             dc:date 
-##                                        "2013-11-17" 
-##                                          cc:license 
-## "http://creativecommons.org/publicdomain/zero/1.0/"
+## recover called non-interactively; frames dumped, use debugger() to view
+```
+
+```
+## Error: error in evaluating the argument 'object' in selecting a method for function 'get_metadata': Error: object 'birds' not found
 ```
 
 
@@ -106,6 +141,9 @@ Add basic additional metadata:
               pubdate = "2012-04-01")
 ```
 
+```
+## Error: could not find function "as"
+```
 
 By default, `RNeXML` adds certain metadata, including the NCBI taxon id numbers for all named taxa.  This acts a check on the spelling and definitions of the taxa as well as providing a link to additional metadata about each taxonomic unit described in the dataset.  
 
@@ -119,6 +157,10 @@ We can also add arbitrary metadata to a NeXML tree by define `meta` objects:
 ```coffee
 modified <- meta(property = "prism:modificationDate",
                  content = "2013-10-04")
+```
+
+```
+## Error: could not find function "is"
 ```
 
 
@@ -163,6 +205,10 @@ website <- meta(href = "http://carlboettiger.info",
                 rel = "foaf:homepage")
 ```
 
+```
+## Error: could not find function "is"
+```
+
 
 Here we create a history node using the `skos` namespace.  We can also add id values to any metadata element to make the element easier to reference externally: 
 
@@ -171,6 +217,10 @@ Here we create a history node using the `skos` namespace.  We can also add id va
   history <- meta(property = "skos:historyNote", 
                   content = "Mapped from the bird.orders data in the ape package using RNeXML",
                   id = "meta123")
+```
+
+```
+## Error: could not find function "is"
 ```
 
 
@@ -184,6 +234,11 @@ Once we have created the `meta` elements, we can pass them to our `nexml_write` 
               additional_namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
                                         foaf = "http://xmlns.com/foaf/0.1/"))
 ```
+
+```
+## Error: could not find function "as"
+```
+
 
 
 

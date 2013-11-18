@@ -64,8 +64,8 @@ get_item <- function(nexml,
 
   switch(element,
          tree = as(nexml, "phylo"), # will warn if more than one tree is available
-         trees = as(nexml, "multiPhylo"),
-         flat_trees = flatten_multiphylo(as(nexml, "multiPhylo")),
+         trees = as(nexml, "multiPhyloList"),
+         flat_trees = flatten_multiphylo(as(nexml, "multiPhyloList")),
          metadata = get_metadata(nexml, level),
          otu = get_taxa(nexml))
 }

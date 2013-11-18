@@ -1,7 +1,7 @@
 Package: RNeXML
 Type: Package
 Title: Implement semantically rich I/O for NeXML format
-Version: 1.0
+Version: 1.0-1
 Date: 2013-06-30
 Author: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia Shumelchyk,
     Rutger Vos
