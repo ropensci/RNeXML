@@ -1,6 +1,9 @@
 \name{get_tree}
 \alias{get_tree}
 \title{extract a phylogenetic tree from the nexml}
+\usage{
+get_tree(object)
+}
 \arguments{
   \item{object}{a representation of the nexml object from
   which the data is to be retrieved}
