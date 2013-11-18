@@ -40,7 +40,7 @@ tr <- get_tree(nexml) # or: as(nexml, "phylo")
 plot(tr[[1]])
 ```
 
-![plot of chunk unnamed-chunk-3](http://farm3.staticflickr.com/2855/10930392034_33578414a1_o.png) 
+![plot of chunk unnamed-chunk-3](http://farm8.staticflickr.com/7317/10930696206_0f162ecceb_o.png) 
 
 
 Write an `ape::phylo` tree into the `nexml` format:

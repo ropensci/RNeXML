@@ -14,9 +14,11 @@ License: BSD-3
 Suggests:
     taxize
 Depends:
-    ape
+    ape,
+    methods
 Imports:
     XML,
     ape,
     plyr,
-    taxize
+    taxize,
+    methods 
