@@ -44,7 +44,7 @@ nexml_write <- function(x,
                         citation = NULL,
                         additional_metadata = NULL,
                         additional_namespaces = NULL,
-                        add_identifiers = TRUE){
+                        add_identifiers = FALSE){
   nex <- as(x, "nexml")
 
   ## FIXME Check for duplicates first. Only a duplicate if prefix is also duplicated.  
