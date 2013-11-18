@@ -11,3 +11,8 @@ readme:
 	Rscript -e 'require(knitr); knit("README.Rmd")'
 	cp README.md ../../README.md
 	sed -i 's/```r/```coffee/' ../../README.md
+
+
+coffee: 
+	cp README.md ../../README.md
+	sed -i 's/```r/```coffee/' ../../README.md

@@ -36,31 +36,11 @@ Read in a `nexml` file into the `ape::phylo` format:
 library(RNeXML)
 f <- system.file("examples", "trees.xml", package="RNeXML")
 nexml <- nexml_read(f)
-```
-
-```
-## Error: could not find function "as"
-```
-
-```coffee
 tr <- get_tree(nexml) # or: as(nexml, "phylo")
-```
-
-```
-## recover called non-interactively; frames dumped, use debugger() to view
-```
-
-```
-## Error: error in evaluating the argument 'object' in selecting a method for function 'get_tree': Error: object 'nexml' not found
-```
-
-```coffee
 plot(tr[[1]])
 ```
 
-```
-## Error: object 'tr' not found
-```
+![plot of chunk unnamed-chunk-3](http://farm3.staticflickr.com/2855/10930392034_33578414a1_o.png) 
 
 
 Write an `ape::phylo` tree into the `nexml` format:
@@ -72,7 +52,7 @@ nexml_write(bird.orders, "test.xml")
 ```
 
 ```
-## Error: could not find function "as"
+## [1] "test.xml"
 ```
 
 
@@ -84,7 +64,7 @@ nexml_validate("test.xml")
 ```
 
 ```
-## Error: could not find function "as"
+## [1] TRUE
 ```
 
 
@@ -95,22 +75,26 @@ Extract metadata from the NeXML file:
 
 ```coffee
 birds <- nexml_read("test.xml")
-```
-
-```
-## Error: could not find function "as"
-```
-
-```coffee
 get_taxa(birds)
 ```
 
 ```
-## recover called non-interactively; frames dumped, use debugger() to view
-```
-
-```
-## Error: error in evaluating the argument 'object' in selecting a method for function 'get_taxa': Error: object 'birds' not found
+##          otu.label          otu.label          otu.label 
+## "Struthioniformes"     "Tinamiformes"      "Craciformes" 
+##          otu.label          otu.label          otu.label 
+##      "Galliformes"     "Anseriformes"    "Turniciformes" 
+##          otu.label          otu.label          otu.label 
+##       "Piciformes"    "Galbuliformes"   "Bucerotiformes" 
+##          otu.label          otu.label          otu.label 
+##      "Upupiformes"    "Trogoniformes"    "Coraciiformes" 
+##          otu.label          otu.label          otu.label 
+##      "Coliiformes"     "Cuculiformes"   "Psittaciformes" 
+##          otu.label          otu.label          otu.label 
+##      "Apodiformes"   "Trochiliformes"  "Musophagiformes" 
+##          otu.label          otu.label          otu.label 
+##     "Strigiformes"    "Columbiformes"       "Gruiformes" 
+##          otu.label          otu.label 
+##    "Ciconiiformes"    "Passeriformes"
 ```
 
 ```coffee
@@ -118,11 +102,10 @@ get_metadata(birds)
 ```
 
 ```
-## recover called non-interactively; frames dumped, use debugger() to view
-```
-
-```
-## Error: error in evaluating the argument 'object' in selecting a method for function 'get_metadata': Error: object 'birds' not found
+##                                             dc:date 
+##                                        "2013-11-18" 
+##                                          cc:license 
+## "http://creativecommons.org/publicdomain/zero/1.0/"
 ```
 
 
@@ -142,7 +125,7 @@ Add basic additional metadata:
 ```
 
 ```
-## Error: could not find function "as"
+## [1] "meta_example.xml"
 ```
 
 By default, `RNeXML` adds certain metadata, including the NCBI taxon id numbers for all named taxa.  This acts a check on the spelling and definitions of the taxa as well as providing a link to additional metadata about each taxonomic unit described in the dataset.  
@@ -157,10 +140,6 @@ We can also add arbitrary metadata to a NeXML tree by define `meta` objects:
 ```coffee
 modified <- meta(property = "prism:modificationDate",
                  content = "2013-10-04")
-```
-
-```
-## Error: could not find function "is"
 ```
 
 
@@ -205,10 +184,6 @@ website <- meta(href = "http://carlboettiger.info",
                 rel = "foaf:homepage")
 ```
 
-```
-## Error: could not find function "is"
-```
-
 
 Here we create a history node using the `skos` namespace.  We can also add id values to any metadata element to make the element easier to reference externally: 
 
@@ -217,10 +192,6 @@ Here we create a history node using the `skos` namespace.  We can also add id va
   history <- meta(property = "skos:historyNote", 
                   content = "Mapped from the bird.orders data in the ape package using RNeXML",
                   id = "meta123")
-```
-
-```
-## Error: could not find function "is"
 ```
 
 
@@ -236,7 +207,7 @@ Once we have created the `meta` elements, we can pass them to our `nexml_write` 
 ```
 
 ```
-## Error: could not find function "as"
+## [1] "example.xml"
 ```
 
 
