@@ -21,4 +21,4 @@ Imports:
     ape,
     plyr,
     taxize,
-    methods 
+    methods

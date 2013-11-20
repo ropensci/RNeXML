@@ -410,11 +410,6 @@ setAs("otu", "XMLInternalElementNode",
 setAs("XMLInternalElementNode", "otu",
       function(from) fromNeXML(new("otu"), from))
 
-setAs("otu", "XMLInternalNode",
-           function(from) toNeXML(from, newXMLNode("otu")))
-setAs("otu", "XMLInternalElementNode",
-           function(from) toNeXML(from, newXMLNode("otu")))
-
 ################################ alternatively called Taxa by the schema
 
 setClass("ListOfotu", 

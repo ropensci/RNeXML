@@ -84,13 +84,13 @@ setMethod("get_taxa",
            sapply(object@otus@otu, function(otu) otu@label)
           )
 
-setMethod("summary", 
-          signature("nexml"), 
-          function(object, ...) 
-            summary(as(object, "phylo"))
-          )
-
-
+#setMethod("summary", 
+#          signature("nexml"), 
+#          function(object, ...) 
+#            summary(as(object, "phylo"))
+#          )
+#
+#
 ## Ironically, it is easier to extract the license from the XML representation using XPath than to extract it from the R S4 representation.  
 
 
@@ -182,9 +182,9 @@ setMethod("get_citation", signature("nexmlTree"), function(object)
           get_citation(as(object, "nexml")))
 setMethod("get_license", signature("nexmlTree"), function(object)
           get_license(as(object, "nexml")))
-setMethod("summary", 
-          signature("nexmlTree"), 
-          function(object, ...)
-            summary(as(object, "nexml"))
-          )
-
+#setMethod("summary", 
+#          signature("nexmlTree"), 
+#          function(object, ...)
+#            summary(as(object, "nexml"))
+#          )
+#
