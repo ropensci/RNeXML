@@ -3,10 +3,11 @@
 \alias{write.nexml}
 \title{Write nexml files}
 \usage{
-nexml_write(x, file = NULL, title = NULL, description = NULL,
-  creator = NULL, pubdate = Sys.Date(), rights = "CC0",
-  publisher = NULL, citation = NULL, additional_metadata = NULL,
-  additional_namespaces = NULL, add_identifiers = TRUE)
+  nexml_write(x, file = NULL, title = NULL,
+    description = NULL, creator = NULL,
+    pubdate = Sys.Date(), rights = "CC0", publisher = NULL,
+    citation = NULL, additional_metadata = NULL,
+    additional_namespaces = NULL, add_identifiers = FALSE)
 }
 \arguments{
   \item{x}{any phylogeny object (e.g. phylo, phylo4, or

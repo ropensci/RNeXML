@@ -2,8 +2,9 @@
 \alias{get_item}
 \title{Get the desired element from the nexml object}
 \usage{
-get_item(nexml, element = c("tree", "trees", "flat_trees", "metadata", "otu"),
-  level = c("nexml", "otus", "otu", "trees", "tree"))
+  get_item(nexml,
+    element = c("tree", "trees", "flat_trees", "metadata", "otu"),
+    level = c("nexml", "otus", "otu", "trees", "tree"))
 }
 \arguments{
   \item{nexml}{a nexml object (from read_nexml)}

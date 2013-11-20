@@ -1,9 +1,6 @@
 \name{get_flat_trees}
 \alias{get_flat_trees}
 \title{extract a single multiPhylo object containing all trees in the nexml}
-\usage{
-get_flat_trees(object)
-}
 \arguments{
   \item{object}{a representation of the nexml object from
   which the data is to be retrieved}

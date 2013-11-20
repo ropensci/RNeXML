@@ -2,9 +2,10 @@
 \alias{meta}
 \title{Constructor function for metadata nodes}
 \usage{
-meta(property = character(0), datatype = character(0),
-  content = character(0), rel = character(0), href = character(0),
-  id = character(0), type = character(0), children = NULL)
+  meta(property = character(0), datatype = character(0),
+    content = character(0), rel = character(0),
+    href = character(0), id = character(0),
+    type = character(0), children = NULL)
 }
 \arguments{
   \item{property}{specify the ontological definition
