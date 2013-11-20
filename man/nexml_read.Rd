@@ -3,7 +3,7 @@
 \alias{read.nexml}
 \title{Read NeXML files into various R formats}
 \usage{
-  nexml_read(x, ...)
+nexml_read(x, ...)
 }
 \arguments{
   \item{x}{Path to the file to be read in}

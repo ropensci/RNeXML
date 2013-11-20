@@ -2,7 +2,7 @@
 \alias{flatten_multiphylo}
 \title{Flatten a multiphylo object}
 \usage{
-  flatten_multiphylo(object)
+flatten_multiphylo(object)
 }
 \arguments{
   \item{object}{a list of multiphylo objects}

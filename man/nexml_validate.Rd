@@ -2,7 +2,7 @@
 \alias{nexml_validate}
 \title{validate nexml using the online validator tool}
 \usage{
-  nexml_validate(file)
+nexml_validate(file)
 }
 \arguments{
   \item{file}{path to the nexml file to validate}
