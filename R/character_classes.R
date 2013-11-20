@@ -10,16 +10,20 @@ setMethod("fromNeXML",
           signature("char", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
-            obj@states <- xmlAttrs(from)["states"]
+            if(!is.na(xmlAttrs(from)["states"]))
+              obj@states <- xmlAttrs(from)["states"]
             obj
           })
 setMethod("toNeXML", 
           signature("char", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            addAttributes(parent, "states" = object@states)
+            if(length(object@states) > 0)
+              addAttributes(parent, "states" = object@states)
             parent
           })
+setAs("char", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("char")))
 setAs("char", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("char")))
 setAs("XMLInternalElementNode", "char",
@@ -52,6 +56,8 @@ setMethod("toNeXML",
             addChildren(parent, kids = object@row)
             parent
           })
+setAs("obsmatrix", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("matrix")))
 setAs("obsmatrix", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("matrix")))
 setAs("XMLInternalElementNode", "obsmatrix",
@@ -93,6 +99,8 @@ setMethod("toNeXML",
             addChildren(parent, kids = object@seq)
             parent
           })
+setAs("row", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("row")))
 setAs("row", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("row")))
 setAs("XMLInternalElementNode", "row",
@@ -122,6 +130,8 @@ setMethod("toNeXML",
             addChildren(parent, kids = object@state)
             parent
           })
+setAs("states", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("states")))
 setAs("states", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("states")))
 setAs("XMLInternalElementNode", "states",
@@ -148,6 +158,8 @@ setMethod("toNeXML",
             addAttributes(parent, "symbol" = object@symbol)
             parent
           })
+setAs("state", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("state")))
 setAs("state", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("state")))
 setAs("XMLInternalElementNode", "state",
@@ -178,6 +190,8 @@ setMethod("toNeXML",
             addChildren(parent, kids = object@member)
             parent
           })
+setAs("uncertain_state_set", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("uncertain_state_set")))
 setAs("uncertain_state_set", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("uncertain_state_set")))
 setAs("XMLInternalElementNode", "uncertain_state_set",
@@ -204,6 +218,8 @@ setMethod("toNeXML",
             addChildren(parent, kids = object@member)
             parent
           })
+setAs("polymorphic_state_set", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("polymorphic_state_set")))
 setAs("polymorphic_state_set", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("polymorphic_state_set")))
 setAs("XMLInternalElementNode", "polymorphic_state_set",
@@ -232,6 +248,8 @@ setMethod("toNeXML",
             addAttributes(parent, "state" = object@state)
             parent
           })
+setAs("cell", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("cell")))
 setAs("cell", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("cell")))
 setAs("XMLInternalElementNode", "cell",
@@ -256,6 +274,8 @@ setMethod("toNeXML",
             addAttributes(parent, "state" = object@state)
             parent
           })
+setAs("member", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("member")))
 setAs("member", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("member")))
 setAs("XMLInternalElementNode", "member",
@@ -282,6 +302,8 @@ setMethod("toNeXML",
             addChildren(parent, object@seq)
             parent
           })
+setAs("seq", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("seq")))
 setAs("seq", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("seq")))
 setAs("XMLInternalElementNode", "seq",
@@ -300,11 +322,14 @@ setMethod("fromNeXML",
           function(obj, from){
             obj <- callNextMethod()
             kids <- xmlChildren(from)
-            if(length(kids) > 0)
-              obj@char <- new("ListOfchar", 
-                              lapply(kids[names(kids) == "char"], 
-                                     as, "char"))
-            obj@states <- as(from[["states"]], "states")
+            if(length(kids) > 0){
+              if("char" %in% names(kids))
+                obj@char <- new("ListOfchar", 
+                                lapply(kids[names(kids) == "char"], 
+                                       as, "char"))
+              if("states" %in% names(kids))
+                obj@states <- as(from[["states"]], "states")
+            }
             obj
           })
 setMethod("toNeXML", 
@@ -315,6 +340,8 @@ setMethod("toNeXML",
             addChildren(parent, kids = object@states)
             parent
           })
+setAs("format", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("format")))
 setAs("format", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("format")))
 setAs("XMLInternalElementNode", "format",
@@ -345,6 +372,8 @@ setMethod("toNeXML",
             addChildren(parent, kids = object@obsmatrix)
             parent
           })
+setAs("characters", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("characters")))
 setAs("characters", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("characters")))
 setAs("XMLInternalElementNode", "characters",

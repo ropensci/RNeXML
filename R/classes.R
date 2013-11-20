@@ -544,6 +544,7 @@ setAs("XMLInternalElementNode", "trees",
 ####################################################
 
 setClass("ListOftrees", contains = "list")
+setClass("ListOfcharacters", contains = "list")
 
 ####################################################
 
@@ -569,7 +570,8 @@ setClass("nexml",
                         "xsi:schemaLocation" = "character", # part of base?
                         namespaces = "character",           # part of base? 
                         otus = "otus",
-                        trees = "ListOftrees"), 
+                        trees = "ListOftrees",
+                        characters="ListOfcharacters"),
          prototype = prototype(version = "0.9",
                    generator = "RNeXML",
                    "xsi:schemaLocation" = "http://www.nexml.org/2009/nexml.xsd",
@@ -594,6 +596,9 @@ setMethod("fromNeXML",
             # Handle children
             kids <- xmlChildren(from)
             obj@otus <- as(from[["otus"]], "otus")
+            obj@characters <- new("ListOfcharacters", 
+                            lapply(kids[names(kids) == "characters"], 
+                                   as, "characters"))
             obj@trees <- new("ListOftrees", 
                             lapply(kids[names(kids) == "trees"], 
                                    as, "trees"))
@@ -611,6 +616,7 @@ setMethod("toNeXML",
             # Coercion of object to XML happens automatically
             addChildren(parent, object@otus) # a single "otus" object
             addChildren(parent, kids = object@trees) # a list of "trees" objects
+            addChildren(parent, kids = object@characters) # a list of "characters" objects
             parent
           })
 setAs("nexml", "XMLInternalNode",
