@@ -22,11 +22,10 @@ Imports:
     plyr,
     taxize,
     methods
-<<<<<<< HEAD
-=======
 Collate:
     'ape.R'
     'classes.R'
+    'character_classes.R'
     'extend_phylo.R'
     'meta.R'
     'metadata_methods.R'
@@ -34,4 +33,3 @@ Collate:
     'nexml_validate.R'
     'nexml_write.R'
     'taxize.R'
->>>>>>> 251178921417dc3209ec6d03dc0cd14c1c853981
