@@ -27,6 +27,7 @@ Collate:
     'classes.R'
     'character_classes.R'
     'extend_phylo.R'
+    'isEmpty.R'
     'meta.R'
     'metadata_methods.R'
     'nexml_read.R'

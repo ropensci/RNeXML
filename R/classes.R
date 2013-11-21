@@ -29,11 +29,13 @@ setMethod("toNeXML",
 setMethod("fromNeXML", 
           signature("Base", "XMLInternalElementNode"),
           function(obj, from){
-            if(!is.na(xmlAttrs(from)["type"]))  ## FIXME use [["type"]] or ["type"]
+            if(!is.null(xmlAttrs(from))){
+              if(!is.na(xmlAttrs(from)["type"]))  ## FIXME use [["type"]] or ["type"]
                 slot(obj, "xsi:type") <- xmlAttrs(from)["type"]
-            if(!is.na(xmlAttrs(from)["xsi:type"])) ## Shouldn't be necessary but seems to be for first test in test_inheritance.R...
+              if(!is.na(xmlAttrs(from)["xsi:type"])) ## Shouldn't be necessary but seems to be for first test in test_inheritance.R...
                 slot(obj, "xsi:type") <- xmlAttrs(from)["xsi:type"]
-               obj
+            }
+            obj
           }
 )
 
@@ -174,8 +176,9 @@ setMethod("fromNeXML",
               obj@meta <- new("ListOfmeta", 
                               lapply(kids[names(kids) == "meta"], 
                                      as, "meta"))
-            if(!is.na(xmlAttrs(from)["about"]))
-               obj@about <- xmlAttrs(from)["about"]
+            if(!is.null(xmlAttrs(from)))
+              if(!is.na(xmlAttrs(from)["about"]))
+                 obj@about <- xmlAttrs(from)["about"]
             obj
 })
 setMethod("toNeXML", 

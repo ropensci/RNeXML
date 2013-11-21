@@ -336,8 +336,10 @@ setMethod("toNeXML",
           signature("format", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            addChildren(parent, kids = object@char)
-            addChildren(parent, kids = object@states)
+            if(!isEmpty(object@char))
+              addChildren(parent, kids = object@char)
+            if(length(object@states@state) > 0)
+              addChildren(parent, kids = object@states)
             parent
           })
 setAs("format", "XMLInternalNode",
@@ -354,22 +356,22 @@ setAs("XMLInternalElementNode", "format",
 ####################################################
 setClass("characters",
          representation(format = "format",
-                        obsmatrix = "obsmatrix"),
+                        matrix = "obsmatrix"),
         contains = "TaxaLinked")
 setMethod("fromNeXML", 
           signature("characters", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             obj@format <- as(from[["format"]], "format")
-            obj@obsmatrix <- as(from[["obsmatrix"]], "obsmatrix")
+            obj@matrix <- as(from[["matrix"]], "obsmatrix")
             obj
           })
 setMethod("toNeXML", 
           signature("characters", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            addChildren(parent, kids = object@format)
-            addChildren(parent, kids = object@obsmatrix)
+            parent <- addChildren(parent, format = object@format)
+            parent <- addChildren(parent, matrix = object@matrix)
             parent
           })
 setAs("characters", "XMLInternalNode",
