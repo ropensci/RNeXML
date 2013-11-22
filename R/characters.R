@@ -35,18 +35,25 @@ get_characters_list <- function(nexml){
   out
 } 
 
+# get_characters <- function(nexml){
+#   list_chars <- get_characters_list(nexml)
+#   if(identical_rownames(list_chars))
+#     out <- do.call(cbind, list_chars) ## This could probably be more intelligent
+#   else { 
+#     out <- ldply(list_chars)  ## This could definitely be more intelligent
+#     n <- sapply(list_chars, rownames)
+#     for(i in 1:length(colnames(n)))
+#       out[[1]][out[[1]] == colnames(n)[i]] <- n[,i]
+#     out  ## FIXME figure out how to collapse replicate taxa
+#   }
+#   out
+# }
+
 get_characters <- function(nexml){
   list_chars <- get_characters_list(nexml)
-  if(identical_rownames(list_chars))
-    out <- do.call(cbind, list_chars) ## This could probably be more intelligent
-  else { 
-    out <- ldply(list_chars)  ## This could definitely be more intelligent
-    n <- sapply(list_chars, rownames)
-    for(i in 1:length(colnames(n)))
-      out[[1]][out[[1]] == colnames(n)[i]] <- n[,i]
-    out  ## FIXME figure out how to collapse replicate taxa
-  }
-  out
+  tmp <- reshape:::merge_recurse(list_chars, by="row.names")
+  row.names(tmp) <- tmp[,1]
+  tmp[,-1]
 }
 
 # for lists only 

@@ -21,7 +21,8 @@ Imports:
     ape,
     plyr,
     taxize,
-    methods
+    methods,
+    reshape
 Collate:
     'ape.R'
     'classes.R'
