@@ -312,9 +312,10 @@ setAs("XMLInternalElementNode", "seq",
 #########################################
 
 setClass("ListOfchar", contains="list")
+setClass("ListOfstates", contains="list")
 
 setClass("format", 
-         representation(states = "states", ## FIXME Should be ListOfStates
+         representation(states = "ListOfstates", ## FIXME Should be ListOfstates
                         char = "ListOfchar"),
          contains = "Annotated")
 setMethod("fromNeXML", 
@@ -328,7 +329,9 @@ setMethod("fromNeXML",
                                 lapply(kids[names(kids) == "char"], 
                                        as, "char"))
               if("states" %in% names(kids))
-                obj@states <- as(from[["states"]], "states")
+                obj@states <- new("ListOfstates", 
+                                lapply(kids[names(kids) == "states"], 
+                                       as, "states"))
             }
             obj
           })
@@ -338,7 +341,7 @@ setMethod("toNeXML",
             parent <- callNextMethod()
             if(!isEmpty(object@char))
               addChildren(parent, kids = object@char)
-            if(length(object@states@state) > 0)
+            if(length(object@states) > 0)
               addChildren(parent, kids = object@states)
             parent
           })

@@ -1,5 +1,5 @@
-export(characters)
 export(flatten_multiphylo)
+export(get_characters_list)
 export(get_citation)
 export(get_flat_trees)
 export(get_item)

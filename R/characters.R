@@ -5,25 +5,53 @@
 #'
 #' @param nexml nexml object (e.g. from read.nexml)
 #' @export
-characters <- function(nexml){
+get_characters_list <- function(nexml){
 # extract mapping between otus and taxon ids 
   maps <- get_otu_maps(nexml)
 # loop over all character matrices 
-  lapply(nexml@characters, function(characters){
+  out <- lapply(nexml@characters, function(characters){
     # extract data.frame from the S4 structure 
     dat <- extract_character_matrix(characters@matrix)
-
-##  Convert states to symbols?  to labels? 
-#    dat <- state_to_label(dat, characters@format)
-
+    # Convert states to symbols
+    dat <- state_to_symbol(dat, characters@format)
     # Replace OTU ids with Taxon labels  
     dat <- otu_to_label(dat, maps[[characters@otus]])
     # Replace character id with state label?  
     dat <- character_to_label(dat, characters@format)
+
+    # Make numeric data class numeric, discrete data class discrete
+    type <- slot(characters, 'xsi:type') # check without namespace too?
+    if(type == "nex:ContinuousCells")
+      for(i in length(dat))                 ## FIXME this could be faster/more elegant, no?
+        dat[[i]] <- as.numeric(dat[[i]])
+    else 
+      for(i in length(dat))
+        dat[[i]] <- factor(dat[[i]])
     dat
   })
   # name the character matrices by their ids  
+  id <- sapply(nexml@characters, function(characters) characters@id)
+  names(out) <- id
+  out
 } 
+
+get_characters <- function(nexml){
+  list_chars <- get_characters_list(nexml)
+  if(identical_rownames(list_chars))
+    out <- do.call(cbind, list_chars) ## This could probably be more intelligent
+  else { 
+    out <- ldply(list_chars)  ## This could definitely be more intelligent
+    n <- sapply(list_chars, rownames)
+    for(i in 1:length(colnames(n)))
+      out[[1]][out[[1]] == colnames(n)[i]] <- n[,i]
+    out  ## FIXME figure out how to collapse replicate taxa
+  }
+  out
+}
+
+# for lists only 
+identical_rownames <- function(x) all(sapply(lapply(x, rownames), identical, rownames(x[[1]])))
+
 
 
 otu_to_label <- function(dat, otu_map){
@@ -62,7 +90,7 @@ state_to_symbol <- function(dat, format){
       # name the list with elements as `states` sets by their ids 
       states <- format@states 
       ids <- sapply(states, function(states) states@id)
-      names(sates) <- ids
+      names(states) <- ids
 
       # Get the relevant states set matching the current character 
       map_states_to_symbols( states[[char@states]] )
