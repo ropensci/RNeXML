@@ -314,7 +314,7 @@ setAs("XMLInternalElementNode", "seq",
 setClass("ListOfchar", contains="list")
 
 setClass("format", 
-         representation(states = "states",
+         representation(states = "states", ## FIXME Should be ListOfStates
                         char = "ListOfchar"),
          contains = "Annotated")
 setMethod("fromNeXML", 

@@ -26,6 +26,7 @@ Collate:
     'ape.R'
     'classes.R'
     'character_classes.R'
+    'characters.R'
     'extend_phylo.R'
     'isEmpty.R'
     'meta.R'

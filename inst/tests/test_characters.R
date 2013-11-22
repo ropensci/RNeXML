@@ -25,3 +25,10 @@ as(matrix, "XMLInternalElementNode")
 characters <- as(root[["characters"]], "characters")
 as(characters, "XMLInternalElementNode")
 
+
+
+
+nex <- read.nexml(f)
+characters(nex)
+
+

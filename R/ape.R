@@ -11,9 +11,10 @@ setGeneric("getTaxonNames", function(otus, ids) standardGeneric("getTaxonNames")
 
 # 
 setAs("nexml", "multiPhyloList", function(from){
+   map <- get_otu_maps(from) 
    unname(lapply(from@trees, 
            function(X){
-             out <- unname(lapply(X@tree,  toPhylo, from@otus))
+             out <- unname(lapply(X@tree,  toPhylo, map[[X@otus]]))
              class(out) <- "multiPhylo"
              out
            }))
@@ -22,9 +23,10 @@ setAs("nexml", "multiPhyloList", function(from){
 
 # Always collapses all trees nodes into a multiphylo
 setAs("nexml", "multiPhylo", function(from){
+   map <- get_otu_maps(from) 
    out <- unname(lapply(from@trees, 
            function(X){
-             out <- unname(lapply(X@tree,  toPhylo, from@otus))
+             out <- unname(lapply(X@tree,  toPhylo, map[[X@otus]]))
              class(out) <- "multiPhylo"
              out
            }))
@@ -50,7 +52,9 @@ flatten_multiphylo <- function(object){
 
 setAs("nexml", "phylo", function(from){ 
     if(length(from@trees[[1]]@tree) == 1){
-      out <- toPhylo(from@trees[[1]]@tree[[1]], from@otus)
+      maps <- get_otu_maps(from)
+      otus_id <- from@trees[[1]]@otus
+      out <- toPhylo(from@trees[[1]]@tree[[1]], maps[[otus_id]])
     } else { 
       warning("Multiple trees found, Returning multiPhylo object")
       out <- as(from, "multiPhylo") 
@@ -101,20 +105,8 @@ setAs("phylo", "tree", function(from){
 })
 
 
-setMethod("getTaxonNames",
-          signature("otus", "character"),
-          function(otus, ids){
-            taxon <- sapply(otus@otu, 
-                            function(x){
-                              c(x@id, x@label)
-                            })
-            out <- taxon[2, ] # FIXME better as taxon["label",] ?  what about if label not given?  
-            names(out) <- taxon[1, ]
-            out[ids]
-          })
-
 setMethod("toPhylo",
-          signature("tree", "otus"),
+          signature("tree", "character"),
           function(tree, otus){
 
 ## Consider for loops instead here
@@ -160,7 +152,7 @@ setMethod("toPhylo",
           edge.length <- NULL
 
         tip_otus <- as.character(na.omit(nodes$otu))   
-        tip.label <- getTaxonNames(otus, tip_otus)
+        tip.label <- otus[tip_otus]
 
         Nnode <- length(tip.label) - 1 
         phy = list(edge=edge, 
@@ -175,6 +167,24 @@ setMethod("toPhylo",
 
 
 
+
+setMethod("getTaxonNames",
+          signature("otus", "character"),
+          function(otus, ids){
+            taxon <- sapply(otus@otu, 
+                            function(x){
+                              if(length(otu@label) > 0) 
+                                label <- otu@label
+                              else
+                                label <- otu@id
+                              c(otu@id, label)
+                            })
+            out <- taxon[2, ] 
+            names(out) <- taxon[1, ]
+            out[ids]
+          })
+
+
 ##################### phylo -> nexml #################################3
 
 
@@ -186,7 +196,7 @@ setAs("phylo", "nexml", function(from){
   trees@otus = otus@id
   new("nexml", 
       trees = new("ListOftrees", list(trees)),
-      otus = otus)
+      otus = new("ListOfotus",list(otus)))
 })
 
 setAs("phylo", "otus", function(from){
@@ -207,5 +217,36 @@ setAs("multiPhylo", "trees", function(from)
 
 setAs("multiPhylo", "nexml", function(from)
       as(as(from, "trees"), "nexml"))
+
+
+
+#' get otus map
+#'
+#' get a list showing the mapping between (internal) otu identifiers and labels (taxonomic names). List is named by the id of the otus block. If no labels are found, just return the ids in place of labels.   
+#' @param nexml nexml object 
+#' @return a list showing the mapping between (internal) otu identifiers and labels (taxonomic names). List is named by the id of the otus block. 
+#' @details largely for internal use   
+#' @export 
+get_otu_maps <- function(nexml){
+  otus <- nexml@otus
+  ids <- sapply(otus, function(otus) otus@id)
+  names(otus) <- ids
+  otu_maps <- 
+    lapply(otus, function(otus){ # loop over all otus nodes  
+    # getTaxonNames(otus) ## Equivalent to the below...
+    taxon <- sapply(otus@otu, function(otu){ # loop over each otu in the otus set
+      if(length(otu@label) > 0) 
+        label <- otu@label
+      else
+        label <- otu@id
+      c(otu@id, label)
+    })
+    out <- taxon[2, ] #label 
+    names(out) <- taxon[1, ] #id 
+    out
+  })
+  otu_maps
+}
+
 
 

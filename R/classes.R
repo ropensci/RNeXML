@@ -546,6 +546,7 @@ setAs("XMLInternalElementNode", "trees",
 
 ####################################################
 
+setClass("ListOfotus", contains = "list")
 setClass("ListOftrees", contains = "list")
 setClass("ListOfcharacters", contains = "list")
 
@@ -572,7 +573,7 @@ setClass("nexml",
                         generator = "character",
                         "xsi:schemaLocation" = "character", # part of base?
                         namespaces = "character",           # part of base? 
-                        otus = "otus",
+                        otus = "ListOfotus",             
                         trees = "ListOftrees",
                         characters="ListOfcharacters"),
          prototype = prototype(version = "0.9",
@@ -598,11 +599,16 @@ setMethod("fromNeXML",
 
             # Handle children
             kids <- xmlChildren(from)
-            obj@otus <- as(from[["otus"]], "otus")
-            obj@characters <- new("ListOfcharacters", 
+            # at least 1 OTU block is required 
+            obj@otus <- new("ListOfotus", 
+                            lapply(kids[names(kids) == "otus"], 
+                                   as, "otus"))
+            if("characters" %in% names(kids))
+              obj@characters <- new("ListOfcharacters", 
                             lapply(kids[names(kids) == "characters"], 
                                    as, "characters"))
-            obj@trees <- new("ListOftrees", 
+            if("trees" %in% names(kids))
+              obj@trees <- new("ListOftrees", 
                             lapply(kids[names(kids) == "trees"], 
                                    as, "trees"))
             obj
@@ -617,7 +623,7 @@ setMethod("toNeXML",
               addAttributes(parent, "generator" = object@generator)
 
             # Coercion of object to XML happens automatically
-            addChildren(parent, object@otus) # a single "otus" object
+            addChildren(parent, kids = object@otus) # a list of "otus" objects
             addChildren(parent, kids = object@trees) # a list of "trees" objects
             addChildren(parent, kids = object@characters) # a list of "characters" objects
             parent
