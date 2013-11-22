@@ -52,31 +52,48 @@ get_characters_list <- function(nexml){
 
 #' Get character data.frame, accepts either nexml object, or a list of data.frames
 #' 
+#' @param input A nexml object (e.g., as output from \code{\link{read.nexml}}), or 
+#'    a list of data.frame's (e.g., as output from \code{\link{get_characters_list}})
+#' @export
 #' @examples \dontrun{
 #' # library(RNeXML)
 #' f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 #' nex <- read.nexml(f)
-#' RNeXML:::get_characters(nex)
+#' get_characters(nex)
 #' 
 #' # with different row.names
 #' char_list <- get_characters_list(nex)
 #' row.names(char_list[[1]])[1:3] <- c("taxon_18","taxon_20","taxon_30")
-#' RNeXML:::get_characters(char_list
+#' get_characters(char_list)
 #' } 
-get_characters <- function(input){
+get_characters <- function(input, suffixes=FALSE){
   if(inherits(input, "nexml")){
     list_chars <- get_characters_list(input)
   } else { list_chars <- input }
-  mrecurse <- function(dfs, ...){
-    merge(dfs, ..., by='row.names',  all = TRUE, sort = FALSE)
+  if(inherits(input, "data.frame")){
+    return( input )
+  } else {
+    if(suffixes){
+      out <- list_chars
+      for(i in seq_along(list_chars)){
+        colnames(out[[i]]) <- paste(names(out)[i], "_", 
+                                           colnames(out[[i]]), sep="")
+        out[[i]] <- out[[i]]
+      }
+      names(out) <- names(list_chars)
+      list_chars <- out
+    }
+    mrecurse <- function(dfs, ...){
+      tt <- merge(dfs, ..., by='row.names',  all = TRUE, sort = FALSE)
+      row.names(tt) <- tt[,"Row.names"]
+      tt[,!names(tt) %in% "Row.names"]
+    }
+    return( Reduce(mrecurse, list_chars) )
   }
-  tmp <- Reduce(mrecurse, list_chars)
-  row.names(tmp) <- tmp[,1]
-  tmp[,-1]
 }
 
 # for lists only 
-identical_rownames <- function(x) all(sapply(lapply(x, rownames), identical, rownames(x[[1]])))
+# identical_rownames <- function(x) all(sapply(lapply(x, rownames), identical, rownames(x[[1]])))
 
 
 
