@@ -151,3 +151,40 @@ extract_character_matrix <- function(matrix){
 
 
 
+#################### Write character matices into S4 #####################
+
+
+
+add_character_data <- function(nexml, x, ...){
+
+  ## Check types  & row names ##
+  check_characters(x) 
+
+  ## See if an appropriate <otus> node already exists
+
+  ## Map otus to otu id numbers (existing or new) 
+
+  ## Map column-name characters to character id values
+
+  ## Generate the char nodes with the appropriate mapping 
+
+  ## Map state symbols to states
+
+  ## Generate the states nodes for each character
+
+  ## Generate the rows and cells
+
+
+}
+
+
+check_characters <- function(x){
+
+  if(is(x, "matrix")){ 
+    NULL
+  } else if(is(x, "data.frame")) {
+    NULL
+  } else {
+    stop("x must be a matrix or a data.frame with characters as column names and taxonomic units as species names")
+  } 
+}
