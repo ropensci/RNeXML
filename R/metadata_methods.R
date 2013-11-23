@@ -7,6 +7,14 @@
 setGeneric("get_metadata", function(object, level=c("nexml", "otus", "otu", "trees", "tree", "edge", "node")) standardGeneric("get_metadata"))
 
 #' Retrieve names of all species/otus otus (operational taxonomic units) included in the nexml 
+#' @aliases get_taxa_list get_otu_list
+#' @export get_taxa_list get_otu_list
+#' @seealso  \code{\link{get_item}}
+setGeneric("get_otus_list", function(object) standardGeneric("get_otus_list"))
+setGeneric("get_taxa_list", function(object) standardGeneric("get_taxa_list"))
+
+
+#' Retrieve names of all species/otus otus (operational taxonomic units) included in the nexml 
 #' @aliases get_taxa  get_otu
 #' @export get_taxa get_otu
 #' @seealso  \code{\link{get_item}}
@@ -76,13 +84,32 @@ get_item <- function(nexml,
 setMethod("get_tree", signature("nexml"), function(object) get_item(object, "tree"))
 setMethod("get_trees", signature("nexml"), function(object) get_item(object, "trees"))
 setMethod("get_flat_trees", signature("nexml"), function(object) get_item(object, "flat_trees"))
-setMethod("get_otu", signature("nexml"), function(object) get_item(object, "tree"))
+setMethod("get_otu", signature("nexml"), function(object) get_item(object, "otu"))
 
+
+
+## Collapses, no ids
 setMethod("get_taxa", 
           signature("nexml"), 
-          function(object) 
-           sapply(object@otus@otu, function(otu) otu@label)
-          )
+          function(object){
+            out <- lapply(object@otus, function(otus)
+              sapply(otus@otu, function(otu) otu@label))
+            unname(unlist(out, recursive = FALSE))
+          })
+
+
+## FIXME perhaps these shouldn't be nexml methods, just ordinary functions...
+setMethod("get_taxa_list", 
+          signature("nexml"), 
+          function(object){
+            out <- lapply(object@otus, function(otus){
+              out <- sapply(otus@otu, function(otu) otu@label)
+              names(out) <- name_by_id(otus@otu)
+              out
+              })
+            names(out) <- name_by_id(object@otus)
+            out
+          })
 
 #setMethod("summary", 
 #          signature("nexml"), 

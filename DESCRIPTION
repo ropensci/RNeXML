@@ -32,6 +32,7 @@ Collate:
     'isEmpty.R'
     'meta.R'
     'metadata_methods.R'
+    'nexml_id.R'
     'nexml_read.R'
     'nexml_validate.R'
     'nexml_write.R'
