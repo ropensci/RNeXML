@@ -29,8 +29,8 @@ get_characters_list <- function(nexml){
         dat[[i]] <- factor(dat[[i]])
     dat
   })
-  # name the character matrices by their ids  
-  id <- sapply(nexml@characters, function(characters) characters@id)
+  # name the character matrices by their labels if available, otherwise, by id.    
+  id <- sapply(nexml@characters, function(characters) if(length(characters@label)>0) characters@label else characters@id)
   names(out) <- id
   out
 } 
@@ -184,9 +184,18 @@ extract_character_matrix <- function(matrix){
 add_character_data <- function(nexml, x, ...){
 
   ## Check types  & row names ##
-  check_characters(x) 
+  x <- check_characters(x) 
+  ## divide matrix into discrete and continuous trait matrices, if necessary
+  ## then write each as separate <characters> nodes: 
+  ## x should now be a list of data.frames of common type
 
+  
+  ## Create the right number of characters nodes with ids.  
+  nexml <- initialize_characters(nexml, length(x))
+
+  for(i in 1:length(x)){
   ## See if an appropriate <otus> node already exists
+
 
   ## Map otus to otu id numbers (existing or new) 
 
@@ -195,21 +204,119 @@ add_character_data <- function(nexml, x, ...){
   ## Generate the char nodes with the appropriate mapping 
 
   ## Map state symbols to states
-
+  nexml <- symbols_to_state_ids(nexml, x, i) 
   ## Generate the states nodes for each character
-
+  nexml <- add_states(nexml, x, i)
   ## Generate the rows and cells
+  nexml <- add_rows(nexml, x, i)  
+  }
 
+  nexml
+}
+
+initialize_characters <- function(nexml, n){
+  cs_list <- lapply(1:n, function(i){
+         id <- nexml_id("cs")
+         new("characters", 
+             id = id,
+             about = paste0("#", id))
+      })
+  nexml@characters <- c(nexml@characters, cs_list)
+  nexml
+}
+
+
+
+# Turns char names into char nodes 
+add_char <- function(nexml, x, i = 1){
+  char_labels <- colnames(x[[i]])
+  char_list <- 
+    lapply(char_labels, function(lab){
+      id <- nexml_id("cr")
+      char <- new("char", 
+                  id = id, 
+                  about = paste0("#", char@id),
+                  label = lab) 
+      })
+  nexml@characters[[i]]@format@char <- char_list
+  nexml 
+}
+
+
+
+add_states <- function(nexml, x, i = 1){
+    nchars <- length(x[[i]])
+    for(j in 1:nchars){
+      lab <- char@label
+      lvls <- levels(x[[i]][lab])
+      id <- nexml_id("ss")
+      states <- 
+      new("states", 
+          id = id,
+          about = paste0("#", id),
+          state = 
+          lapply(lvls, function(lvl){
+            new("state", 
+                id=nexml_id("s"),
+                symbol = lvl)
+          })
+        )
+        nexml@characters[[i]]@format@char[[j]]@states <- states
+    }      
+  nexml
+}
+
+
+## Assumes that otu ids have already been added to the nexml 
+add_rows <- function(nexml, x, i = 1){
+
+  X <- x[[i]]
+  taxa <- rownames(X)
+  char_labels <- colnames(X)
+  ## From i, figure out the id number 
+  cs <- nexml@characters[[i]]@id
+
+  otu_map <- get_otu_maps(nexml)[[cs]]
+
+  state_map <- 
+  char_map <-   
+
+  mat <- 
+    new("obsmatrix", 
+        row = lapply(taxa, 
+      function(taxon){
+        id = nexml_id("rw")
+        new("row",
+            id = id,
+            about = paste0("#", id),
+            label = taxon,
+            otu = otu_map[taxon],
+            cell = 
+             lapply(char_labels, function(char){
+                    state <- X[taxon,char] # unmapped 
+                    new("cell",
+                        char = char_map[char],
+                        state = state_map[state])
+                       })
+           )
+        })
+    )
+  nexml@characters[[i]]@matrix <- mat
 
 }
 
 
 check_characters <- function(x){
 
-  if(is(x, "matrix")){ 
-    NULL
-  } else if(is(x, "data.frame")) {
-    NULL
+  if(is(x, "matrix")){
+    x <- as.data.frame(x)
+  } if(is(x, "data.frame")) {
+    rownames(x) 
+    colnames(x)
+
+  } if(is(x, "list")) {
+    if(is(x[[1]], "matrix"))
+    if(is(x[[1]], "data.frame"))
   } else {
     stop("x must be a matrix or a data.frame with characters as column names and taxonomic units as species names")
   } 
