@@ -39,19 +39,21 @@ name_by_id <- function(x)
 name_by_id_or_label <- function(x)
   unname(sapply(x, function(i) if(length(i@label)>0) i@label else i@id))
 
-# get_characters <- function(nexml){
-#   list_chars <- get_characters_list(nexml)
-#   if(identical_rownames(list_chars))
-#     out <- do.call(cbind, list_chars) ## This could probably be more intelligent
-#   else { 
-#     out <- ldply(list_chars)  ## This could definitely be more intelligent
-#     n <- sapply(list_chars, rownames)
-#     for(i in 1:length(colnames(n)))
-#       out[[1]][out[[1]] == colnames(n)[i]] <- n[,i]
-#     out  ## FIXME figure out how to collapse replicate taxa
-#   }
-#   out
-# }
+
+#' @export
+get_characters <- function(nexml){
+   list_chars <- get_characters_list(nexml)
+   if(identical_rownames(list_chars))
+     out <- do.call(cbind, list_chars) ## This could probably be more intelligent
+   else { 
+     out <- ldply(list_chars)  ## This could definitely be more intelligent
+     n <- sapply(list_chars, rownames)
+     for(i in 1:length(colnames(n)))
+       out[[1]][out[[1]] == colnames(n)[i]] <- n[,i]
+     out  ## FIXME figure out how to collapse replicate taxa
+   }
+   out
+}
 
 
 #' Get character data.frame, accepts either nexml object, or a list of data.frames
@@ -67,18 +69,18 @@ name_by_id_or_label <- function(x)
 #' row.names(char_list[[1]])[1:3] <- c("taxon_18","taxon_20","taxon_30")
 #' RNeXML:::get_characters(char_list
 #' } 
-get_characters <- function(input){
-  if(inherits(input, "nexml")){
-    list_chars <- get_characters_list(input)
-  } else { list_chars <- input }
-  mrecurse <- function(dfs, ...){
-    merge(dfs, ..., by='row.names',  all = TRUE, sort = FALSE)
-  }
-  tmp <- Reduce(mrecurse, list_chars)
-  row.names(tmp) <- tmp[,1]
-  tmp[,-1]
-}
-
+#get_characters <- function(input){
+#  if(inherits(input, "nexml")){
+#    list_chars <- get_characters_list(input)
+#  } else { list_chars <- input }
+#  mrecurse <- function(dfs, ...){
+#    merge(dfs, ..., by='row.names',  all = TRUE, sort = FALSE)
+#  }
+#  tmp <- Reduce(mrecurse, list_chars)
+#  row.names(tmp) <- tmp[,1]
+#  tmp[,-1]
+#}
+#
 # for lists only 
 identical_rownames <- function(x) all(sapply(lapply(x, rownames), identical, rownames(x[[1]])))
 
@@ -122,8 +124,8 @@ get_char_maps <- function(nexml){
 get_state_maps <- function(nexml){
   map <- lapply(nexml@characters, function(characters){
     if(!isEmpty(characters@format@states))
-     map_state_to_symbol(characters@format)
-   else
+      map_state_to_symbol(characters@format)
+    else
      NULL
   })    
   names(map) <- name_by_id(nexml@characters)

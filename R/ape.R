@@ -228,9 +228,8 @@ setAs("multiPhylo", "nexml", function(from)
 #' @details largely for internal use   
 #' @export 
 get_otu_maps <- function(nexml){
-  otus <- nexml@otus
-  ids <- sapply(otus, function(otus) otus@id)
-  names(otus) <- ids
+  otus <- as.list(nexml@otus)
+  names(otus) <- name_by_id(otus)
   otu_maps <- 
     lapply(otus, function(otus){ # loop over all otus nodes  
     # getTaxonNames(otus) ## Equivalent to the below...

@@ -1,34 +1,67 @@
+context("character matrices")
 
 
-require(XML)
-require(RNeXML)
-
-
-## Add unit tests to make sure anything that doesn't have to have attributes doesn't break parsing.  
-
+require(RNeXML) # make sure the package is loaded first...
+## All tests will use this data file
 f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
-doc <- xmlParse(f)
-root <- xmlRoot(doc)
 
-char <- as(root[["characters"]][["format"]][["char"]], "char")
-as(char, "XMLInternalElementNode")
+test_that("we can parse XML to S4 and serialize S4 to XML for the basic character classes", {
+
+  require(XML)
+  doc <- xmlParse(f)
+  root <- xmlRoot(doc)
+
+  char <- as(root[["characters"]][["format"]][["char"]], "char")
+  out <- as(char, "XMLInternalElementNode")
+  expect_is(char, "char") # not as dumb as it looks, at least we're checking our own method here 
+  expect_is(out, "XMLInternalElementNode") # dumb check, but provides a dot to show the code above executed successfully 
+
+  format <- as(root[["characters"]][["format"]], "format")
+  out <- as(format, "XMLInternalElementNode")
+  expect_is(format, "format") 
+  expect_is(out, "XMLInternalElementNode") 
+
+  matrix <- as(root[["characters"]][["matrix"]], "obsmatrix")
+  out <- as(matrix, "XMLInternalElementNode")
+  expect_is(matrix, "matrix") 
+  expect_is(out, "XMLInternalElementNode") 
+
+  characters <- as(root[["characters"]], "characters")
+  out <- as(characters, "XMLInternalElementNode")
+  expect_is(characters, "characters") 
+  expect_is(out, "XMLInternalElementNode") 
+
+})
+
+test_that("we can actually parse NeXML files containing character data", {
+  nex <- read.nexml(f)
+  expect_is(nex, "nexml")
+})
 
 
-format <- as(root[["characters"]][["format"]], "format")
-as(format, "XMLInternalElementNode")
+## Now that we tested this, store the result so we can use it in later tests 
+nex <- read.nexml(f)
 
-matrix <- as(root[["characters"]][["matrix"]], "obsmatrix")
-as(matrix, "XMLInternalElementNode")
+test_that("we can extract character matrix with get_characters", {
+  x <- get_characters(nex)
+  expect_is(x, "data.frame")
+## FIXME add additional and more precise expect_ checks 
+})
 
 
 
-characters <- as(root[["characters"]], "characters")
-as(characters, "XMLInternalElementNode")
+
+test_that("we can extract a list of character matrices with get_characters_list", {
+  x <- get_characters_list(nex)
+  expect_is(x, "list")
+  expect_is(x[[1]], "data.frame")
+## FIXME add additional and more precise expect_ checks 
+
+})
 
 
 ## 
-test_that("add_otu works", {
-  nex <- read.nexml(f)
+test_that("add_otu can append only unmatched taxa to an existing otus block", {
   orig <- get_taxa(nex)
   x <- get_characters_list(nex)
   nex@otus[[1]]@otu <- new("ListOfotu", nex@otus[[1]]@otu[1:5]) # chop off some of the otu values 
@@ -40,5 +73,37 @@ test_that("add_otu works", {
 ## Note that otu ids are not unique when we chop them off ...
 })
 
-get_characters(nexml)
+
+
+test_that("we can add characters to a nexml file", {
+  x <- get_characters_list(nex)
+  nexml <- add_character_data(x, new("nexml"))
+
+  ##  Can we write it out and read it back? 
+  nexml_write(nexml, "chartest.xml")
+  tmp <- nexml_read("chartest.xml")
+  
+  ## do we recover the original characters?
+  expect_identical(get_characters(tmp), get_characters(nex))  ## Need not actually be identical -- could be different row order, etc...
+
+  unlink("chartest.xml")
+})
+
+
+
+test_that("we can add characters to a nexml file using a data.frame", {
+  x <- get_characters(nex)
+  nexml <- add_character_data(x, new("nexml"))
+
+  ##  Can we write it out and read it back? 
+  nexml_write(nexml, "chartest.xml")
+  tmp <- nexml_read("chartest.xml")
+  
+  ## do we recover the original characters?
+  expect_identical(get_characters(tmp), get_characters(nex))  ## Need not actually be identical -- could be different row order, etc...
+
+  unlink("chartest.xml")
+})
+
+
 

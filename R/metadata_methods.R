@@ -1,14 +1,9 @@
-#' retrieve all available metadata 
-#' @param object a representation of the nexml object from  which the data is to be retrieved
-#' @param level the level in the nexml for which the metadata is desired
-#' @return a named character vector containing all available metadata.  names indicate `property` (or `rel` in the case of links/resourceMeta), while values indicate the `content` (or `href` for links).  
-#' @export
-#' @seealso  \code{\link{get_item}}
+
 setGeneric("get_metadata", function(object, level=c("nexml", "otus", "otu", "trees", "tree", "edge", "node")) standardGeneric("get_metadata"))
 
 #' Retrieve names of all species/otus otus (operational taxonomic units) included in the nexml 
-#' @aliases get_taxa_list get_otu_list
-#' @export get_taxa_list get_otu_list
+#' @aliases get_taxa_list get_otus_list
+#' @export get_taxa_list get_otus_list
 #' @seealso  \code{\link{get_item}}
 setGeneric("get_otus_list", function(object) standardGeneric("get_otus_list"))
 setGeneric("get_taxa_list", function(object) standardGeneric("get_taxa_list"))
@@ -64,6 +59,7 @@ setGeneric("get_trees", function(object) standardGeneric("get_trees"))
 #' @return return type depends on the element requested.  See details.  
 #' @export
 #' @seealso \code{\link{get_tree}}
+#' @include classes.R
 get_item <- function(nexml, 
                      element = c("tree", "trees", "flat_trees", "metadata", "otu"), 
                      level = c("nexml", "otus", "otu", "trees", "tree")){
@@ -133,7 +129,7 @@ setxpath <- function(object){
 
 ## FIXME might want to define this for sub-nodes.  e.g. so we can get all metadata on "nodes" in tree2...
 ## Goodness, but XPATH is so much more expressive for this purpose...
-#' get all top-level metadata  More extensible than hardwired functions
+##  get all top-level metadata  More extensible than hardwired functions
 setMethod("get_metadata", signature("nexml"), function(object, level){
 
             level <- match.arg(level) 
