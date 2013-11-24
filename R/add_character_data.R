@@ -38,7 +38,7 @@ add_characters <- function(nexml, x){
          characters <- new("characters", 
              id = uid,
              about = paste0("#", uid))
-         if(class(x[[i]][[1]] == "numeric")
+         if(class(x[[i]][[1]]) == "numeric")
            type <- "nex:ContinuousCells"
          else
            type <- "nex:StandardCells"
