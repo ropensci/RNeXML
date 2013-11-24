@@ -158,6 +158,11 @@ add_rows <- function(nexml, x, i = 1){
   names(reverse_otu_map) <- otu_map
   reverse_char_map <- names(char_map) # name is label, value is the id
   names(reverse_char_map) <- char_map
+  reverse_state_map <- lapply(state_map, function(x){
+                              out <- names(x)
+                              names(out) <- x
+                              out
+    }) 
 
   mat <- 
     new("obsmatrix", 
@@ -175,7 +180,7 @@ add_rows <- function(nexml, x, i = 1){
                     state <- X[taxon,char] # unmapped
                     char_id <- reverse_char_map[[char]]
                     if(!is.null(state_map))
-                      state <- state_map[[char_id]][state]
+                      state <- reverse_state_map[[char_id]][state]
                     new("cell",
                         char = char_id,
                         state = as.character(state))
@@ -194,9 +199,9 @@ split_by_class <- function(x){
       x <- list(x)
     else {
       ## split into numerics and non-numerics 
-      cts <- which(col.classes=="numeric")
-      discrete <- which(col.classes!="numeric")
-      x <- list(x[cts], c[discrete])
+      cts <- unname(which(col.classes=="numeric"))
+      discrete <- unname(which(col.classes!="numeric"))
+      x <- list(x[cts], x[discrete])
     }
 
   x

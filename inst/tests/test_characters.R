@@ -82,9 +82,10 @@ test_that("we can add characters to a nexml file", {
   ##  Can we write it out and read it back? 
   nexml_write(nexml, "chartest.xml")
   tmp <- nexml_read("chartest.xml")
-  
+  tmp_x <- get_characters_list(tmp)
+ 
   ## do we recover the original characters?
-  expect_identical(get_characters(tmp), get_characters(nex))  ## Need not actually be identical -- could be different row order, etc...
+  expect_equivalent(tmp_x, x)  ## 
 
   unlink("chartest.xml")
 })
@@ -98,9 +99,11 @@ test_that("we can add characters to a nexml file using a data.frame", {
   ##  Can we write it out and read it back? 
   nexml_write(nexml, "chartest.xml")
   tmp <- nexml_read("chartest.xml")
-  
+  tmp_x <- get_characters(tmp)
+
   ## do we recover the original characters?
-  expect_identical(get_characters(tmp), get_characters(nex))  ## Need not actually be identical -- could be different row order, etc...
+# Sort by rowname first? 
+ expect_equivalent(tmp_x, x)  ## 
 
   unlink("chartest.xml")
 })
