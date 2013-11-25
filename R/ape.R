@@ -1,6 +1,5 @@
 ## These are really more like specific functions rather than generic methods .... 
 setGeneric("toPhylo", function(tree, otus) standardGeneric("toPhylo"))
-setGeneric("getTaxonNames", function(otus, ids) standardGeneric("getTaxonNames"))
 
 #' @import plyr
 #' @import ape 
@@ -9,77 +8,24 @@ setGeneric("getTaxonNames", function(otus, ids) standardGeneric("getTaxonNames")
 
 
 
-# 
-setAs("nexml", "multiPhyloList", function(from){
-   map <- get_otu_maps(from) 
-   unname(lapply(from@trees, 
-           function(X){
-             out <- unname(lapply(X@tree,  toPhylo, map[[X@otus]]))
-             class(out) <- "multiPhylo"
-             out
-           }))
-})
 
+####################################
 
-# Always collapses all trees nodes into a multiphylo
-setAs("nexml", "multiPhylo", function(from){
-   map <- get_otu_maps(from) 
-   out <- unname(lapply(from@trees, 
-           function(X){
-             out <- unname(lapply(X@tree,  toPhylo, map[[X@otus]]))
-             class(out) <- "multiPhylo"
-             out
-           }))
-  flatten_multiphylo(out)
-})
+add_tree <- function(nexml, phy){
 
-
-#' Flatten a multiphylo object
-#' 
-#' @details NeXML has the concept of multiple <trees> nodes, each with multiple child <tree> nodes.
-#' This maps naturally to a list of multiphylo  objects.  Sometimes
-#' this heirarchy conveys important structural information, so it is not discarded by default. 
-#' Occassionally it is useful to flatten the structure though, hence this function.  Note that this
-#' discards the original structure, and the nexml file must be parsed again to recover it.  
-#' @param object a list of multiphylo objects 
-#' @export
-flatten_multiphylo <- function(object){
-  out <- unlist(object, FALSE, FALSE)
-  class(out) <- "multiPhylo"
-  out
-}
-
-
-setAs("nexml", "phylo", function(from){ 
-    if(length(from@trees[[1]]@tree) == 1){
-      maps <- get_otu_maps(from)
-      otus_id <- from@trees[[1]]@otus
-      out <- toPhylo(from@trees[[1]]@tree[[1]], maps[[otus_id]])
-    } else { 
-      warning("Multiple trees found, Returning multiPhylo object")
-      out <- as(from, "multiPhylo") 
-    }
-    if(length(out) == 1)
-     out <- flatten_multiphylo(out)
-   out 
-  })
-
-
-
-
-
-
-setAs("phylo", "tree", function(from){
-  phy <- from
+  otu_map <- get_otu_map(nexml)
+  reverse_otu_map <- names(otu_map)
+  
   ## Generate the "ListOfedge" made of "edge" objects
-
   edges <- 
     lapply(1:dim(phy$edge)[1], 
            function(i){
+            id <- nexml_id("e")
             e <- new("edge", 
                 source = paste("n",phy$edge[i,1], sep=""), 
                 target = paste("n",phy$edge[i,2], sep=""), 
-                id = paste("e", i, sep=""))
+                id = id,
+                about = paste0("#", id))
            if(!is.null(phy$edge.length))
              e@length <- as.numeric(phy$edge.length[i])
            e
@@ -87,28 +33,40 @@ setAs("phylo", "tree", function(from){
   )
   edges <- new("ListOfedge", edges)
   ## Generate the ListOfnode made of "node" objects
+  ## In doing so, generate otu_id numbers for tip nodes
   nodes <- lapply(unique(as.numeric(phy$edge)), function(i){
+    id <- nexml_id("n")
     if(is.na(phy$tip.label[i]))
-      new("node", id = paste("n", i, sep=""))
-    else if(is.character(phy$tip.label[i]))
-      new("node", id = paste("n", i, sep=""), otu = paste0("t", i))  #phy$tip.label[i])  ## OTUs get abstract names
+      new("node", id = id, about = paste0("#", id))
+
+    else if(is.character(phy$tip.label[i])){
+      otu_id <- nexml_id("t")
+      new("node", id = id, 
+          about = paste0("#", id), 
+          otu = otu_id)  #phy$tip.label[i])  ## OTUs get abstract names
+    }
   })
+  ## FIXME how about naming non-tip labels?  
   nodes <- new("ListOfnode", nodes)
 
+ 
+
   ## Create the "tree" S4 object
-  new("tree", 
+  id <- nexml_id("tree") 
+  tree <- new("tree", 
       node = nodes, 
       edge = edges,
       'xsi:type' = 'nex:FloatTree',
-      id = "tree1")  # Okay if we update ids later to avoid clashes?  
-  ##  UUIDs create errors: is not a valid value of the atomic type 'xs:ID'
+      id = id,
+      about = paste0("#", id))  
 })
 
+
+##############################################################
 
 setMethod("toPhylo",
           signature("tree", "character"),
           function(tree, otus){
-
 ## Consider for loops instead here
         missing_as_na <- function(x){
           if(length(x) == 0)
@@ -118,18 +76,24 @@ setMethod("toPhylo",
         }
 
         nodes <- sapply(unname(tree@node), function(x) c(node = unname(x@id), otu = missing_as_na(x@otu)))
-
         
         # If any edges have lengths
         if(any(sapply(tree@edge, function(x) length(x@length) > 0)))
-          edges <- sapply(unname(tree@edge), function(x) c(source = unname(x@source), 
-                                                          target = unname(x@target), 
-                                                          length = if(identical(x@length, numeric(0))) NA else unname(x@length), 
-                                                          id = unname(x@id)))
+          edges <- sapply(unname(tree@edge), 
+                          function(x) 
+                            c(source = unname(x@source), 
+                              target = unname(x@target), 
+                              length = if(identical(x@length, numeric(0)))
+                                        NA 
+                                       else 
+                                         unname(x@length), 
+                              id = unname(x@id)))
         else # no edge lengths 
-          edges <- sapply(unname(tree@edge), function(x) c(source = unname(x@source), 
-                                                          target = unname(x@target), 
-                                                          id = unname(x@id)))
+          edges <- sapply(unname(tree@edge), 
+                          function(x) 
+                            c(source = unname(x@source), 
+                              target = unname(x@target), 
+                              id = unname(x@id)))
 
         nodes <- data.frame(t(nodes), stringsAsFactors=FALSE)
         names(nodes) <- c("node", "otu")
@@ -168,31 +132,19 @@ setMethod("toPhylo",
 
 
 
-setMethod("getTaxonNames",
-          signature("otus", "character"),
-          function(otus, ids){
-            taxon <- sapply(otus@otu, 
-                            function(x){
-                              if(length(otu@label) > 0) 
-                                label <- otu@label
-                              else
-                                label <- otu@id
-                              c(otu@id, label)
-                            })
-            out <- taxon[2, ] 
-            names(out) <- taxon[1, ]
-            out[ids]
-          })
-
 
 ##################### phylo -> nexml #################################3
 
 
 setAs("phylo", "nexml", function(from){
-  trees = new("trees", tree=new("ListOftree", list( as(from, "tree") )))
+  treesid <- nexml_id("trees")
+  trees = new("trees",
+              id = treesid,
+              about = paste0("#", id),
+              tree = new("ListOftree", list( as(from, "tree") )))
   otus = as(from, "otus")
-  otus@id = "tax1" #UUIDgenerate()
-  trees@id = "Trees" #UUIDgenerate()
+  otus@id = nexml_id("tax")
+  otus@about = paste0("#", otus@id)
   trees@otus = otus@id
   new("nexml", 
       trees = new("ListOftrees", list(trees)),
@@ -217,35 +169,6 @@ setAs("multiPhylo", "trees", function(from)
 
 setAs("multiPhylo", "nexml", function(from)
       as(as(from, "trees"), "nexml"))
-
-
-
-#' get otus map
-#'
-#' get a list showing the mapping between (internal) otu identifiers and labels (taxonomic names). List is named by the id of the otus block. If no labels are found, just return the ids in place of labels.   
-#' @param nexml nexml object 
-#' @return a list showing the mapping between (internal) otu identifiers and labels (taxonomic names). List is named by the id of the otus block. 
-#' @details largely for internal use   
-#' @export 
-get_otu_maps <- function(nexml){
-  otus <- as.list(nexml@otus)
-  names(otus) <- name_by_id(otus)
-  otu_maps <- 
-    lapply(otus, function(otus){ # loop over all otus nodes  
-    # getTaxonNames(otus) ## Equivalent to the below...
-    taxon <- sapply(otus@otu, function(otu){ # loop over each otu in the otus set
-      if(length(otu@label) > 0) 
-        label <- otu@label
-      else
-        label <- otu@id
-      c(otu@id, label)
-    })
-    out <- taxon[2, ] #label 
-    names(out) <- taxon[1, ] #id 
-    out
-  })
-  otu_maps
-}
 
 
 

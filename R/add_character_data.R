@@ -142,27 +142,25 @@ add_states <- function(nexml, x, i = 1){
 }      
 
 
+
 ## Assumes that otu ids have already been added to the nexml 
 add_rows <- function(nexml, x, i = 1){
 
   X <- x[[i]]
   taxa <- rownames(X)
   char_labels <- colnames(X)
+
+  ## get the relevant characters block and otus block
   cs <- nexml@characters[[i]]@id   
   os <- nexml@characters[[i]]@otus 
+
   otu_map <- get_otu_maps(nexml)[[os]]
   char_map <- get_char_maps(nexml)[[cs]] 
   state_map <- get_state_maps(nexml)[[cs]]
 
-  reverse_otu_map <- names(otu_map) 
-  names(reverse_otu_map) <- otu_map
-  reverse_char_map <- names(char_map) # name is label, value is the id
-  names(reverse_char_map) <- char_map
-  reverse_state_map <- lapply(state_map, function(x){
-                              out <- names(x)
-                              names(out) <- x
-                              out
-    }) 
+  reverse_otu_map <- reverse_map(otu_map) 
+  reverse_char_map <- reverse_map(char_map) 
+  reverse_state_map <- reverse_map(state_map) 
 
   mat <- 
     new("obsmatrix", 
@@ -192,26 +190,13 @@ add_rows <- function(nexml, x, i = 1){
   nexml
 }
 
-# divide a data.frame into a list of data.frames, in which each has only a unique column class
-split_by_class <- function(x){
-    col.classes <- sapply(x, class)
-    if(all(sapply(col.classes, identical, col.classes[1])))
-      x <- list(x)
-    else {
-      ## split into numerics and non-numerics 
-      cts <- unname(which(col.classes=="numeric"))
-      discrete <- unname(which(col.classes!="numeric"))
-      x <- list(x[cts], x[discrete])
-    }
 
-  x
-}
+
 
 ## divide matrix into discrete and continuous trait matrices, if necessary
 ## then write each as separate <characters> nodes: 
 ## x should now be a list of data.frames of common type
 format_characters <- function(x){
-
   ## Actually useful conversions ##
   ## Matrices are either all-numeric or all-character class, so no risk of mixed discrete and continous states.  
   if(is(x, "matrix")){
@@ -245,6 +230,22 @@ format_characters <- function(x){
   ## Kinda hard to check that for sure?  
 
   ## return the updated object: a list of data.frames
+  x
+}
+
+## Helper function for the above, contains the primary functionality
+# divide a data.frame into a list of data.frames, in which each has only a unique column class
+split_by_class <- function(x){
+    col.classes <- sapply(x, class)
+    if(all(sapply(col.classes, identical, col.classes[1])))
+      x <- list(x)
+    else {
+      ## split into numerics and non-numerics 
+      cts <- unname(which(col.classes=="numeric"))
+      discrete <- unname(which(col.classes!="numeric"))
+      x <- list(x[cts], x[discrete])
+    }
+
   x
 }
 
