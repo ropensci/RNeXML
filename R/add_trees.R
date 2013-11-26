@@ -8,7 +8,8 @@ setAs("phylo", "nexml", function(from){
 
 
 #' @export 
-add_trees <- function(phy, nexml=new("nexml")){
+add_trees <- function(phy, nexml=new("nexml"), 
+                      append_to_existing_otus=FALSE){
   nexml <- as(nexml, "nexml")
 
   ## handle multiphlyo cases
@@ -24,7 +25,7 @@ add_trees <- function(phy, nexml=new("nexml")){
     new_taxa <- phy$tip.label
 
 
-  nexml <- add_otu(nexml, new_taxa)
+  nexml <- add_otu(nexml, new_taxa, append=append_to_existing_otus)
   otus_id <- nexml@otus[[length(nexml@otus)]]@id
   nexml <- add_trees_block(nexml, phy, otus_id)
   nexml
