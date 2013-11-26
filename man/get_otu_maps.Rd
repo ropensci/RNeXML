@@ -13,10 +13,7 @@ get_otu_maps(nexml)
   by the id of the otus block.
 }
 \description{
-  get a list showing the mapping between (internal) otu
-  identifiers and labels (taxonomic names). List is named
-  by the id of the otus block. If no labels are found, just
-  return the ids in place of labels.
+  get otus map
 }
 \details{
   largely for internal use

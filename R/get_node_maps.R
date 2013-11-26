@@ -43,6 +43,7 @@ get_state_maps <- function(nexml){
 
 
 reverse_map <- function(map){
+  out <- NULL
   if(is.list(map)){
     out <- lapply(map, 
                   function(x){

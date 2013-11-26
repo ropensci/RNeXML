@@ -1,4 +1,4 @@
-
+#' @export 
 setGeneric("get_metadata", function(object, level=c("nexml", "otus", "otu", "trees", "tree", "edge", "node")) standardGeneric("get_metadata"))
 
 #' Retrieve names of all species/otus otus (operational taxonomic units) included in the nexml 
@@ -50,7 +50,7 @@ setGeneric("get_trees", function(object) standardGeneric("get_trees"))
 #'  \item{"tree"}{ an ape::phylo tree, if only one tree is represented.  Otherwise returns a list of lists of multiphylo trees.  To consistently recieve the list of lists format (preserving the heriarchical nature of the nexml), use \code{trees} instead.}
 #'  \item{"trees"}{ returns a list of lists of multiphylo trees, even if all trees are in the same `trees` node (and hence the outer list will be of length 1) or if there is only a single tree (and hence the inner list will also be of length 1.  This guarentees a consistent return type regardless of the number of trees present in the nexml file, and also preserves any heirarchy/grouping of trees.  }
 #'  \item{"flat_trees"}{ a multiPhylo object (list of ape::phylo objects) Note that this method collapses any heirachical structure that may have been present as multiple `trees` nodes in the original nexml (though such a feature is rarely used).  To preserve that structure, use `trees` instead.}
-#'  \item{"metadata"}{ }
+#'  \item{"metadata"}{Get metadata from the specified level (default is top/nexml level) }
 #'  \item{"otu"}{ returns a named character vector containing all available metadata.  names indicate \code{property} (or \code{rel} in the case of links/resourceMeta), while values indicate the \code{content} (or \code{href} for links). }
 #' }
 #' For a slightly cleaner interface, each of these elements is also defined as an S4 method
@@ -61,7 +61,7 @@ setGeneric("get_trees", function(object) standardGeneric("get_trees"))
 #' @seealso \code{\link{get_tree}}
 #' @include classes.R
 get_item <- function(nexml, 
-                     element = c("tree", "trees", "flat_trees", "metadata", "otu"), 
+                     element = c("tree", "trees", "flat_trees", "metadata", "otu", "characters", "characters_list"), 
                      level = c("nexml", "otus", "otu", "trees", "tree")){
   element <- match.arg(element)
   level <- match.arg(level)
@@ -71,7 +71,9 @@ get_item <- function(nexml,
          trees = as(nexml, "multiPhyloList"),
          flat_trees = flatten_multiphylo(as(nexml, "multiPhyloList")),
          metadata = get_metadata(nexml, level),
-         otu = get_taxa(nexml))
+         otu = get_taxa(nexml),
+         characters = get_characters(nexml),
+         characters_list = get_characters_list(nexml))
 }
 
 

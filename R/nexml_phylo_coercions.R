@@ -1,4 +1,6 @@
-# 
+#### from nexml
+
+
 setAs("nexml", "multiPhyloList", function(from){
    map <- get_otu_maps(from) 
    unname(lapply(from@trees, 
@@ -52,5 +54,6 @@ setAs("nexml", "phylo", function(from){
      out <- flatten_multiphylo(out)
    out 
   })
+
 
 

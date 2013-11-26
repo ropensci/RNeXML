@@ -23,7 +23,7 @@ test_that("we can parse XML to S4 and serialize S4 to XML for the basic characte
 
   matrix <- as(root[["characters"]][["matrix"]], "obsmatrix")
   out <- as(matrix, "XMLInternalElementNode")
-  expect_is(matrix, "matrix") 
+  expect_is(matrix, "obsmatrix") 
   expect_is(out, "XMLInternalElementNode") 
 
   characters <- as(root[["characters"]], "characters")
@@ -64,8 +64,10 @@ test_that("we can extract a list of character matrices with get_characters_list"
 test_that("add_otu can append only unmatched taxa to an existing otus block", {
   orig <- get_taxa(nex)
   x <- get_characters_list(nex)
-  nex@otus[[1]]@otu <- new("ListOfotu", nex@otus[[1]]@otu[1:5]) # chop off some of the otu values 
-  nex2 <- add_otu(nex, x, 1) # add them back 
+  nex@otus[[1]]@otu <- new("ListOfotu", nex@otus[[1]]@otu[1:5]) # chop off some of the otu values
+
+  new_taxa <- rownames(x[[1]]) 
+  nex2 <- RNeXML:::add_otu(nex, new_taxa, append=TRUE) # add them back 
 ## should have same contents as orig... 
   get_taxa(nex2)
   expect_identical(sort(orig), sort(get_taxa(nex2)))

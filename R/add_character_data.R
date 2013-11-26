@@ -5,10 +5,14 @@
 #'
 #' @param x character data, in which character traits labels are column names
 #'        and taxon labels are row names.  x can be in matrix or data.frame
-#'        format.  
+#'        format. 
+#' @param nexml a nexml object, if appending character table to an existing
+#'        nexml object.  If ommitted will initiate a new nexml object.  
 #' @include classes.R
 #' @export 
-add_character_data <- function(x, nexml = new("nexml"), ...){
+add_character_data <- function(x, 
+                               nexml = new("nexml"), 
+                               append_to_existing_otus=FALSE){
 
   # FIXME does it make sense to take a phylo object here as an option?  
   # If so, perhaps don't call the argument 'nexml'.  
@@ -20,7 +24,13 @@ add_character_data <- function(x, nexml = new("nexml"), ...){
 
   nexml <- add_characters(nexml, x)
   for(i in 1:length(x)){
-    nexml <- add_otu(nexml, x, i)
+
+    new_taxa <- rownames(x[[i]]) 
+    nexml <- add_otu(nexml, new_taxa, append=append_to_existing_otus)
+    ## Add the otus id to the characters node
+    otus_id <- nexml@otus[[length(nexml@otus)]]@id
+    nexml@characters[[i]]@otus <- get_by_id(nexml@otus, otus_id)@id
+
     nexml <- add_char(nexml, x, i)
     nexml <- add_states(nexml, x, i)
   }
@@ -61,35 +71,51 @@ otu_list <- function(to_add, prefix="ou"){
 
 
 #' @include metadata_methods.R
-add_otu <- function(nexml, x, i){
+add_otu <- function(nexml, new_taxa, append=FALSE){
 
-  new_taxa <- rownames(x[[i]]) 
   current_taxa <- get_taxa_list(nexml)
 
   if(length(current_taxa) == 0) { # No otus exist, create a new node 
-    id <- nexml_id("os")
-    nexml@otus <- new("ListOfotus", 
-                      list(new("otus",
-                               id = id,
-                               about = paste0("#", id),
-                               otu = new("ListOfotu", 
-                                         otu_list(new_taxa))
-                               )))
+    otus <- new_otus_block(nexml, new_taxa)    
+    nexml@otus <- new("ListOfotus", c(nexml@otus, otus))
 
   } else {
 
-  otu_pos <- lapply(current_taxa, function(current) match(new_taxa, current))
+    otu_pos <- lapply(current_taxa, 
+                      function(current) 
+                        match(new_taxa, current))
 
     if(any(is.na(unlist(otu_pos)))){ # We have missing taxa
-      to_add <- new_taxa[sapply(otu_pos, is.na)]  
-      nexml@otus[[1]]@otu <- new("ListOfotu", c(nexml@otus[[1]]@otu, otu_list(to_add, "ou_char"))) ## FIXME hack to make sure new ids are 'unique', 
+      if(append){
+        ## append to otus block `otus_id` ##
+        otus_id <- 1 # position that matches the id string
+        to_add <- new_taxa[sapply(otu_pos, is.na)]  
+        nexml@otus[[otus_id]]@otu <- new("ListOfotu", 
+                                   c(nexml@otus[[otus_id]]@otu, 
+                                     otu_list(to_add, "ou_char"))) ## FIXME hack to make sure new ids are 'unique', 
+      } else {
+        ## Alternatively, do not append ## 
+        otus <- new_otus_block(nexml, new_taxa)    
+        nexml@otus <- new("ListOfotus", c(nexml@otus, otus))
+      }
     } # else # all taxa matched, so we're all set
   }
-  ## Add the otus id to the characters node
-  nexml@characters[[i]]@otus <- nexml@otus[[1]]@id
 
   nexml
 }
+
+new_otus_block <- function(nexml, to_add){
+    id <- nexml_id("os")
+    new("ListOfotus", 
+        list(new("otus",
+                 id = id,
+                 about = paste0("#", id),
+                 otu = new("ListOfotu", 
+                           otu_list(to_add))
+                 )))
+}
+
+
 
 
 # Turns char names into char nodes 
