@@ -14,7 +14,7 @@ An extensive and rapidly growing collection of richly annotated phylogenetics da
 
 ```{r echo=FALSE}
 opts_knit$set(upload.fun = socialR::flickr.url)
-opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE)
+opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=TRUE)
 ```
 
 Getting Started
@@ -25,18 +25,20 @@ The development version of RNeXML is [available on Github](https://github.com/ro
 ```{r eval=FALSE}
 library(devtools)
 install_github("RNeXML", "ropensci")
+library(RNeXML)
 ```
 
-
+```{r echo=FALSE}
+library(RNeXML)
+```
 
 Read in a `nexml` file into the `ape::phylo` format:
 
 ```{r}
-library(RNeXML)
-f <- system.file("examples", "trees.xml", package="RNeXML")
+f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nexml <- nexml_read(f)
 tr <- get_tree(nexml) # or: as(nexml, "phylo")
-plot(tr[[1]])
+plot(tr)
 ```
 
 Write an `ape::phylo` tree into the `nexml` format:
