@@ -157,7 +157,7 @@ setAs("meta", "XMLInternalNode", function(from)  ## Really, do we need this?
 
 ###############################################
 
-setClass("ListOfmeta", contains = "list")
+setClass("ListOfmeta", representation(names="character"), contains = "list")
       
 
 ###############################################
@@ -415,7 +415,7 @@ setAs("XMLInternalElementNode", "otu",
 
 ################################ alternatively called Taxa by the schema
 
-setClass("ListOfotu", 
+setClass("ListOfotu", representation(names="character"),  
          contains = "list",
          validity = function(object)
                        if(!all(sapply(object, is, "otu")))
@@ -426,7 +426,7 @@ setClass("ListOfotu",
 ###############################
 
 setClass("otus", 
-         representation(otu = "ListOfotu"), 
+         representation(otu = "ListOfotu"), representation(names="character"), 
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("otus", "XMLInternalElementNode"),
@@ -456,7 +456,7 @@ setAs("XMLInternalElementNode", "otus",
 ################################
 
 
-setClass("ListOfedge", 
+setClass("ListOfedge", representation(names="character"), 
          contains = "list",
          validity = function(object)
                        if(!all(sapply(object, is, "edge")))
@@ -466,7 +466,7 @@ setClass("ListOfedge",
 
 
 
-setClass("ListOfnode", 
+setClass("ListOfnode", representation(names="character"), 
          contains = "list",
          validity = function(object)
                        if(!all(sapply(object, is, "node")))
@@ -513,7 +513,7 @@ setAs("XMLInternalElementNode", "tree",
 
 ################################################
 
-setClass("ListOftree", contains = "list") # validity can contain tree or network nodes?
+setClass("ListOftree", representation(names="character"), contains = "list") # validity can contain tree or network nodes?
 
 setClass("trees", 
          representation(tree = "ListOftree"), # Can contain networks...
@@ -546,9 +546,9 @@ setAs("XMLInternalElementNode", "trees",
 
 ####################################################
 
-setClass("ListOfotus", contains = "list")
-setClass("ListOftrees", contains = "list")
-setClass("ListOfcharacters", contains = "list")
+setClass("ListOfotus", representation(names="character"), contains = "list")
+setClass("ListOftrees", representation(names="character"), contains = "list")
+setClass("ListOfcharacters", representation(names="character"), contains = "list")
 
 ####################################################
 

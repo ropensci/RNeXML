@@ -121,6 +121,30 @@ Once we have created the `meta` elements, we can pass them to our `nexml_write` 
 
 ```
 
+## Working with character data
+
+NeXML also provides a standard exchange format for handling character data.  The R platform is particularly popular in the context of phylogenetic comparative methods, which consider both a given phylogeny and a set of traits.  NeXML provides an ideal tool for handling this metadata.  
+
+### Extracting character data
+
+We can load the library, parse the NeXML file and extract both the characters and the phylogeny.  
+
+```{r}
+library(RNeXML)
+nexml <- read.nexml(system.file("examples", "comp_analysis.xml", package="RNeXML"))
+traits <- get_characters_list(nexml)
+tree <- get_tree(nexml)
+```
+
+(Note that `get_characters` would return both discrete and continuous characters together in the same data.frame, but we use `get_characters_list` to get separate data.frames for the continuous `characters` block and the discrete `characters` block).  
+
+We can then fire up `geiger` and fit, say, a Brownian motion model the continuous data and a Markov transition matrix to the discrete states:  
+
+```{r}
+library(geiger)
+cts_model <- fitContinuous(tree, traits[[1]])
+dct_model <- fitDiscrete(tree, traits[[2]])
+```
 
 
 

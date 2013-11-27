@@ -1,13 +1,8 @@
-\name{get_characters}
-\alias{get_characters}
+\name{identical_rownames}
+\alias{identical_rownames}
 \title{Get character data.frame, accepts either nexml object, or a list of data.frames}
 \usage{
-get_characters(input)
-}
-\arguments{
-  \item{input}{A nexml object (e.g., as output from
-  \code{\link{read.nexml}}), or a list of data.frame's
-  (e.g., as output from \code{\link{get_characters_list}})}
+identical_rownames(x)
 }
 \description{
   Get character data.frame, accepts either nexml object, or

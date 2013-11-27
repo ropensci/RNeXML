@@ -34,7 +34,7 @@ setAs("XMLInternalElementNode", "char",
 
 ###############################################
 
-setClass("ListOfrow", contains="list")
+setClass("ListOfrow", representation(names="character"), contains="list")
 setClass("obsmatrix",
          representation(row="ListOfrow"),
          contains = "Annotated")
@@ -69,8 +69,8 @@ setAs("XMLInternalElementNode", "obsmatrix",
 
 ######################################################
 
-setClass("ListOfcell", contains="list")
-setClass("ListOfseq", contains="list")
+setClass("ListOfcell", representation(names="character"), contains="list")
+setClass("ListOfseq", representation(names="character"), contains="list")
 
 setClass("row",
          representation(cell = "ListOfcell",
@@ -107,7 +107,7 @@ setAs("XMLInternalElementNode", "row",
       function(from) fromNeXML(new("row"), from))
 
 #######################################################
-setClass("ListOfstate", contains="list")
+setClass("ListOfstate", representation(names="character"), contains="list")
 
 setClass("states",
          representation(state="ListOfstate"),
@@ -167,7 +167,7 @@ setAs("XMLInternalElementNode", "state",
 
 ################################################
 
-setClass("ListOfmember", contains="list")
+setClass("ListOfmember", representation(names="character"), contains="list")
 
 setClass("uncertain_state_set", 
          representation(member = "ListOfmember"),
@@ -311,8 +311,8 @@ setAs("XMLInternalElementNode", "seq",
 
 #########################################
 
-setClass("ListOfchar", contains="list")
-setClass("ListOfstates", contains="list")
+setClass("ListOfchar", representation(names="character"), contains="list")
+setClass("ListOfstates", representation(names="character"), contains="list")
 
 setClass("format", 
          representation(states = "ListOfstates", ## FIXME Should be ListOfstates
