@@ -26,7 +26,7 @@ Imports:
 Collate:
     'classes.R'
     'metadata_methods.R'
-    'add_character_data.R'
+    'add_characters.R'
     'add_trees.R'
     'ape.R'
     'character_classes.R'

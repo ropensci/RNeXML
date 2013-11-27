@@ -32,8 +32,8 @@ nexml_id <- function(prefix = "", use_uuid = getOption("uuid", FALSE)){
   uid
 }
 
-
-nexml_clean_env <- function(){
+#' @export
+reset_id_counter <- function(){
   rm(list=ls(envir=nexml_env), envir=nexml_env)
 }
 
