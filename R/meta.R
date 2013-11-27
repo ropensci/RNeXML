@@ -60,11 +60,13 @@ nexml_citation <- function(obj){
   if(is(obj, "bibentry")){
     out <- lapply(obj, function(obj){
       if(length(grep("--", obj$pages)) > 0){
-        start_page <- strsplit(obj$pages, "--")[[1]][[1]]
-        end_page <- strsplit(obj$pages, "--")[[1]][[2]]
+        pgs <- strsplit(obj$pages, "--")[[1]]
+        start_page <- pgs[[1]]
+        end_page <- if(length(pgs)>1) pgs[[2]] else " "
       } else if(length(grep("-", obj$pages)) > 0){
-        start_page <- strsplit(obj$pages, "-")[[1]][[1]]
-        end_page <- strsplit(obj$pages, "-")[[1]][[2]]
+        pgs <- strsplit(obj$pages, "-")[[1]]
+        start_page <- pgs[[1]]
+        end_page <- if(length(pgs)>1) pgs[[2]] else " "
       }
       list_of_metadata_nodes <- c(list(
         meta(content=obj$volume, 

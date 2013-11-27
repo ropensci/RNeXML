@@ -1,4 +1,4 @@
-export(add_character_data)
+export(add_characters)
 export(add_trees)
 export(flatten_multiphylo)
 export(get_characters)
