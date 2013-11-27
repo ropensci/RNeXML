@@ -8,7 +8,7 @@ nexml_id <- function(prefix = "", use_uuid = getOption("uuid", FALSE)){
   if(use_uuid){
     success <- require(uuid)
     if(success)
-      uid <- uuid::UUIDgenerate()
+      uid <- paste0("uuid-", uuid::UUIDgenerate())
     else {
       install.packages("uuid")
       success <- require(uuid)
