@@ -10,9 +10,9 @@
 #'        nexml object.  If ommitted will initiate a new nexml object.  
 #' @include classes.R
 #' @export 
-add_character_data <- function(x, 
-                               nexml = new("nexml"), 
-                               append_to_existing_otus=FALSE){
+add_characters <- function(x, 
+                           nexml = new("nexml"), 
+                           append_to_existing_otus=FALSE){
 
   # FIXME does it make sense to take a phylo object here as an option?  
   # If so, perhaps don't call the argument 'nexml'.  
@@ -22,7 +22,7 @@ add_character_data <- function(x,
   ## Check types  & row names ##
   x <- format_characters(x) 
 
-  nexml <- add_characters(nexml, x)
+  nexml <- add_character_nodes(nexml, x)
   for(i in 1:length(x)){
 
     new_taxa <- rownames(x[[i]]) 
@@ -41,7 +41,7 @@ add_character_data <- function(x,
   nexml
 }
 
-add_characters <- function(nexml, x){
+add_character_nodes <- function(nexml, x){
   n <- length(x)
   cs_list <- lapply(1:n, function(i){
          uid <- nexml_id("cs")

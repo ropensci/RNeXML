@@ -79,7 +79,7 @@ test_that("add_otu can append only unmatched taxa to an existing otus block", {
 
 test_that("we can add characters to a nexml file", {
   x <- get_characters_list(nex)
-  nexml <- add_character_data(x, new("nexml"))
+  nexml <- add_characters(x, new("nexml"))
 
   ##  Can we write it out and read it back? 
   nexml_write(nexml, "chartest.xml")
@@ -96,7 +96,7 @@ test_that("we can add characters to a nexml file", {
 
 test_that("we can add characters to a nexml file using a data.frame", {
   x <- get_characters(nex)
-  nexml <- add_character_data(x, new("nexml"))
+  nexml <- add_characters(x, new("nexml"))
 
   ##  Can we write it out and read it back? 
   nexml_write(nexml, "chartest.xml")
