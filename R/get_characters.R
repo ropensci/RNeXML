@@ -11,18 +11,24 @@ get_characters_list <- function(nexml){
 # loop over all character matrices 
   out <- lapply(nexml@characters, function(characters){
 
-    dat <- extract_character_matrix(characters@matrix)
-    dat <- state_to_symbol(dat, characters@format)
-    dat <- otu_to_label(dat, maps[[characters@otus]])
-    dat <- character_to_label(dat, characters@format)
     # Make numeric data class numeric, discrete data class discrete
     type <- slot(characters, 'xsi:type') # check without namespace?
     if(type == "nex:ContinuousCells")
+      dat <- extract_character_matrix(characters@matrix)
+      dat <- otu_to_label(dat, maps[[characters@otus]])
+      dat <- character_to_label(dat, characters@format)
       for(i in length(dat)) ## FIXME something more elegant, no?
         dat[[i]] <- as.numeric(dat[[i]])
-    else 
+    else if(type == "nex:StandardCells"){
+      dat <- extract_character_matrix(characters@matrix)
+      dat <- state_to_symbol(dat, characters@format)
+      dat <- otu_to_label(dat, maps[[characters@otus]])
+      dat <- character_to_label(dat, characters@format)
       for(i in length(dat))
         dat[[i]] <- factor(dat[[i]])
+    } else {
+      dat <- NULL 
+    }
     dat
   })
   # name the character matrices by their labels,
