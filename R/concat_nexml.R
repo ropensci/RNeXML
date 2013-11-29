@@ -1,5 +1,15 @@
 
-#' Concatinate a nexml file 
+#' Concatenate nexml files 
+#' @param a nexml object, e.g. from write.nexml() or read.nexml()
+#' @param ... additional nexml objects to be concatenated.  
+#'   must have unique ids on all elements
+#' @return a concatenated nexml file
+#' @examples
+#' f1 <- system.file("examples", "trees.xml", package="RNeXML")
+#' f2 <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+#' nex1 <- read.nexml(f1)
+#' nex2 <- read.nexml(f2)
+#' nex <- c(nex1, nex2)
 setMethod("c", 
           signature("nexml"), 
           function(x, ...){

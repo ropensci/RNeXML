@@ -8,9 +8,10 @@
 #' @param content content of the metadata field
 #' @param rel Ontological definition of the reference provided in href 
 #' @param href A link to some reference
-#' @param id optional id element
+#' @param id optional id element (otherwise id will be automatically generated).  
 #' @param type optional xsi:type.  If not given, will use either "LiteralMeta" or "ResourceMeta" as 
-#'  determined by the presence of either a property or a href value.  
+#'  determined by the presence of either a property or a href value. 
+#' @param children Optional element containing any valid XML block (XMLInternalElementNode class, see the XML package for details).  
 #' @details User must either provide property+content or rel+href.  Mixing these will result in potential garbage. 
 #' The datatype attribute will be detected automatically from the class of the content argument.  Maps from R class
 #' to schema datatypes are as follows: 
@@ -30,7 +31,7 @@ meta <- function(property = character(0),
                  href = character(0), 
                  id = character(0),
                  type = character(0),
-                 children = NULL){
+                 children = list()){
   if(is.logical(content))
     datatype <- "xsd:boolean"
   else if(is(content, "Date"))
@@ -44,16 +45,26 @@ meta <- function(property = character(0),
   else 
     datatype <- "xsd:string"
 
+  if(id == character(0))
+    id <- nexml_id("m")
+    
+
   if(length(property) > 0)
     new("meta", content = content, datatype = datatype, 
-        property = property, id = id, 'xsi:type' = "LiteralMeta")
+        property = property, id = id, 'xsi:type' = "LiteralMeta",
+        children = children)
   else if(length(rel) > 0)
     new("meta", rel = rel, href = href, 
-        id = id, 'xsi:type' = "ResourceMeta")
+        id = id, 'xsi:type' = "ResourceMeta",
+        children = children)
   else 
     new("meta", content = content, datatype = datatype, 
-        rel = rel, href = href, id = id, 'xsi:type' = type)
+        rel = rel, href = href, id = id, 'xsi:type' = type,
+        children = children)
 }
+
+
+## Common helper functions 
 
 
 nexml_citation <- function(obj){
