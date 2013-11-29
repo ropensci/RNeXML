@@ -37,22 +37,58 @@ get_characters_list <- function(nexml){
   out
 } 
 
+#' Get character data.frame, accepts either nexml object, or a list of data.frames
+#' 
+#' @param input A nexml object (e.g., as output from \code{\link{read.nexml}}), or 
+#' a list of data.frame's (e.g., as output from \code{\link{get_characters_list}})
+#' @param suffixes Add list element names as suffixes to output data.frame column 
+#' names. 
 #' @export
-get_characters <- function(nexml){
-   list_chars <- get_characters_list(nexml)
-   if(identical_rownames(list_chars))
-     out <- do.call(cbind, list_chars) ## This could probably be more intelligent
-   else { 
-     out <- ldply(list_chars)  ## This could definitely be more intelligent
-     n <- sapply(list_chars, rownames)
-     for(i in 1:length(colnames(n)))
-       out[[1]][out[[1]] == colnames(n)[i]] <- n[,i]
-     out  ## FIXME figure out how to collapse replicate taxa
-   }
-   out
+#' @examples \dontrun{
+#' # library(RNeXML)
+#' f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+#' nex <- read.nexml(f)
+#' get_characters(nex)
+#' 
+#' # with different row.names
+#' char_list <- get_characters_list(nex)
+#' row.names(char_list[[1]])[1:3] <- c("taxon_18","taxon_20","taxon_30")
+#' get_characters(char_list)
+#' 
+#' # this breaks
+#' f <- system.file("examples", "characters.xml", package="RNeXML")
+#' nex <- read.nexml(f)
+#' get_characters(nex)
+#' } 
+get_characters <- function(input, suffixes=FALSE){
+  
+  if(inherits(input, "nexml")){
+    list_chars <- get_characters_list(input)
+  } else { list_chars <- input }
+  if(inherits(input, "data.frame")){
+    return( input )
+  } else {
+    if(suffixes){
+      out <- list_chars
+      for(i in seq_along(list_chars)){
+        colnames(out[[i]]) <- paste(names(out)[i], "_", 
+                                           colnames(out[[i]]), sep="")
+        out[[i]] <- out[[i]]
+      }
+      names(out) <- names(list_chars)
+      list_chars <- out
+    }
+    mrecurse <- function(dfs, ...){
+      tt <- merge(dfs, ..., by='row.names',  all = TRUE, sort = FALSE)
+      row.names(tt) <- tt[,"Row.names"]
+      tt[,!names(tt) %in% "Row.names"]
+    }
+    return( Reduce(mrecurse, list_chars) )
+  }
 }
 
-identical_rownames <- function(x) all(sapply(lapply(x, rownames), identical, rownames(x[[1]])))
+# for lists only 
+# identical_rownames <- function(x) all(sapply(lapply(x, rownames), identical, rownames(x[[1]])))
 
 
 
