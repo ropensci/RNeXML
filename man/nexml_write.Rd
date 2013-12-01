@@ -3,23 +3,22 @@
 \alias{write.nexml}
 \title{Write nexml files}
 \usage{
-nexml_write(x, file = NULL, title = NULL, description = NULL,
-  creator = NULL, pubdate = Sys.Date(), rights = "CC0",
-  publisher = NULL, citation = NULL, additional_metadata = NULL,
-  additional_namespaces = NULL, add_identifiers = FALSE)
+nexml_write(x = new("nexml"), trees = NULL, characters = NULL,
+  file = NULL, ...)
 }
 \arguments{
-  \item{x}{any phylogeny object (e.g. phylo, phylo4, or
-  internal type)}
+  \item{x}{a nexml object, or any phylogeny object (e.g.
+  phylo, phylo4) that can be coerced into one. Can also be
+  omitted, in which case a new nexml object will be
+  constructed with the additional parameters specified.}
+
+  \item{trees}{phylogenetic trees to add to the nexml file
+  (if not already given in x) see \code{\link{add_trees}}
+  for details.}
+
+  \item{characters}{additional characters}
 
   \item{file}{the name of the file to write out}
-
-  \item{additional_metadata}{list of}
-
-  \item{add_identifiers}{either logical or name of an
-  identifier (see details or \code{\link{add_identifiers}})
-  If TRUE, default identifier (NCBI) will be added.  If
-  FALSE, no identifier is added.}
 }
 \value{
   Writes out a nexml file
@@ -28,26 +27,32 @@ nexml_write(x, file = NULL, title = NULL, description = NULL,
   Write nexml files
 }
 \examples{
-library(ape); data(bird.orders)
- nexml_write(bird.orders, file="example.xml")
+## Write an ape tree to nexml, analgous to write.nexus:
+ library(ape); data(bird.orders)
+ write.nexml(bird.orders, file="example.xml")
 
- ## Adding citation to a publication
- nexml_write(bird.orders, file="example.xml",
-             citation=citation("ape"))
+ ## Assemble a nexml section by section and then write to file:
+ library(geiger); data(geospiza)
+ nexml <- add_trees(geospiza$phy) # creates new nexml
+ nexml <- add_characters(geospiza$dat, nexml) # pass the nexml obj to append character data
+ nexml <- add_basic_meta(nexml, title="my title", creator = "Carl Boettiger")
+ nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())), nexml)
+ write.nexml(nexml, file="example.xml")
 
- ## Adding custom metadata
- history <- meta(content="Mapped from the bird.orders data in the ape package using RNeXML",
-                 datatype="xsd:string",
-                 id="meta5144",
-                 property="skos:historyNote")
- modified <- meta(content="2013-10-04", datatype="xsd:string", id="meta5128",
-                 property="prism:modificationDate")
- website <- meta(href="http://carlboettiger.info", rel="foaf:homepage")
- nexml_write(bird.orders,
-             file = "example.xml",
-             additional_metadata = list(history, modified, website),
-             additional_namespaces = c(skos="http://www.w3.org/2004/02/skos/core#",
-                                       prism="http://prismstandard.org/namespaces/1.2/basic/",
-                                       foaf = "http://xmlns.com/foaf/0.1/"))
+ ## As above, but in one call (except for add_meta() call).
+ write.nexml(trees = geospiza$phy, characters=geospiza$dat,
+             title = "My title", creator="Carl Boettiger",
+             file = "example.xml")
+
+ ## Mix and match: identical to the section by section:
+ nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())))
+ write.nexml(x = nexml,
+             trees = geospiza$phy, characters=geospiza$dat,
+             title = "My title", creator="Carl Boettiger",
+             file = "example.xml")
+}
+\seealso{
+  \code{\link{add_trees}} \code{\link{add_characters}}
+  \code{\link{add_meta}} \code{\link{nexml_read}}
 }
 

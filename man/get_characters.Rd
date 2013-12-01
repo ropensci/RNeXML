@@ -18,7 +18,8 @@ get_characters(input, suffixes = FALSE)
 }
 \examples{
 \dontrun{
-# library(RNeXML)
+# A simple exmample with a discrete and a continous trait
+library(RNeXML)
 f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nex <- read.nexml(f)
 get_characters(nex)
@@ -28,7 +29,7 @@ char_list <- get_characters_list(nex)
 row.names(char_list[[1]])[1:3] <- c("taxon_18","taxon_20","taxon_30")
 get_characters(char_list)
 
-# this breaks
+# A more complex example -- currently ignores sequence-type characters
 f <- system.file("examples", "characters.xml", package="RNeXML")
 nex <- read.nexml(f)
 get_characters(nex)
