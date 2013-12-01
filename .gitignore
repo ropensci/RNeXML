@@ -5,7 +5,6 @@ inst/doc/*.pdf
 inst/doc/*.md
 inst/doc/*.Rnw
 vignettes/*.pdf
-
 .Rproj.user
 *.Rproj
 */*.Rhistory
