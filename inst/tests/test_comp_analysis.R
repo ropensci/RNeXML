@@ -24,7 +24,4 @@ test_that("We can serialize tree and trait data for a comparative analysis", {
   expect_true(nexml_validate("geospiza.xml"))
   unlink("geospiza.xml")
 })
-## write with the citation metadata:
-#  Schluter <- knitcitations::cite("10.2307/2408428") # DOI of the original reference for this data
-#  write.nexml(nexml, "geospiza.xml", citation=Schluter) 
 
