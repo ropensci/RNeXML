@@ -5,25 +5,44 @@ setAs("phylo", "nexml", function(from){
       add_trees(from)
 })
 
+setAs("multiPhylo", "nexml", function(from){
+      add_trees(from)
+})
+
+
+standardize_phylo_list <- function(phy){
+  if(is(phy, "list") && 
+     (is(phy[[1]], "list") || is(phy[[1]], "multiPhylo")) && 
+     is(phy[[1]][[1]], "phylo")){
+    phy 
+  } else if(is(phy, "multiPhylo") || (is(phy, "list") && is(phy[[1]], "phylo"))) { 
+    list(phy)
+  } else if(is(phy, "phylo")) {
+    phy <- list(phy)
+    class(phy) <- "multiPhylo"
+    list(phy) 
+  } else {
+    # desperate
+    phy <- list(as(phy, "phylo"))
+    class(phy) <- "multiPhylo"
+    list(phy) 
+  }
+}
+
+
 
 
 #' @export 
-add_trees <- function(phy, nexml=new("nexml"), 
+add_trees <- function(phy, 
+                      nexml=new("nexml"), 
                       append_to_existing_otus=FALSE){
   nexml <- as(nexml, "nexml")
 
-  ## handle multiphlyo cases
-  if(is(phy, "list") && 
-     is(phy[[1]], "list") && 
-     is(phy[[1]][[1]], "phylo"))
-    new_taxa <- unlist(sapply(x, function(y)
-                              sapply(y, function(z) 
-                                     z$tip.label)))
-  else if(is(phy, "multiPhylo"))    
-    new_taxa <- unlist(sapply(x, function(y) y$tip.label))
-  else if(is(phy, "phylo"))
-    new_taxa <- phy$tip.label
-
+  phy <- standardize_phylo_list(phy)
+  ## handle multiPhlyo cases
+  new_taxa <- unlist(sapply(phy, function(y)
+                      sapply(y, function(z) 
+                        z$tip.label)))
 
   nexml <- add_otu(nexml, new_taxa, append=append_to_existing_otus)
   otus_id <- nexml@otus[[length(nexml@otus)]]@id
@@ -32,17 +51,7 @@ add_trees <- function(phy, nexml=new("nexml"),
 }
 
 add_trees_block <- function(nexml, phy, otus_id){
-  if(is(phy, "list") && is(phy[[1]], "list") && is(phy[[1]][[1]], "phylo"))
-   n_trees <- length(phy) 
-  else if(is(phy, "multiPhylo"))  
-    phy <- list(phy) # make a list of multiphylo 
-  else if(is(phy, "phylo")){
-    phy <- list(phy)
-    class(phy) <- "multiPhylo"
-    phy <- list(phy)
-  } else
-    stop("class of object phy not recognized as an ape::phylo, ape::multiPhylo, or list of ape::multiPhylo objects")
-
+  phy <- standardize_phylo_list(phy)
   ## all trees will use the same  
   otu_map <- reverse_map(get_otu_maps(nexml))[[otus_id]]
 
