@@ -1,88 +1,58 @@
 #' Write nexml files
 #' 
-#' @param x any phylogeny object (e.g. phylo, phylo4, or internal type)
+#' @param x a nexml object, or any phylogeny object (e.g. phylo, phylo4) 
+#' that can be coerced into one. Can also be omitted, in which case a new 
+#' nexml object will be constructed with the additional parameters specified.
+#' @param trees phylogenetic trees to add to the nexml file (if not already given in x)
+#' see \code{\link{add_trees}} for details.  
+#' @param characters additional characters
 #' @param file the name of the file to write out
-#' @param additional_metadata list of
-#' @param add_identifiers either logical or name of an identifier (see details or \code{\link{add_identifiers}})
-#'        If TRUE, default identifier (NCBI) will be added.  If FALSE, no identifier is added.  
 #' @return Writes out a nexml file
 #' @import ape 
 #' @import XML
 #' @aliases nexml_write write.nexml
 #' @export nexml_write write.nexml
+#' @seealso \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_meta}} \code{\link{nexml_read}}
+
 #' @examples
-#' 
+#'  ## Write an ape tree to nexml, analgous to write.nexus:
 #'  library(ape); data(bird.orders)
-#'  nexml_write(bird.orders, file="example.xml")
+#'  write.nexml(bird.orders, file="example.xml")
 #' 
-#'  ## Adding citation to a publication
-#'  nexml_write(bird.orders, file="example.xml",
-#'              citation=citation("ape"))
+#'  ## Assemble a nexml section by section and then write to file:
+#'  library(geiger); data(geospiza)
+#'  nexml <- add_trees(geospiza$phy) # creates new nexml
+#'  nexml <- add_characters(geospiza$dat, nexml) # pass the nexml obj to append character data
+#'  nexml <- add_basic_meta(nexml, title="my title", creator = "Carl Boettiger")
+#'  nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())), nexml)
+#'  write.nexml(nexml, file="example.xml")
+#'
+#'  ## As above, but in one call (except for add_meta() call).  
+#'  write.nexml(trees = geospiza$phy, characters=geospiza$dat, 
+#'              title = "My title", creator="Carl Boettiger",
+#'              file = "example.xml")
+#'  
+#'  ## Mix and match: identical to the section by section: 
+#'  nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())))
+#'  write.nexml(x = nexml,
+#'              trees = geospiza$phy, characters=geospiza$dat, 
+#'              title = "My title", creator="Carl Boettiger",
+#'              file = "example.xml")
 #' 
-#'  ## Adding custom metadata 
-#'  history <- meta(content="Mapped from the bird.orders data in the ape package using RNeXML",
-#'                  datatype="xsd:string", 
-#'                  id="meta5144", 
-#'                  property="skos:historyNote")
-#'  modified <- meta(content="2013-10-04", datatype="xsd:string", id="meta5128",
-#'                  property="prism:modificationDate")
-#'  website <- meta(href="http://carlboettiger.info", rel="foaf:homepage")
-#'  nexml_write(bird.orders, 
-#'              file = "example.xml", 
-#'              additional_metadata = list(history, modified, website), 
-#'              additional_namespaces = c(skos="http://www.w3.org/2004/02/skos/core#",
-#'                                        prism="http://prismstandard.org/namespaces/1.2/basic/",
-#'                                        foaf = "http://xmlns.com/foaf/0.1/"))
-nexml_write <- function(x, 
-                        file = NULL, 
-                        title = NULL, 
-                        description = NULL,
-                        creator = NULL,
-                        pubdate = Sys.Date(),
-                        rights = "CC0",
-                        publisher = NULL,
-                        citation = NULL,
-                        additional_metadata = NULL,
-                        additional_namespaces = NULL,
-                        add_identifiers = FALSE){
-  nex <- as(x, "nexml")
-
-  ## FIXME Check for duplicates first. Only a duplicate if prefix is also duplicated.  
-  nex@namespaces = c(nex@namespaces, additional_namespaces)
-
-  if(is.logical(add_identifiers))
-    if(add_identifiers)
-      add_identifiers = "NCBI"
-  if(is.character(add_identifiers))
-    nex <- addIdentifiers(nex, type = add_identifiers)
-  out <- as(nex, "XMLInternalNode")
-  ## FIXME Kind of strange to add these to the XML representation instead of directly to the S4 nexml representation....
-  ## would be easy to add to a ListOfmeta...
-  if(!is.null(additional_metadata))
-      addChildren(out, kids = additional_metadata, at = 0)
-  if(!is.null(description))
-      addChildren(out, description(description), at = 0)
-   if(!is.null(citation)){
-     citations <- nexml_citation(citation)
-     if(is.list(citations[[1]])){
-      for(entry in citations) 
-        addChildren(out, kids = entry, at = 0)
-     } else if(is(citations[[1]], "meta")){
-       addChildren(out, kids = citations, at = 0)
-     }
-  }
-  if(!is.null(rights))
-      addChildren(out, rights(rights), at = 0)
-  if(!is.null(publisher))
-      addChildren(out, publisher(publisher), at = 0)
-  if(!is.null(pubdate))
-      addChildren(out, pubdate(pubdate), at = 0)
-  if(!is.null(creator))
-      addChildren(out, creator(creator), at = 0)
-  if(!is.null(title))
-      addChildren(out, title(title), at = 0)
-
-
+nexml_write <- function(x = new("nexml"),
+                        trees = NULL,
+                        characters = NULL,
+                        file = NULL,
+                        ...){
+  
+  nexml <- as(x, "nexml")
+  if(!is.null(trees))
+    nexml <- add_trees(trees, nexml)
+  if(!is.null(characters))
+    nexml <- add_characters(characters, nexml)
+  nexml <- do.call(add_basic_meta, c(list(nexml=nexml), list(...)))
+  
+  out <- as(nexml, "XMLInternalNode")
   saveXML(out, file = file)
 }
 
