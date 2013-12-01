@@ -1,0 +1,248 @@
+\section{RNeXML: The next-generation phylogenetics format comes to
+R}\label{rnexml-the-next-generation-phylogenetics-format-comes-to-r}
+
+An R package for reading, writing, integrating and publishing data using
+the Ecological Metadata Language (EML) format.
+
+\begin{itemize}
+\itemsep1pt\parskip0pt\parsep0pt
+\item
+  \textbf{Note:} This package is still in active development and not yet
+  submitted to CRAN. Functions and documentation may be incomplete and
+  subject to change.\\
+\item
+  Maintainer: Carl Boettiger
+\item
+  Authors: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia
+  Shumelchyk, Rutger Vos
+\item
+  License: BSD-3
+\item
+  \href{https://github.com/ropensci/RNeXML/issues}{Issues}: Bug reports,
+  feature requests, and development discussion.
+\end{itemize}
+
+An extensive and rapidly growing collection of richly annotated
+phylogenetics data is now available in the NeXML format. NeXML relies on
+state-of-the-art data exchange technology to provide a format that can
+be both validated and extended, providing a data quality assurance and
+and adaptability to the future that is lacking in other formats
+\href{http://doi.org/10.1093/sysbio/sys025}{Vos et al 2012}.
+
+\subsection{Getting Started}\label{getting-started}
+
+The development version of RNeXML is
+\href{https://github.com/ropensci/RNeXML}{available on Github}. With the
+\texttt{devtools} package installed on your system, RNeXML can be
+installed using:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(devtools)}
+\KeywordTok{install_github}\NormalTok{(}\StringTok{"RNeXML"}\NormalTok{, }\StringTok{"ropensci"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Read in a \texttt{nexml} file into the \texttt{ape::phylo} format:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(RNeXML)}
+\NormalTok{f <-}\StringTok{ }\KeywordTok{system.file}\NormalTok{(}\StringTok{"examples"}\NormalTok{, }\StringTok{"trees.xml"}\NormalTok{, }\DataTypeTok{package=}\StringTok{"RNeXML"}\NormalTok{)}
+\NormalTok{nexml <-}\StringTok{ }\KeywordTok{nexml_read}\NormalTok{(f)}
+\NormalTok{tr <-}\StringTok{ }\KeywordTok{get_tree}\NormalTok{(nexml) }\CommentTok{# or: as(nexml, "phylo")}
+\KeywordTok{plot}\NormalTok{(tr[[}\DecValTok{1}\NormalTok{]])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{figure}[htbp]
+\centering
+\includegraphics{http://farm6.staticflickr.com/5481/10930841854_f2e9094244_o.png}
+\caption{plot of chunk unnamed-chunk-3}
+\end{figure}
+
+Write an \texttt{ape::phylo} tree into the \texttt{nexml} format:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{(bird.orders)}
+\KeywordTok{nexml_write}\NormalTok{(bird.orders, }\StringTok{"test.xml"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "test.xml"
+\end{verbatim}
+
+A key feature of NeXML is the ability to formally validate the
+construction of the data file against the standard (the lack of such a
+feature in nexus files had lead to inconsistencies across different
+software platforms, and some files that cannot be read at all). While it
+is difficult to make an invalid NeXML file from \texttt{RNeXML}, it
+never hurts to validate just to be sure:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{nexml_validate}\NormalTok{(}\StringTok{"test.xml"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] TRUE
+\end{verbatim}
+
+Extract metadata from the NeXML file:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{birds <-}\StringTok{ }\KeywordTok{nexml_read}\NormalTok{(}\StringTok{"test.xml"}\NormalTok{)}
+\KeywordTok{get_taxa}\NormalTok{(birds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          otu.label          otu.label          otu.label 
+## "Struthioniformes"     "Tinamiformes"      "Craciformes" 
+##          otu.label          otu.label          otu.label 
+##      "Galliformes"     "Anseriformes"    "Turniciformes" 
+##          otu.label          otu.label          otu.label 
+##       "Piciformes"    "Galbuliformes"   "Bucerotiformes" 
+##          otu.label          otu.label          otu.label 
+##      "Upupiformes"    "Trogoniformes"    "Coraciiformes" 
+##          otu.label          otu.label          otu.label 
+##      "Coliiformes"     "Cuculiformes"   "Psittaciformes" 
+##          otu.label          otu.label          otu.label 
+##      "Apodiformes"   "Trochiliformes"  "Musophagiformes" 
+##          otu.label          otu.label          otu.label 
+##     "Strigiformes"    "Columbiformes"       "Gruiformes" 
+##          otu.label          otu.label 
+##    "Ciconiiformes"    "Passeriformes"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{get_metadata}\NormalTok{(birds) }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                             dc:date 
+##                                        "2013-11-18" 
+##                                          cc:license 
+## "http://creativecommons.org/publicdomain/zero/1.0/"
+\end{verbatim}
+
+\begin{center}\rule{3in}{0.4pt}\end{center}
+
+Add basic additional metadata:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \KeywordTok{nexml_write}\NormalTok{(bird.orders, }\DataTypeTok{file=}\StringTok{"meta_example.xml"}\NormalTok{,}
+              \DataTypeTok{title =} \StringTok{"My test title"}\NormalTok{,}
+              \DataTypeTok{description =} \StringTok{"A description of my test"}\NormalTok{,}
+              \DataTypeTok{creator =} \StringTok{"Carl Boettiger <cboettig@gmail.com>"}\NormalTok{,}
+              \DataTypeTok{publisher =} \StringTok{"unpublished data"}\NormalTok{,}
+              \DataTypeTok{pubdate =} \StringTok{"2012-04-01"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "meta_example.xml"
+\end{verbatim}
+
+By default, \texttt{RNeXML} adds certain metadata, including the NCBI
+taxon id numbers for all named taxa. This acts a check on the spelling
+and definitions of the taxa as well as providing a link to additional
+metadata about each taxonomic unit described in the dataset.
+
+\subsubsection{Advanced annotation}\label{advanced-annotation}
+
+We can also add arbitrary metadata to a NeXML tree by define
+\texttt{meta} objects:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modified <-}\StringTok{ }\KeywordTok{meta}\NormalTok{(}\DataTypeTok{property =} \StringTok{"prism:modificationDate"}\NormalTok{,}
+                 \DataTypeTok{content =} \StringTok{"2013-10-04"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Advanced use requires specifying the namespace used. Metadata follows
+the RDFa conventions. Here we indicate the modification date using the
+prism vocabulary. This namespace is included by default, as it is used
+for some of the basic metadata shown in the previous example. We can see
+from this list:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{RNeXML:::nexml_namespaces}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                                                      nex 
+##                              "http://www.nexml.org/2009" 
+##                                                      xsi 
+##              "http://www.w3.org/2001/XMLSchema-instance" 
+##                                                      xml 
+##                   "http://www.w3.org/XML/1998/namespace" 
+##                                                     cdao 
+## "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#" 
+##                                                      xsd 
+##                      "http://www.w3.org/2001/XMLSchema#" 
+##                                                       dc 
+##                       "http://purl.org/dc/elements/1.1/" 
+##                                                  dcterms 
+##                              "http://purl.org/dc/terms/" 
+##                                                    prism 
+##         "http://prismstandard.org/namespaces/1.2/basic/" 
+##                                                       cc 
+##                         "http://creativecommons.org/ns#" 
+##                                                     ncbi 
+##                  "http://www.ncbi.nlm.nih.gov/taxonomy#" 
+##                                                       tc 
+##          "http://rs.tdwg.org/ontology/voc/TaxonConcept#"
+\end{verbatim}
+
+This next block defines a resource (link), described by the \texttt{rel}
+attribute as a homepage, a term in the \texttt{foaf} vocabulalry.
+Becuase \texttt{foaf} is not a default namespace, we will have to
+provide its URL in the full definition below.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{website <-}\StringTok{ }\KeywordTok{meta}\NormalTok{(}\DataTypeTok{href =} \StringTok{"http://carlboettiger.info"}\NormalTok{, }
+                \DataTypeTok{rel =} \StringTok{"foaf:homepage"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Here we create a history node using the \texttt{skos} namespace. We can
+also add id values to any metadata element to make the element easier to
+reference externally:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \NormalTok{history <-}\StringTok{ }\KeywordTok{meta}\NormalTok{(}\DataTypeTok{property =} \StringTok{"skos:historyNote"}\NormalTok{, }
+                  \DataTypeTok{content =} \StringTok{"Mapped from the bird.orders data in the ape package using RNeXML"}\NormalTok{,}
+                  \DataTypeTok{id =} \StringTok{"meta123"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Once we have created the \texttt{meta} elements, we can pass them to our
+\texttt{nexml\_write} function, along with definitions of the
+namespaces.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+  \KeywordTok{nexml_write}\NormalTok{(bird.orders, }
+              \DataTypeTok{file =} \StringTok{"example.xml"}\NormalTok{, }
+              \DataTypeTok{additional_metadata =} \KeywordTok{list}\NormalTok{(history, modified, website), }
+              \DataTypeTok{additional_namespaces =} \KeywordTok{c}\NormalTok{(}\DataTypeTok{skos =} \StringTok{"http://www.w3.org/2004/02/skos/core#"}\NormalTok{,}
+                                        \DataTypeTok{foaf =} \StringTok{"http://xmlns.com/foaf/0.1/"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "example.xml"
+\end{verbatim}
