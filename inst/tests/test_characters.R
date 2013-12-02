@@ -78,16 +78,26 @@ test_that("add_otu can append only unmatched taxa to an existing otus block", {
 
 
 test_that("we can add characters to a nexml file", {
+  nex <- read.nexml(f)
   x <- get_characters_list(nex)
   nexml <- add_characters(x, new("nexml"))
 
   ##  Can we write it out and read it back? 
-  nexml_write(nexml, "chartest.xml")
+  nexml_write(nexml, file = "chartest.xml")
   tmp <- nexml_read("chartest.xml")
   tmp_x <- get_characters_list(tmp)
  
-  ## do we recover the original characters?
-  expect_equivalent(tmp_x, x)  ## 
+  ## do we recover the original characters? (modulo the ordering?)
+  y <- x[[1]]
+  tmp_y <- tmp_x[[1]]
+  y <- y[order(y[[1]]) , ]
+  tmp_y <- tmp_y[order(tmp_y[[1]]) , ]
+  expect_equivalent(tmp_y, y)  ## 
+  y <- x[[2]]
+  tmp_y <- tmp_x[[2]]
+  y <- y[order(y[[1]]) , ]
+  tmp_y <- tmp_y[order(tmp_y[[1]]) , ]
+  expect_equivalent(tmp_y, y)  ## 
 
   unlink("chartest.xml")
 })
@@ -95,17 +105,19 @@ test_that("we can add characters to a nexml file", {
 
 
 test_that("we can add characters to a nexml file using a data.frame", {
+  nex <- read.nexml(f)
   x <- get_characters(nex)
   nexml <- add_characters(x, new("nexml"))
 
   ##  Can we write it out and read it back? 
-  nexml_write(nexml, "chartest.xml")
+  nexml_write(nexml, file = "chartest.xml")
   tmp <- nexml_read("chartest.xml")
   tmp_x <- get_characters(tmp)
 
   ## do we recover the original characters?
-# Sort by rowname first? 
- expect_equivalent(tmp_x, x)  ## 
+  x <- x[order(x[[1]]) , ]              # Sort by rowname first
+  tmp_x <- tmp_x[order(tmp_x[[1]]) , ]
+  expect_equivalent(tmp_x, x)  ## 
 
   unlink("chartest.xml")
 })
