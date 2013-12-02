@@ -45,7 +45,7 @@ test_that("We can serialize the various versions of the ape format", {
   library(ape)
   data(bird.orders)
   nexml <- as(bird.orders, "nexml")
-  nexml_write(nexml, "test.xml")
+  nexml_write(nexml, file = "test.xml")
   unlink("test.xml")
 })
 
@@ -57,10 +57,10 @@ test_that("We can read and write NeXML to phylo and back without edge.lengths", 
            s <- "owls(((Strix_aluco,Asio_otus),Athene_noctua),Tyto_alba);"
            cat(s, file = "ex.tre", sep = "\n")
            owls <- read.tree("ex.tre")
-           nexml_write(owls, "ex.xml")
+           nexml_write(owls, file = "ex.xml")
            owls2 <- as(nexml_read("ex.xml"), "phylo")
            expect_equal(owls, owls2)
-           expect_identical(unlist(owls), unlist(owls2)) # FIXME cannot tell what the difference is when not unlisted.  oh well.  
+## FIXME what? 
            unlink("ex.tre")
            unlink("ex.xml")
 })
@@ -70,7 +70,7 @@ test_that("We can read and write NeXML to phylo and back without edge.lengths", 
 test_that("Rooted trees remain rooted on conversions", {
           expect_true(is.rooted(bird.orders))
           expect_true(is.rooted(as(as(bird.orders, "nexml"), "phylo")))
-          write.nexml(bird.orders, "tmp.xml")
+          write.nexml(bird.orders, file = "tmp.xml")
           expect_true(is.rooted(as(read.nexml("tmp.xml"), "phylo")))
           unlink("tmp.xml")
 })
@@ -79,8 +79,9 @@ phy <- unroot(bird.orders)
 test_that("Unrooted trees remain unrooted on conversions", {
   expect_false(is.rooted(phy))
   expect_false(is.rooted(as(as(phy, "nexml"), "phylo")))
-  write.nexml(phy, "tmp.xml")
+  write.nexml(phy, file = "tmp.xml")
   expect_false(is.rooted(as(read.nexml("tmp.xml"), "phylo")))
+  unlink("tmp.xml")
 })
 
 test_that("We can convert trees with only some edge lengths into ape::phylo", {

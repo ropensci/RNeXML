@@ -7,7 +7,7 @@ test_that("example file validates", {
 
 test_that("RNeXML-generated file validates", {
   data(bird.orders)
-  f <- nexml_write(bird.orders, "test.xml") 
+  f <- nexml_write(bird.orders, file="test.xml") 
   expect_true(nexml_validate(f))
   unlink("test.xml")
 })
