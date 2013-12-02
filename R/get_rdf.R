@@ -25,7 +25,7 @@ get_rdf <- function(file){
   if(is(file, "nexml")){
     write.nexml(file, file = "tmpnexmlrdf.xml")
     clean <- TRUE
-    file <- "tmpnexml.xml"
+    file <- "tmpnexmlrdf.xml"
   }
   response <- POST("http://rdf-translator.appspot.com/convert/rdfa/xml/content", 
                    body=list(content=upload_file(file)))
