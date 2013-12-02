@@ -23,7 +23,7 @@
 get_rdf <- function(file){
   clean <- FALSE
   if(is(file, "nexml")){
-    write.nexml(file, "tmpnexmlrdf.xml")
+    write.nexml(file, file = "tmpnexmlrdf.xml")
     clean <- TRUE
     file <- "tmpnexml.xml"
   }
