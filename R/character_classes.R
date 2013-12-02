@@ -4,7 +4,7 @@
 
 
 setClass("char",
-         representation(states = "character"),
+         slots = c(states = "character"),
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("char", "XMLInternalElementNode"),
@@ -34,9 +34,9 @@ setAs("XMLInternalElementNode", "char",
 
 ###############################################
 
-setClass("ListOfrow", representation(names="character"), contains="list")
+setClass("ListOfrow", slots = c(names="character"), contains="list")
 setClass("obsmatrix",
-         representation(row="ListOfrow"),
+         slots = c(row="ListOfrow"),
          contains = "Annotated")
 setMethod("fromNeXML", 
           signature("obsmatrix", "XMLInternalElementNode"),
@@ -69,11 +69,11 @@ setAs("XMLInternalElementNode", "obsmatrix",
 
 ######################################################
 
-setClass("ListOfcell", representation(names="character"), contains="list")
-setClass("ListOfseq", representation(names="character"), contains="list")
+setClass("ListOfcell", slots = c(names="character"), contains="list")
+setClass("ListOfseq", slots = c(names="character"), contains="list")
 
 setClass("row",
-         representation(cell = "ListOfcell",
+         slots = c(cell = "ListOfcell",
                         seq = "ListOfseq"),
          contains = "OptionalTaxonLinked")
 setMethod("fromNeXML", 
@@ -107,10 +107,10 @@ setAs("XMLInternalElementNode", "row",
       function(from) fromNeXML(new("row"), from))
 
 #######################################################
-setClass("ListOfstate", representation(names="character"), contains="list")
+setClass("ListOfstate", slots = c(names="character"), contains="list")
 
 setClass("states",
-         representation(state="ListOfstate"),
+         slots = c(state="ListOfstate"),
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("states", "XMLInternalElementNode"),
@@ -142,7 +142,7 @@ setAs("XMLInternalElementNode", "states",
 
 ####################################################### 
 setClass("state",
-         representation(symbol = "character"), 
+         slots = c(symbol = "character"), 
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("state", "XMLInternalElementNode"),
@@ -167,10 +167,10 @@ setAs("XMLInternalElementNode", "state",
 
 ################################################
 
-setClass("ListOfmember", representation(names="character"), contains="list")
+setClass("ListOfmember", slots = c(names="character"), contains="list")
 
 setClass("uncertain_state_set", 
-         representation(member = "ListOfmember"),
+         slots = c(member = "ListOfmember"),
          contains="state")
 setMethod("fromNeXML", 
           signature("uncertain_state_set", "XMLInternalElementNode"),
@@ -229,7 +229,7 @@ setAs("XMLInternalElementNode", "polymorphic_state_set",
 #####################
 
 setClass("cell",
-         representation(char="character", 
+         slots = c(char="character", 
                         state= "character"),
          contains="Base")
 setMethod("fromNeXML", 
@@ -258,7 +258,7 @@ setAs("XMLInternalElementNode", "cell",
 #########################
 
 setClass("member", 
-         representation(state="character"),
+         slots = c(state="character"),
          contains="Base")
 setMethod("fromNeXML", 
           signature("member", "XMLInternalElementNode"),
@@ -285,7 +285,7 @@ setAs("XMLInternalElementNode", "member",
 ########################
 
 setClass("seq", 
-         representation(seq = "character"),
+         slots = c(seq = "character"),
          contains="Base")
 setMethod("fromNeXML", 
           signature("seq", "XMLInternalElementNode"),
@@ -311,11 +311,11 @@ setAs("XMLInternalElementNode", "seq",
 
 #########################################
 
-setClass("ListOfchar", representation(names="character"), contains="list")
-setClass("ListOfstates", representation(names="character"), contains="list")
+setClass("ListOfchar", slots = c(names="character"), contains="list")
+setClass("ListOfstates", slots = c(names="character"), contains="list")
 
 setClass("format", 
-         representation(states = "ListOfstates", ## FIXME Should be ListOfstates
+         slots = c(states = "ListOfstates", ## FIXME Should be ListOfstates
                         char = "ListOfchar"),
          contains = "Annotated")
 setMethod("fromNeXML", 
@@ -358,7 +358,7 @@ setAs("XMLInternalElementNode", "format",
 
 ####################################################
 setClass("characters",
-         representation(format = "format",
+         slots = c(format = "format",
                         matrix = "obsmatrix"),
         contains = "TaxaLinked")
 setMethod("fromNeXML", 

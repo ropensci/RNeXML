@@ -1,5 +1,5 @@
 setClass("phyloS4", 
-         representation(edge = "matrix",
+         slots = c(edge = "matrix",
                         Nnode = "integer",
                         tip.label = "character",
                         edge.length = "numeric"))
@@ -8,7 +8,7 @@ setOldClass("phylo", S4Class="phyloS4")
 selectMethod("show", "phylo")
 removeClass("phyloS4")
 
-setClass("nexmlTree", representation(nexml = "nexml"), contains="phylo")
+setClass("nexmlTree", slots = c(nexml = "nexml"), contains="phylo")
 setMethod("show", "nexmlTree", function(object) print.phylo(object))
 # callNextMethod(object) ## callNextMethod might have been an option, but it looks for 'show' method, not print method?? 
 

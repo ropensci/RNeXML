@@ -15,7 +15,7 @@ setGeneric("toNeXML",
 ##############################
 
 setClass("Base",
-         representation('xsi:type' = "character"))
+         slots = c('xsi:type' = "character"))
 setMethod("toNeXML", 
           signature("Base", "XMLInternalElementNode"), 
           function(object, parent){
@@ -42,7 +42,7 @@ setMethod("fromNeXML",
 #########################
 
 setClass("Meta",
-         representation(children = "list"), 
+         slots = c(children = "list"), 
          contains = "Base")
 setMethod("fromNeXML", 
           signature("Meta", "XMLInternalElementNode"),
@@ -60,7 +60,7 @@ setMethod("toNeXML",
 #########################
 
 setClass("LiteralMeta", 
-         representation(id = "character",
+         slots = c(id = "character",
                         property = "character", 
                         datatype = "character",
                         content = "character"),
@@ -99,7 +99,7 @@ setAs("LiteralMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode(
 ##############################################
 
 setClass("ResourceMeta", 
-         representation(id = "character",
+         slots = c(id = "character",
                         rel = "character", 
                         href = "character"),
          contains="Meta")
@@ -157,14 +157,14 @@ setAs("meta", "XMLInternalNode", function(from)  ## Really, do we need this?
 
 ###############################################
 
-setClass("ListOfmeta", representation(names="character"), contains = "list")
+setClass("ListOfmeta", slots = c(names="character"), contains = "list")
       
 
 ###############################################
 
 
 setClass("Annotated",
-         representation(meta = "ListOfmeta",
+         slots = c(meta = "ListOfmeta",
                         about = "character"),
          contains = "Base")
 setMethod("fromNeXML",
@@ -195,7 +195,7 @@ setMethod("toNeXML",
 ######################################################
 
 setClass("Labelled",
-         representation(label = "character"),
+         slots = c(label = "character"),
          contains = "Annotated")
 setMethod("fromNeXML", 
           signature("Labelled", "XMLInternalElementNode"),
@@ -218,7 +218,7 @@ setMethod("toNeXML",
 ##############################
 
 setClass("IDTagged",
-         representation(id = "character"),
+         slots = c(id = "character"),
          contains = "Labelled")
 setMethod("fromNeXML", 
           signature("IDTagged", "XMLInternalElementNode"),
@@ -243,7 +243,7 @@ setMethod("toNeXML",
 
 
 setClass("OptionalTaxonLinked", 
-         representation(otu = "character"),
+         slots = c(otu = "character"),
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("OptionalTaxonLinked", "XMLInternalElementNode"),
@@ -267,7 +267,7 @@ setMethod("toNeXML",
 
 
 setClass("TaxaLinked", 
-         representation(otus = "character"),
+         slots = c(otus = "character"),
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("TaxaLinked", "XMLInternalElementNode"),
@@ -291,7 +291,7 @@ setMethod("toNeXML",
 ############################## Really AbstractNode
 
 setClass("node", 
-         representation(root = "logical"),
+         slots = c(root = "logical"),
          contains = "OptionalTaxonLinked")
 setMethod("fromNeXML", signature("node", "XMLInternalElementNode"),
           function(obj, from){
@@ -321,7 +321,7 @@ setAs("XMLInternalElementNode", "node",
 ################################ Really AbstractEdge
 
 setClass("edge", 
-         representation(source = "character",
+         slots = c(source = "character",
                         target = "character", 
                         length = "numeric"), 
          contains="IDTagged")
@@ -358,7 +358,7 @@ setAs("XMLInternalElementNode", "edge",
 ##################################################
 
 setClass("rootEdge", 
-         representation(source = "character",
+         slots = c(source = "character",
                         target = "character", 
                         length = "numeric"), 
          contains="IDTagged")
@@ -415,7 +415,7 @@ setAs("XMLInternalElementNode", "otu",
 
 ################################ alternatively called Taxa by the schema
 
-setClass("ListOfotu", representation(names="character"),  
+setClass("ListOfotu", slots = c(names="character"),  
          contains = "list",
          validity = function(object)
                        if(!all(sapply(object, is, "otu")))
@@ -426,7 +426,7 @@ setClass("ListOfotu", representation(names="character"),
 ###############################
 
 setClass("otus", 
-         representation(otu = "ListOfotu"), representation(names="character"), 
+         slots = c(otu = "ListOfotu"), representation(names="character"), 
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("otus", "XMLInternalElementNode"),
@@ -456,7 +456,7 @@ setAs("XMLInternalElementNode", "otus",
 ################################
 
 
-setClass("ListOfedge", representation(names="character"), 
+setClass("ListOfedge", slots = c(names="character"), 
          contains = "list",
          validity = function(object)
                        if(!all(sapply(object, is, "edge")))
@@ -466,7 +466,7 @@ setClass("ListOfedge", representation(names="character"),
 
 
 
-setClass("ListOfnode", representation(names="character"), 
+setClass("ListOfnode", slots = c(names="character"), 
          contains = "list",
          validity = function(object)
                        if(!all(sapply(object, is, "node")))
@@ -477,7 +477,7 @@ setClass("ListOfnode", representation(names="character"),
 ################################## actually AbstractTree
 
 setClass("tree", 
-         representation(node = "ListOfnode", 
+         slots = c(node = "ListOfnode", 
                         edge = "ListOfedge",
                         rootedge = "rootEdge"), # Actually AbstractRootEdge
          contains = "IDTagged")
@@ -513,10 +513,10 @@ setAs("XMLInternalElementNode", "tree",
 
 ################################################
 
-setClass("ListOftree", representation(names="character"), contains = "list") # validity can contain tree or network nodes?
+setClass("ListOftree", slots = c(names="character"), contains = "list") # validity can contain tree or network nodes?
 
 setClass("trees", 
-         representation(tree = "ListOftree"), # Can contain networks...
+         slots = c(tree = "ListOftree"), # Can contain networks...
          contains = "TaxaLinked")
 setMethod("fromNeXML", 
           signature("trees", "XMLInternalElementNode"),
@@ -546,9 +546,9 @@ setAs("XMLInternalElementNode", "trees",
 
 ####################################################
 
-setClass("ListOfotus", representation(names="character"), contains = "list")
-setClass("ListOftrees", representation(names="character"), contains = "list")
-setClass("ListOfcharacters", representation(names="character"), contains = "list")
+setClass("ListOfotus", slots = c(names="character"), contains = "list")
+setClass("ListOftrees", slots = c(names="character"), contains = "list")
+setClass("ListOfcharacters", slots = c(names="character"), contains = "list")
 
 ####################################################
 
@@ -569,7 +569,7 @@ nexml_namespaces <-
 
 
 setClass("nexml", 
-         representation(version = "character",
+         slots = c(version = "character",
                         generator = "character",
                         "xsi:schemaLocation" = "character", # part of base?
                         namespaces = "character",           # part of base? 

@@ -28,15 +28,29 @@ See [Vos _et al._ 2012].
 Mention of data sharing challenges and opportunities.  See [Drew et al 2013](10.1371/journal.pbio.1001636)
 
 
+
+A nexml file can be thought of as having three components: (1) phylogeny data (2) character-trait data, and (3) metadata. `RNeXML` seeks to provide a seemless way to convert these to and from their corresponding R object representations, such as `ape::phylo` phylogenies, character matrices (`data.frames`) and metadata lists (or for advanced users, `XMLInternalDocument` and `rrdf` triplestores).  The RNeXML package functions (the package Application Programming Interface, API) 
+
 ## Introduction to RNeXML
 
+<!-- Do we describe installation of the package?  `install.packages("RNeXML")`?-->
 
-### Reading NeXML phylogenies
+### Reading NeXML 
+
+
+```{r echo=FALSE}
+library(RNeXML)
+```
+
+We begin by reading in an example NeXML file.   
 
 ```{r}
-phy = read.nexml("trees.xml", as="phylo")
-plot(phy)
+f <- system.file("examples", "trees.xml", package="RNeXML")
+nex <- read.nexml("trees.xml")
 ```
+
+The resulting `nex` object is an R 
+
 
 ### Reading NeXML metadata
 
