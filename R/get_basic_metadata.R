@@ -1,45 +1,30 @@
 
-## FIXME might want to define this for sub-nodes.  e.g. so we can get all metadata on "nodes" in tree2...
+## Goodness, but XPATH is so much more expressive for this purpose...
+## get all top-level metadata  More extensible than hardwired functions
+## The following methods are somewhat too rigid.  Might make more sense to do get_metadata(nexml, "nexml")["dc:creator"], etc.  
+## Note that we define our namespace prefixes explicitly, so that should the NeXML use a different abberivation, this should still work.  
 
-
-#' @import XML
 #' @export
-get_metadata <-  function(nexml, level){
-  level <- match.arg(level) 
-  string <- paste0("//nex:", level, "/nex:meta" )
+get_citation <- function(nexml){
   b <- setxpath(as(nexml, "XMLInternalElementNode"))
-
-  references <- getNodeSet(b, 
-                           paste0(string, "[@rel]"),
-                           namespaces = nexml_namespaces)
-  rel = sapply(references, 
-                    function(x) 
-                      xmlAttrs(x)['rel'])
-  href = sapply(references, 
-                   function(x) 
-                     xmlAttrs(x)['href'])
-  names(href) = rel
-  literals <- getNodeSet(b, 
-                         paste0(string, "[@property]"), 
-                         namespaces = nexml_namespaces)
-  property = sapply(literals, 
-                    function(x) 
-                      xmlAttrs(x)['property'])
-  content = sapply(literals, 
-                   function(x) 
-                     xmlAttrs(x)['content'])
-  names(content) = property
-  c(content, href)
+## FIXME should return a citaiton class nexml! 
+  unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dcterms:bibliographicCitation']/@content", namespaces = nexml_namespaces))
 }
 
-## Ironically, it is easier to extract the license from the XML representation using XPath than to extract it from the R S4 representation.  
-## Using newXMLDoc(object) leads invariably to segfaults....
-## safer to write out and parse.  
-setxpath <- function(object){
-            suppressWarnings(saveXML(object, "tmp.xml"))
-            doc <- xmlParse("tmp.xml")
-            unlink("tmp.xml")
-            doc
+#' @export 
+get_license <- 
+  function(nexml){
+    b <- setxpath(as(nexml, "XMLInternalElementNode"))
+    dc_rights <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dc:rights']/@content", namespaces = nexml_namespaces))
+    cc_license <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@rel='cc:license']/@href", namespaces = nexml_namespaces))
+  if(length(dc_rights) > 0)
+    dc_rights
+  else
+    cc_license
 }
+
+
+
+
 
 
