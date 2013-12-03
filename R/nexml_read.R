@@ -3,7 +3,6 @@
 #' @param x Path to the file to be read in 
 #' @param ... Further arguments passed on to XML::xmlParse
 #' @import XML
-#' @import ape 
 #' @aliases nexml_read read.nexml 
 #' @export nexml_read read.nexml 
 #' @examples

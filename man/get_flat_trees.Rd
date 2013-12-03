@@ -1,5 +1,6 @@
 \name{get_flat_trees}
 \alias{get_flat_trees}
+\title{extract a single multiPhylo object containing all trees in the nexml}
 \usage{
 get_flat_trees(nexml)
 }
@@ -10,6 +11,10 @@ get_flat_trees(nexml)
 \value{
   a multiPhylo object (list of ape::phylo objects).  See
   details.
+}
+\description{
+  extract a single multiPhylo object containing all trees
+  in the nexml
 }
 \details{
   Note that this method collapses any heirachical structure

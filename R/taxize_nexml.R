@@ -1,4 +1,3 @@
-
 #' @import taxize
 #' @export 
 taxize_nexml <- function(nexml, type = c("NCBI"), ...){
