@@ -3,7 +3,6 @@
 #' @param nexml nexml object 
 #' @return a list showing the mapping between (internal) otu identifiers and labels (taxonomic names). List is named by the id of the otus block. 
 #' @details largely for internal use   
-#' @export 
 get_otu_maps <- function(nexml){
   otus <- as.list(nexml@otus)
   names(otus) <- name_by_id(otus)
