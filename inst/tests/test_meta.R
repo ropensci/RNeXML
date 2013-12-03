@@ -65,7 +65,7 @@ test_that("We can add additional metadata", {
 })
 
 
-test_that("We can add additional metadata at arbitrary level", {
+test_that("We can directly add additional metadata at arbitrary level", {
   nex <- add_trees(bird.orders)
   modified <- meta(property = "prism:modificationDate",
                   content = "2013-10-04")
@@ -74,6 +74,24 @@ test_that("We can add additional metadata at arbitrary level", {
 
   expect_identical(get_metadata(nex, "trees")[[modified@property]], modified@content)
 })
+
+
+
+test_that("We can directly add additional metadata using concatenation notation", {
+  nex <- add_trees(bird.orders)
+  modified <- meta(property = "prism:modificationDate",
+                  content = "2013-10-04")
+  website <- meta(href = "http://carlboettiger.info", 
+                 rel = "foaf:homepage")
+
+  nex@trees[[1]]@meta <- c(modified)         # we can add just one element 
+  nex@trees[[1]]@meta <- c(modified,website) # or more than one element
+
+  expect_identical(get_metadata(nex, "trees")[[modified@property]], modified@content)
+})
+
+
+
 
 
 test_that("We can add arbitrary metadata", {

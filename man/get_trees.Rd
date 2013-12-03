@@ -1,6 +1,6 @@
 \name{get_trees}
 \alias{get_trees}
-\title{extract all phylogenetic trees in ape format}
+\title{extract a phylogenetic tree from the nexml}
 \usage{
 get_trees(nexml)
 }
@@ -9,19 +9,17 @@ get_trees(nexml)
   which the data is to be retrieved}
 }
 \value{
-  returns a list of lists of multiphylo trees, even if all
-  trees are in the same `trees` node (and hence the outer
-  list will be of length 1) or if there is only a single
-  tree (and hence the inner list will also be of length 1.
-  This guarentees a consistent return type regardless of
-  the number of trees present in the nexml file, and also
-  preserves any heirarchy/grouping of trees.
+  an ape::phylo tree, if only one tree is represented.
+  Otherwise returns a list of lists of multiphylo trees.
+  To consistently recieve the list of lists format
+  (preserving the heriarchical nature of the nexml), use
+  \code{\link{get_trees_list}} instead.
 }
 \description{
-  extract all phylogenetic trees in ape format
+  extract a phylogenetic tree from the nexml
 }
 \seealso{
-  \code{\link{get_tree}} \code{\link{get_flat_trees}}
+  \code{\link{get_trees}} \code{\link{get_flat_trees}}
   \code{\link{get_item}}
 }
 

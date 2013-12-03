@@ -121,4 +121,9 @@ nexml_citation <- function(obj){
 
 
 
-
+setMethod("c", 
+          signature("meta"),
+          function(x, ...){
+            elements <- list(x, ...)
+            new("ListOfmeta", elements)
+          })

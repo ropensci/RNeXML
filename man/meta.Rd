@@ -40,7 +40,7 @@ meta(property = character(0), content = character(0), rel = character(0),
   the class of the content argument.  Maps from R class to
   schema datatypes are as follows: character - xs:string,
   Date - xs:date, integer - xs:integer, numeric -
-  xs:decimal logical - xs:boolean
+  xs:decimal, logical - xs:boolean
 }
 \seealso{
   \code{\link{nexml_write}}
