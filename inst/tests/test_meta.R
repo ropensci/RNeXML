@@ -65,21 +65,30 @@ test_that("We can add additional metadata", {
 })
 
 
+test_that("We can add additional metadata at arbitrary level", {
+  nex <- add_trees(bird.orders)
+  modified <- meta(property = "prism:modificationDate",
+                  content = "2013-10-04")
 
+  nex@trees[[1]]@meta <- new("ListOfmeta", list(modified))
+
+  expect_identical(get_metadata(nex, "trees")[[modified@property]], modified@content)
+})
 
 
 test_that("We can add arbitrary metadata", {
-
-  rdfa <- '<meta typeof="foaf:Person" about="http://carlboettiger.info#me">
+  require(XML)
+  rdfa <- '<xhtml:div typeof="foaf:Person" about="http://carlboettiger.info#me">
              <a rel="foaf:account" href="https://twitter.com/cboettig">twitter</a> 
              <a rel="foaf:account" href="https://github.com/cboettig">github</a>
-           </meta>'
+           </xhtml:div>'
   parsed <- xmlRoot(xmlParse(rdfa))
   arbitrary_rdfa <- meta(property="eml:additionalMetadata", content="additional metadata", children = parsed)
 
   nex <- add_meta(arbitrary_rdfa, 
                   namespaces = c(foaf = "http://xmlns.com/foaf/0.1/", 
-                                 eml = "eml://ecoinformatics.org/eml-2.1.1"))
+                                 eml = "eml://ecoinformatics.org/eml-2.1.1", 
+                                 xhtml = "http://www.w3.org/1999/xhtml"))
 
   nexml_write(nex, file = "example.xml")
 

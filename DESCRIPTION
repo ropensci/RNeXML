@@ -47,6 +47,7 @@ Collate:
     'internal_nexml_id.R'
     'meta.R'
     'nexmlTree.R'
+    'nexml_methods.R'
     'nexml_read.R'
     'nexml_validate.R'
     'nexml_write.R'

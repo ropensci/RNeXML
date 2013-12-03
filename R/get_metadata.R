@@ -4,7 +4,7 @@
 
 #' @import XML
 #' @export
-get_metadata <-  function(nexml, level){
+get_metadata <-  function(nexml, level=c("nexml", "otus", "trees", "characters")){
   level <- match.arg(level) 
   string <- paste0("//nex:", level, "/nex:meta" )
   b <- setxpath(as(nexml, "XMLInternalElementNode"))

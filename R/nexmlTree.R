@@ -23,11 +23,11 @@ nexmlTree <- function(object){
 ## Coercions between classes
 setAs("XMLInternalElementNode", "nexmlTree", function(from)
       nexmlTree(as(from, "nexml")))
-setAs("nemxmlTree", "XMLInternalElementNode", function(from)
+setAs("nexmlTree", "XMLInternalElementNode", function(from)
       as(from@nexml, "XMLInternalElementNode"))
 setAs("XMLInternalNode", "nexmlTree", function(from)
       nexmlTree(as(from, "nexml")))
-setAs("nemxmlTree", "XMLInternalNode", function(from)
+setAs("nexmlTree", "XMLInternalNode", function(from)
       as(from@nexml, "XMLInternalNode"))
 setAs("phylo", "nexmlTree", function(from)
       nexmlTree(as(from, "nexml")))

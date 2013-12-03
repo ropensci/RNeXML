@@ -18,12 +18,11 @@
 #' character - xs:string, 
 #' Date - xs:date,
 #' integer - xs:integer,
-#' numeric - xs:decimal
+#' numeric - xs:decimal,
 #' logical - xs:boolean
 #' 
 #' @export 
 #' @seealso \code{\link{nexml_write}}
-# FIXME generate id elements??
 meta <- function(property = character(0), 
                  content = character(0), 
                  rel = character(0), 
@@ -51,8 +50,8 @@ meta <- function(property = character(0),
   if(is(children, "XMLAbstractNode") || is(children, "XMLInternalNode"))
     children <- list(children)
 
-  if(length(property) > 0){
-    if(is.null(content))
+  if(length(property) > 0){ ## avoid 
+    if(is.null(content) && length(children) == 0) ## Avoid writing when content is missing, e.g. prism:endingpage is blank
       NULL
     else
       new("meta", content = content, datatype = datatype, 
