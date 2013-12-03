@@ -70,7 +70,6 @@ otu_list <- function(to_add, prefix="ou"){
 }
 
 
-#' @include metadata_methods.R
 add_otu <- function(nexml, new_taxa, append=FALSE){
 
   current_taxa <- get_taxa_list(nexml)
