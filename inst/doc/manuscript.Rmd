@@ -51,6 +51,19 @@ nex <- read.nexml("trees.xml")
 
 The resulting `nex` object is an R object representation of the NeXML.   
 
+```{r}
+phy <- get_trees(nex)
+plot(phy)
+```
+
+Where we have used the standard plotting function from the `ape` package to plot the resulting `ape::phylo` object returned by `get_trees`.  
+
+NeXML can not only contain multiple phylogenetic trees in a single file, but can also group sets of trees into separate blocks.  The `get_trees` function attempts to return the most sensible R object for NeXML: if only a single tree is available, it will return an `ape::phylo` object; if multiple trees are available in a single `trees` block, it will return an `ape::multiPhylo` object (a list of `phylo` objects).  If multiple blocks are available, it will return a list of `multiPhylo` blocks.  While most users will find this behavior convenient, there are times (such as looping over many NeXML files) when having a variable return type is undisirable.  To always get back a list of `multiPhylo` objects, even when only one tree is available, use `get_trees_list()`.  
+
+
+##### Character data
+
+
 
 ### Reading NeXML metadata
 

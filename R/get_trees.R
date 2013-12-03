@@ -5,17 +5,17 @@
 #' @export
 #' @import plyr 
 #' @seealso \code{\link{get_tree}} \code{\link{get_flat_trees}} \code{\link{get_item}}
-get_trees <- function(nexml) as(nexml, "multiPhyloList")
+get_trees_list <- function(nexml) as(nexml, "multiPhyloList")
 
 
 
 #' extract a phylogenetic tree from the nexml
 #' 
 #' @param object a representation of the nexml object from  which the data is to be retrieved
-#' @return an ape::phylo tree, if only one tree is represented.  Otherwise returns a list of lists of multiphylo trees.  To consistently recieve the list of lists format (preserving the heriarchical nature of the nexml), use \code{\link{get_trees}} instead.  
+#' @return an ape::phylo tree, if only one tree is represented.  Otherwise returns a list of lists of multiphylo trees.  To consistently recieve the list of lists format (preserving the heriarchical nature of the nexml), use \code{\link{get_trees_list}} instead.  
 #' @export
 #' @seealso \code{\link{get_trees}} \code{\link{get_flat_trees}} \code{\link{get_item}}
-get_tree <- function(nexml) as(nexml, "phylo")
+get_trees <- function(nexml) as(nexml, "phylo")
 
 
 #' extract a single multiPhylo object containing all trees in the nexml

@@ -19,14 +19,14 @@
 #' @seealso \code{\link{get_tree}}
 #' @include classes.R
 get_item <- function(nexml, 
-                     element = c("tree", "trees", "flat_trees", "metadata", "otu", "characters", "characters_list"), 
+                     element = c("trees", "trees_list", "flat_trees", "metadata", "otu", "characters", "characters_list"), 
                      level = c("nexml", "otus", "otu", "trees", "tree")){
   element <- match.arg(element)
   level <- match.arg(level)
 
   switch(element,
-         tree = get_tree(nexml), # will warn if more than one tree is available
-         trees = get_trees(nexml),
+         trees = get_trees(nexml), # will warn if more than one tree is available
+         trees_list = get_trees_list(nexml),
          flat_trees = get_flat_trees(nexml),
          metadata = get_metadata(nexml, level),
          otu = get_taxa(nexml),
