@@ -28,7 +28,6 @@ Imports:
     httr
 Collate:
     'add_basic_meta.R'
-    'metadata_methods.R'
     'classes.R'
     'add_characters.R'
     'add_meta.R'
