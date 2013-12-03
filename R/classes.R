@@ -426,7 +426,7 @@ setClass("ListOfotu", slots = c(names="character"),
 ###############################
 
 setClass("otus", 
-         slots = c(otu = "ListOfotu"), representation(names="character"), 
+         slots = c(otu = "ListOfotu", names="character"), 
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("otus", "XMLInternalElementNode"),

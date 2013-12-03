@@ -2,7 +2,7 @@
 \alias{get_trees}
 \title{extract all phylogenetic trees in ape format}
 \usage{
-get_trees(object)
+get_trees(nexml)
 }
 \arguments{
   \item{object}{a representation of the nexml object from

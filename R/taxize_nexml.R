@@ -1,6 +1,7 @@
 
 #' @import taxize
-add_otu_identifiers <- function(nexml, type = c("NCBI"), ...){
+#' @export 
+taxize_nexml <- function(nexml, type = c("NCBI"), ...){
           type <- match.arg(type)
           if(type == "NCBI"){
             for(i in 1:length(nexml@otus@otu)){
