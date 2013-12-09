@@ -16,16 +16,28 @@ setMethod("show", signature("nexml"), function(object){
 })
 
 
-
+# FIXME: consider showing author/title/citation information if available?  
 setMethod("summary", signature("nexml"), function(object){
           doc <- xmlParse(write.nexml(object))
           nmeta <- length(getNodeSet(doc, "//x:meta", namespaces="x"))
+          ntree_blocks <- length(object@trees)
+          n_per_block <- sapply(unname(object@trees), function(x)  length(x@tree))
           ntrees <- length(getNodeSet(doc, "//x:tree", namespaces="x"))
           ncharacters <- length(getNodeSet(doc, "//x:characters", namespaces="x"))
           notu <- length(getNodeSet(doc, "//x:otu", namespaces="x"))
 
+
+                    
+          block_counts <- 
+            paste(sapply(1:length(n_per_block), 
+                         function(i)
+                           paste("\t block", i, "contains", 
+                                 n_per_block[i], "phylogenetic trees")),
+                  sep= "", collapse = "\n")
+
           cat(paste("A nexml object representing:\n",
-              "\t", ntrees, "phylogenetic trees", "\n",
+              "\t", ntree_blocks, "phylogenetic tree blocks, where:", "\n",
+              block_counts, "\n",
               "\t", nmeta, "meta elements", "\n",
               "\t", ncharacters, "character matrices", "\n",
               "\t", notu, "taxonomic units", "\n",
