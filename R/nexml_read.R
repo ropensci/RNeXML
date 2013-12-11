@@ -3,12 +3,16 @@
 #' @param x Path to the file to be read in 
 #' @param ... Further arguments passed on to XML::xmlParse
 #' @import XML
+#' @import httr
 #' @aliases nexml_read read.nexml 
 #' @export nexml_read read.nexml 
 #' @examples
 #' f <- system.file("examples", "trees.xml", package="RNeXML")
 #' nexml_read(f) 
 nexml_read <- function(x, ...){
+  if(grep("^https?://", x) == 1) # handle remote paths using httr::GET
+    x <- GET(x)
+
   doc <- xmlParse(x, ...) 
   output <- as(xmlRoot(doc), "nexml")
   free(doc) # explicitly free the pointers after conversion into S4
