@@ -3,7 +3,7 @@
 
 Why RNeXML?
 
-* Why NeXML -- because Nexus standard isn't a standard.  Developers extend it arbitrarily to meet their needs, making it incompatible.  Cannot represent horizontal gene transfer, ambiguous use of symbols, cannot be extended reliably, no validator.  NeXML solves all of these problems [Vos et al] with a state-of-the-art data management format.  
+* Why NeXML -- because Nexus standard isn't a standard.  Developers extend it arbitrarily to meet their needs, making it incompatible.  Cannot represent horizontal gene transfer, ambiguous use of symbols, cannot be extended reliably, no validator.  NeXML solves all of these problems [Vos _et al._ 2012] with a state-of-the-art data management format.  
 
 * Why RNeXML: Huge ecosystem of phylogenetics packages. (1) Read nexml.  All would benefit by being able to read NeXML, both as a robust standard free of the pitfalls of Nexus, and more importantly, as a much richer source of data thanks to its extendable annotation model.  (2) Write nexml.  R packages and R users add rich information to the phylogenies they work with, but need a platform independent data exchange format to share and archive this. (3) Annotate and extend nexml.  
 
@@ -35,8 +35,10 @@ A nexml file can be thought of as having three components: (1) phylogeny data (2
 
 <!-- Do we describe installation of the package?  `install.packages("RNeXML")`?-->
 
-### Reading NeXML 
 
+## Working with phylogenetic trees
+
+#### Read methods
 
 ```{r echo=FALSE}
 library(RNeXML)
@@ -46,23 +48,48 @@ We begin by reading in an example NeXML file.
 
 ```{r}
 f <- system.file("examples", "trees.xml", package="RNeXML")
-nex <- read.nexml("trees.xml")
+nex <- nexml_read("trees.xml")
 ```
 
-The resulting `nex` object is an R object representation of the NeXML.   
+(For convenience `nexml_read` is also aliased as `read.nexml`, for users familiar with the somewhat analogous `read.nexus` function).   The resulting `nex` object is an R object representation of the NeXML.  From this object we can extract any phylogenies it contains in the `ape::phylo` format:   
 
 ```{r}
 phy <- get_trees(nex)
+```
+We can then leverage the rich suite of methods available from the R phylogenetics community (including coercion into other representations, such as `ouch` [@ouch] and `phylobase` [@phylobase] phylogeny formats). For instance, here we use the standard plotting function from the `ape` package to plot the resulting `ape::phylo` object returned by `get_trees`.  
+
+
+[@ouch]: http://cran.r-project.org/web/packages/ouch/
+[@phylobase]: http://cran.r-project.org/web/packages/phylobase
+
+``{r}
 plot(phy)
 ```
 
-Where we have used the standard plotting function from the `ape` package to plot the resulting `ape::phylo` object returned by `get_trees`.  
-
 NeXML can not only contain multiple phylogenetic trees in a single file, but can also group sets of trees into separate blocks.  The `get_trees` function attempts to return the most sensible R object for NeXML: if only a single tree is available, it will return an `ape::phylo` object; if multiple trees are available in a single `trees` block, it will return an `ape::multiPhylo` object (a list of `phylo` objects).  If multiple blocks are available, it will return a list of `multiPhylo` blocks.  While most users will find this behavior convenient, there are times (such as looping over many NeXML files) when having a variable return type is undisirable.  To always get back a list of `multiPhylo` objects, even when only one tree is available, use `get_trees_list()`.  
+
+<!-- have we already said all this above?-->
+The ability to read in phylogenetic trees in the `nexml` format opens up a wide and rapidly growing array of resources to the R user.  For instance, a user can access all the phylogenies available in TreeBASE through the `nexml` format.  `RNeXML` can read directly from a URL: 
+
+```{r eval=FALSE}
+nex = nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
+```
+
+Previously, this was possible using the `treebase` package [@treebase] for R, which relied on the nexus parser provided in the `ape` package.  Due to inconsistencies present in the Nexus standard [Vos _et al._ 2012], a significant number <!-- State explicitly --> of TreeBASE nexus files could not be read in this way.  Using the more precisely defined NEXML standard, every valid NeXML file on TreeBASE can now successfully be parsed.  
+
+
+
+
+#### Write methods 
+
+
+
+
+
+
 
 
 ##### Character data
-
 
 
 ### Reading NeXML metadata
