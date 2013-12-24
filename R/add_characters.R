@@ -222,13 +222,20 @@ add_rows <- function(nexml, x, i = 1){
 ## then write each as separate <characters> nodes: 
 ## x should now be a list of data.frames of common type
 format_characters <- function(x){
+
+  if(is(x, "numeric"))
+    x <- as.data.frame(x)
+
   ## Actually useful conversions ##
   ## Matrices are either all-numeric or all-character class, so no risk of mixed discrete and continous states.  
   if(is(x, "matrix")){
     x <- list(as.data.frame(x))
   ## Data.frames can mix discrete and continous states, so we need to seperate them
-  } else if(is(x, "data.frame")) {
+  } else if(is(x, "data.frame") && dim(x)[2] > 1) {
     x <- split_by_class(x)
+
+  } else if(is(x, "data.frame") && dim(x)[2] == 1) {
+    x <- list(x) 
 
   #### Ugh, this next bit isn't pretty.  Maybe we should  just hope lists are formatted correctly, e.g. come from get_character_list. 
 
@@ -239,16 +246,10 @@ format_characters <- function(x){
     for(i in 1:length(x)){
       if(is(x[[i]], "matrix"))
         x[[i]] <- as.data.frame(x[[i]])  ## A list of matrices we can make into a list of data.frames...
-#      else if(is(x[[i]], "data.frame")){
-#        col.classes <- sapply(x, class)
-#        if(!all(sapply(col.classes, identical, col.classes[1]))) 
-#          stop("data.frames must have a consistent class")
-#      } else
-#        stop("if x is a list, must contain only data.frames of a single type, or matrices")
     }
   ## Someone didn't even try to read the documentation...
   } else { 
-    stop("x must be a matrix, data.frame, or list thereof")
+    stop("x must be a named numeric, matrix, data.frame, or list thereof")
   }
   ## Let's just hope folks read the documentation and have 
   ## row names as taxa and column names as be character traits.  
