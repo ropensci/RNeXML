@@ -123,6 +123,18 @@ Once we have created the `meta` elements, we can pass them to our `nexml_write` 
 
 ```
 
+### Taxonomic identifiers
+
+Add taxonomic identifier metadata to the OTU elements:
+
+
+```{r}
+nex <- add_trees(bird.orders)
+nex <- nexml_taxize(nex)
+```
+
+
+
 ## Working with character data
 
 NeXML also provides a standard exchange format for handling character data.  The R platform is particularly popular in the context of phylogenetic comparative methods, which consider both a given phylogeny and a set of traits.  NeXML provides an ideal tool for handling this metadata.  

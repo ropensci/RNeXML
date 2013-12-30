@@ -22,9 +22,10 @@ setMethod("toNeXML",
             type <- slot(object, "xsi:type")
             if(length(type) > 0){
 ## FIXME Don't assume type should be `nex:` namespaced
-## FIXME 
+              if(is.na(pmatch("nex:", type)))
+                type <- paste0("nex:", type)
               addAttributes(parent, 
-                           "xsi:type" = paste0("nex:", type),  
+                           "xsi:type" = type,  
                             suppressNamespaceWarning=TRUE) # We always define xsi namespace in the header... 
               }
             parent
@@ -149,12 +150,14 @@ setAs("XMLInternalElementNode", "meta", function(from){
       }
 })
 
-setAs("meta", "XMLInternalElementNode", function(from){ 
-      if(slot(from, "xsi:type") %in% c("LiteralMeta", 
-                                       "ResourceMeta",
-                                       "nex:LiteralMeta", 
-                                       "nex:ResourceMeta"))
-        m <- as(from, slot(from, "xsi:type"))
+setAs("meta", "XMLInternalElementNode", function(from){
+      if(length( slot(from, "xsi:type") ) > 0 ){
+        if(slot(from, "xsi:type") %in% c("LiteralMeta", 
+                                         "ResourceMeta",
+                                         "nex:LiteralMeta", 
+                                         "nex:ResourceMeta"))
+          m <- as(from, slot(from, "xsi:type"))
+        }
       else
         m <- from
       toNeXML(m, newXMLNode("meta", .children = from@children))

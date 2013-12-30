@@ -51,4 +51,5 @@ Collate:
     'nexml_read.R'
     'nexml_validate.R'
     'nexml_write.R'
+    'simmap.R'
     'taxize_nexml.R'

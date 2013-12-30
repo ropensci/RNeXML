@@ -63,22 +63,24 @@ test_that("We can get the right level of lists of trees ", {
 
   ## identical methods, Collapses length-1 lists 
   phy <- as(nex, "phylo")  ##
-  phy2 <- get_tree(nex)
-  phy3 <- get_item(nex, "tree")
-  expect_identical(phy, phy2)
-  expect_identical(phy3, phy2)
-
-  ## Doesn't collapse the length-1 lists, returns list of multiPhylo always: 
-  phy <- as(nex, "multiPhyloList")  ##
   phy2 <- get_trees(nex)
   phy3 <- get_item(nex, "trees")
   expect_identical(phy, phy2)
   expect_identical(phy3, phy2)
 
+  ## Doesn't collapse the length-1 lists, returns list of multiPhylo always: 
+  phy <- as(nex, "multiPhyloList")  ##
+  phy2 <- get_trees_list(nex)
+  phy3 <- get_item(nex, "trees_list")
+  expect_identical(phy, phy2)
+  expect_identical(phy3, phy2)
+
   ## Collapse to multiPhylo   
   phy <- as(nex, "multiPhylo")  ##
-  phy2 <- get_tree(nex) # same because there are two trees in the same `trees` node.  
+  phy2 <- get_trees(nex) # same because there are two trees in the same `trees` node.  
   expect_identical(phy, phy2)
+  phy3 <- get_item(nex, "flat_trees") ## FIXME SOMETHING WRONG!
+  expect_identical(phy3, phy2)
 })
 
 

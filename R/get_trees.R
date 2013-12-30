@@ -24,7 +24,7 @@ get_trees <- function(nexml) as(nexml, "phylo")
 #' @param object a representation of the nexml object from  which the data is to be retrieved
 #' @export
 #' @seealso \code{\link{get_tree}} \code{\link{get_trees}} \code{\link{get_item}} 
-get_flat_trees <- function(nexml) flatten_multiphylo(get_trees(nexml))
+get_flat_trees <- function(nexml) flatten_multiphylo(get_trees_list(nexml))
 
 
 

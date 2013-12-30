@@ -73,7 +73,7 @@ add_trees_block <- function(nexml, phy, otus_id){
 }
 
 
-
+# Main routine to generate NeXML from ape:phylo
 fromPhylo <- function(phy, otu_map){
   
   node_ids <- sapply(unique(as.numeric(phy$edge)), 

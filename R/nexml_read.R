@@ -10,7 +10,7 @@
 #' f <- system.file("examples", "trees.xml", package="RNeXML")
 #' nexml_read(f) 
 nexml_read <- function(x, ...){
-  if(grep("^https?://", x) == 1) # handle remote paths using httr::GET
+  if(length(grep("^https?://", x)) > 0) # handle remote paths using httr::GET
     x <- GET(x)
 
   doc <- xmlParse(x, ...) 
