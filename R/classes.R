@@ -20,10 +20,13 @@ setMethod("toNeXML",
           signature("Base", "XMLInternalElementNode"), 
           function(object, parent){
             type <- slot(object, "xsi:type")
-            if(length(type) > 0)
+            if(length(type) > 0){
+## FIXME Don't assume type should be `nex:` namespaced
+## FIXME 
               addAttributes(parent, 
-                           "xsi:type" = type, 
-                            suppressNamespaceWarning=TRUE)
+                           "xsi:type" = paste0("nex:", type),  
+                            suppressNamespaceWarning=TRUE) # We always define xsi namespace in the header... 
+              }
             parent
           })
 setMethod("fromNeXML", 
@@ -147,10 +150,17 @@ setAs("XMLInternalElementNode", "meta", function(from){
 })
 
 setAs("meta", "XMLInternalElementNode", function(from){ 
-      toNeXML(as(from, slot(from, "xsi:type")), newXMLNode("meta", .children = from@children))
+      if(slot(from, "xsi:type") %in% c("LiteralMeta", 
+                                       "ResourceMeta",
+                                       "nex:LiteralMeta", 
+                                       "nex:ResourceMeta"))
+        m <- as(from, slot(from, "xsi:type"))
+      else
+        m <- from
+      toNeXML(m, newXMLNode("meta", .children = from@children))
 })
-setAs("meta", "XMLInternalNode", function(from)  ## Really, do we need this?
-      toNeXML(as(from, slot(from, "xsi:type")), newXMLNode("meta", .children = from@children)))
+setAs("meta", "XMLInternalNode", function(from) 
+      as(from, "XMLInternalElementNode"))
 # Methods inherited automatically?
 
 
