@@ -123,7 +123,11 @@ test_that("We can add arbitrary metadata", {
 })
 
 
-
+test_that("we can write numeric types of meta elements and get correct datatype", {
+          m <- meta(property="numericTest", content = 3.141)
+          expect_is(m@content, "character")
+          expect_match(m@datatype, ".*:decimal")
+})
 
 
 

@@ -54,7 +54,14 @@ add_meta <- function(meta,
     nexml@characters[[i]]@meta <- new("ListOfmeta", c(nexml@characters[[i]]@meta, meta))
   } 
 
-  ## append additional namespaces 
+  ## append additional namespaces
+  nexml <- add_namespaces(namespaces, nexml)
+
+  nexml
+}
+
+## Helper routine to add namespaces only if they aren't already present 
+add_namespaces <- function(namespaces, nexml){
   if(!is.null(namespaces)){
     notdups <- match(namespaces, nexml@namespaces)
     notdups <- sapply(notdups, is.na)
@@ -64,8 +71,5 @@ add_meta <- function(meta,
       nexml@namespaces <-  c(nexml@namespaces, namespaces[notdups])
     } 
   }
-
   nexml
 }
-
-

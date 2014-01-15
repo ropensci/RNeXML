@@ -44,6 +44,11 @@ meta <- function(property = character(0),
   else 
     datatype <- "xsd:string"
 
+  # Having assigned the datatype, 
+  # the content text must be written as a string
+  content <- as.character(content)
+
+
   if(length(id) == 0)
     id <- nexml_id("m")
    

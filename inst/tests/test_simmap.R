@@ -21,10 +21,23 @@ test_that("we can coerce an ape::phylo tree with a
 
   phy <- nexml_to_simmap(nex)[[1]][[1]] # returns a list of multiPhylo
 
-  plotSimmap(mtree,cols,ftype="off")
+  orig <- plotSimmap(mtree,cols,ftype="off")
+  roundtrip <- plotSimmap(phy,cols,ftype="off")
 
-#  expect_identical(mtree$maps, phy$maps)
+  # checks that the edge mappings are correct 
+  expect_equal(mtree$maps, phy$maps)
+
+  # checks that we got the states slot correct 
+  expect_equal(mtree$states[sort(names(mtree$states))],
+               phy$states[sort(names(phy$states))])
 })
+
+
+test_that("we have the right state ids in the NeXML", {
+
+  
+})
+
 
 
 
