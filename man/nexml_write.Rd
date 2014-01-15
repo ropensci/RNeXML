@@ -3,8 +3,8 @@
 \alias{write.nexml}
 \title{Write nexml files}
 \usage{
-nexml_write(x = new("nexml"), trees = NULL, characters = NULL,
-  file = NULL, ...)
+nexml_write(x = new("nexml"), file = NULL, trees = NULL,
+  characters = NULL, ...)
 }
 \arguments{
   \item{x}{a nexml object, or any phylogeny object (e.g.

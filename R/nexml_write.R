@@ -39,9 +39,9 @@
 #'              file = "example.xml")
 #' 
 nexml_write <- function(x = new("nexml"),
+                        file = NULL,
                         trees = NULL,
                         characters = NULL,
-                        file = NULL,
                         ...){
   
   nexml <- as(x, "nexml")

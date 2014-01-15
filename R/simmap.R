@@ -9,31 +9,36 @@
 #' @import XML
 simmap_to_nexml <- function(phy, state_ids = NULL){
 
-  ## if state ids are not given
-  if(is.null(state_ids)){
-    state_ids <- levels(as.factor(names(unlist(phy$maps))))
-    names(state_ids) <- state_ids
-  }
-
   
   ## Create the NeXML object
   nexml <- as(phy, "nexml")
 
   if(!is.null(phy$states)){
     nexml <- add_characters(as.data.frame(phy$states, stringsAsFactors=TRUE), nexml)
-    state_ids <- reverse_map(get_state_maps(nexml)[[1]][[1]]) # can assume no other states added yet since works on a phy, not nexml  
+    chars_ids <- get_state_maps(nexml)[[1]]
+    char_id <- names(chars_ids)
+    state_ids <-  reverse_map(chars_ids[[1]]) 
+    # can assume no other states added yet since works on a phy, not nexml  
   }
 
 
   if(!is.null(phy$maps))
-    nexml <- simmap_edge_annotations(phy$maps, nexml, state_ids)
+    nexml <- simmap_edge_annotations(phy$maps, nexml, state_ids, char_id)
   
  
   nexml
 }
 
 
-simmap_edge_annotations <- function(maps, nexml, state_ids){
+simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "simmaped_trait"){
+
+  
+  ## if state ids are not given
+  if(is.null(state_ids)){
+    state_ids <- levels(as.factor(names(unlist(maps))))
+    names(state_ids) <- state_ids
+  }
+
 
   # Loop over all edges, adding the simmap annotation to each: 
   for(i in 1:length(nexml@trees[[1]]@tree[[1]]@edge)){
@@ -46,14 +51,18 @@ simmap_edge_annotations <- function(maps, nexml, state_ids){
     mapping <- lapply(1:length(edge_map), function(j){
       ##  A node has an id, a length and a state 
       meta(property = "simmap:stateChange", 
-           children = list(meta(property = "simmap:length", content = edge_map[[j]]),
-                           meta(property = "simmap:state", content = state_ids[[names(edge_map[j])]] )
+           children = list(meta(property = "simmap:length", 
+                                content = edge_map[[j]]),
+                           meta(property = "simmap:state", 
+                                content = state_ids[[names(edge_map[j])]] )
                            )
            )
     })
 
     reconstruction <-meta(property = "simmap:reconstruction", 
-                          children = mapping)
+                          children = c(meta(property="simmap:char", 
+                                            content = char_id,
+                                            children = mapping)))
   
   ## Insert the reconstructions into a <meta> element in each nexml edge
     nexml@trees[[1]]@tree[[1]]@edge[[i]]@meta <- 
@@ -119,7 +128,8 @@ tree_to_simmap <- function(tree, otus, state_maps = NULL){
 
 
 #    lapply(reconstruction, function(reconstruction){ # for each reconstruction
-          values <- sapply(reconstruction[[1]]@children, function(stateChange){ # phytools only supports one reconstruction per phy object
+          values <- sapply(reconstruction[[1]]@children[[1]]@children, function(stateChange){ 
+                           # phytools only supports one reconstruction of one character per phy object
                         property <- sapply(stateChange@children, function(x) x@property)
                         names(stateChange@children) <- property # clean labels
                         sapply(stateChange@children, function(x) x@content)
