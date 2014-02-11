@@ -51,7 +51,9 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
     mapping <- lapply(1:length(edge_map), function(j){
       ##  A node has an id, a length and a state 
       meta(property = "simmap:stateChange", 
-           children = list(meta(property = "simmap:length", 
+           children = list(meta(propery = "simmap:order",
+                                content = j),
+                           meta(property = "simmap:length", 
                                 content = edge_map[[j]]),
                            meta(property = "simmap:state", 
                                 content = state_ids[[names(edge_map[j])]] )
@@ -61,8 +63,8 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
 
     reconstruction <-meta(property = "simmap:reconstruction", 
                           children = c(meta(property="simmap:char", 
-                                            content = char_id,
-                                            children = mapping)))
+                                            content = char_id),
+                                       mapping))
   
   ## Insert the reconstructions into a <meta> element in each nexml edge
     nexml@trees[[1]]@tree[[1]]@edge[[i]]@meta <- 
@@ -128,19 +130,24 @@ tree_to_simmap <- function(tree, otus, state_maps = NULL){
 
 
 #    lapply(reconstruction, function(reconstruction){ # for each reconstruction
-          values <- sapply(reconstruction[[1]]@children[[1]]@children, function(stateChange){ 
+          stateChange <- sapply(reconstruction[[1]]@children, function(x) x@property == "simmap:stateChange")
+
+          values <- sapply(reconstruction[[1]]@children[[which(stateChange)]], function(stateChange){ 
                            # phytools only supports one reconstruction of one character per phy object
                         property <- sapply(stateChange@children, function(x) x@property)
                         names(stateChange@children) <- property # clean labels
                         sapply(stateChange@children, function(x) x@content)
           })
           out <- as.numeric(values["simmap:length", ])
+          ordering <- as.numeric(values["simmap:order",])
           if(!is.null(state_maps))
             states <- state_maps[values["simmap:state", ]]
           else 
             states <- values["simmap:state", ]
 
           names(out) <- states
+          out <- out[ordering] # sort according to explicit order
+
           out
  #   })
    
