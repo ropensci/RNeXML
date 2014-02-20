@@ -1,7 +1,7 @@
 Package: RNeXML
 Type: Package
 Title: Implement semantically rich I/O for NeXML format
-Version: 1.0
+Version: 1.0-1
 Date: 2013-06-30
 Author: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia Shumelchyk,
     Rutger Vos
@@ -10,12 +10,46 @@ Description: R package that allows access to phyloinformatic data in NeXML
     format.  The package should add new functionality to R such as the
     possibility to manipulate NeXML objects in more various and refined way and
     compatibility with 'ape' objects.
-License: BSD_3_clause + file LICENSE
+License: BSD-3
 Suggests:
-    testthat
+    taxize,
+    rrdf
 Depends:
-    ape
+    ape,
+    methods
 Imports:
     XML,
     ape,
-    plyr
+    plyr,
+    taxize,
+    methods,
+    reshape,
+    reshape2,
+    httr
+Collate:
+    'add_basic_meta.R'
+    'classes.R'
+    'add_characters.R'
+    'add_meta.R'
+    'add_trees.R'
+    'character_classes.R'
+    'concatenate_nexml.R'
+    'get_basic_metadata.R'
+    'get_characters.R'
+    'get_item.R'
+    'get_metadata.R'
+    'get_rdf.R'
+    'get_taxa.R'
+    'get_trees.R'
+    'internal_get_node_maps.R'
+    'internal_isEmpty.R'
+    'internal_name_by_id.R'
+    'internal_nexml_id.R'
+    'meta.R'
+    'nexmlTree.R'
+    'nexml_methods.R'
+    'nexml_read.R'
+    'nexml_validate.R'
+    'nexml_write.R'
+    'simmap.R'
+    'taxize_nexml.R'

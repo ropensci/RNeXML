@@ -1,9 +1,72 @@
+---
+title: RNeXML: Parsing and Serializing the Next Generation of Phyloinformatic Data in R
+author: 
+  - name: Carl Boettiger
+    affiliation: cstar
+    email: cboettig@gmail.com
+    footnote: Corresponding author
+  - name: Hilmar Lapp
+    affiliation: NESCent
+  - name: Scott Chamberlain
+    affiliation: SimonFraser
+  - name: Rutger Vos
+    affiliation: NCB
+address: 
+  - code: cstar
+    address: | 
+      Center for Stock Assessment Research, 
+      Department of Applied Math and Statistics, 
+      University of California, Mail Stop SOE-2,
+      Santa Cruz, CA 95064, USA
+  - code: NESCent
+    address: | 
+      National Evolutionary Synthesis Center, Durham, NC, USA
+  - code: SimonFraser
+    address: |
+      Department of Biology, Simon Fraser University, Burnaby, Canada
+  - code: NCB
+    address: | 
+      NCB Naturalis, Leiden, the Netherlands
+abstract: | 
+      1. NeXML promises to be the next generation of phylogenetic
+      informatics data and metadata exchange format, offering substantial
+      improvements in reliability, extensibility, and richness over
+      earlier standards such as Nexus.
 
-## Abstract
+      2. In this paper we present the RNeXML package which provides
+      a bridge between this rich and reliable data format and the
+      extensive library of phylogenetic tools already available in R,
+      with a particular emphasis on comparative methods. 
+
+
+      3. RNeXML allows R users to both read and write NeXML files. Yet
+      RNeXML is much richer than a basic parser: here we illustrate
+      how the package facilitates adding and manipulating semantic 
+      annotations.
+
+      4. An essential feature of NeXML is to provide both the flexibility
+      to be continually extended to meet the emerging needs of the phylogenetics
+      community while remaining backwards-compatible with software developed
+      for earlier versions.  Here we illustrate how RNeXML makes it easy
+      to extend NeXML in this way.  
+      
+      5. RNeXML is perfectly suited for users to preserve and maintain their
+      personal archives of phylogenetic and comparative trait data in consistent,
+      query-able, and cross-platform format, or leverage the rapidly growing 
+      public community archives of rich NeXML files.  
+
+---
+
+
+
+Though R provides the most extensive and widely used collection of comparative phylogenetic methods tools, R users lack a convenient format to exchange and archive comparative methods data.  
+
+
+
 
 Why RNeXML?
 
-* Why NeXML -- because Nexus standard isn't a standard.  Developers extend it arbitrarily to meet their needs, making it incompatible.  Cannot represent horizontal gene transfer, ambiguous use of symbols, cannot be extended reliably, no validator.  NeXML solves all of these problems [Vos et al] with a state-of-the-art data management format.  
+* Why NeXML -- because Nexus standard isn't a standard.  Developers extend it arbitrarily to meet their needs, making it incompatible.  Cannot represent horizontal gene transfer, ambiguous use of symbols, cannot be extended reliably, no validator.  NeXML addresses all of these problems [Vos _et al._ 2012] with a state-of-the-art data management format.  
 
 * Why RNeXML: Huge ecosystem of phylogenetics packages. (1) Read nexml.  All would benefit by being able to read NeXML, both as a robust standard free of the pitfalls of Nexus, and more importantly, as a much richer source of data thanks to its extendable annotation model.  (2) Write nexml.  R packages and R users add rich information to the phylogenies they work with, but need a platform independent data exchange format to share and archive this. (3) Annotate and extend nexml.  
 
@@ -19,53 +82,181 @@ See [Vos _et al._ 2012].
 
 ### Challenges with R formats
 
+- Most R users rely on the nexus inherits the limitations of nexus file format
+
 See [phylobase vignette, 2010]
+
+
+
 
 ### NeXML
 
 See [Vos _et al._ 2012].
 
-
-
-
-
 Mention of data sharing challenges and opportunities.  See [Drew et al 2013](10.1371/journal.pbio.1001636)
 
 
+A nexml file can be thought of as having three components: (1) phylogeny data (2) character-trait data, and (3) metadata. `RNeXML` seeks to provide a seemless way to convert these to and from their corresponding R object representations, such as `ape::phylo` phylogenies, character matrices (`data.frames`) and metadata lists (or for advanced users, `XMLInternalDocument` and `rrdf` triplestores).  The RNeXML package functions (the package Application Programming Interface, API) 
+
 ## Introduction to RNeXML
 
+<!-- Do we describe installation of the package?  `install.packages("RNeXML")`?-->
 
-### Reading NeXML phylogenies
+## Working with phylogenetic trees
+
+#### Read methods
+
+```{r echo=FALSE}
+library(RNeXML)
+```
+
+We begin by reading in an example NeXML file.   
 
 ```{r}
-phy = read.nexml("trees.xml", as="phylo")
+f <- system.file("examples", "trees.xml", package="RNeXML")
+nex <- nexml_read("trees.xml")
+```
+
+(For convenience `nexml_read` is also aliased as `read.nexml`, for users familiar with the somewhat analogous `read.nexus` function).   The resulting `nex` object is an R object representation of the NeXML.  From this object we can extract any phylogenies it contains in the `ape::phylo` format:   
+
+```{r}
+phy <- get_trees(nex)
+```
+
+We can then leverage the rich suite of methods available from the R phylogenetics community (including coercion into other representations, such as `ouch` [@ouch] and `phylobase` [@phylobase] phylogeny formats). For instance, here we use the standard plotting function from the `ape` package to plot the resulting `ape::phylo` object returned by `get_trees`.  
+
+
+[@ouch]: http://cran.r-project.org/web/packages/ouch/
+[@phylobase]: http://cran.r-project.org/web/packages/phylobase
+
+``{r}
 plot(phy)
 ```
+
+NeXML can not only contain multiple phylogenetic trees in a single file, but can also group sets of trees into separate blocks.  The `get_trees` function attempts to return the most sensible R object for NeXML: if only a single tree is available, it will return an `ape::phylo` object; if multiple trees are available in a single `trees` block, it will return an `ape::multiPhylo` object (a list of `phylo` objects).  If multiple blocks are available, it will return a list of `multiPhylo` blocks.  While most users will find this behavior convenient, there are times (such as looping over many NeXML files) when having a variable return type is undisirable.  To always get back a list of `multiPhylo` objects, even when only one tree is available, use `get_trees_list()`.  
+
+<!-- have we already said all this above?-->
+The ability to read in phylogenetic trees in the `nexml` format opens up a wide and rapidly growing array of resources to the R user.  For instance, a user can access all the phylogenies available in TreeBASE through the `nexml` format.  `RNeXML` can read directly from a URL: 
+
+```{r eval=FALSE}
+nex = nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
+```
+
+Previously, this was possible using the `treebase` package [@treebase] for R, which relied on the nexus parser provided in the `ape` package.  Due to inconsistencies present in the Nexus standard [Vos _et al._ 2012], a significant number <!-- State explicitly --> of TreeBASE nexus files could not be read in this way.  Using the more precisely defined NEXML standard, every valid NeXML file on TreeBASE can now successfully be parsed.  
+
+
+
+#### Character data 
+
+Like nexus files, NeXML files can also contain character data.  While most researchers will be familiar with the use of character matrices in nexus files as a container for molecular sequence data used to infer the phylogenetic tree, we find this ideal for character data used in comparative methods popular in R. Methods to get extract character data work much like those for the phylogenetic data: 
+
+```{r }
+nex <- nexml_read("comp_analysis.xml")
+get_characters(nex)
+```
+
+Returns a `data.frame` with columns as characters and rows as taxa. Continuous and discrete characters are represented as seperate blocks in NeXML files, but will be combined as seperate columns of a single data frame by `get_characters()` if they correspond to the same taxa. The `get_characters_list()` function will consistently recieve a list of data frames corresponding to each character matrix block of the NeXML.  
+
+
+#### Write methods 
+
+Generating NeXML files from R is likewise straight forward.  Here we write a phylogeny from the `ape::phylo` format out to a NeXML file: 
+
+```{r}
+data(bird.orders)
+nexml_write(bird.orders, file = "birds.xml")
+```
+
+The first argument to `nexml_write` can be a `phylo` phylogeny, `multiPhylo` list of phylogenies, or a `nexml` object -- anything that can be coerced into the `nexml` class.  As we have seen, NeXML files can contain multiple phylogenetic trees, as well as character matrices.  We can add both trees  and character data using `nexml_write`, 
+
+```{r}
+data(geospiza)
+nexml_write(trees = geospiza$phy, characters = geospiza$dat, file="geospiza.xml")
+```
+
+
+NeXML files can also be built up bit by bit using the `add_characters`, `add_trees`, and `add_meta`.  Each of these functions can add data to an existing `nexml` object or create a new nexml object if none is provided.  Here we first create a `nexml` object containing the phylogeny data, and then add the character data to it:  
+
+```{r}
+nex <- add_trees(geospiza$phy)
+nex <- add_characters(geospiza$dat, nex)
+```
+
+The data need not share the same taxa.  We can append additional phylogenies and characters corresponding to different taxa:
+
+```{r}
+data(primates)
+nex <- add_trees(primates$phy, nex)
+nex <- add_characters(primates$dat, nex)
+```
+
+
+
+<!-- explain OTU blocks somewhere -->
+
+### Taxonomic identifiers
+
+Add taxonomic identifier metadata to the OTU elements:
+
+
+```{r}
+nex <- add_trees(bird.orders)
+nex <- nexml_taxize(nex)
+```
+
+
+
+### Metadata
+
 
 ### Reading NeXML metadata
 
 Replicate examples from [treebase] metadata section: publication information, tree size, taxanomic coverage
 
 ### Writing NeXML phylogenies
+### Reading NeXML metadata
 
-```{r}
-write.nexml(phy, "example.xml")
-```
+One of the most powerful features of the NeXML format is the ability add arbitrary metadata information using the RDFa annotation standard [cite W3C]().   
+
+Metadata from treebase NeXML
+- article citation information
+- Summary data: taxa, number of taxa, number of trees, number of tips.  
+- Metadata of nodes, complete RDF extraction
+
+Using the nexml and nexmlTree class for metadata.  
+
 
 ### Writing NeXML metadata
 
-Writing in authorship/publication information, copyright.
-Writing in methodological information
+`RNeXML` also helps users add richer metadata when producing NeXML files. This occurs on several levels:
+
+- Automatic annotation.  `RNeXML` automatically adds basic metadata by default such as a timestamp of when the tree was produced and an open data license (CC0, compatible with deposition on Dryad data repository), which can be configured as needed.  
+
+- Utilities to add common metadata
+
+  - Add a citation to any papers associated with the phylogeny data.  
+  - Writing in methodological information on how tree has been generated or analyzed (including R code)
+  - Add annotations to any taxon.  
 
 Writing annotations on otus.  Annotations on nodes.  
 
- 
+Temporal, spatial, taxonomic coverage for dryad/knb?
+
+
+
+
 
 
 
 ### Implementation and architecture
 
-The `RNeXML` package is built for the NeXML Schema, [version 2009], using the R software environment and the XML package for parsing and generating XML [Temple Lang 2013, XML]. 
+The `RNeXML` package is built for the NeXML Schema, [version 2009],
+using the R software environment and the XML package for parsing and
+generating XML [Temple Lang 2013, XML], and provides conversions into
+the popular `phylo` format provided by the `ape` package [Paradis 2004].
+`RNeXML` can automatically check taxonomic names and add taxonomic
+identifiers when generating NeXML using methods from the `taxize` package
+([Chamberlain 2013]).
 
 <!-- Possibly cite all dependencies and suggests from the DESCRIPTION --> 
 <!-- Reference any installation and configuration instructions necessary (e.g. API credentials for figshare) -->
@@ -74,29 +265,50 @@ The `RNeXML` package is built for the NeXML Schema, [version 2009], using the R 
 
 ### Quality control
 
-The `RNeXML` package can performs two levels of validation on NeXML files written from or read into R: validating the XML, and validating against the current NeXML schema.
+The `RNeXML` package performs two levels of validation on NeXML files
+written from or read into R: validating the XML, and validating against
+the current NeXML schema.
 
-Several mechanisms are in place to evaluate the quality of the `RNeXML` package functions themselves.  In addition to the examples from the documentation and the automated package checks provided for the R system, the `RNeXML` package includes a complete test suite using the testthat package [Wickham 2011].  
+Several mechanisms are in place to evaluate the quality of the `RNeXML`
+package functions themselves.  In addition to the examples from the
+documentation and the automated package checks provided for the R system,
+the `RNeXML` package includes a complete test suite using the testthat
+package [Wickham 2011].
 
 [Wickham 2011]: http://vita.had.co.nz/papers/testthat.html
 
 ### Software reuse and support
 
-The `RNeXML` package is available through the CRAN repository under a CC0 license. At the time of writing, the current version is `r packageDescription("RNeXML", fields="Version")`. The current development branch can be found on Github at [https://github.com/ropensci/RNeXML].  See the NEWS file for changes in recent versions. Users are encouraged to submit bug reports or feature requests in the issues log.  Contact ropensci-discuss@googlegroups.com or the package maintainer for help. 
+The `RNeXML` package is available through the CRAN repository under
+a CC0 license. At the time of writing, the current version is `r packageDescription("RNeXML", fields="Version")`. 
+The current development
+branch can be found on Github at [https://github.com/ropensci/RNeXML].
+See the NEWS file for changes in recent versions. Users are encouraged
+to submit bug reports or feature requests in the issues log.  Contact
+ropensci-discuss@googlegroups.com or the package maintainer for help.
 
-There are many promising directions for further development of the `RNeXML` package.  The project's Milestones page provides a list of steps currently planned or under consideration.  In particular, these milestones include increased support for interactive mode of entering data (wizards), and support for integration of semantics defined through the Web Ontology language (OWL), as discussed in the Challenges section.  
+There are many promising directions for further development of the
+`RNeXML` package.  The project's Milestones page provides a list of
+steps currently planned or under consideration.  In particular, these
+milestones include increased support for interactive mode of entering data
+(wizards), and support for integration of semantics defined through the
+Web Ontology language (OWL), as discussed in the Challenges section.
 
 
 
 ### Acknowledgements
 
-This project was supported in part by a grant from the Alfred P Sloan Foundation (CB and KR), NSF Grant DBI-1306697 (CB), ... `RNeXML` is part of the rOpenSci project, [http://ropensci.org].  
+This project was supported in part by a grant from the Alfred P Sloan
+Foundation (CB and SC), NSF Grant DBI-1306697 (CB), ... `RNeXML` is part
+of the rOpenSci project, [http://ropensci.org].
 
 
 
 
 
-phylobase::phylo4 was an attempt to solve the problems associated with the popular ape::phylo format (unpredictable errors, loose and multiple conflicting specifications).  
+phylobase::phylo4 was an attempt to solve the problems associated with
+the popular ape::phylo format (unpredictable errors, loose and multiple
+conflicting specifications).
 
 
 

@@ -1,18 +1,16 @@
 context("top level API")
 
 
-test_that("read.nexml works (to ape::phylo)", {
+test_that("read.nexml works", {
   ## The short version using an RNeXML API
   library(ape)
   library(RNeXML)
 
   f <- system.file("examples", "trees.xml", package="RNeXML")
-  phy <- nexml_read(f, type="phylo")
-#  phy <- read.nexml(f, type="phylo")
-  layout(matrix(1:2, 1, 2), c(5, 4))
-  plot(phy[[1]])
-  plot(phy[[2]])
+  nex <- read.nexml(f) # check alias
+  expect_is(nex, "nexml")
 })
+
 
 test_that("write.nexml works (from ape::phylo)", {
   ## The short version using an RNeXML API
@@ -22,13 +20,68 @@ test_that("write.nexml works (from ape::phylo)", {
 
   data(bird.orders)
   nexml_write(bird.orders, file="example.xml")
+  write.nexml(bird.orders, file="example.xml") # check alias too
 
 ## Check that that example is valid NeXML
+  expect_true(nexml_validate("example.xml"))
+  expect_is(nexml_read("example.xml", "nexml"), "nexml")
+
   results <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "example.xml")
   expect_equal(results$status, 0)
   expect_equal(length(results$errors), 0)
   unlink("example.xml") # cleanup
 
 })
+
+
+test_that("write.nexml can write multiple trees at once ", {
+  library(RNeXML)
+  f <- system.file("examples", "trees.xml", package="RNeXML")
+  nex <- nexml_read(f)
+  trees <- get_trees(nex)
+
+  ##  We can write a listOfmultiPhylo if the argument is named
+  nexml_write(trees = trees, file="example.xml")
+  expect_true(nexml_validate("example.xml"))
+
+  # we can write a multiPhylo (or phylo) by attempting coercion on the first argument instead:  
+  nexml_write(trees[[1]], file="example.xml")
+  expect_true(nexml_validate("example.xml"))
+
+
+  unlink("example.xml") # cleanup
+
+})
+
+
+
+test_that("We can get the right level of lists of trees ", {
+  library(RNeXML)
+
+  f <- system.file("examples", "trees.xml", package="RNeXML")
+  nex <- nexml_read(f)
+
+  ## identical methods, Collapses length-1 lists 
+  phy <- as(nex, "phylo")  ##
+  phy2 <- get_trees(nex)
+  phy3 <- get_item(nex, "trees")
+  expect_identical(phy, phy2)
+  expect_identical(phy3, phy2)
+
+  ## Doesn't collapse the length-1 lists, returns list of multiPhylo always: 
+  phy <- as(nex, "multiPhyloList")  ##
+  phy2 <- get_trees_list(nex)
+  phy3 <- get_item(nex, "trees_list")
+  expect_identical(phy, phy2)
+  expect_identical(phy3, phy2)
+
+  ## Collapse to multiPhylo   
+  phy <- as(nex, "multiPhylo")  ##
+  phy2 <- get_trees(nex) # same because there are two trees in the same `trees` node.  
+  expect_identical(phy, phy2)
+  phy3 <- get_item(nex, "flat_trees") ## FIXME SOMETHING WRONG!
+  expect_identical(phy3, phy2)
+})
+
 
 

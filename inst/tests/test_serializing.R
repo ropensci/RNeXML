@@ -14,7 +14,7 @@ test_that("We can serialize ape to S4 RNeXML into valid NeXML",{
 
   as(nexml, "XMLInternalNode")
   ###  Higher level API tests
-  nexml_write(bird.orders, "test.xml")
+  nexml_write(bird.orders, file="test.xml")
 
  results <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "test.xml")
 #  results <- xmlSchemaValidate("~/Documents/code/thirdparty/nexml/xsd/nexml.xsd", "test.xml")
@@ -30,7 +30,7 @@ test_that("We can serialize ape to S4 RNeXML into valid NeXML",{
 test_that("We can serialize parsed NeXML to S4 RNeXML into valid NeXML",{
   root <- xmlRoot(xmlParse(system.file("examples", "trees.xml", package="RNeXML")))
   tree <- as(root, "nexml")
-  nexml_write(tree, "test.xml")
+  nexml_write(tree, file="test.xml")
 
 #! change directory to something that will work across machines if possible
   

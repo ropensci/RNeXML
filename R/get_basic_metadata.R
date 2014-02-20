@@ -1,0 +1,30 @@
+
+## Goodness, but XPATH is so much more expressive for this purpose...
+## get all top-level metadata  More extensible than hardwired functions
+## The following methods are somewhat too rigid.  Might make more sense to do get_metadata(nexml, "nexml")["dc:creator"], etc.  
+## Note that we define our namespace prefixes explicitly, so that should the NeXML use a different abberivation, this should still work.  
+
+#' @export
+get_citation <- function(nexml){
+  b <- setxpath(as(nexml, "XMLInternalElementNode"))
+## FIXME should return a citaiton class nexml! 
+  unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dcterms:bibliographicCitation']/@content", namespaces = nexml_namespaces))
+}
+
+#' @export 
+get_license <- 
+  function(nexml){
+    b <- setxpath(as(nexml, "XMLInternalElementNode"))
+    dc_rights <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dc:rights']/@content", namespaces = nexml_namespaces))
+    cc_license <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@rel='cc:license']/@href", namespaces = nexml_namespaces))
+  if(length(dc_rights) > 0)
+    dc_rights
+  else
+    cc_license
+}
+
+
+
+
+
+

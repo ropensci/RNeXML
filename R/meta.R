@@ -1,66 +1,134 @@
 ## Utilities for adding additional metadata
 
-creator <- function(creator){
-  creator <- as.person(creator)
-  string <- format(creator, include=c("family", "given"), 
-                   braces = list(family=c("", ",")))
-  new("meta", 
-      content=string, 
-      datatype="xsd:string", 
-      property="dc:creator",
-      'xsi:type'="LiteralMeta")
 
+#' Constructor function for metadata nodes
+#' 
+#' @param property specify the ontological definition together with it's namespace, e.g. dc:title
+#' @param content content of the metadata field
+#' @param rel Ontological definition of the reference provided in href 
+#' @param href A link to some reference
+#' @param datatype optional RDFa field
+#' @param id optional id element (otherwise id will be automatically generated).  
+#' @param type optional xsi:type.  If not given, will use either "LiteralMeta" or "ResourceMeta" as 
+#'  determined by the presence of either a property or a href value. 
+#' @param children Optional element containing any valid XML block (XMLInternalElementNode class, see the XML package for details).  
+#' @details User must either provide property+content or rel+href.  Mixing these will result in potential garbage. 
+#' The datatype attribute will be detected automatically from the class of the content argument.  Maps from R class
+#' to schema datatypes are as follows: 
+#' character - xs:string, 
+#' Date - xs:date,
+#' integer - xs:integer,
+#' numeric - xs:decimal,
+#' logical - xs:boolean
+#' 
+#' @export 
+#' @seealso \code{\link{nexml_write}}
+meta <- function(property = character(0), 
+                 content = character(0), 
+                 rel = character(0), 
+                 href = character(0), 
+                 datatype = character(0), 
+                 id = character(0),
+                 type = character(0),
+                 children = list()){
+  if(is.logical(content))
+    datatype <- "xsd:boolean"
+  else if(is(content, "Date"))
+    datatype <- "xsd:date"
+  else if(is.numeric(content))
+    datatype <- "xsd:decimal"
+  else if(is.character(content))
+    datatype <- "xsd:string"
+  else if(is.integer(content))
+    datatype <- "xsd:integer"
+  else 
+    datatype <- "xsd:string"
+
+  # Having assigned the datatype, 
+  # the content text must be written as a string
+  content <- as.character(content)
+
+
+  if(length(id) == 0)
+    id <- nexml_id("m")
+   
+  if(is(children, "XMLAbstractNode") || is(children, "XMLInternalNode"))
+    children <- list(children)
+
+  if(length(property) > 0){ ## avoid 
+    if(is.null(content) && length(children) == 0) ## Avoid writing when content is missing, e.g. prism:endingpage is blank
+      NULL
+    else
+      new("meta", content = content, datatype = datatype, 
+          property = property, id = id, 'xsi:type' = "LiteralMeta",
+          children = children)
+  } else if(length(rel) > 0){
+    if(is.null(href))
+      NULL
+    else
+      new("meta", rel = rel, href = href, 
+          id = id, 'xsi:type' = "ResourceMeta",
+          children = children)
+  } else {
+    new("meta", content = content, datatype = datatype, 
+        rel = rel, href = href, id = id, 'xsi:type' = type,
+        children = children)
+  }
 }
 
-title <- function(title){
-  new("meta", 
-      content=title,
-      datatype="xsd:string",
-      property="dc:title",
-      'xsi:type'="LiteralMeta")
+
+## Common helper functions 
+
+
+nexml_citation <- function(obj){
+  if(is(obj, "bibentry")){
+    out <- lapply(obj, function(obj){
+      if(length(grep("--", obj$pages)) > 0){
+        pgs <- strsplit(obj$pages, "--")[[1]]
+        start_page <- pgs[[1]]
+        end_page <- if(length(pgs)>1) pgs[[2]] else " "
+      } else if(length(grep("-", obj$pages)) > 0){
+        pgs <- strsplit(obj$pages, "-")[[1]]
+        start_page <- pgs[[1]]
+        end_page <- if(length(pgs)>1) pgs[[2]] else " "
+      } else {
+        start_page <- NULL
+        end_page <- NULL
+      }
+      list_of_metadata_nodes <- plyr::compact(c(list(
+        meta(content=obj$volume, 
+            property="prism:volume"),
+        meta(content=obj$journal, 
+            property="dc:publisher"),
+        meta(content=obj$journal, 
+            property="prism:publicationName"),
+        meta(content = end_page, 
+            property="prism:endingPage"),
+        meta(content=start_page, 
+            property="prism:startingPage"),
+        meta(content=obj$year, 
+            property="prism:publicationDate"),
+        meta(content=obj$title,
+            property="dc:title")),
+        lapply(obj$author, function(x){
+        meta(content = format(x, c("given", "family")),
+             property="dc:contributor") 
+        })))
+        citation_elements = new("ListOfmeta", list_of_metadata_nodes)
+        meta(content=format(obj, "text"), 
+            property="dcterms:bibliographicCitation",
+            children = lapply(citation_elements, as, "XMLInternalElementNode"))
+    })
+    out 
+  }
 }
 
 
 
-description <- function(description){
-  new("meta", 
-      content=description,
-      datatype="xsd:string",
-      property="dc:description",
-      'xsi:type'="LiteralMeta")
-}
 
-pubdate <- function(pubdate=Sys.Date()){
-  new("meta",
-      content=format(pubdate),
-      datatype="xsd:string",
-      property="dc:date",
-      'xsi:type'="LiteralMeta")
-}
-
-publisher <- function(publisher){
-  new("meta", 
-      content=publisher,
-      datatype="xsd:string",
-      property="dc:publisher",
-      'xsi:type'="LiteralMeta")
-}
-
-rights <- function(rights="CC0"){
-  if(rights == "CC0")
-    new("ResourceMeta", 
-        href = "http://creativecommons.org/publicdomain/zero/1.0/",
-        rel = "cc:license",
-        'xsi:type'="ResourceMeta")
-  else
-    new("meta", 
-        content=rights,
-        datatype="xsd:string",
-        property="dc:rights",
-        'xsi:type'="LiteralMeta")
-
-}
-
-
-
-
+setMethod("c", 
+          signature("meta"),
+          function(x, ...){
+            elements <- list(x, ...)
+            new("ListOfmeta", elements)
+          })

@@ -25,8 +25,9 @@ test_that("we can perform simple conversions between NeXML XML and S4", {
   # check conversions to/from NeXML
   s4 <- as(n2, "node")
   xmlfroms4 <- as(s4, "XMLInternalNode")
+  
 ##  expect_identical(n2, xmlfroms4) #cannot compare two external pointers
-  expect_identical(show(n2), show(xmlfroms4))
+  expect_identical(xmlToList(n2), xmlToList(xmlfroms4))
 
 })
 
