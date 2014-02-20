@@ -4,7 +4,7 @@
 \title{Write nexml files}
 \usage{
 nexml_write(x = new("nexml"), file = NULL, trees = NULL,
-  characters = NULL, ...)
+  characters = NULL, meta = NULL, ...)
 }
 \arguments{
   \item{x}{a nexml object, or any phylogeny object (e.g.
@@ -32,7 +32,8 @@ Write nexml files
  write.nexml(bird.orders, file="example.xml")
 
  ## Assemble a nexml section by section and then write to file:
- library(geiger); data(geospiza)
+ library(geiger)
+ data(geospiza)
  nexml <- add_trees(geospiza$phy) # creates new nexml
  nexml <- add_characters(geospiza$dat, nexml) # pass the nexml obj to append character data
  nexml <- add_basic_meta(nexml, title="my title", creator = "Carl Boettiger")
@@ -40,15 +41,19 @@ Write nexml files
  write.nexml(nexml, file="example.xml")
 
  ## As above, but in one call (except for add_meta() call).
- write.nexml(trees = geospiza$phy, characters=geospiza$dat,
-             title = "My title", creator="Carl Boettiger",
+ write.nexml(trees = geospiza$phy,
+             characters = geospiza$dat,
+             title = "My title",
+             creator = "Carl Boettiger",
              file = "example.xml")
 
  ## Mix and match: identical to the section by section:
  nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())))
  write.nexml(x = nexml,
-             trees = geospiza$phy, characters=geospiza$dat,
-             title = "My title", creator="Carl Boettiger",
+             trees = geospiza$phy,
+             characters = geospiza$dat,
+             title = "My title",
+             creator = "Carl Boettiger",
              file = "example.xml")
 }
 \seealso{

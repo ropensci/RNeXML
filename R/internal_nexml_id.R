@@ -34,6 +34,9 @@ nexml_id <- function(prefix = "",
   uid
 }
 
+#' reset id counter
+#' 
+#' reset the id counter
 #' @export
 reset_id_counter <- function(){
   rm(list=ls(envir=nexml_env), envir=nexml_env)

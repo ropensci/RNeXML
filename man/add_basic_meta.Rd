@@ -4,7 +4,7 @@
 \usage{
 add_basic_meta(nexml = new("nexml"), title = NULL, description = NULL,
   creator = NULL, pubdate = Sys.Date(), rights = "CC0",
-  publisher = NULL, citation = NULL)
+  publisher = NULL, citation = NULL, ...)
 }
 \arguments{
   \item{nexml}{a nexml object to which metadata should be
@@ -42,6 +42,8 @@ add_basic_meta(nexml = new("nexml"), title = NULL, description = NULL,
   citation can be a plain text object, but is preferably an
   R `citation` or `bibentry` object (which can include
   multiple citations.  See examples}
+
+  \item{...}{additional arguments, currently no effect.}
 }
 \value{
 an updated nexml object

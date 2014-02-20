@@ -98,6 +98,8 @@ get_characters <- function(input, suffixes=FALSE){
 
 ### The subroutines of "get_characters_list# function
 ## Fixme these could be adapted to use the get_*_maps functions
+
+
 otu_to_label <- function(dat, otu_map){
   rownames(dat) <- otu_map[rownames(dat)]
   dat

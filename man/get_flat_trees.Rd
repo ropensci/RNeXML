@@ -5,7 +5,7 @@
 get_flat_trees(nexml)
 }
 \arguments{
-  \item{object}{a representation of the nexml object from
+  \item{nexml}{a representation of the nexml object from
   which the data is to be retrieved}
 }
 \value{
@@ -24,7 +24,7 @@ preserve that structure, use \code{\link{get_trees}}
 instead.
 }
 \seealso{
-\code{\link{get_tree}} \code{\link{get_trees}}
+\code{\link{get_trees}} \code{\link{get_trees}}
 \code{\link{get_item}}
 }
 

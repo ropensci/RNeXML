@@ -5,7 +5,7 @@
 get_trees(nexml)
 }
 \arguments{
-  \item{object}{a representation of the nexml object from
+  \item{nexml}{a representation of the nexml object from
   which the data is to be retrieved}
 }
 \value{

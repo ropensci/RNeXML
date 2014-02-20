@@ -1,3 +1,12 @@
+
+#' taxize nexml
+#'
+#' Check taxanomic names against the specified service and 
+#' add appropriate semantic metadata to the nexml OTU unit 
+#' containing the corresponding identifier. 
+#' @param nexml a nexml object
+#' @param type the name of the identifier to use
+#' @param ... additional arguments (not implemented yet)
 #' @import taxize
 #' @export 
 taxize_nexml <- function(nexml, type = c("NCBI"), ...){

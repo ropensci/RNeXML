@@ -50,6 +50,6 @@ defined as an S4 method for a nexml object.  So in place of
 and so forth for each element type.
 }
 \seealso{
-\code{\link{get_tree}}
+\code{\link{get_trees}}
 }
 

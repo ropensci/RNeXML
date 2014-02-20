@@ -5,6 +5,17 @@
 
 ## FIXME support writing multiphylos, list of multiphylos to nexml 
 
+
+#' simmap_to_nexml
+#' 
+#' simmap_to_nexml
+#' @param phy a phy object containing simmap phy$maps element,
+#'  from the phytools pacakge
+#' @param state_ids a named character vector giving the state 
+#'  names corresponding to the ids used to refer to each state
+#'  in nexml.  If null ids will be generated and states taken from 
+#'  the phy$states names. 
+#' @return a nexml representation of the simmap
 #' @export 
 #' @import XML
 simmap_to_nexml <- function(phy, state_ids = NULL){
@@ -84,6 +95,13 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
 
 
 ## Returns list of multiPhylo ...
+
+#' nexml_to_simmap
+#'
+#' nexml_to_simmap
+#' @param nexml a nexml object
+#' @return a simmap object (phylo object with a $maps element 
+#'  for use in phytools functions).
 #' @export 
 nexml_to_simmap <- function(nexml){
 

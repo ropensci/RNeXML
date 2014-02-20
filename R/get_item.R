@@ -18,7 +18,7 @@
 #' and so forth for each element type.  
 #' @return return type depends on the element requested.  See details.  
 #' @export
-#' @seealso \code{\link{get_tree}}
+#' @seealso \code{\link{get_trees}}
 #' @include classes.R
 get_item <- function(nexml, 
                      element = c("trees", "trees_list", "flat_trees", "metadata", "otu", "characters", "characters_list"), 

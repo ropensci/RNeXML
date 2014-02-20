@@ -30,8 +30,16 @@ standardize_phylo_list <- function(phy){
 }
 
 
-
-
+#' add_trees
+#' 
+#' add_trees
+#' @param phy a phylo object, multiPhylo object, or list of 
+#'  mulitPhylo to be added to the nexml
+#' @param nexml a nexml object to which we should append this phylo.
+#'  By default, a new nexml object will be created.  
+#' @param append_to_existing_otus logical, indicating if we should 
+#'  make a new OTU block (default) or append to the existing one. 
+#' @return a nexml object containing the phy in nexml format. 
 #' @export 
 add_trees <- function(phy, 
                       nexml=new("nexml"), 

@@ -5,7 +5,7 @@
 #' @param level the level at which the metadata annotation should be added.
 #' @param namespaces named character string for any additional namespaces that should be defined.  
 #' @param i for otus, trees, characters: if there are multiple such blocks, which one should be annotated?  Default is first/only block.  
-#' @param at_id the id of the element to be annotated.  Optional, advanced use only.  
+#' @param at_id the id of the element to be annotated.  Optional, advanced use only. 
 #' @seealso \code{\link{meta}} \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_basic_meta}}
 #' @return the updated nexml object
 #' @examples

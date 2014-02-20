@@ -5,7 +5,7 @@
 get_trees_list(nexml)
 }
 \arguments{
-  \item{object}{a representation of the nexml object from
+  \item{nexml}{a representation of the nexml object from
   which the data is to be retrieved}
 }
 \value{
@@ -21,7 +21,7 @@ preserves any heirarchy/grouping of trees.
 extract all phylogenetic trees in ape format
 }
 \seealso{
-\code{\link{get_tree}} \code{\link{get_flat_trees}}
+\code{\link{get_trees}} \code{\link{get_flat_trees}}
 \code{\link{get_item}}
 }
 

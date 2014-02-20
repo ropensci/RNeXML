@@ -20,6 +20,7 @@
 #'    can be included here.  
 #'    citation can be a plain text object, but is preferably an R `citation` or `bibentry` object (which
 #'    can include multiple citations.  See examples
+#' @param ... additional arguments, currently no effect. 
 #' @details \code{add_basic_meta()} is just a wrapper for \link{\code{add_meta}} to make it easy to 
 #'    provide generic metadata without explicitly providing the namespace.  For instance, 
 #'    \code{add_basic_meta(title="My title", description="a description")} is identical to:
@@ -53,7 +54,8 @@ add_basic_meta <- function(nexml = new("nexml"),
                            pubdate = Sys.Date(),
                            rights = "CC0",
                            publisher = NULL,
-                           citation = NULL){
+                           citation = NULL,
+                           ...){
 
   if(!is.null(title)) 
     nexml <- add_meta(meta("dc:title", title), nexml)
