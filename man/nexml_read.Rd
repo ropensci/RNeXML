@@ -3,8 +3,7 @@
 \alias{read.nexml}
 \title{Read NeXML files into various R formats}
 \usage{
-  nexml_read(x,
-    type = c("phylo", "phylo4", "ouch", "matrix", "nexml"))
+nexml_read(x, type = c("phylo", "phylo4", "ouch", "matrix", "nexml"))
 }
 \arguments{
   \item{x}{Path to the file to be read in}
@@ -15,7 +14,7 @@
   list of such objects.}
 }
 \description{
-  Read NeXML files into various R formats
+Read NeXML files into various R formats
 }
 \examples{
 f <- system.file("examples", "trees.xml", package="RNeXML")
