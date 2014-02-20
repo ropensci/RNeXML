@@ -1,4 +1,6 @@
 #' Get the desired element from the nexml object
+#' 
+#' Get the desired element from the nexml object
 #' @param nexml a nexml object (from read_nexml)
 #' @param element the kind of object desired, see details.  
 #' @param level metadata argument only.  Define whose metadata we want. See examples for details.  

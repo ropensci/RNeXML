@@ -4,6 +4,11 @@
 ## The following methods are somewhat too rigid.  Might make more sense to do get_metadata(nexml, "nexml")["dc:creator"], etc.  
 ## Note that we define our namespace prefixes explicitly, so that should the NeXML use a different abberivation, this should still work.  
 
+#' get_citation
+#' 
+#' get_citation
+#' @param nexml a nexml object
+#' @return the list of taxa
 #' @export
 get_citation <- function(nexml){
   b <- setxpath(as(nexml, "XMLInternalElementNode"))
@@ -11,6 +16,11 @@ get_citation <- function(nexml){
   unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dcterms:bibliographicCitation']/@content", namespaces = nexml_namespaces))
 }
 
+#' get_license
+#'
+#' get_license
+#' @param nexml a nexml object
+#' @return the list of taxa
 #' @export 
 get_license <- 
   function(nexml){

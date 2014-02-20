@@ -33,8 +33,7 @@
 #' @seealso \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_meta}}
 #' @export 
 #' @examples
-#'#' nex <- add_basic_meta(
-#'              title = "My test title",
+#' nex <- add_basic_meta(title = "My test title",
 #'              description = "A description of my test",
 #'              creator = "Carl Boettiger <cboettig@@gmail.com>",
 #'              publisher = "unpublished data",

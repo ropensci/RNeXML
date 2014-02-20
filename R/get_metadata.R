@@ -1,7 +1,12 @@
 
 ## FIXME might want to define this for sub-nodes.  e.g. so we can get all metadata on "nodes" in tree2...
 
-
+#' get_metadata
+#' 
+#' get_metadata 
+#' @param nexml a nexml object
+#' @param the name of the level of element desired
+#' @return the requested metadata
 #' @import XML
 #' @export
 get_metadata <-  function(nexml, level=c("nexml", "otus", "trees", "characters")){

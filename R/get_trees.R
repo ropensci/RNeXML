@@ -1,5 +1,6 @@
 #' extract all phylogenetic trees in ape format
 #' 
+#' extract all phylogenetic trees in ape format
 #' @param object a representation of the nexml object from  which the data is to be retrieved
 #' @return returns a list of lists of multiphylo trees, even if all trees are in the same `trees` node (and hence the outer list will be of length 1) or if there is only a single tree (and hence the inner list will also be of length 1.  This guarentees a consistent return type regardless of the number of trees present in the nexml file, and also preserves any heirarchy/grouping of trees.  
 #' @export
@@ -11,6 +12,7 @@ get_trees_list <- function(nexml) as(nexml, "multiPhyloList")
 
 #' extract a phylogenetic tree from the nexml
 #' 
+#' extract a phylogenetic tree from the nexml
 #' @param object a representation of the nexml object from  which the data is to be retrieved
 #' @return an ape::phylo tree, if only one tree is represented.  Otherwise returns a list of lists of multiphylo trees.  To consistently recieve the list of lists format (preserving the heriarchical nature of the nexml), use \code{\link{get_trees_list}} instead.  
 #' @export
@@ -18,6 +20,8 @@ get_trees_list <- function(nexml) as(nexml, "multiPhyloList")
 get_trees <- function(nexml) as(nexml, "phylo")
 
 
+#' get_flat_trees  
+#' 
 #' extract a single multiPhylo object containing all trees in the nexml
 #' @details Note that this method collapses any heirachical structure that may have been present as multiple `trees` nodes in the original nexml (though such a feature is rarely used).  To preserve that structure, use \code{\link{get_trees}} instead.  
 #' @return a multiPhylo object (list of ape::phylo objects).  See details.  

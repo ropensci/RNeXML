@@ -4,19 +4,21 @@ nexml_env = new.env(hash=TRUE)
 # If no prefix is given, will use a UUID
 # Generates an id number by appending a counter to the prefix
 # Will keep track of the counter for each prefix for that session.  
-nexml_id <- function(prefix = "", use_uuid = getOption("uuid", FALSE)){
+#' @import uuid
+nexml_id <- function(prefix = "",
+                     use_uuid = getOption("uuid", FALSE)){
   if(use_uuid){
-    success <- require(uuid)
-    if(success)
-      uid <- paste0("uuid-", uuid::UUIDgenerate())
-    else {
-      install.packages("uuid")
-      success <- require(uuid)
-      if(success)
-        uid <- uuid::UUIDgenerate()
-      else
-        stop("Cannot generate uuid, please provide a prefix")
-    }
+#    success <- require(uuid)
+#    if(success)
+      uid <- paste0("uuid-", UUIDgenerate())
+#    else {
+#      install.packages("uuid")
+#      success <- require(uuid)
+#      if(success)
+#        uid <- uuid::UUIDgenerate()
+#      else
+#        stop("Cannot generate uuid, please provide a prefix")
+#    }
   } else {
     if((prefix %in% ls(envir=nexml_env)))
       id_counter <- get(prefix, envir=nexml_env)

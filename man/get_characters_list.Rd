@@ -5,7 +5,12 @@
 get_characters_list(nexml)
 }
 \arguments{
+  \item{nexml}{a nexml object}
+
   \item{nexml}{nexml object (e.g. from read.nexml)}
+}
+\value{
+the list of taxa
 }
 \description{
 Extract the character matrix

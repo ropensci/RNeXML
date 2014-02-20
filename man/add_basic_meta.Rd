@@ -63,8 +63,7 @@ default maps to the Creative Commons namespace when using
 CC0 license.
 }
 \examples{
-#' nex <- add_basic_meta(
-             title = "My test title",
+nex <- add_basic_meta(title = "My test title",
              description = "A description of my test",
              creator = "Carl Boettiger <cboettig@gmail.com>",
              publisher = "unpublished data",

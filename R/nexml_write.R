@@ -8,7 +8,9 @@
 #' @param characters additional characters
 #' @param file the name of the file to write out
 #' @return Writes out a nexml file
-#' @import ape XML 
+#' @import ape
+#' @import XML 
+#' @import methods
 #' @aliases nexml_write write.nexml
 #' @export nexml_write write.nexml
 #' @seealso \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_meta}} \code{\link{nexml_read}}

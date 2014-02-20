@@ -1,4 +1,6 @@
 #' Extract rdf-xml from a NeXML file
+#' 
+#' Extract rdf-xml from a NeXML file
 #' @param file the name of a nexml file, or otherwise a nexml object. 
 #' @return an RDF-XML object (XMLInternalDocument).  This can be manipulated with
 #'   tools from the XML R package, or converted into a triplestore for use with 
@@ -32,7 +34,6 @@ get_rdf <- function(file){
   doc <- content(response, "parsed", "text/xml")
   if(clean)
     unlink("tmpnexmlrdf.xml")
-  require(XML)
   doc
 }
 

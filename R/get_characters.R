@@ -3,6 +3,8 @@
 
 #' Extract the character matrix
 #'
+#' @param nexml a nexml object
+#' @return the list of taxa
 #' @param nexml nexml object (e.g. from read.nexml)
 #' @export
 get_characters_list <- function(nexml){
@@ -46,7 +48,6 @@ get_characters_list <- function(nexml){
 #' @export
 #' @examples \dontrun{
 #' # A simple exmample with a discrete and a continous trait
-#' library(RNeXML)
 #' f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 #' nex <- read.nexml(f)
 #' get_characters(nex)
