@@ -11,6 +11,7 @@ Description: R package that allows access to phyloinformatic data in NeXML
     possibility to manipulate NeXML objects in more various and refined way and
     compatibility with 'ape' objects.
 License: BSD_3_clause + file LICENSE
+VignetteBuilder: knitr
 Suggests:
     rrdf
 Depends:
