@@ -3,9 +3,8 @@
 
 #' Extract the character matrix
 #'
-#' @param nexml a nexml object
-#' @return the list of taxa
 #' @param nexml nexml object (e.g. from read.nexml)
+#' @return the list of taxa
 #' @export
 get_characters_list <- function(nexml){
 # extract mapping between otus and taxon ids 

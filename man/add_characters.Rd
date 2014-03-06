@@ -12,6 +12,14 @@ add_characters(x, nexml = new("nexml"), append_to_existing_otus = FALSE)
   \item{nexml}{a nexml object, if appending character table
   to an existing nexml object.  If ommitted will initiate a
   new nexml object.}
+
+  \item{append_to_existing_otus}{logical. If TRUE, will add
+  any new taxa (taxa not matching any existing otus block)
+  to the existing (first) otus block.  Otherwise (default),
+  a new otus block is created, even though it may contain
+  duplicate taxa to those already present.  While FALSE is
+  the safe option, TRUE may be appropriate when building
+  nexml files from scratch with both characters and trees.}
 }
 \description{
 Add character data to a nexml object

@@ -97,7 +97,7 @@ setAs("nexml", "phylo", function(from){
 #' nexml to phylo 
 #' 
 #' nexml to phylo coercion 
-#' @param tree an nexml tree element (nexml@trees[[i]]@tree[[j]]
+#' @param tree an nexml tree element 
 #' @param otus a character string of taxonomic labels, named by the otu ids.  
 #' e.g. (from get_otu_maps for the otus set matching the relevant trees node. 
 #' @return phylo object 
@@ -132,7 +132,8 @@ toPhylo <- function(tree, otus){
 
 ## Identifies tip.label based on being named with OTUs while others are NULL
 ## FIXME Should instead decide that these are tips based on the edge labels?
-  nodes <- cbind(plyr::arrange(nodes, otu), id = 1:dim(nodes)[1])
+  nodes <- cbind(plyr::arrange(nodes, otu), id = 1:dim(nodes)[1])  # Also warns because arrange isn't quoting the column name.  
+
 ## NB: these ids are the ape:id numbers by which nodes are identified in ape::phylo
 ## Arbitrary ids are not supported - ape expecs the numbers 1:n, starting with tips. 
 

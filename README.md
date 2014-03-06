@@ -46,10 +46,10 @@ Read in a `nexml` file into the `ape::phylo` format:
 f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nexml <- nexml_read(f)
 tr <- get_trees(nexml) # or: as(nexml, "phylo")
-plot(tr[[1]])
+plot(tr)
 ```
 
-![plot of chunk unnamed-chunk-4](http://farm8.staticflickr.com/7296/12662932795_51f8b84960_o.png) 
+![plot of chunk unnamed-chunk-4](http://farm3.staticflickr.com/2796/12974975053_189f56ab06_o.png) 
 
 
 Write an `ape::phylo` tree into the `nexml` format:
@@ -256,19 +256,60 @@ We can then fire up `geiger` and fit, say, a Brownian motion model the continuou
 
 ```coffee
 library(geiger)
-fitContinuous(tree, traits[[1]])
+fitContinuous(tree, traits[1])
 ```
 
 ```
-## Error: names for 'data' must be supplied
+## GEIGER-fitted comparative model of continuous data
+##  fitted 'BM' model parameters:
+## 	sigsq = 1.166011
+## 	z0 = 0.255591
+## 
+##  model summary:
+## 	log-likelihood = -20.501183
+## 	AIC = 45.002367
+## 	AICc = 46.716652
+## 	free parameters = 2
+## 
+## Convergence diagnostics:
+## 	optimization iterations = 100
+## 	failed iterations = 0
+## 	frequency of best fit = 1.00
+## 
+##  object summary:
+## 	'lik' -- likelihood function
+## 	'bnd' -- bounds for likelihood search
+## 	'res' -- optimization iteration summary
+## 	'opt' -- maximum likelihood parameter estimates
 ```
 
 ```coffee
-fitDiscrete(tree, traits[[2]])
+fitDiscrete(tree, traits[2])
 ```
 
 ```
-## Error: names for 'data' must be supplied
+## GEIGER-fitted comparative model of discrete data
+##  fitted Q matrix:
+##              0        1
+##     0 -0.07308  0.07308
+##     1  0.07308 -0.07308
+## 
+##  model summary:
+## 	log-likelihood = -4.574133
+## 	AIC = 11.148266
+## 	AICc = 11.648266
+## 	free parameters = 1
+## 
+## Convergence diagnostics:
+## 	optimization iterations = 100
+## 	failed iterations = 0
+## 	frequency of best fit = 1.00
+## 
+##  object summary:
+## 	'lik' -- likelihood function
+## 	'bnd' -- bounds for likelihood search
+## 	'res' -- optimization iteration summary
+## 	'opt' -- maximum likelihood parameter estimates
 ```
 
 

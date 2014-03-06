@@ -3,10 +3,12 @@
 #' @param x a nexml object, or any phylogeny object (e.g. phylo, phylo4) 
 #' that can be coerced into one. Can also be omitted, in which case a new 
 #' nexml object will be constructed with the additional parameters specified.
+#' @param file the name of the file to write out
 #' @param trees phylogenetic trees to add to the nexml file (if not already given in x)
 #' see \code{\link{add_trees}} for details.  
 #' @param characters additional characters
-#' @param file the name of the file to write out
+#' @param meta A meta element or list of meta elements, see \code{\link{add_meta}}
+#' @param ... additional arguments to add_meta, such as the namespaces.  See \code{\link{add_meta}}.   
 #' @return Writes out a nexml file
 #' @import ape
 #' @import XML 

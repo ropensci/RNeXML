@@ -47,7 +47,7 @@ Read in a `nexml` file into the `ape::phylo` format:
 f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nexml <- nexml_read(f)
 tr <- get_trees(nexml) # or: as(nexml, "phylo")
-plot(tr[[1]])
+plot(tr)
 ```
 
 Write an `ape::phylo` tree into the `nexml` format:
@@ -165,8 +165,8 @@ We can then fire up `geiger` and fit, say, a Brownian motion model the continuou
 
 ```{r}
 library(geiger)
-fitContinuous(tree, traits[[1]])
-fitDiscrete(tree, traits[[2]])
+fitContinuous(tree, traits[1])
+fitDiscrete(tree, traits[2])
 ```
 
 

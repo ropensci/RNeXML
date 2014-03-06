@@ -5,7 +5,7 @@
 toPhylo(tree, otus)
 }
 \arguments{
-  \item{tree}{an nexml tree element (nexml}
+  \item{tree}{an nexml tree element}
 
   \item{otus}{a character string of taxonomic labels, named
   by the otu ids. e.g. (from get_otu_maps for the otus set

@@ -62,7 +62,7 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
     mapping <- lapply(1:length(edge_map), function(j){
       ##  A node has an id, a length and a state 
       meta(property = "simmap:stateChange", 
-           children = list(meta(propery = "simmap:order",
+           children = list(meta(property = "simmap:order",
                                 content = j),
                            meta(property = "simmap:length", 
                                 content = edge_map[[j]]),

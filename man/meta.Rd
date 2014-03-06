@@ -42,6 +42,9 @@ datatypes are as follows: character - xs:string, Date -
 xs:date, integer - xs:integer, numeric - xs:decimal,
 logical - xs:boolean
 }
+\examples{
+meta(content="example", property="dc:title")
+}
 \seealso{
 \code{\link{nexml_write}}
 }

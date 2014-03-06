@@ -5,7 +5,7 @@
 #' 
 #' get_metadata 
 #' @param nexml a nexml object
-#' @param the name of the level of element desired
+#' @param level the name of the level of element desired
 #' @return the requested metadata
 #' @import XML
 #' @export

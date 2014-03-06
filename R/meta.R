@@ -21,6 +21,8 @@
 #' numeric - xs:decimal,
 #' logical - xs:boolean
 #' 
+#' @examples
+#' meta(content="example", property="dc:title")
 #' @export 
 #' @seealso \code{\link{nexml_write}}
 meta <- function(property = character(0), 
@@ -125,10 +127,21 @@ nexml_citation <- function(obj){
 
 
 
-
+#' Concatenate meta elements into a ListOfmeta
+#' 
+#' Concatenate meta elements into a ListOfmeta
+#' @param x,... meta elements to be concatenated, e.g. see \code{\link{meta}}
+#' @param recursive  logical, if 'recursive=TRUE', the function 
+#' descends through lists and combines their elements into a vector.
+#' Currently not implemented. so "c(meta, c(meta))" will not work.  
+#' @return a listOfmeta object containing multiple meta elements. 
+#' @examples 
+#' c(meta(content="example", property="dc:title"),
+#'   meta(content="Carl", property="dc:creator"))
+#' 
 setMethod("c", 
           signature("meta"),
-          function(x, ...){
+          function(x, ..., recursive = FALSE){
             elements <- list(x, ...)
             new("ListOfmeta", elements)
           })

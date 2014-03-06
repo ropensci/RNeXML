@@ -1,8 +1,13 @@
 
 #' Concatenate nexml files 
-#' @param a nexml object, e.g. from write.nexml() or read.nexml()
-#' @param ... additional nexml objects to be concatenated.  
-#'   must have unique ids on all elements
+#' 
+#' Concatenate nexml files 
+#' @param x,... nexml objects to be concatenated, e.g. from 
+#'  \code{\link{write.nexml}} or \code{\link{read.nexml}}. 
+#'  Must have unique ids on all elements
+#' @param recursive  logical.  If 'recursive = TRUE', the function recursively
+#'        descends through lists (and pairlists) combining all their
+#'        elements into a vector. (Not implemented).  
 #' @return a concatenated nexml file
 #' @examples
 #' f1 <- system.file("examples", "trees.xml", package="RNeXML")
@@ -12,7 +17,7 @@
 #' nex <- c(nex1, nex2)
 setMethod("c", 
           signature("nexml"), 
-          function(x, ...){
+          function(x, ..., recursive = FALSE){
               elements = list(x, ...)
               nexml <- new("nexml")
   ## Check that ids are unique

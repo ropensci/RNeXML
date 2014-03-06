@@ -7,7 +7,7 @@ get_metadata(nexml, level = c("nexml", "otus", "trees", "characters"))
 \arguments{
   \item{nexml}{a nexml object}
 
-  \item{the}{name of the level of element desired}
+  \item{level}{the name of the level of element desired}
 }
 \value{
 the requested metadata

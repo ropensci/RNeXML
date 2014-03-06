@@ -12,13 +12,19 @@ nexml_write(x = new("nexml"), file = NULL, trees = NULL,
   omitted, in which case a new nexml object will be
   constructed with the additional parameters specified.}
 
+  \item{file}{the name of the file to write out}
+
   \item{trees}{phylogenetic trees to add to the nexml file
   (if not already given in x) see \code{\link{add_trees}}
   for details.}
 
   \item{characters}{additional characters}
 
-  \item{file}{the name of the file to write out}
+  \item{meta}{A meta element or list of meta elements, see
+  \code{\link{add_meta}}}
+
+  \item{...}{additional arguments to add_meta, such as the
+  namespaces.  See \code{\link{add_meta}}.}
 }
 \value{
 Writes out a nexml file

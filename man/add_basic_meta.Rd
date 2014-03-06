@@ -53,7 +53,7 @@ adds Dublin Core metadata elements to (top-level) nexml
 }
 \details{
 \code{add_basic_meta()} is just a wrapper for
-\link{\code{add_meta}} to make it easy to provide generic
+\code{\link{add_meta}} to make it easy to provide generic
 metadata without explicitly providing the namespace.  For
 instance, \code{add_basic_meta(title="My title",
 description="a description")} is identical to:

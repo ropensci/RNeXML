@@ -3,14 +3,17 @@
 \alias{c,nexml-method}
 \title{Concatenate nexml files}
 \usage{
-\S4method{c}{nexml}(x, ...)
+\S4method{c}{nexml}(x, ..., recursive = FALSE)
 }
 \arguments{
-  \item{a}{nexml object, e.g. from write.nexml() or
-  read.nexml()}
+  \item{x,...}{nexml objects to be concatenated, e.g. from
+  \code{\link{write.nexml}} or \code{\link{read.nexml}}.
+  Must have unique ids on all elements}
 
-  \item{...}{additional nexml objects to be concatenated.
-  must have unique ids on all elements}
+  \item{recursive}{logical.  If 'recursive = TRUE', the
+  function recursively descends through lists (and
+  pairlists) combining all their elements into a vector.
+  (Not implemented).}
 }
 \value{
 a concatenated nexml file

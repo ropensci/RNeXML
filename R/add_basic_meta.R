@@ -21,7 +21,7 @@
 #'    citation can be a plain text object, but is preferably an R `citation` or `bibentry` object (which
 #'    can include multiple citations.  See examples
 #' @param ... additional arguments, currently no effect. 
-#' @details \code{add_basic_meta()} is just a wrapper for \link{\code{add_meta}} to make it easy to 
+#' @details \code{add_basic_meta()} is just a wrapper for \code{\link{add_meta}} to make it easy to 
 #'    provide generic metadata without explicitly providing the namespace.  For instance, 
 #'    \code{add_basic_meta(title="My title", description="a description")} is identical to:
 #'    \code{add_meta(list(meta("dc:title", "My title"), meta("dc:description", "a description")))}
