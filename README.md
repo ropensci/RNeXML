@@ -49,7 +49,7 @@ tr <- get_trees(nexml) # or: as(nexml, "phylo")
 plot(tr)
 ```
 
-![plot of chunk unnamed-chunk-4](http://farm3.staticflickr.com/2796/12974975053_189f56ab06_o.png) 
+![plot of chunk unnamed-chunk-4](http://farm4.staticflickr.com/3636/12979079864_8d398f5125_o.png) 
 
 
 Write an `ape::phylo` tree into the `nexml` format:
@@ -104,7 +104,7 @@ get_metadata(birds)
 
 ```
 ##                                          dc:pubdate 
-##                                        "2014-02-20" 
+##                                        "2014-03-06" 
 ##                                          cc:license 
 ## "http://creativecommons.org/publicdomain/zero/1.0/"
 ```
@@ -208,9 +208,7 @@ Once we have created the `meta` elements, we can pass them to our `nexml_write` 
 ```
 
 ```
-## Error: unused arguments (meta = list(<S4 object of class "meta">, <S4
-## object of class "meta">, <S4 object of class "meta">), namespaces =
-## c("http://www.w3.org/2004/02/skos/core#", "http://xmlns.com/foaf/0.1/"))
+## [1] "example.xml"
 ```
 
 
@@ -223,10 +221,6 @@ Add taxonomic identifier metadata to the OTU elements:
 ```coffee
 nex <- add_trees(bird.orders)
 nex <- taxize_nexml(nex)
-```
-
-```
-## Error: no slot of name "otu" for this object of class "ListOfotus"
 ```
 
 

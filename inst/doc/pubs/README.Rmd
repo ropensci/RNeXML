@@ -23,7 +23,7 @@ An extensive and rapidly growing collection of richly annotated phylogenetics da
 ```{r echo=FALSE}
 library(knitr)
 opts_knit$set(upload.fun = socialR::flickr.url)
-opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=TRUE)
+opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE)
 ```
 
 Getting Started
