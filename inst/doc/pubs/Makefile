@@ -15,3 +15,7 @@ README.md: README.Rmd
 	cp README.Rmd ../../../vignettes/README.Rmd
 	sed -i 's/socialR::flickr.url/imgur_upload/' ../../../vignettes/README.Rmd
 
+
+clean: 
+	rm *.xml
+	rm ../../../vignettes/*.xml

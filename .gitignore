@@ -1,9 +1,9 @@
 *~
-inst/doc/cache
-inst/doc/figure
-inst/doc/*.pdf
-inst/doc/*.md
-inst/doc/*.Rnw
+inst/doc/pubs/cache
+inst/doc/pubs/figure
+inst/doc/pubs/*.pdf
+inst/doc/pubs/*.md
+inst/doc/pubs/*.Rnw
 vignettes/*.pdf
 .Rproj.user
 *.Rproj
