@@ -13,7 +13,10 @@ Description: R package that allows access to phyloinformatic data in NeXML
 License: BSD_3_clause + file LICENSE
 VignetteBuilder: knitr
 Suggests:
-    rrdf
+    rrdf,
+    geiger,
+    phytools,
+    knitr
 Depends:
     ape,
     methods
