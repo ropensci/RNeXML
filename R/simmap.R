@@ -34,14 +34,17 @@ simmap_to_nexml <- function(phy, state_ids = NULL){
 
 
   if(!is.null(phy$maps))
-    nexml <- simmap_edge_annotations(phy$maps, nexml, state_ids, char_id)
+    nexml <- simmap_edge_annotations(maps = phy$maps, 
+                                     nexml = nexml, 
+                                     state_ids = state_ids, 
+                                     char_id = char_id)
   
  
   nexml
 }
 
 
-simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "simmaped_trait"){
+simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "simmapped_trait"){
 
   
   ## if state ids are not given
@@ -73,10 +76,9 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
     })
 
     reconstruction <-meta(property = "simmap:reconstruction", 
-                          children = new("ListOfmeta", 
-                                         c(list(meta(property="simmap:char", 
-                                            content = char_id)),
-                                           mapping)))
+                          children =c(list(meta(property="simmap:char", 
+                                              content = char_id)),
+                                           mapping))
   
   ## Insert the reconstructions into a <meta> element in each nexml edge
     nexml@trees[[1]]@tree[[1]]@edge[[i]]@meta <- 
@@ -151,7 +153,7 @@ tree_to_simmap <- function(tree, otus, state_maps = NULL){
 #    lapply(reconstruction, function(reconstruction){ # for each reconstruction
           stateChange <- sapply(reconstruction[[1]]@children, function(x) x@property == "simmap:stateChange")
 
-          values <- sapply(reconstruction[[1]]@children[[which(stateChange)]], function(stateChange){ 
+          values <- sapply(reconstruction[[1]]@children[which(stateChange)], function(stateChange){ 
                            # phytools only supports one reconstruction of one character per phy object
                         property <- sapply(stateChange@children, function(x) x@property)
                         names(stateChange@children) <- property # clean labels
