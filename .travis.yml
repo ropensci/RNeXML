@@ -5,8 +5,8 @@ before_script:
 - chmod 755 ./travis-tool.sh
 - sudo apt-get update
 - sudo apt-get install gdal-bin libgdal1 libgdal1-dev netcdf-bin libproj-dev
-- sudo apt-get install r-cran-rjava
 - ./travis-tool.sh install_aptget gdal-bin
+- ./travis-tool.sh install_deps lattice Matrix rJava codetools MASS
 - ./travis-tool.sh bootstrap
 - ./travis-tool.sh install_deps
 - ./travis-tool.sh github_package assertthat
