@@ -73,9 +73,10 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
     })
 
     reconstruction <-meta(property = "simmap:reconstruction", 
-                          children = c(meta(property="simmap:char", 
-                                            content = char_id),
-                                       mapping))
+                          children = new("ListOfmeta", 
+                                         c(list(meta(property="simmap:char", 
+                                            content = char_id)),
+                                           mapping)))
   
   ## Insert the reconstructions into a <meta> element in each nexml edge
     nexml@trees[[1]]@tree[[1]]@edge[[i]]@meta <- 
