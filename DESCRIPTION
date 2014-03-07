@@ -16,7 +16,8 @@ Suggests:
     rrdf,
     geiger,
     phytools,
-    knitr
+    knitr,
+    testthat
 Depends:
     ape,
     methods

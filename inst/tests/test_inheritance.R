@@ -10,7 +10,7 @@ require(RNeXML)
 test_that("we can perform simple conversions between NeXML XML and S4", {
   # basic example
   node <- newXMLNode("meta", 
-                     attrs = c('xsi:type'="LiteralMeta",
+                     attrs = c('xsi:type'="nex:LiteralMeta",
                                id="dict1",
                                property="cdao:has_tag",
                                datatype="xsd:boolean",

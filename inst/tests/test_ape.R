@@ -34,7 +34,8 @@ test_that("From nexml to multiPhylo", {
   nexml <- as(root, "nexml")  ## parse the XML into S4
 
   ## APE TEST:  Coerce the S4 into phylo S3 object
-  phy <- as(nexml, "phylo")
+  expect_warning(phy <- as(nexml, "phylo"), "Multiple trees found, Returning multiPhylo object")
+  
   expect_is(phy, "multiPhylo")
 
 })
@@ -86,7 +87,7 @@ test_that("Unrooted trees remain unrooted on conversions", {
 
 test_that("We can convert trees with only some edge lengths into ape::phylo", {
           f <- system.file("examples", "some_missing_branchlengths.xml", package="RNeXML")
-          a <- as(read.nexml(f), "phylo")
+          expect_warning(a <- as(read.nexml(f), "phylo"), "Multiple trees found, Returning multiPhylo object")
           # We can parse it, goodness knows what anyone will do with it.  Better to hack off the branch lengths or convert to 0, but that's for the user.   
 })
 
