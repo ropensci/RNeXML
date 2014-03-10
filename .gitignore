@@ -9,4 +9,3 @@ vignettes/*.pdf
 *.Rproj
 */*.Rhistory
 .Rhistory
-.Rbuildignore
