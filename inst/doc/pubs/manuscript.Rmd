@@ -254,6 +254,29 @@ nex <- add_trees(primates$phy, nex)
 nex <- add_characters(primates$dat, nex)
 ```
 
+
+
+
+### Metadata
+
+At the heart of the NeXML standard is the ability to encode arbitrary metadata in precisely specified, machine-readable formats that maintain backwards compabitibilty with any existing NeXML parser. NeXML uses the "Resource Description Framework in Annotations", or RDFa [W3C 2013], as described in [Vos et al 2011].  
+
+
+### Reading NeXML metadata
+
+Metadata from treebase NeXML
+- article citation information
+- Summary data: taxa, number of taxa, number of trees, number of tips.  
+- Metadata of nodes, complete RDF extraction
+
+
+```{r } 
+birds <- nexml_read("test.xml")
+get_taxa(birds)
+get_metadata(birds) 
+```
+
+
 This allows us to include multiple trees and character matrices to a single NeXML file.  
 
 <!-- explain OTU blocks somewhere -->
@@ -269,32 +292,18 @@ nex <- nexml_taxize(nex)
 ```
 
 
-
-### Metadata
-
-
-### Reading NeXML metadata
-
 Replicate examples from [treebase] metadata section: publication information, tree size, taxanomic coverage
 
-### Writing NeXML phylogenies
-### Reading NeXML metadata
-
-One of the most powerful features of the NeXML format is the ability add arbitrary metadata information using the RDFa annotation standard [cite W3C]().   
-
-Metadata from treebase NeXML
-- article citation information
-- Summary data: taxa, number of taxa, number of trees, number of tips.  
-- Metadata of nodes, complete RDF extraction
-
-Using the nexml and nexmlTree class for metadata.  
 
 
 ### Writing NeXML metadata
 
-`RNeXML` also helps users add richer metadata when producing NeXML files. This occurs on several levels:
+Researchers cannot take advantage of NeXML metadata manipulation if there is no metadata there.  The burden of adding good metadata remains a significant barrier to increased sharing and reuse of scientific research [Tenopir et al. 2011].  `RNeXML` seeks to reduce the burden of adding high quality, machine-readable metadata to NeXML files. This occurs on several levels:
 
-- Automatic annotation.  `RNeXML` automatically adds basic metadata by default such as a timestamp of when the tree was produced and an open data license (CC0, compatible with deposition on Dryad data repository), which can be configured as needed.  
+- Automatic annotation.  `RNeXML` automatically adds basic metadata by
+default such as a timestamp of when the tree was produced and an open
+data license (CC0, compatible with deposition on Dryad data repository),
+which can be configured as needed.
 
 - Utilities to add common metadata
 
@@ -307,8 +316,50 @@ Writing annotations on otus.  Annotations on nodes.
 Temporal, spatial, taxonomic coverage for dryad/knb?
 
 
+- Extending the NeXML standard through metadata annotation.
+
+No data standard can anticipate all the uses and extensions researchers may one day need. Researchers have repeatedly adapted the existing NEXUS file format to accomidate encoding new kinds of information, but in the process break compatibility between different flavors of NEXUS files, with few reliable methods to distinguish between these flavors.  NeXML provides a solution to this problem through the use of metadata annotation. 
+
+Here we illustrate this process using the example of stochastic character mapping [Huelsenbeck et al 2003]. A stochastic character map is simply an annotation of the branches on a phylogeny, assigning each section of each branch to a particular "state" (typically of a morphological characteristic).  
+
+[Bollback 2006] provides a widely used stand-alone software implementation of this method in the software `simmap`, which modified the standard Newick tree format to express this additional information. This can break compatibility with other software[^1], and creates a format that cannot be interpreted without additional information describing this convention.  By contrast, the NeXML extension is not only backwards compatible but contains a precise and machine-readable description of what it is encoding.  
 
 
+
+[^1]: By using the commenting mechanism of the Newick format, it is possible that other software that doesn't also use the comment mechanism for some other such purpose would be able to successfully parse the tree.  However there is no way to guarentee that this is the case or for the data format to describe its use.  
+
+[Revell 2011] describes the `phytools` package for R, which includes utilities for reading, manipulating, and writing `simmap` files.  
+
+
+
+
+
+
+NeXML annotation of an edge that switches from state `s2` to state `s1`: 
+
+```xml
+<edge about="#e34" id="e34" source="n16" target="n35" length="0.205223">
+        <meta xsi:type="nex:LiteralMeta" id="m262" property="simmap:reconstructions" datatype="xsd:string">
+          <meta xsi:type="nex:LiteralMeta" id="m260" property="simmap:reconstruction" datatype="xsd:string">
+            <meta xsi:type="nex:LiteralMeta" id="m261" property="simmap:char" datatype="xsd:string" content="cr1"/>
+            <meta xsi:type="nex:LiteralMeta" id="m252" property="simmap:stateChange" datatype="xsd:string">
+              <meta xsi:type="nex:LiteralMeta" id="m253" property="simmap:order" datatype="xsd:decimal" content="1"/>
+              <meta xsi:type="nex:LiteralMeta" id="m254" property="simmap:length" datatype="xsd:decimal" content="0.202947550453246"/>
+              <meta xsi:type="nex:LiteralMeta" id="m255" property="simmap:state" datatype="xsd:string" content="s2"/>
+            </meta>
+            <meta xsi:type="nex:LiteralMeta" id="m256" property="simmap:stateChange" datatype="xsd:string">
+              <meta xsi:type="nex:LiteralMeta" id="m257" property="simmap:order" datatype="xsd:decimal" content="2"/>
+              <meta xsi:type="nex:LiteralMeta" id="m258" property="simmap:length" datatype="xsd:decimal" content="0.00227544954675424"/>
+              <meta xsi:type="nex:LiteralMeta" id="m259" property="simmap:state" datatype="xsd:string" content="s1"/>
+            </meta>
+          </meta>
+        </meta>
+      </edge>
+```
+
+[Revell 2011]: http://doi.org/10.1111/j.2041-210X.2011.00169.x
+[Huelsenbeck et al 2003]: http://doi.org/10.1080/10635150390192780 "Stochastic Mapping of Morphological Characters"
+[Bollback 2006]: http://doi.org/10.1186/1471-2105-7-88 "SIMMAP: stochastic character mapping of discrete traits on phylogenies."
 
 
 
@@ -328,15 +379,26 @@ identifiers when generating NeXML using methods from the `taxize` package
 
 ### Quality control
 
-The `RNeXML` package performs two levels of validation on NeXML files
+The `RNeXML` package performs severak levels of validation on NeXML files
 written from or read into R: validating the XML, and validating against
-the current NeXML schema.
+the current NeXML schema, and performing additional checks through the 
+NeXML online validation tool for elements that cannot be enforced by
+schema validation alone.  Validation serves to improve consistency in
+data encoding which facilitates the use of NeXML across a wide variety
+of platforms and software.  A lack of a consistent standard and validation
+mechanism has continually plagued the current NEXUS standard and made 
+interoperability difficult [Vos et al. 2011].  
 
 Several mechanisms are in place to evaluate the quality of the `RNeXML`
 package functions themselves.  In addition to the examples from the
 documentation and the automated package checks provided for the R system,
-the `RNeXML` package includes a complete test suite using the testthat
-package [Wickham 2011].
+the `RNeXML` package includes a complete test suite using the `testthat`
+package [Wickham 2011]. Package development on Github includes continuous 
+integration through the `travis` platform, in which the full test suite
+is run every time the code is changed.  This not only gives users confidence
+that the development copy can be successfully installed, but should assist
+other developers seeking to contribute to the package to test that their proposed 
+changes have not negatively impacted any of the existing code base.  
 
 
 ### Software reuse and support
@@ -371,6 +433,8 @@ of the rOpenSci project, [http://ropensci.org].
 [Chamberlain 2013]: http://dx.doi.org/10.12688/f1000research.2-191.v2
 [@ouch]: http://cran.r-project.org/web/packages/ouch/
 [@phylobase]: http://cran.r-project.org/web/packages/phylobase
+[W3C 2013]: http://www.w3.org/TR/xhtml-rdfa-primer/ "RDFa 1.1 Primer - Second Edition: Rich Structured Data Markup for Web Documents"
+[Tenopir et al. 2011]: http://doi.org/10.1371/journal.pone.0021101 "Data Sharing by Scientists: Practices and Perceptions"
 
 
 
