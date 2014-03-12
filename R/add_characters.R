@@ -27,6 +27,7 @@ add_characters <- function(x,
 
   ## Check types  & row names ##
   x <- format_characters(x) 
+  j <- length(nexml@characters) ## add after any existing character matrices
 
   nexml <- add_character_nodes(nexml, x)
   for(i in 1:length(x)){
@@ -35,13 +36,13 @@ add_characters <- function(x,
     nexml <- add_otu(nexml, new_taxa, append=append_to_existing_otus)
     ## Add the otus id to the characters node
     otus_id <- nexml@otus[[length(nexml@otus)]]@id
-    nexml@characters[[i]]@otus <- get_by_id(nexml@otus, otus_id)@id
+    nexml@characters[[i+j]]@otus <- get_by_id(nexml@otus, otus_id)@id
 
-    nexml <- add_char(nexml, x, i)
-    nexml <- add_states(nexml, x, i)
+    nexml <- add_char(nexml, x, i, j)
+    nexml <- add_states(nexml, x, i, j)
   }
   for(i in 1:length(x)){
-    nexml <- add_rows(nexml, x, i)  
+    nexml <- add_rows(nexml, x, i, j)  
   }
 
   nexml
@@ -124,7 +125,7 @@ new_otus_block <- function(nexml, to_add){
 
 
 # Turns char names into char nodes 
-add_char <- function(nexml, x, i = 1){
+add_char <- function(nexml, x, i = 1, j = 0){
   char_labels <- colnames(x[[i]])
   char_list <- 
     lapply(char_labels, function(lab){
@@ -134,19 +135,19 @@ add_char <- function(nexml, x, i = 1){
                   about = paste0("#", id),
                   label = lab) 
       })
-  nexml@characters[[i]]@format@char <- new("ListOfchar", char_list)
+  nexml@characters[[i+j]]@format@char <- new("ListOfchar", char_list)
   nexml 
 }
 
 
 
-add_states <- function(nexml, x, i = 1){
+add_states <- function(nexml, x, i = 1, J = 0){
   # don't ctreate a states node if data is numeric
   if(all(sapply(x[[i]], is.numeric)))
     nexml
   else { 
     nchars <- length(x[[i]])
-    char <- nexml@characters[[i]]@format@char
+    char <- nexml@characters[[i+J]]@format@char
     states_list <- lapply(1:nchars, function(j){
       lab <- char[[j]]@label
       lvls <- levels(x[[i]][[lab]])
@@ -163,10 +164,10 @@ add_states <- function(nexml, x, i = 1){
           }))
       )
     })
-    nexml@characters[[i]]@format@states <- new("ListOfstates", states_list)
+    nexml@characters[[i+J]]@format@states <- new("ListOfstates", states_list)
     # Add the states's id to char
     for(j in 1:nchars)
-      nexml@characters[[i]]@format@char[[j]]@states <- states_list[[j]]@id
+      nexml@characters[[i+J]]@format@char[[j]]@states <- states_list[[j]]@id
   nexml
   }
   nexml
@@ -175,15 +176,15 @@ add_states <- function(nexml, x, i = 1){
 
 
 ## Assumes that otu ids have already been added to the nexml 
-add_rows <- function(nexml, x, i = 1){
+add_rows <- function(nexml, x, i = 1, j = 0){
 
   X <- x[[i]]
   taxa <- rownames(X)
   char_labels <- colnames(X)
 
   ## get the relevant characters block and otus block
-  cs <- nexml@characters[[i]]@id   
-  os <- nexml@characters[[i]]@otus 
+  cs <- nexml@characters[[i+j]]@id   
+  os <- nexml@characters[[i+j]]@otus 
 
   otu_map <- get_otu_maps(nexml)[[os]]
   char_map <- get_char_maps(nexml)[[cs]] 
@@ -217,7 +218,7 @@ add_rows <- function(nexml, x, i = 1){
            )
         }))
     )
-  nexml@characters[[i]]@matrix <- mat
+  nexml@characters[[i+j]]@matrix <- mat
   nexml
 }
 
@@ -236,6 +237,7 @@ format_characters <- function(x){
   ## Matrices are either all-numeric or all-character class, so no risk of mixed discrete and continous states.  
   if(is(x, "matrix")){
     x <- list(as.data.frame(x))
+    
   ## Data.frames can mix discrete and continous states, so we need to seperate them
   } else if(is(x, "data.frame") && dim(x)[2] > 1) {
     x <- split_by_class(x)
