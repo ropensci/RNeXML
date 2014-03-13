@@ -1,0 +1,29 @@
+\name{nexml_add}
+\alias{nexml_add}
+\title{add elements to a new or existing nexml object}
+\usage{
+nexml_add(x, nexml = new("nexml"), type = c("trees", "characters", "meta",
+  "namespaces"), ...)
+}
+\arguments{
+  \item{x}{the object to be added}
+
+  \item{nexml}{an existing nexml object onto which the
+  object should be appended}
+
+  \item{type}{the type of object being provided.}
+
+  \item{...}{additional optional arguments to the add
+  functions}
+}
+\value{
+a nexml object with the additional data
+}
+\description{
+add elements to a new or existing nexml object
+}
+\seealso{
+\code{\link{add_trees}} \code{\link{add_characters}}
+\code{\link{add_meta}} \code{\link{add_namespaces}}
+}
+

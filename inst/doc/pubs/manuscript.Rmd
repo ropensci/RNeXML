@@ -131,7 +131,7 @@ We begin by reading in an example NeXML file provided with the package.
 
 ```{r}
 f <- system.file("examples", "trees.xml", package="RNeXML")
-nex <- nexml_read("trees.xml")
+nex <- nexml_read(f)
 ```
 
 (For convenience `nexml_read` is also aliased as `read.nexml`, for
@@ -259,22 +259,81 @@ nex <- add_characters(primates$dat, nex)
 
 ### Metadata
 
-At the heart of the NeXML standard is the ability to encode arbitrary metadata in precisely specified, machine-readable formats that maintain backwards compabitibilty with any existing NeXML parser. NeXML uses the "Resource Description Framework in Annotations", or RDFa [W3C 2013], as described in [Vos et al 2011].  
+At the heart of the NeXML standard is the ability to encode arbitrary
+metadata in precisely specified, machine-readable formats that maintain
+backwards compabitibilty with any existing NeXML parser. NeXML uses the
+"Resource Description Framework in Annotations", or RDFa [W3C 2013],
+as described in [Vos et al 2011].  These annotations can be used to add 
+information to any particular element of the data, (a tree, node, edge,
+or taxonomic unit; a character matrix or specific trait, or even another 
+metadata annotation or the NeXML data file as a whole). `RNeXML` provides
+a range of tools for accessing metadata embedded in a NeXML file.  
 
 
 ### Reading NeXML metadata
 
-Metadata from treebase NeXML
-- article citation information
-- Summary data: taxa, number of taxa, number of trees, number of tips.  
-- Metadata of nodes, complete RDF extraction
+To illustrate metadata access, we begin by reading in a nexml file.  
 
 
 ```{r } 
-birds <- nexml_read("test.xml")
-get_taxa(birds)
-get_metadata(birds) 
+S100 <- nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
 ```
+
+A call to the nexml object prints some metadata summarizing the data structure:
+
+```{r }
+S100
+```
+
+We can extract all metadata pertaining to the NeXML document as a whole
+(annotations of the XML root node, `<nexml>`) with the command
+
+```{r}
+meta <- get_metadata(S100) 
+```
+
+This returns a named list of available metadata. We can see the kinds
+of metadata recorded from the names:
+
+```{r}
+names(meta)
+```
+
+and can ask for a particular element using the standard list subsetting
+mechanism (i.e. either the name of an element or it's numeric position),
+
+```{r}
+meta[["dc:title"]]
+meta[["dc:publisher"]]
+```
+
+All metadata terms must belong to an explicit *namespace* or vocabulary that allows a computer to interpret the term precisely. The prefix (before the `:`) indicates to which vocabulary the term belongs, e.g. `dc` in this case.  The `get_namespaces` function tells us the definition of the vocabulary using a link:
+
+```{r}
+prefixes <- get_namespaces(S100)
+prefixes["dc"]
+```
+
+Following the link we can see that `dc` refers to the "Dublin Core"
+vocabulary, and the term `title` refers to the title of a creative work
+(as opposed to the title of a person, a legal title, the verb title, etc).
+Such explicit definitions allow a computer to reason about these objects,
+as we shall see later.  
+
+
+Other metadata is available 
+
+```{r}
+get_taxa(S100)
+```
+
+
+- article citation information
+
+- Summary data: taxa, number of taxa, number of trees, number of tips.  
+
+- Metadata of nodes, complete RDF extraction
+
 
 
 This allows us to include multiple trees and character matrices to a single NeXML file.  
@@ -298,12 +357,21 @@ Replicate examples from [treebase] metadata section: publication information, tr
 
 ### Writing NeXML metadata
 
-Researchers cannot take advantage of NeXML metadata manipulation if there is no metadata there.  The burden of adding good metadata remains a significant barrier to increased sharing and reuse of scientific research [Tenopir et al. 2011].  `RNeXML` seeks to reduce the burden of adding high quality, machine-readable metadata to NeXML files. This occurs on several levels:
+Researchers cannot take advantage of NeXML metadata manipulation if
+there is no metadata there.  The burden of adding good metadata remains a
+significant barrier to increased sharing and reuse of scientific research
+[Tenopir et al. 2011].  `RNeXML` seeks to reduce the burden of adding
+high quality, machine-readable metadata to NeXML files. This occurs on
+several levels:
 
-- Automatic annotation.  `RNeXML` automatically adds basic metadata by
-default such as a timestamp of when the tree was produced and an open
-data license (CC0, compatible with deposition on Dryad data repository),
-which can be configured as needed.
+- Automatic annotation.  
+
+`RNeXML` automatically adds basic metadata by default such as a timestamp
+of when the tree was produced and an open data license (CC0, compatible
+with deposition on Dryad data repository), which can be configured
+as needed.
+
+
 
 - Utilities to add common metadata
 
@@ -316,7 +384,7 @@ Writing annotations on otus.  Annotations on nodes.
 Temporal, spatial, taxonomic coverage for dryad/knb?
 
 
-- Extending the NeXML standard through metadata annotation.
+### Extending the NeXML standard through metadata annotation.
 
 No data standard can anticipate all the uses and extensions researchers may one day need. Researchers have repeatedly adapted the existing NEXUS file format to accomidate encoding new kinds of information, but in the process break compatibility between different flavors of NEXUS files, with few reliable methods to distinguish between these flavors.  NeXML provides a solution to this problem through the use of metadata annotation. 
 
@@ -361,6 +429,110 @@ NeXML annotation of an edge that switches from state `s2` to state `s1`:
 [Huelsenbeck et al 2003]: http://doi.org/10.1080/10635150390192780 "Stochastic Mapping of Morphological Characters"
 [Bollback 2006]: http://doi.org/10.1186/1471-2105-7-88 "SIMMAP: stochastic character mapping of discrete traits on phylogenies."
 
+
+
+
+
+### Subsetting nexml objects directly
+
+The `RNeXML` package provides many convenient functions to add and extract
+information from `nexml` objects in the R environment without requiring
+the reader to understand the details of the NeXML data structure and
+making it less likely that a user will generate invalid NeXML syntax
+that could not be read by other parsers. The `nexml` object we have been using
+in all of the examples is built on R's S4 mechanism. Advanced users may
+sometimes prefer to interact with the data structure more directly using 
+R's S4 class mechanism and subsetting methods. Many R users are more familiar
+with the S3 class mechanism (such as in the `ape` package phylo objects)
+rather than the S4 class mechanism used in phylogenetics packages such as 
+`ouch` and `phylobase`. The `phylobase` vignette provides an excellent introduction
+to these data structures.  Users already familiar with subsetting lists and other
+S3 objects in R are likely familar with the use of the `$` operator, such as
+`phy$edge`. S4 objects simply use an `@` operator instead (but cannot be subset
+using numeric arguments such as `phy[[1]]` or named arguments such as phy[["edge"]]).  
+
+
+The `nexml` object is an S4 object, as are all of its components (slots).  It's 
+heirachical structure corresponds exactly with the XML tree of a NeXML file, with 
+the single exception that both XML attributes and children are represented as slots.  
+S4 objects have constructor functions to initialize them.  We create a new `nexml` 
+object with the command:
+
+```{r}
+nex <- new("nexml")
+```
+
+We can see a list of slots contained in this object with
+
+```{r}
+slotNames(nex)
+```
+
+Some of these slots have already been populated for us, for instance, the schema version and default namespaces:
+
+```{r}
+nex@version
+nex@namespaces
+```
+
+Recognize that `nex@namespaces` serves the same role as `get_namespaces` function, but provides direct access to the slot data.  For instance, with this syntax we could also overwrite the existing namespaces with `nex@namespaces <- NULL`.  Changing the namespace in this way is not advised.
+
+Some slots can contain multiple elements of the same type, such as `trees`, `characters`, and `otus`.  For instance, we see that 
+
+```{r}
+class(nex@characters)
+```
+
+is an object of class `ListOfcharacters`, and is currently empty,
+
+```{r}
+length(nex@characters)
+```
+
+In order to assign an object to a slot, it must match the class definition
+of the slot.  We can create a new element of any given class with the
+`new` function,
+
+```{r}
+nex@characters <- new("ListOfcharacters", list(new("characters")))
+```
+
+and now we have a length-1 list of character matrices,
+
+```{r}
+length(nex@characters)
+```
+
+and we access the first character matrix using the list notation, `[[1]]`. Here we check the class is a `characters` object.  
+
+```{r}
+class(nex@characters[[1]])
+```
+
+Direct subsetting has two primary use cases: (a) useful in looking up (and possibly editing) a specific value of an element, or (b) when adding metadata annotations to specific elements. Consider the example file
+
+
+```{r}
+f <- system.file("examples", "trees.xml", package="RNeXML")
+nex <- nexml_read(f)
+```
+
+We can look up the species label of the first `otu` in the first `otus` block:
+
+```{r}
+nex@otus[[1]]@otu[[1]]@label
+```
+
+We can add metadata to this particular OTU using this subsetting format
+
+```{r}
+nex@otus[[1]]@otu[[1]]@meta <- 
+  c(meta("skos:note", 
+          "This species was incorrectly identified"),
+         nex@otus[[1]]@otu[[1]]@meta)
+```
+
+Here we use the `c` operator to append this element to any existing meta annotations to this otu.  
 
 
 ### Implementation and architecture

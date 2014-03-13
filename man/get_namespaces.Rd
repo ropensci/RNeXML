@@ -1,0 +1,18 @@
+\name{get_namespaces}
+\alias{get_namespaces}
+\title{get namespaces}
+\usage{
+get_namespaces(nexml)
+}
+\arguments{
+  \item{nexml}{a nexml object}
+}
+\value{
+a named character vector providing the URLs defining each
+of the namespaces used in the nexml file.  Names correspond
+to the prefix abbreviations of the namespaces.
+}
+\description{
+get namespaces
+}
+

@@ -1,9 +1,10 @@
 #' Get the desired element from the nexml object
 #' 
 #' Get the desired element from the nexml object
+#' @aliases nexml_get get_item
 #' @param nexml a nexml object (from read_nexml)
 #' @param element the kind of object desired, see details.  
-#' @param level metadata argument only.  Define whose metadata we want. See examples for details.  
+#' @param ... additional arguments, if applicable to certain elements 
 #' @details
 #'  
 #' \itemize{
@@ -12,6 +13,7 @@
 #'  \item{"flat_trees"}{ a multiPhylo object (list of ape::phylo objects) Note that this method collapses any heirachical structure that may have been present as multiple `trees` nodes in the original nexml (though such a feature is rarely used).  To preserve that structure, use `trees` instead.}
 #'  \item{"metadata"}{Get metadata from the specified level (default is top/nexml level) }
 #'  \item{"otu"}{ returns a named character vector containing all available metadata.  names indicate \code{property} (or \code{rel} in the case of links/resourceMeta), while values indicate the \code{content} (or \code{href} for links). }
+#'  \item{"taxa"}{ alias for otu }
 #' }
 #' For a slightly cleaner interface, each of these elements is also defined as an S4 method
 #' for a nexml object.  So in place of `get_item(nexml, "tree")`, one could use `get_tree(nexml)`,
@@ -20,21 +22,31 @@
 #' @export
 #' @seealso \code{\link{get_trees}}
 #' @include classes.R
-get_item <- function(nexml, 
-                     element = c("trees", "trees_list", "flat_trees", "metadata", "otu", "characters", "characters_list"), 
-                     level = c("nexml", "otus", "otu", "trees", "tree")){
+nexml_get <- function(nexml, 
+                     element = c("trees", 
+                                 "trees_list", 
+                                 "flat_trees", 
+                                 "metadata", 
+                                 "otu",
+                                 "taxa",
+                                 "characters", 
+                                 "characters_list",
+                                 "namespaces"), 
+                     ...){
   element <- match.arg(element)
-  level <- match.arg(level)
 
   switch(element,
          trees = get_trees(nexml), # will warn if more than one tree is available
          trees_list = get_trees_list(nexml),
          flat_trees = get_flat_trees(nexml),
-         metadata = get_metadata(nexml, level),
+         metadata = get_metadata(nexml, ...),
          otu = get_taxa(nexml),
+         taxa = get_taxa(nexml),
          characters = get_characters(nexml),
-         characters_list = get_characters_list(nexml))
+         characters_list = get_characters_list(nexml),
+         namespaces = get_namespaces(nexml))
 }
 
+get_item <- nexml_get
 
 

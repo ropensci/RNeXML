@@ -1,0 +1,26 @@
+\docType{methods}
+\name{c,ListOfmeta-method}
+\alias{c,ListOfmeta-method}
+\title{Concatenate ListOfmeta elements into a ListOfmeta}
+\usage{
+\S4method{c}{ListOfmeta}(x, ..., recursive = FALSE)
+}
+\arguments{
+  \item{x,...}{meta or ListOfmeta elements to be
+  concatenated, e.g. see \code{\link{meta}}}
+
+  \item{recursive}{logical, if 'recursive=TRUE', the
+  function descends through lists and combines their
+  elements into a vector.}
+}
+\value{
+a listOfmeta object containing multiple meta elements.
+}
+\description{
+Concatenate ListOfmeta elements into a ListOfmeta
+}
+\examples{
+c(c(meta(content="example", property="dc:title")),
+  meta(content="Carl", property="dc:creator"))
+}
+

@@ -11,8 +11,7 @@
 
   \item{recursive}{logical, if 'recursive=TRUE', the
   function descends through lists and combines their
-  elements into a vector. Currently not implemented. so
-  "c(meta, c(meta))" will not work.}
+  elements into a vector.}
 }
 \value{
 a listOfmeta object containing multiple meta elements.
