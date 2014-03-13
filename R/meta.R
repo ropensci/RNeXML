@@ -133,7 +133,6 @@ nexml_citation <- function(obj){
 #' @param x,... meta elements to be concatenated, e.g. see \code{\link{meta}}
 #' @param recursive  logical, if 'recursive=TRUE', the function 
 #' descends through lists and combines their elements into a vector.
-#' Currently not implemented. so "c(meta, c(meta))" will not work.  
 #' @return a listOfmeta object containing multiple meta elements. 
 #' @examples 
 #' c(meta(content="example", property="dc:title"),
@@ -143,5 +142,49 @@ setMethod("c",
           signature("meta"),
           function(x, ..., recursive = FALSE){
             elements <- list(x, ...)
+#            if(recursive)
+            elements <- meta_recursion(elements)
             new("ListOfmeta", elements)
+
           })
+
+
+#' Concatenate ListOfmeta elements into a ListOfmeta
+#' 
+#' Concatenate ListOfmeta elements into a ListOfmeta
+#' @param x,... meta or ListOfmeta elements to be concatenated, e.g. see \code{\link{meta}}
+#' @param recursive  logical, if 'recursive=TRUE', the function 
+#' descends through lists and combines their elements into a vector.
+#' @return a listOfmeta object containing multiple meta elements. 
+#' @examples 
+#' c(c(meta(content="example", property="dc:title")),
+#'   meta(content="Carl", property="dc:creator"))
+#' 
+setMethod("c", 
+          signature("ListOfmeta"),
+          function(x, ..., recursive = FALSE){
+            elements <- list(x, ...)
+            elements <- meta_recursion(elements)
+            new("ListOfmeta", elements)
+
+          })
+
+
+
+
+meta_recursion <- function(elements){
+  i <- 1
+  out <- vector("list")
+  for(e in elements){
+    if(length(e) > 0){
+      if(is(e, "meta")){
+        out[[i]] <- e
+        i <- i + 1
+      } else if(is.list(e)){
+        out <- c(out, meta_recursion(e))
+        i <- length(out) + 1 
+      }
+    }
+  }
+out
+}
