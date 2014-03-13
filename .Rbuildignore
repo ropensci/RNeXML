@@ -1,1 +1,3 @@
 ^\.travis\.yml$
+RNeXML.Rproj
+.gitignore
