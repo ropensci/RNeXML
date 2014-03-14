@@ -60,16 +60,4 @@ add_meta <- function(meta,
   nexml
 }
 
-## Helper routine to add namespaces only if they aren't already present 
-add_namespaces <- function(namespaces, nexml){
-  if(!is.null(namespaces)){
-    notdups <- match(namespaces, nexml@namespaces)
-    notdups <- sapply(notdups, is.na)
-    if(all(notdups)) # all are unique 
-      nexml@namespaces <-  c(nexml@namespaces, namespaces)
-    else {
-      nexml@namespaces <-  c(nexml@namespaces, namespaces[notdups])
-    } 
-  }
-  nexml
-}
+

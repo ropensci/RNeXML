@@ -34,6 +34,7 @@ Collate:
     'classes.R'
     'add_characters.R'
     'add_meta.R'
+    'add_namespaces.R'
     'add_trees.R'
     'character_classes.R'
     'concatenate_nexml.R'

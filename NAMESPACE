@@ -1,6 +1,7 @@
 export(add_basic_meta)
 export(add_characters)
 export(add_meta)
+export(add_namespaces)
 export(add_trees)
 export(flatten_multiphylo)
 export(get_characters)
