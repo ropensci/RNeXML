@@ -16,6 +16,14 @@ README.md: README.Rmd
 	sed -i 's/socialR::flickr.url/imgur_upload/' ../../../vignettes/README.Rmd
 
 
+manuscript.md: manuscript.Rmd
+	Rscript -e 'require(knitr); knit("manuscript.Rmd")'
+
+manuscript.pdf: manuscript.Rmd
+	Rscript -e 'require(knitr); knit("manuscript.Rmd", "tmp.md")'
+	pandoc tmp.md --template elsarticle.latex -o manuscript.pdf
+
+
 clean: 
-	rm *.xml
+	rm *.xml tmp.md
 	rm ../../../vignettes/*.xml

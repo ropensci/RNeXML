@@ -119,7 +119,6 @@ breaking validation or backwards compatability of the file type.
 
 
 
-
 ## Introduction to RNeXML
 
 
@@ -261,6 +260,7 @@ can contain multiple phylogenetic trees, as well as character matrices.
 We can add both trees  and character data using `nexml_write`,
 
 ```{r}
+library(geiger)
 data(geospiza)
 nexml_write(trees = geospiza$phy, characters = geospiza$dat, file="geospiza.xml")
 ```
@@ -273,8 +273,8 @@ Here we first create a `nexml` object containing the phylogeny data,
 and then add the character data to it:
 
 ```{r}
-nex <- add_trees(geospiza$phy)
-nex <- add_characters(geospiza$dat, nex)
+geiger_nex <- add_trees(geospiza$phy)
+geiger_nex <- add_characters(geospiza$dat, geiger_nex)
 ```
 
 The data need not share the same taxa.  We can append additional
@@ -282,8 +282,8 @@ phylogenies and characters corresponding to different taxa:
 
 ```{r}
 data(primates)
-nex <- add_trees(primates$phy, nex)
-nex <- add_characters(primates$dat, nex)
+geiger_nex <- add_trees(primates$phy, geiger_nex)
+geiger_nex <- add_characters(primates$dat, geiger_nex)
 ```
 
 This allows us to include multiple trees and character matrices to a single NeXML file.  
@@ -333,8 +333,8 @@ provided in the `ape` package:
 
 ```{r}
 data(bird.orders)
-nex <- add_trees(bird.orders)
-nex <- add_basic_meta(nex,
+birds <- add_trees(bird.orders)
+birds <- add_basic_meta(birds,
   title = "Phylogeny of the Orders of Birds From Sibley and Ahlquist",
 
   description =" This data set describes the phylogenetic relationships of the
@@ -355,16 +355,25 @@ nex <- add_basic_meta(nex,
   creator = "Sibley, C. G. and Ahlquist, J. E.")
 ```
 
-`RNeXML` provides various functions to assist in automatically adding
+Citations can also be added using R's `bibentry` type, which allows
+a user to add citations to R packages, 
+
+```{r}
+birds <- add_basic_meta(birds, citation = citation("ape"))
+```
+
+or to papers by simply using the object's DOI:
+
+```{r}
+library("knitcitations")
+geiger_nex <- add_basic_meta(geiger_nex, citation=cite("10.2307/2408428"))
+```
+
+(Which is the paper on which the `geospiza` phylogeny from the geiger dataset is based)
+
+
+`RNeXML` also provides various functions to assist in automatically adding
 other more specific metadata to various elements of the NeXML data.  
-
-- Utilities to add common metadata
-
-  - Add a citation to any papers associated with the phylogeny data.  
-  - Writing in methodological information on how tree has been generated or analyzed (including R code)
-  - Add annotations to any taxon.  
-
-Writing annotations on otus.  Annotations on nodes.  
 
 
 
@@ -377,7 +386,7 @@ example, we indicate that we intend the bird orders listed in the tree to corres
 to the NCBI definitions 
 
 ```{r}
-nex <- taxize_nexml(nex, "NCBI")
+birds <- taxize_nexml(birds, "NCBI")
 ```
 
 This function uses the `taxize` R library ([Chamberlain 2013]) to check each taxon
@@ -386,10 +395,102 @@ is added to the taxon providing the NCBI identification number to the taxonomic 
 If no match is found, the user is warned to check for possible typographic errors in
 the taxonomic labels provided.  
 
+### Custom metadata extensions
+
+So far our examples have relied on functions that have a built-in understanding of the 
+kind of metadata being provided, and can thus generate the appropriate metadata with 
+little further guidence.  In order to be machine-readable and understandable, 
+NeXML requires all metadata annotations follow the RDFa format which explicitly declares 
+the meaning of the annotation in a way a computer can understand.  For instance, the 
+title we gave to the `bird.orders` phylogeny appears in the NeXML as:
+
+```xml
+<meta id="m2" property="dc:title" datatype="xsd:string" content="Phylogeny of the Orders of Birds From Sibley and Ahlquist"/> 
+```
+
+We see the title appears as the `content` of this `meta` element.  The `id` attribute
+provides us with a unique way to refer to this meta element in this document.  The `datatype`
+tells us that the content is a text string (as opposed to a numerical or boolean value).  
+The `property` is the attribute that most interests us here; it tells us that the content 
+is a title.  The prefix `dc` indicates the vocabulary (called a namespace in XML) to which 
+the word `title` belongs.  The prefix is defined elsewhere in the NeXML file, as we can see with:
 
 
+```{r}
+prefixes <- get_namespaces(birds)
+prefixes["dc"]
+```
 
-Temporal, spatial, taxonomic coverage for dryad/knb?
+This URL links us to a webpage providing both a human and machine-readable version of precisely
+what the term `title` means, showing us that it refers to `title` in the sense of a creative work, 
+rather than the title of a person, a legal title, the verb title, etc.  This precision can allow
+us to perform precise computer reasoning on metadata, without relying on heuristics or assumptions,
+as we illustrate later.  For the moment though, the need to refer to an explicit controlled vocabulary (or
+ontology) with a url, saying "dc:title" rather than just saying the property is "title", is something
+of a burden in creating metadata.  The previous examples involve functions that already know what 
+kind of metadata is being provided (a title, a data creator, etc), and so can provide the appropriate
+vocabulary automatically.  The main advantage of linking to an external vocabulary, however, is the
+ability to express concepts that are not already "built in" to the data model.  `RNeXML` provides 
+tools to generate arbitrary metadata annotations given an external vocabulary, such as we illustrate
+here.  
+
+
+From the list of namespaces in `prefixes`, we can follow links a handful of established vocabularies
+and find terms that are not included in `add_basic_meta`.  For instance, in the `prism` prefix, 
+
+```{r}
+prefixes["prism"]
+```
+
+we see that there is a term for `modificationDate` for a file.  We create a `meta` element 
+containing this annotation using the `meta` function:
+
+```{r}
+modified <- meta(property = "prism:modificationDate", content = "2013-10-04")
+```
+
+We can add this annotation to our existing `birds` nexml file using the `add_meta` function.
+Because we do not specify a level, it is added to the root node, refering to the nexml file as a whole.  
+
+```{r}
+birds <- add_meta(modified, birds) 
+```
+
+The built-in vocabularies are just the tip of the iceburg of established vocabularies. Here 
+we add an annotation from the `skos` namespace which describes the history of where the
+data comes from:
+
+```{r}
+history <- meta(property = "skos:historyNote",
+  content = "Mapped from the bird.orders data in the ape package using RNeXML")
+```
+
+Because `skos` is not in the current namespace list, we add it with a url when
+adding this meta element.  We also specify that this annotation be placed 
+at the level of the `trees` subnode in the NeXML file.  
+
+```{r}
+birds <- add_meta(history, 
+                birds, 
+                level = "trees",
+                namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#"))
+```
+
+If we forget to add the namespace with add_meta, we can always add it later
+using the `add_namespaces` function,
+
+
+```{r}
+birds <- add_namespaces(c(skos = "http://www.w3.org/2004/02/skos/core#"), birds)
+```
+
+(The `add_namespaces` function will avoid creating any duplicate definitions)
+For finer control of the level at which a `meta` element is added, we will manipulate 
+the nexml R object directly using S4 subsetting, as shown later.  
+
+
+<!-- Ugh. y'all have much more practice explaining this well and without tangents, 
+so please feel free to edit or re-write.  -->
 
 Much richer metadata annotation is possible. Later we illustrate how metadata annotation
 can be used to extend the base NeXML format to represent new forms of data while maintaining
@@ -397,11 +498,21 @@ compatability with any NeXML parser. The `RNeXML` package can be easily extended
 helper functions such as `taxize_nexml` to add additional metadata without imposing a large
 burden on the user.  
 
+<!--
+- Utilities to add common metadata
+
+  - Add a citation to any papers associated with the phylogeny data.  
+  - Writing in methodological information on how tree has been generated or analyzed (including R code)
+  - Add annotations to any taxon.  
+
+Temporal, spatial, taxonomic coverage for dryad/knb?
+--> 
+
 
 
 ### Reading NeXML metadata
 
-To illustrate metadata access, we begin by reading in a nexml file.  
+To illustrate metadata access, we begin by reading in a NeXML file.  
 
 
 ```{r } 
