@@ -230,7 +230,9 @@ comparative methods popular in R. Methods to get extract character data
 work much like those for the phylogenetic data:
 
 ```{r }
-nex <- nexml_read("comp_analysis.xml")
+
+comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+nex <- nexml_read(comp_analysis)
 get_characters(nex)
 ```
 
