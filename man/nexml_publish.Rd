@@ -1,0 +1,21 @@
+\name{nexml_publish}
+\alias{nexml_publish}
+\title{publish nexml files to the web and receive a DOI}
+\usage{
+nexml_publish(nexml, ..., repository = "figshare")
+}
+\arguments{
+  \item{nexml}{a nexml object (or file path)}
+
+  \item{...}{additional arguments, depending on repository.
+  See examples.}
+
+  \item{repository}{desitination respository}
+}
+\value{
+a digital object identifier to the published data
+}
+\description{
+publish nexml files to the web and receive a DOI
+}
+

@@ -21,6 +21,7 @@
 #'    citation can be a plain text object, but is preferably an R `citation` or `bibentry` object (which
 #'    can include multiple citations.  See examples
 #' @param ... additional arguments, currently no effect. 
+#' @return an updated nexml object
 #' @details \code{add_basic_meta()} is just a wrapper for \code{\link{add_meta}} to make it easy to 
 #'    provide generic metadata without explicitly providing the namespace.  For instance, 
 #'    \code{add_basic_meta(title="My title", description="a description")} is identical to:
@@ -30,7 +31,6 @@
 #'    of the same name, with the exception of `rights`, which by default maps
 #'    to the Creative Commons namespace when using CC0 license.
 #'    
-#' @return an updated nexml object
 #' @seealso \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_meta}}
 #' @export 
 #' @examples
@@ -46,7 +46,7 @@
 #'  ## Use knitcitations package to add a citation by DOI:
 #'  library(knitcitations)
 #'  nexml <- add_basic_meta(citation=cite("10.2307/2408428"))
-#' }
+#'  }
 add_basic_meta <- function(nexml = new("nexml"), 
                            title = NULL, 
                            description = NULL,

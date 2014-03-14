@@ -6,7 +6,8 @@
 nexml_read(x, ...)
 }
 \arguments{
-  \item{x}{Path to the file to be read in}
+  \item{x}{Path to the file to be read in. Or an
+  XMLInternalDoc or XMLInternalNode}
 
   \item{...}{Further arguments passed on to XML::xmlParse}
 }

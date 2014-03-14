@@ -1,0 +1,42 @@
+\name{nexml_figshare}
+\alias{nexml_figshare}
+\title{publish nexml to figshare}
+\usage{
+nexml_figshare(nexml, file = "nexml.xml",
+  categories = "Evolutionary Biology", tags = c("phylogeny", "NeXML"),
+  visibility = c("public", "private", "draft"), id = NULL, ...)
+}
+\arguments{
+  \item{nexml}{a nexml object (or file path to a nexml
+  file)}
+
+  \item{file}{The filename desired for the object, if nexml
+  is not already a file.  if the first argument is already
+  a path, this value is ignored.}
+
+  \item{categories}{The figshare categories, must match
+  available set. see \code{fs_add_categories}}
+
+  \item{tags}{Any keyword tags you want to add to the
+  data.}
+
+  \item{visibility}{whether the results should be published
+  (public), or kept private, or kept as a draft for further
+  editing before publication.  (New versions can be
+  updated, but any former versions that was once made
+  public will always be archived and cannot be removed).}
+
+  \item{id}{an existing figshare id (e.g. from fs_create),
+  to which this file can be appended.}
+
+  \item{...}{additional arguments}
+}
+\value{
+a digital object identifier (doi) to the published data.
+(DOI will be reserved but not active for private or draft
+publications)
+}
+\description{
+publish nexml to figshare
+}
+

@@ -77,7 +77,7 @@ nex <- add_basic_meta(title = "My test title",
  ## Use knitcitations package to add a citation by DOI:
  library(knitcitations)
  nexml <- add_basic_meta(citation=cite("10.2307/2408428"))
-}
+ }
 }
 \seealso{
 \code{\link{add_trees}} \code{\link{add_characters}}

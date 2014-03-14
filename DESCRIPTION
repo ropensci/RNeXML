@@ -17,7 +17,8 @@ Suggests:
     geiger,
     phytools,
     knitr,
-    testthat
+    testthat,
+    rfigshare
 Depends:
     ape,
     methods
@@ -52,6 +53,7 @@ Collate:
     'nexml_add.R'
     'nexml_get.R'
     'nexml_methods.R'
+    'nexml_publish.R'
     'nexml_read.R'
     'nexml_validate.R'
     'nexml_write.R'
