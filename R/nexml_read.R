@@ -10,15 +10,17 @@
 #' f <- system.file("examples", "trees.xml", package="RNeXML")
 #' nexml_read(f) 
 nexml_read <- function(x, ...){
-  if(length(grep("^https?://", x)) > 0) # handle remote paths using httr::GET
+  if(length(grep("^https?://", x)) > 0){ # handle remote paths using httr::GET
     x <- GET(x)
-
-  if(file.exists(x)){
     doc <- xmlParse(x, ...) 
     output <- as(xmlRoot(doc), "nexml")
+    free(doc) # explicitly free the pointers after conversion into S4
+  } else if(file.exists(x)){
+    doc <- xmlParse(x, ...) 
+    output <- as(xmlRoot(doc), "nexml")
+    free(doc) 
   } else if(is(x, "XMLInternalDocument")){
     output <- as(xmlRoot(doc), "nexml")
-    free(doc) # explicitly free the pointers after conversion into S4
   } else if(is(x, "XMLInternalNode")){
     output <- as(x, "nexml")
   }
