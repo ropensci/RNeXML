@@ -61,8 +61,8 @@ abstract: |
 
 <!-- Emphasize: 
 1) storing character data and tree data together, convenient for the comparative methods community
-2) Adding metadata, including automated addition of metadata
-3) 
+2) Adding metadata, including automated addition of metadata and semantic utilities 
+3) Extending the NeXML standard  
 
 -->
 
@@ -103,18 +103,19 @@ represent horizontal gene transfer, ambiguous use of symbols, cannot be
 extended reliably, no validator.  NeXML addresses all of these problems
 [Vos _et al._ 2012] with a state-of-the-art data management format.
 
-* Why RNeXML: Huge ecosystem of phylogenetics packages. (1) Read nexml.
+* Why RNeXML: Huge ecosystem of phylogenetics packages. (1) Read NeXML.
 All would benefit by being able to read NeXML, both as a robust standard
 free of the pitfalls of Nexus, and more importantly, as a much richer
 source of data thanks to its extendable annotation model.  (2) Write
-nexml.  R packages and R users add rich information to the phylogenies
+NeXML.  R packages and R users add rich information to the phylogenies
 they work with, but need a platform independent data exchange format to
-share and archive this. (3) Annotate and extend nexml.
-
-* as your own personal treebase
-
-* Adding metadata to capture workflow
-
+share and archive this. In particular, we illustrate how NeXML can
+be used to distribute both phylogenies and character trait data used in 
+many popular phylogenetic comparative methods tools in R.  (3) Annotate 
+and extend nexml. `RNeXML` provides convenient tools for adding metadata
+to NeXML files, including the automated generation of metadata and examples
+of how to extend the NeXML standard to represent new data features without
+breaking validation or backwards compatability of the file type.  
 
 
 
