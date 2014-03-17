@@ -5,12 +5,14 @@
 #' 
 #' get_metadata 
 #' @param nexml a nexml object
-#' @param level the name of the level of element desired. all corresponds to all meta elements.  
+#' @param level the name of the level of element desired, or
+#'  use "all" to access all meta elements.  
 #' @return the requested metadata
 #' @import XML
 #' @export
-get_metadata <-  function(nexml, level=c("nexml", "otus", "otu", "trees", "tree", "characters", "format", "states", "all")){
-#  level <- match.arg(level)  # Don't insist a match for more flexibilty.  
+get_metadata <-  function(nexml, level="nexml"){
+# c("nexml", "otus", "otu", "trees", "tree", "characters", "format", "states", "all")
+  #  level <- match.arg(level)  # Don't insist a match for more flexibilty.  
   string <- paste0("//nex:", level, "/nex:meta" )
   if(level == "all")
     string <- paste0("//nex:meta")
