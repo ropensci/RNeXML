@@ -57,7 +57,7 @@ add_basic_meta <- function(nexml = new("nexml"),
                            citation = NULL,
                            ...){
 
-  m <- get_metadata(m)
+  m <- get_metadata(nexml)
 
   if(!is.null(title)) 
     nexml <- add_meta(meta("dc:title", title), nexml)
