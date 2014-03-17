@@ -25,5 +25,5 @@ manuscript.pdf: manuscript.Rmd
 
 
 clean: 
-	rm *.xml tmp.md
-	rm ../../../vignettes/*.xml
+	rm -f *.xml tmp.md
+	rm -f ../../../vignettes/*.xml
