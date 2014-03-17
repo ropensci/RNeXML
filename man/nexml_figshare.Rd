@@ -3,7 +3,7 @@
 \title{publish nexml to figshare}
 \usage{
 nexml_figshare(nexml, file = "nexml.xml",
-  categories = "Evolutionary Biology", tags = c("phylogeny", "NeXML"),
+  categories = "Evolutionary Biology", tags = list("phylogeny", "NeXML"),
   visibility = c("public", "private", "draft"), id = NULL, ...)
 }
 \arguments{
