@@ -33,7 +33,7 @@ nexml_publish <- function(nexml, ..., repository="figshare"){
 nexml_figshare <- function(nexml,
                            file = "nexml.xml", 
                            categories = "Evolutionary Biology", 
-                           tags = c("phylogeny", "NeXML"),
+                           tags = list("phylogeny", "NeXML"),
                            visibility = c("public", "private", "draft"),
                            id = NULL, 
                            ...){
@@ -51,22 +51,26 @@ nexml_figshare <- function(nexml,
 
 
 
-  # handle nexml as a file path or as an object 
-  if(file.exists(nexml)){
-    file <- nexml
-    nexml <- nexml_read(nexml)
+  # handle nexml as a file path or as an object
+  if(!is(nexml, "nexml")){
+    if(file.exists(nexml)){
+      file <- nexml
+      nexml <- nexml_read(nexml)
+    } # else warning?
   }
- 
+  
   m <- get_metadata(nexml)
 
+  
+  fs_auth()
   if(!is.null(id)){
-    id <- fs_create(title = m["dc:title"],
-                    description = m["dc:description"], 
+    id <- fs_create(title = m[["dc:title"]],
+                    description = m[["dc:description"]], 
                     type = "dataset")
   }
   doi <- paste("doi:10.6084/m9.figshare", id, sep=".")
 
-  fs_add_authors(id, authors = m["dc:creator"])
+  fs_add_authors(id, authors = m[["dc:creator"]])
   fs_add_categories(id, categories)
   fs_add_tags(id, tags)
 
@@ -78,7 +82,7 @@ nexml_figshare <- function(nexml,
 
   fs_upload(id, file)
   if (visibility == "private"){ 
-      fs_make_private(id, session)
+      fs_make_private(id)
       message(paste0("Your data has been uploaded to figshare privately.
            You may make further edits and publish the data from
            the online control panel at figshare.com or by using 
@@ -88,7 +92,7 @@ nexml_figshare <- function(nexml,
 
   }
   if (visibility == "public"){ 
-      fs_make_public(id, session)
+      fs_make_public(id)
       message(paste0("Your data is published and now accessible at doi:", doi))
   } else {
   message(paste0("Your data has been uploaded to figshare as a draft.
