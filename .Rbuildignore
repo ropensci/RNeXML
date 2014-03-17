@@ -1,3 +1,5 @@
 ^\.travis\.yml$
 RNeXML.Rproj
 .gitignore
+^.*\.Rproj$
+^\.Rproj\.user$
