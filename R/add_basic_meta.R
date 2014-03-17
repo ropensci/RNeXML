@@ -57,16 +57,20 @@ add_basic_meta <- function(nexml = new("nexml"),
                            citation = NULL,
                            ...){
 
+  m <- get_metadata(m)
+
   if(!is.null(title)) 
     nexml <- add_meta(meta("dc:title", title), nexml)
   if(!is.null(creator)) 
     nexml <- add_meta(meta("dc:creator", format(creator)), nexml)
   if(!is.null(pubdate)) 
+    if(is.null(m[["dc:pubdate"]]))
     nexml <- add_meta(meta("dc:pubdate", format(pubdate)), nexml)
   if(!is.null(description)) 
     nexml <- add_meta(meta("dc:description", description), nexml)
   if(!is.null(rights)){
-    if(rights == "CC0") 
+    if(rights == "CC0")
+      if(is.null(get_license(nexml)))
       nexml <- add_meta(meta(rel="cc:license", 
                              href="http://creativecommons.org/publicdomain/zero/1.0/"), nexml)
     else 
