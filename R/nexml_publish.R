@@ -27,8 +27,7 @@ nexml_publish <- function(nexml, ..., repository="figshare"){
 #'  but any former versions that was once made public will always be archived and cannot be removed).  
 #' @param id an existing figshare id (e.g. from fs_create), to which this file can be appended.  
 #' @param ... additional arguments
-#' @return a digital object identifier (doi) to the published data. (DOI will be reserved but not
-#'  active for private or draft publications) 
+#' @return the figshare id of the object  
 #' @export
 nexml_figshare <- function(nexml,
                            file = "nexml.xml", 
@@ -63,12 +62,14 @@ nexml_figshare <- function(nexml,
 
   
   fs_auth()
-  if(!is.null(id)){
+  if(is.null(id)){
     id <- fs_create(title = m[["dc:title"]],
                     description = m[["dc:description"]], 
                     type = "dataset")
   }
-  doi <- paste("doi:10.6084/m9.figshare", id, sep=".")
+
+
+  doi <- paste("http://doi.org/10.6084/m9.figshare", id, sep=".")
 
   fs_add_authors(id, authors = m[["dc:creator"]])
   fs_add_categories(id, categories)
@@ -83,25 +84,28 @@ nexml_figshare <- function(nexml,
   fs_upload(id, file)
   if (visibility == "private"){ 
       fs_make_private(id)
-      message(paste0("Your data has been uploaded to figshare privately.
+      message(paste("Your data has been uploaded to figshare privately.
            You may make further edits and publish the data from
            the online control panel at figshare.com or by using 
            the rfigshare package and the article_id:", id, ". Your 
            doi has been reserved but will not resolve until the article 
            is made public."))
 
-  }
-  if (visibility == "public"){ 
+  } else if (visibility == "public"){ 
       fs_make_public(id)
-      message(paste0("Your data is published and now accessible at doi:", doi))
+      message(paste("Your data is published and now accessible at", doi))
   } else {
-  message(paste0("Your data has been uploaded to figshare as a draft.
+  message(paste("Your data has been uploaded to figshare as a draft.
            You may make further edits and publish the data from
            the online control panel at figshare.com or by using 
-           the rfigshare package and the article_id:", id, ". Your 
+           the rfigshare package and the article_id:", id, " Your 
            doi has been reserved but will not resolve until the article 
            is made public."))
   }
 
-  doi 
+  # FIXME consider not returning the DOI as a link. 
+  # Consider returning just the Figshare id
+  # 
+
+  id  
 }

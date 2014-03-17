@@ -1,0 +1,53 @@
+context("publish")
+
+
+
+## Create example file
+library(RNeXML)
+library(geiger)
+data(geospiza)
+
+geiger_nex <- add_trees(geospiza$phy)
+geiger_nex <- add_characters(geospiza$dat, geiger_nex)
+geiger_nex <- add_basic_meta(
+  title = "Geospiza phylogeny with character data rendered as NeXML", 
+  creator = "Carl Boettiger", 
+  description = "This example NeXML file was created using the data originally provided in the geiger package for R to illustrate how this data can be stored, shared and distributed as NeXML.", 
+  citation = citation("geiger"), 
+  nexml = geiger_nex)
+
+test_that("We can publish to figshare", {
+
+## Publish 
+id <- nexml_publish(geiger_nex, visibility="public", repo="figshare")
+
+
+## Download and parse publication 
+## Note that at present, only public files can be automatically downloaded from figshare
+library(rfigshare)
+test_nex <- nexml_read(fs_download(id))
+
+## Extract and compare metadata from upload and download 
+m <- get_metadata(geiger_nex)
+test_m <- get_metadata(test_nex)
+expect_equal(m["dc:title"], test_m["dc:title"])
+expect_equal(m["dc:description"], test_m["dc:description"])
+
+## Check that DOI resolves
+library(httr)
+page <- GET(test_m[["dc:identifier"]])
+expect_equal(page$status_code, 200)
+
+
+# Check that we avoid repeated metadata entries
+
+expect_equal(sum(match(names(test_m), "dc:pubdate"), na.rm=TRUE), 1)
+expect_equal(sum(match(names(test_m), "cc:license"), na.rm=TRUE), 1)
+
+
+})
+
+
+
+
+
