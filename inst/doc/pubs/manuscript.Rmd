@@ -184,7 +184,7 @@ the `ape` package to plot the resulting `ape::phylo` object returned by
 
 
 
-``{r}
+```{r eval=FALSE}
 plot(phy)
 ```
 
@@ -230,7 +230,6 @@ comparative methods popular in R. Methods to get extract character data
 work much like those for the phylogenetic data:
 
 ```{r }
-
 comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nex <- nexml_read(comp_analysis)
 get_characters(nex)
@@ -387,7 +386,7 @@ we are appealing to in the event of conflicting taxonomic definitions.  In this
 example, we indicate that we intend the bird orders listed in the tree to correspond
 to the NCBI definitions 
 
-```{r}
+```{r message=FALSE, results='hide'}
 birds <- taxize_nexml(birds, "NCBI")
 ```
 
@@ -514,31 +513,25 @@ Temporal, spatial, taxonomic coverage for dryad/knb?
 
 ### Reading NeXML metadata
 
-To illustrate metadata access, we begin by reading in a NeXML file.  
+A call to the nexml object prints some metadata summarizing the data structure: <!-- need to make this method faster!--> 
 
-
-```{r } 
-S100 <- nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
-```
-
-A call to the nexml object prints some metadata summarizing the data structure:
 
 ```{r }
-S100
+birds
 ```
 
 We can extract all metadata pertaining to the NeXML document as a whole
 (annotations of the XML root node, `<nexml>`) with the command
 
 ```{r}
-meta <- get_metadata(S100) 
+meta <- get_metadata(birds) 
 ```
 
 This returns a named list of available metadata. We can see the kinds
-of metadata recorded from the names:
+of metadata recorded from the names (showing the first 4):
 
 ```{r}
-names(meta)
+names(meta)[1:4]
 ```
 
 and can ask for a particular element using the standard list subsetting
@@ -546,7 +539,6 @@ mechanism (i.e. either the name of an element or it's numeric position),
 
 ```{r}
 meta[["dc:title"]]
-meta[["dc:publisher"]]
 ```
 
 All metadata terms must belong to an explicit *namespace* or vocabulary
@@ -556,7 +548,7 @@ this case.  The `get_namespaces` function tells us the definition of
 the vocabulary using a link:
 
 ```{r}
-prefixes <- get_namespaces(S100)
+prefixes <- get_namespaces(birds)
 prefixes["dc"]
 ```
 
@@ -570,12 +562,12 @@ as we shall see later.
 Common metadata can be accessed with a few dedicated functions:
 
 ```{r}
-get_citation(S100)
+get_citation(birds)
 ```
 
 
 ```{r}
-get_taxa(S100)
+get_taxa(birds)
 ```
 
 Which returns text from the otu element labels, typically used to define
@@ -588,8 +580,8 @@ to extract all meta elements in a list).  Here we show only the first
 few results:
 
 ```{r} 
-otu_meta <- get_metadata(S100, level="otu")
-otu_meta[1:2]
+otu_meta <- get_metadata(birds, level="otu")
+otu_meta[1:4]
 ```
 
 This approach does not preserve the relationship between the metadata element and the 
@@ -605,7 +597,7 @@ Consider a better example than this one:
 
 
 ```{r}
-rdf <- get_rdf(S100)
+rdf <- get_rdf(birds)
 ```
 
 Query the rdf using XPath expressions:
@@ -834,7 +826,7 @@ by providing functions to immediately archive NeXML files in scientific reposito
 
 
 ```{r eval = FALSE}
-id <- nexml_publish(nexml, visibility = "public", repository="figshare")
+doi <- nexml_publish(birds, visibility = "public", repository="figshare")
 ```
 
 
