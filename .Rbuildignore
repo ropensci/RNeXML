@@ -3,3 +3,6 @@ RNeXML.Rproj
 .gitignore
 ^.*\.Rproj$
 ^\.Rproj\.user$
+*.xml
+tests/testthat/*.xml
+inst/doc/pubs/*.xml
