@@ -73,6 +73,15 @@ See [Vos _et al._ 2012].
 
 See [phylobase vignette, 2010]
 
+A summar of some phylogenetic formats in R:
+
+| Class | R package | R Object |
+|-------|-----------|-------|
+| phylo | ape | S3 |
+| phylo4 | phylobase | S4 |
+| phylo4d | adephylo | S4 |
+| ouchtree | ouch | S4 |
+| treeshape | apTreeshape | list |
 
 
 
@@ -87,7 +96,7 @@ Mention of data sharing challenges and opportunities.  See [Drew et al 2013](10.
 
 Why RNeXML?
 
-* Why NeXML -- because Nexus standard isn't a standard.  Developers extend it arbitrarily to meet their needs, making it incompatible.  Cannot represent horizontal gene transfer, ambiguous use of symbols, cannot be extended reliably, no validator.  NeXML addresses all of these problems [Vos _et al._ 2012] with a state-of-the-art data management format.  
+* Why NeXML -- because Nexus standard isn't a standard.  Developers extend it arbitrarily to meet their needs, making it incompatible <!-- with? -->.  For example, Nexus cannot represent horizontal gene transfer, ambiguous use of symbols, cannot be extended reliably, and there is no way to validate that it is proper Nexus.  NeXML addresses all of these problems [Vos _et al._ 2012] with a state-of-the-art data management format.  
 
 * Why RNeXML: Huge ecosystem of phylogenetics packages. (1) Read nexml.  All would benefit by being able to read NeXML, both as a robust standard free of the pitfalls of Nexus, and more importantly, as a much richer source of data thanks to its extendable annotation model.  (2) Write nexml.  R packages and R users add rich information to the phylogenies they work with, but need a platform independent data exchange format to share and archive this. (3) Annotate and extend nexml.  
 
@@ -105,7 +114,7 @@ Why RNeXML?
 A nexml file can be thought of as having three components: (1) phylogeny data (2) character-trait data, and (3) metadata. `RNeXML` seeks to provide a seemless way to convert these to and from their corresponding R object representations, such as `ape::phylo` phylogenies, character matrices (`data.frames`) and metadata lists (or for advanced users, `XMLInternalDocument` and `rrdf` triplestores). Metadata can provide information about the study in which the phylogeny was generated or applied (such as authors, citations to publications, timestamps, and even descriptions of methods), but can also be used to annotate individual data components.  We illustrate how metadata annotations can be added to the operational taxonomic units of the phylogeny and can be used to extend the data representation to new uses such as stochastic character maps.  
 
 The current stable version of the `RNeXML` package can be installed from the CRAN library <!-- Actually not yet -->
-using the standard 
+using the standard installation method
 
 ```r
 install.packages("RNeXML")
@@ -169,7 +178,7 @@ While most users will find this behavior convenient, there are times
 type is undisirable.  To always get back a list of `multiPhylo` objects,
 even when only one tree is available, use `get_trees_list()`.
 
-<!-- have we already said all this above?--> The ability to read in
+<!-- have we already said all this above?--> <!-- no, seems appropriate to repeat here, -scott --> The ability to read in
 phylogenetic trees in the `nexml` format opens up a wide and rapidly
 growing array of resources to the R user.  For instance, a user can access
 all the phylogenies available in TreeBASE through the `nexml` format.
@@ -185,7 +194,7 @@ Due to inconsistencies present in the Nexus standard [Vos _et al._
 2012], a significant number <!-- State explicitly --> of TreeBASE nexus
 files could not be read in this way.  Using the more precisely defined
 NEXML standard, every valid NeXML file on TreeBASE can now successfully
-be parsed.
+be parsed to R objects.
 
 
 
@@ -195,7 +204,7 @@ Like nexus files, NeXML files can also contain character data.  While
 most researchers will be familiar with the use of character matrices in
 nexus files as a container for molecular sequence data used to infer
 the phylogenetic tree, we find this ideal for character data used in
-comparative methods popular in R. Methods to get extract character data
+comparative methods popular in R. Methods to extract character data
 work much like those for the phylogenetic data:
 
 ```{r }
@@ -203,10 +212,10 @@ nex <- nexml_read("comp_analysis.xml")
 get_characters(nex)
 ```
 
-Returns a `data.frame` with columns as characters and rows as
+`get_characters` returns a `data.frame` with columns as characters and rows as
 taxa. Continuous and discrete characters are represented as seperate
 blocks in NeXML files, but will be combined as seperate columns of a
-single data frame by `get_characters()` if they correspond to the same
+single `data.frame` by `get_characters()` if they correspond to the same
 taxa. The `get_characters_list()` function will consistently recieve
 a list of data frames corresponding to each character matrix block of
 the NeXML.
@@ -226,7 +235,7 @@ The first argument to `nexml_write` can be a `phylo` phylogeny,
 `multiPhylo` list of phylogenies, or a `nexml` object -- anything that
 can be coerced into the `nexml` class.  As we have seen, NeXML files
 can contain multiple phylogenetic trees, as well as character matrices.
-We can add both trees  and character data using `nexml_write`,
+We can add both trees and character data using `nexml_write`,
 
 ```{r}
 data(geospiza)
@@ -264,7 +273,7 @@ At the heart of the NeXML standard is the ability to encode arbitrary metadata i
 
 ### Reading NeXML metadata
 
-Metadata from treebase NeXML
+Metadata from Treebase NeXML
 - article citation information
 - Summary data: taxa, number of taxa, number of trees, number of tips.  
 - Metadata of nodes, complete RDF extraction
@@ -298,7 +307,7 @@ Replicate examples from [treebase] metadata section: publication information, tr
 
 ### Writing NeXML metadata
 
-Researchers cannot take advantage of NeXML metadata manipulation if there is no metadata there.  The burden of adding good metadata remains a significant barrier to increased sharing and reuse of scientific research [Tenopir et al. 2011].  `RNeXML` seeks to reduce the burden of adding high quality, machine-readable metadata to NeXML files. This occurs on several levels:
+Researchers cannot take advantage of NeXML metadata manipulation if there is no metadata.  The burden of adding good metadata remains a significant barrier to increased sharing and reuse of scientific research [Tenopir et al. 2011].  `RNeXML` seeks to reduce the burden of adding high quality, machine-readable metadata to NeXML files. This occurs on several levels:
 
 - Automatic annotation.  `RNeXML` automatically adds basic metadata by
 default such as a timestamp of when the tree was produced and an open
@@ -412,11 +421,12 @@ to submit bug reports or feature requests in the issues log.  Contact
 ropensci-discuss@googlegroups.com or the package maintainer for help.
 
 There are many promising directions for further development of the
-`RNeXML` package.  The project's Milestones page provides a list of
-steps currently planned or under consideration.  In particular, these
-milestones include increased support for interactive mode of entering data
-(wizards), and support for integration of semantics defined through the
-Web Ontology language (OWL), as discussed in the Challenges section.
+`RNeXML` package.  The project's [Milestones page][milestones] 
+provides a list of steps currently planned or under consideration.  In 
+particular, these milestones include increased support for interactive 
+mode of entering data (wizards), and support for integration of semantics 
+defined through the Web Ontology language (OWL), as discussed in the 
+Challenges section.
 
 
 
@@ -435,7 +445,7 @@ of the rOpenSci project, [http://ropensci.org].
 [@phylobase]: http://cran.r-project.org/web/packages/phylobase
 [W3C 2013]: http://www.w3.org/TR/xhtml-rdfa-primer/ "RDFa 1.1 Primer - Second Edition: Rich Structured Data Markup for Web Documents"
 [Tenopir et al. 2011]: http://doi.org/10.1371/journal.pone.0021101 "Data Sharing by Scientists: Practices and Perceptions"
-
+[milestones]: https://github.com/ropensci/RNeXML/issues/milestones
 
 
 phylobase::phylo4 was an attempt to solve the problems associated with
