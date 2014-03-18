@@ -32,9 +32,7 @@ nexml_figshare(nexml, file = "nexml.xml",
   \item{...}{additional arguments}
 }
 \value{
-a digital object identifier (doi) to the published data.
-(DOI will be reserved but not active for private or draft
-publications)
+the figshare id of the object
 }
 \description{
 publish nexml to figshare

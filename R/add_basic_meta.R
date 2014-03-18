@@ -64,7 +64,7 @@ add_basic_meta <- function(nexml = new("nexml"),
   if(!is.null(creator)) 
     nexml <- add_meta(meta("dc:creator", format(creator)), nexml)
   if(!is.null(pubdate)) 
-    if(is.null(m[["dc:pubdate"]]))
+    if(is.null(m["dc:pubdate"]) | is.na(m["dc:pubdate"]))
     nexml <- add_meta(meta("dc:pubdate", format(pubdate)), nexml)
   if(!is.null(description)) 
     nexml <- add_meta(meta("dc:description", description), nexml)
