@@ -83,7 +83,15 @@ See [Vos _et al._ 2012].
 
 See [phylobase vignette, 2010]
 
+A summar of some phylogenetic formats in R:
 
+| Class | R package | R Object |
+|-------|-----------|-------|
+| phylo | ape | S3 |
+| phylo4 | phylobase | S4 |
+| phylo4d | adephylo | S4 |
+| ouchtree | ouch | S4 |
+| treeshape | apTreeshape | list |
 
 
 ### NeXML
@@ -97,11 +105,7 @@ Mention of data sharing challenges and opportunities.  See [Drew et al 2013]
 
 Why RNeXML?
 
-* Why NeXML -- because Nexus standard isn't a standard.  Developers extend
-it arbitrarily to meet their needs, making it incompatible.  Cannot
-represent horizontal gene transfer, ambiguous use of symbols, cannot be
-extended reliably, no validator.  NeXML addresses all of these problems
-[Vos _et al._ 2012] with a state-of-the-art data management format.
+* Why NeXML -- because Nexus standard isn't a standard.  Developers extend it arbitrarily to meet their needs, making it incompatible <!-- with? -->.  For example, Nexus cannot represent horizontal gene transfer, ambiguous use of symbols, cannot be extended reliably, and there is no way to validate that it is proper Nexus.  NeXML addresses all of these problems [Vos _et al._ 2012] with a state-of-the-art data management format.  
 
 * Why RNeXML: Huge ecosystem of phylogenetics packages. (1) Read NeXML.
 All would benefit by being able to read NeXML, both as a robust standard
@@ -136,7 +140,7 @@ the operational taxonomic units of the phylogeny and can be used to extend
 the data representation to new uses such as stochastic character maps.
 
 The current stable version of the `RNeXML` package can be installed from
-the CRAN library using the standard <!-- Actually not yet --> 
+the CRAN library using the standard installation method <!-- Actually not yet --> 
 
 ```r
 install.packages("RNeXML")
@@ -200,7 +204,7 @@ While most users will find this behavior convenient, there are times
 type is undisirable.  To always get back a list of `multiPhylo` objects,
 even when only one tree is available, use `get_trees_list()`.
 
-<!-- have we already said all this above?--> The ability to read in
+<!-- have we already said all this above?-->  <!-- no, seems appropriate to repeat here, -scott --> The ability to read in
 phylogenetic trees in the `nexml` format opens up a wide and rapidly
 growing array of resources to the R user.  For instance, a user can access
 all the phylogenies available in TreeBASE through the `nexml` format.
@@ -216,7 +220,7 @@ Due to inconsistencies present in the Nexus standard [Vos _et al._
 2012], a significant number <!-- State explicitly --> of TreeBASE nexus
 files could not be read in this way.  Using the more precisely defined
 NEXML standard, every valid NeXML file on TreeBASE can now successfully
-be parsed.
+be parsed to R objects.
 
 
 
@@ -894,7 +898,7 @@ to submit bug reports or feature requests in the issues log.  Contact
 ropensci-discuss@googlegroups.com or the package maintainer for help.
 
 There are many promising directions for further development of the
-`RNeXML` package.  The project's Milestones page provides a list of
+`RNeXML` package.  The project's [Milestones page][milestones] page provides a list of
 steps currently planned or under consideration.  In particular, these
 milestones include increased support for interactive mode of entering data
 (wizards), and support for integration of semantics defined through the
@@ -918,6 +922,7 @@ of the rOpenSci project, [http://ropensci.org].
 [W3C 2013]: http://www.w3.org/TR/xhtml-rdfa-primer/ "RDFa 1.1 Primer - Second Edition: Rich Structured Data Markup for Web Documents"
 [Tenopir et al. 2011]: http://doi.org/10.1371/journal.pone.0021101 "Data Sharing by Scientists: Practices and Perceptions"
 [Drew et al 2013]: http://doi.org/10.1371/journal.pbio.1001636 
+[milestones]: https://github.com/ropensci/RNeXML/issues/milestones
 
 
 phylobase::phylo4 was an attempt to solve the problems associated with
