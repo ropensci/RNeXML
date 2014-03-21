@@ -3,14 +3,15 @@ script: ./travis-tool.sh run_tests
 before_script:
 - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
 - chmod 755 ./travis-tool.sh
+# We want to install several apt packages *before* we add more repos in bootstrap.
+- sudo apt-get update -qq
+- ./travis-tool.sh install_aptget gdal-bin libgdal1 libgdal1-dev netcdf-bin libproj-dev
 - ./travis-tool.sh bootstrap
 - ./travis-tool.sh install_r_binary rjava
-- sudo apt-get update
-- sudo apt-get install libgdal1-dev
-- ./travis-tool.sh install_aptget gdal-bin netcdf-bin libproj-dev
 - ./travis-tool.sh install_deps
 - ./travis-tool.sh github_package assertthat
 notifications:
   hipchat:
     rooms:
       secure: aeV2r8L8WTt1/FcRZgl0UHyZSxiQJgXyNAPuqEkmUGKV6bhGuQ5I36d7xOnlI8v8MAPUqH9co5t0uupY+81Etp+NE3hk+1J5bTqXfY6l/Bz2l6B51HAWnS6Wo25Bz0BPJdSfGqKYmlM4k+2khR15CSXlbxNimgFrvQ4WNndXPp0=
+
