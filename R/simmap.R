@@ -88,7 +88,7 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
   }
 
   ## Return the entire nexml object
- nexml <- add_namespaces(c(simmap = "https://github.com/ropensci/RNeXML/tree/master/inst/simmap"),
+ nexml <- add_namespaces(c(simmap = "https://github.com/ropensci/RNeXML/tree/master/inst/simmap.md"),
                         nexml)
  nexml 
 }

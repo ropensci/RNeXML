@@ -3,7 +3,7 @@
 #' 
 #' add namespaces, avoiding duplication if prefix is already defined
 #' @param namespaces a named character vector of namespaces
-#' @param nexml a nexml object
+#' @param nexml a nexml object. will create a new one if none is given.  
 #' @return a nexml object with updated namespaces 
 #' @examples
 #' ## Create a new nexml object with a single metadata element: 
@@ -26,7 +26,7 @@
 #' 
 #' @seealso \code{\link{meta}} \code{\link{add_meta}}
 #' @export 
-add_namespaces <- function(namespaces, nexml){
+add_namespaces <- function(namespaces, nexml = new("nexml")){
   if(!is.null(namespaces)){
     notdups <- match(namespaces, nexml@namespaces)
     notdups <- sapply(notdups, is.na)
