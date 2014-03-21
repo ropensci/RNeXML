@@ -2,8 +2,6 @@
 inst/doc/pubs/cache
 inst/doc/pubs/figure
 inst/doc/pubs/*.pdf
-inst/doc/pubs/*.md
-inst/doc/pubs/*.Rnw
 vignettes/*.pdf
 .Rproj.user
 *.Rproj
