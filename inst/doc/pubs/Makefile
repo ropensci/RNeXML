@@ -29,3 +29,5 @@ clean:
 	rm -f ../../../*.xml
 	rm -f ../../../tests/testthat/*.xml
 	rm -f ../../../vignettes/*.xml
+	rm -rf cache/
+	rm -rf figure/
