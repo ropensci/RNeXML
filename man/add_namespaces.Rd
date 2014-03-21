@@ -2,12 +2,13 @@
 \alias{add_namespaces}
 \title{add namespaces}
 \usage{
-add_namespaces(namespaces, nexml)
+add_namespaces(namespaces, nexml = new("nexml"))
 }
 \arguments{
   \item{namespaces}{a named character vector of namespaces}
 
-  \item{nexml}{a nexml object}
+  \item{nexml}{a nexml object. will create a new one if
+  none is given.}
 }
 \value{
 a nexml object with updated namespaces
