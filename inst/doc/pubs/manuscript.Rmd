@@ -424,7 +424,8 @@ the meaning of the annotation in a way a computer can understand.  For instance,
 title we gave to the `bird.orders` phylogeny appears in the NeXML as:
 
 ```xml
-<meta id="m2" property="dc:title" datatype="xsd:string" content="Phylogeny of the Orders of Birds From Sibley and Ahlquist"/> 
+<meta id="m2" property="dc:title" datatype="xsd:string"
+      content="Phylogeny of the Orders of Birds From Sibley and Ahlquist"/> 
 ```
 
 We see the title appears as the `content` of this `meta` element.  The `id` attribute
