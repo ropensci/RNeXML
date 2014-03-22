@@ -11,7 +11,8 @@
 #' f <- system.file("examples", "meta_example.xml", package="RNeXML")
 #' rdf <- get_rdf(f)
 #'
-#' ## Query the rdf with XPath: 
+#' ## Query the rdf with XPath:
+#' library(XML)
 #' xpathSApply(rdf, "//dc:title", xmlValue) 
 #' 
 #' ## Write to a file and read in with rrdf

@@ -17,7 +17,6 @@ Get character data.frame, accepts either nexml object, or a
 list of data.frames
 }
 \examples{
-\dontrun{
 # A simple example with a discrete and a continous trait
 f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nex <- read.nexml(f)
@@ -32,6 +31,5 @@ get_characters(char_list)
 f <- system.file("examples", "characters.xml", package="RNeXML")
 nex <- read.nexml(f)
 get_characters(nex)
-}
 }
 

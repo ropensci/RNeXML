@@ -45,7 +45,7 @@ get_characters_list <- function(nexml){
 #' @param suffixes Add list element names as suffixes to output data.frame column 
 #' names. 
 #' @export
-#' @examples \dontrun{
+#' @examples 
 #' # A simple example with a discrete and a continous trait
 #' f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 #' nex <- read.nexml(f)
@@ -60,7 +60,6 @@ get_characters_list <- function(nexml){
 #' f <- system.file("examples", "characters.xml", package="RNeXML")
 #' nex <- read.nexml(f)
 #' get_characters(nex)
-#' } 
 get_characters <- function(input, suffixes=FALSE){
   
   if(inherits(input, "nexml")){
