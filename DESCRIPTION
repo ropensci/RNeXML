@@ -44,6 +44,7 @@ Collate:
     'get_namespaces.R'
     'get_rdf.R'
     'get_taxa.R'
+    'get_taxa_meta.R'
     'get_trees.R'
     'internal_get_node_maps.R'
     'internal_isEmpty.R'
