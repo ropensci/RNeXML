@@ -6,3 +6,4 @@ RNeXML.Rproj
 ^.*\.xml
 tests/testthat/.*\.xml
 inst/doc/pubs/.*\.xml
+^\.httr-oauth$
