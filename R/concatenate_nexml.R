@@ -9,12 +9,13 @@
 #'        descends through lists (and pairlists) combining all their
 #'        elements into a vector. (Not implemented).  
 #' @return a concatenated nexml file
-#' @examples
+#' @examples \dontrun{
 #' f1 <- system.file("examples", "trees.xml", package="RNeXML")
 #' f2 <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 #' nex1 <- read.nexml(f1)
 #' nex2 <- read.nexml(f2)
 #' nex <- c(nex1, nex2)
+#' }
 setMethod("c", 
           signature("nexml"), 
           function(x, ..., recursive = FALSE){

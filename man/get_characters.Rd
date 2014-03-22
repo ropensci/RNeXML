@@ -18,7 +18,7 @@ list of data.frames
 }
 \examples{
 \dontrun{
-# A simple exmample with a discrete and a continous trait
+# A simple example with a discrete and a continous trait
 f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nex <- read.nexml(f)
 get_characters(nex)
