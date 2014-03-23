@@ -3,4 +3,4 @@ RNeXML.Rproj
 .gitignore
 ^.*\.Rproj$
 ^\.Rproj\.user$
-^\.httr-oauth$
+inst/doc/pubs

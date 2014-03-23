@@ -61,7 +61,6 @@ nexml_figshare <- function(nexml,
   m <- get_metadata(nexml)
 
   
-  fs_auth()
   if(is.null(id)){
     id <- fs_create(title = m[["dc:title"]],
                     description = m[["dc:description"]], 
