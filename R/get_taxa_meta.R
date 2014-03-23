@@ -5,12 +5,11 @@
 #' get_taxa_meta
 #'
 #' Retrieve metadata of all species/otus otus (operational taxonomic units) included in the nexml
-#' @aliases get_taxa_meta get_otu_meta
 #' @param nexml a nexml object
 #' @param what One of href, rel, id, or xsi:type
 #' @return the list of metadata for each taxon
-#' @export get_otu_meta get_taxa_meta
 #' @seealso  \code{\link{get_item}}
+#' @keywords internal 
 #' @examples 
 #' data(bird.orders)
 #' birds <- add_trees(bird.orders)
@@ -31,12 +30,11 @@ get_otu_meta <- get_taxa_meta
 #' get_taxa_meta_list
 #'
 #' Retrieve metadata of all species/otus otus (operational taxonomic units) included in the nexml
-#' @aliases get_taxa_meta_list get_otu_meta_list
 #' @param nexml a nexml object
 #' @param what One of href, rel, id, or xsi:type
 #' @return the list of metadata for each taxon
 #' @seealso  \code{\link{get_item}}
-#' @export get_otu_meta_list get_taxa_meta_list
+#' @keywords internal
 #' @examples
 #' data(bird.orders)
 #' birds <- add_trees(bird.orders)

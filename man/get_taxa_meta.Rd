@@ -1,5 +1,4 @@
 \name{get_taxa_meta}
-\alias{get_otu_meta}
 \alias{get_taxa_meta}
 \title{get_taxa_meta}
 \usage{
@@ -29,4 +28,5 @@ get_taxa_meta(birds, 'xsi:type')
 \seealso{
 \code{\link{get_item}}
 }
+\keyword{internal}
 
