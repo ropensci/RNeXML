@@ -1,6 +1,13 @@
 context("publish")
 
 
+# This loads the rOpenSci figshare sandbox credentials, so that the example 
+# can run automatically during check and install.  Unlike normal figshare accounts,
+# data loaded to this testing sandbox is periodically purged.  
+library(rfigshare)
+fs_auth(token = "xdBjcKOiunwjiovwkfTF2QjGhROeLMw0y0nSCSgvg3YQxdBjcKOiunwjiovwkfTF2Q", token_secret = "4mdM3pfekNGO16X4hsvZdg")
+
+
 
 ## Create example file
 library(RNeXML)
@@ -15,6 +22,7 @@ geiger_nex <- add_basic_meta(
   description = "This example NeXML file was created using the data originally provided in the geiger package for R to illustrate how this data can be stored, shared and distributed as NeXML.", 
   citation = citation("geiger"), 
   nexml = geiger_nex)
+
 
 test_that("We can publish to figshare", {
 

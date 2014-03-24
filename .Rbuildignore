@@ -4,3 +4,4 @@ RNeXML.Rproj
 ^.*\.Rproj$
 ^\.Rproj\.user$
 inst/doc/pubs
+.git
