@@ -113,7 +113,7 @@ nexml_to_simmap <- function(nexml){
   characters <- get_characters(nexml)
 
   ## loop over trees blocks
-  lapply(nexml@trees, function(trees){
+  out <- lapply(nexml@trees, function(trees){
     phys <- lapply(trees@tree, 
                    tree_to_simmap, 
                    get_otu_maps(nexml)[[trees@otus]],
@@ -125,6 +125,15 @@ nexml_to_simmap <- function(nexml){
     class(phys) <- "multiPhylo"
     phys 
   })
+
+
+  if(length(out) == 1){
+    if(length(out[[1]]) > 1){
+      flatten_multiphylo(out)
+    } else {
+      out[[1]][[1]]
+    }
+  }
 
 }
 

@@ -18,6 +18,7 @@ README.md: README.Rmd
 
 manuscript.md: manuscript.Rmd
 	Rscript -e 'require(knitr); knit("manuscript.Rmd")'
+	sed -i 's/```r/```coffee/' manuscript.md
 
 manuscript.pdf: manuscript.Rmd
 	Rscript -e 'require(knitr); knit("manuscript.Rmd", "tmp.md")'

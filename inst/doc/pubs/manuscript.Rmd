@@ -676,7 +676,7 @@ characteristic).
 [Bollback 2006] provides a widely used stand-alone software implementation
 of this method in the software `simmap`, which modified the standard
 Newick tree format to express this additional information. This can
-break compatibility with other software[^1], and creates a format that
+break compatibility with other software [^1], and creates a format that
 cannot be interpreted without additional information describing this
 convention.  By contrast, the NeXML extension is not only backwards
 compatible but contains a precise and machine-readable description of
@@ -686,11 +686,6 @@ In this example, we illustrate how the additional information required
 to define a stochastic character mapping (a `simmap` mapping) in NeXML.  
 
 
-[^1]: By using the commenting mechanism of the Newick format, it is
-possible that other software that doesn't also use the comment mechanism
-for some other such purpose would be able to successfully parse the tree.
-However there is no way to guarentee that this is the case or for the
-data format to describe its use.
 
 [Revell 2011] describes the `phytools` package for R, which includes
 utilities for reading, manipulating, and writing `simmap` files in R.
@@ -767,7 +762,55 @@ elements mean:
 nex <- add_namespaces(c(simmap = "https://github.com/ropensci/RNeXML/tree/master/inst/simmap.md"))
 ```
 
-At that URL we post a simple description of each term. 
+At that URL we have posted a simple description of each term. 
+
+<!-- How could this be improved? Should we use something more formal? 
+We want this example to be something other users could reasonably
+do themselves without expertise in RDFa or XML, but also to be a good
+model case that doesn't cut corners.  -->
+
+Using this convention we can generate NeXML files containing simmap
+data, read those files into R, and convert them back into the `phytools`
+package format. These simple functions serve as further illustration of
+how `RNeXML` can be used to extend the NeXML standard.  We illustrate
+their use briefly here, starting with  loading a nexml object containing
+a simmap reconstruction into R:
+
+
+```{r}
+data(simmap_ex)
+```
+
+The `get_trees` function can be used to return an `ape::phylo` tree as
+usual.  `RNeXML` automatically detects the simmap reconstruction data
+and returns includes this in a `maps` element of the `phylo` object,
+for use with other `phytools` functions.
+
+```{r}
+phy <- nexml_to_simmap(simmap_ex)
+```
+
+We can then use various functions from `phytools` designed for simmap
+objects, such as the plotting function:
+
+```{r}
+library(phytools)
+plotSimmap(phy)
+```
+
+Likewise, we can convert the object back in the nexml format and write
+it out to file to be read by other users. 
+
+```{r}
+nex <- simmap_to_nexml(phy) 
+nexml_write(nex, "simmap.xml")
+```
+
+Though other NeXML parsers (for instance, for perl or python) have
+not been written explicitly to express simmap data, those parsers will
+nonetheless be able to successfully parse this file and expose the simmap
+data to the user.
+
 
 
 
@@ -779,6 +822,11 @@ At that URL we post a simple description of each term.
 
 
 
+[^1]: By using the commenting mechanism of the Newick format, it is
+possible that other software that doesn't also use the comment mechanism
+for some other such purpose would be able to successfully parse the tree.
+However there is no way to guarentee that this is the case or for the
+data format to describe its use.
 
 
 ### Subsetting nexml objects directly
@@ -888,8 +936,8 @@ Here we use the `c` operator to append this element to any existing meta annotat
 ### Publishing NeXML files from R
 
 Data archiving is increasingly required by journals in evolutionary biology and 
-biodiversity [e.g. @Whitlock2011].  The burden of preparing and submitting properly
-annotated data to archives continues to be a significant barrier [Tenopir et al. 2011, Stodden 2013],
+biodiversity (e.g. [Whitlock2011]).  The burden of preparing and submitting properly
+annotated data to archives continues to be a significant barrier ([Tenopir et al. 2011], [Stodden 2010]),
 and many phylogenetic trees upon which studies are based are inaccessible or lost 
 to the research community [Drew et al 2013].  `RNeXML` seeks to lower these barriers
 by providing functions to immediately archive NeXML files in scientific repositories.  

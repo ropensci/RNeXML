@@ -148,13 +148,13 @@ the data representation to new uses such as stochastic character maps.
 The current stable version of the `RNeXML` package can be installed from
 the CRAN library using the standard installation method <!-- Actually not yet --> 
 
-```r
+```coffee
 install.packages("RNeXML")
 ```
 
 The latest stable development version can be installed from Github using the `devtools` package:
 
-```r
+```coffee
 library(devtools)
 install_github("RNeXML", "ropensci")
 ```
@@ -170,7 +170,7 @@ install_github("RNeXML", "ropensci")
 We begin by reading in an example NeXML file provided with the package.  
 
 
-```r
+```coffee
 f <- system.file("examples", "trees.xml", package="RNeXML")
 nex <- nexml_read(f)
 ```
@@ -183,7 +183,7 @@ From this object we can extract any phylogenies it contains in the
 `ape::phylo` format:
 
 
-```r
+```coffee
 phy <- get_trees(nex)
 ```
 
@@ -198,7 +198,7 @@ the `ape` package to plot the resulting `ape::phylo` object returned by
 
 
 
-```r
+```coffee
 plot(phy)
 ```
 
@@ -222,7 +222,7 @@ all the phylogenies available in TreeBASE through the `nexml` format.
 `RNeXML` can read directly from a URL:
 
 
-```r
+```coffee
 nex = nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
 ```
 
@@ -247,7 +247,7 @@ comparative methods popular in R. Methods to get extract character data
 work much like those for the phylogenetic data:
 
 
-```r
+```coffee
 comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nex <- nexml_read(comp_analysis)
 get_characters(nex)
@@ -283,7 +283,7 @@ Generating NeXML files from R is likewise straight forward.  Here we
 write a phylogeny from the `ape::phylo` format out to a NeXML file:
 
 
-```r
+```coffee
 data(bird.orders)
 nexml_write(bird.orders, file = "birds.xml")
 ```
@@ -300,7 +300,7 @@ can contain multiple phylogenetic trees, as well as character matrices.
 We can add both trees  and character data using `nexml_write`,
 
 
-```r
+```coffee
 library(geiger)
 data(geospiza)
 nexml_write(trees = geospiza$phy, characters = geospiza$dat, file="geospiza.xml")
@@ -319,7 +319,7 @@ Here we first create a `nexml` object containing the phylogeny data,
 and then add the character data to it:
 
 
-```r
+```coffee
 geiger_nex <- add_trees(geospiza$phy)
 geiger_nex <- add_characters(geospiza$dat, geiger_nex)
 ```
@@ -329,7 +329,7 @@ The data need not share the same taxa.  We can append additional
 phylogenies and characters corresponding to different taxa:
 
 
-```r
+```coffee
 data(primates)
 geiger_nex <- add_trees(primates$phy, geiger_nex)
 geiger_nex <- add_characters(primates$dat, geiger_nex)
@@ -382,7 +382,7 @@ an new `nexml` object with the basic metadata for the `bird.orders` data
 provided in the `ape` package:
 
 
-```r
+```coffee
 data(bird.orders)
 birds <- add_trees(bird.orders)
 birds <- add_basic_meta(birds,
@@ -411,7 +411,7 @@ Citations can also be added using R's `bibentry` type, which allows
 a user to add citations to R packages, 
 
 
-```r
+```coffee
 birds <- add_basic_meta(birds, citation = citation("ape"))
 ```
 
@@ -419,7 +419,7 @@ birds <- add_basic_meta(birds, citation = citation("ape"))
 or to papers by simply using the object's DOI:
 
 
-```r
+```coffee
 library("knitcitations")
 geiger_nex <- add_basic_meta(geiger_nex, citation=cite("10.2307/2408428"))
 ```
@@ -442,7 +442,7 @@ example, we indicate that we intend the bird orders listed in the tree to corres
 to the NCBI definitions 
 
 
-```r
+```coffee
 birds <- taxize_nexml(birds, "NCBI")
 ```
 
@@ -476,7 +476,7 @@ the word `title` belongs.  The prefix is defined elsewhere in the NeXML file, as
 
 
 
-```r
+```coffee
 prefixes <- get_namespaces(birds)
 prefixes["dc"]
 ```
@@ -505,7 +505,7 @@ From the list of namespaces in `prefixes`, we can follow links a handful of esta
 and find terms that are not included in `add_basic_meta`.  For instance, in the `prism` prefix, 
 
 
-```r
+```coffee
 prefixes["prism"]
 ```
 
@@ -519,7 +519,7 @@ we see that there is a term for `modificationDate` for a file.  We create a `met
 containing this annotation using the `meta` function:
 
 
-```r
+```coffee
 modified <- meta(property = "prism:modificationDate", content = "2013-10-04")
 ```
 
@@ -528,7 +528,7 @@ We can add this annotation to our existing `birds` nexml file using the `add_met
 Because we do not specify a level, it is added to the root node, refering to the nexml file as a whole.  
 
 
-```r
+```coffee
 birds <- add_meta(modified, birds) 
 ```
 
@@ -538,7 +538,7 @@ we add an annotation from the `skos` namespace which describes the history of wh
 data comes from:
 
 
-```r
+```coffee
 history <- meta(property = "skos:historyNote",
   content = "Mapped from the bird.orders data in the ape package using RNeXML")
 ```
@@ -549,7 +549,7 @@ adding this meta element.  We also specify that this annotation be placed
 at the level of the `trees` subnode in the NeXML file.  
 
 
-```r
+```coffee
 birds <- add_meta(history, 
                 birds, 
                 level = "trees",
@@ -562,7 +562,7 @@ using the `add_namespaces` function,
 
 
 
-```r
+```coffee
 birds <- add_namespaces(c(skos = "http://www.w3.org/2004/02/skos/core#"), birds)
 ```
 
@@ -599,7 +599,7 @@ A call to the nexml object prints some metadata summarizing the data structure: 
 
 
 
-```r
+```coffee
 birds
 ```
 
@@ -621,7 +621,7 @@ We can extract all metadata pertaining to the NeXML document as a whole
 (annotations of the XML root node, `<nexml>`) with the command
 
 
-```r
+```coffee
 meta <- get_metadata(birds) 
 ```
 
@@ -630,7 +630,7 @@ This returns a named list of available metadata. We can see the kinds
 of metadata recorded from the names (showing the first 4):
 
 
-```r
+```coffee
 names(meta)[1:4]
 ```
 
@@ -644,7 +644,7 @@ and can ask for a particular element using the standard list subsetting
 mechanism (i.e. either the name of an element or it's numeric position),
 
 
-```r
+```coffee
 meta[["dc:title"]]
 ```
 
@@ -660,7 +660,7 @@ this case.  The `get_namespaces` function tells us the definition of
 the vocabulary using a link:
 
 
-```r
+```coffee
 prefixes <- get_namespaces(birds)
 prefixes["dc"]
 ```
@@ -681,7 +681,7 @@ as we shall see later.
 Common metadata can be accessed with a few dedicated functions:
 
 
-```r
+```coffee
 get_citation(birds)
 ```
 
@@ -693,7 +693,7 @@ get_citation(birds)
 
 
 
-```r
+```coffee
 get_taxa(birds)
 ```
 
@@ -719,7 +719,7 @@ to extract all meta elements in a list).  Here we show only the first
 few results:
 
 
-```r
+```coffee
 otu_meta <- get_metadata(birds, level="otu")
 otu_meta[1:4]
 ```
@@ -752,7 +752,7 @@ Consider a better example than this one:
 
 
 
-```r
+```coffee
 rdf <- get_rdf(birds)
 ```
 
@@ -760,14 +760,14 @@ rdf <- get_rdf(birds)
 Query the rdf using XPath expressions:
 
 
-```r
+```coffee
 library(XML)
 xpathSApply(rdf, "//dc:title", xmlValue) 
 ```
 
 ```
-[1] "A{PE}: analyses of phylogenetics and evolution in {R} language"
-[2] "Phylogeny of the Orders of Birds From Sibley and Ahlquist"     
+[1] "Phylogeny of the Orders of Birds From Sibley and Ahlquist"     
+[2] "A{PE}: analyses of phylogenetics and evolution in {R} language"
 ```
 
 
@@ -787,7 +787,7 @@ necessary to apply such queries to NeXML files from R.  First we load
 the necessary R library and import the RDF-extracted metadata:
 
 
-```r
+```coffee
 library(rrdf)
 saveXML(rdf, "rdf_meta.xml") # rrdf requires a file name, so we must write the XML out first
 ```
@@ -796,7 +796,7 @@ saveXML(rdf, "rdf_meta.xml") # rrdf requires a file name, so we must write the X
 [1] "rdf_meta.xml"
 ```
 
-```r
+```coffee
 lib <- load.rdf("rdf_meta.xml")
 ```
 
@@ -806,14 +806,14 @@ here is a simple query to extract the value of any `dc:title` element, analogous
 to the XPath expression above: 
 
 
-```r
+```coffee
 sparql.rdf(lib, "SELECT ?title WHERE { ?x <http://purl.org/dc/elements/1.1/title> ?title}")
 ```
 
 ```
      title                                                           
-[1,] "Phylogeny of the Orders of Birds From Sibley and Ahlquist"     
-[2,] "A{PE}: analyses of phylogenetics and evolution in {R} language"
+[1,] "A{PE}: analyses of phylogenetics and evolution in {R} language"
+[2,] "Phylogeny of the Orders of Birds From Sibley and Ahlquist"     
 ```
 
 
@@ -838,7 +838,7 @@ characteristic).
 [Bollback 2006] provides a widely used stand-alone software implementation
 of this method in the software `simmap`, which modified the standard
 Newick tree format to express this additional information. This can
-break compatibility with other software[^1], and creates a format that
+break compatibility with other software [^1], and creates a format that
 cannot be interpreted without additional information describing this
 convention.  By contrast, the NeXML extension is not only backwards
 compatible but contains a precise and machine-readable description of
@@ -848,11 +848,6 @@ In this example, we illustrate how the additional information required
 to define a stochastic character mapping (a `simmap` mapping) in NeXML.  
 
 
-[^1]: By using the commenting mechanism of the Newick format, it is
-possible that other software that doesn't also use the comment mechanism
-for some other such purpose would be able to successfully parse the tree.
-However there is no way to guarentee that this is the case or for the
-data format to describe its use.
 
 [Revell 2011] describes the `phytools` package for R, which includes
 utilities for reading, manipulating, and writing `simmap` files in R.
@@ -894,7 +889,7 @@ Thus the the annotation for an edge that switches from state `s2` to state
 `s1` of character `cr1` would be constructed like this:
 
 
-```r
+```coffee
  m <- meta("simmap:reconstructions", children = c(
         meta("simmap:reconstruction", children = c(
 
@@ -928,12 +923,80 @@ allows us to provide a URL with more detailed descriptions of what each of these
 elements mean:
 
 
-```r
+```coffee
 nex <- add_namespaces(c(simmap = "https://github.com/ropensci/RNeXML/tree/master/inst/simmap.md"))
 ```
 
 
-At that URL we post a simple description of each term. 
+At that URL we have posted a simple description of each term. 
+
+<!-- How could this be improved? Should we use something more formal? 
+We want this example to be something other users could reasonably
+do themselves without expertise in RDFa or XML, but also to be a good
+model case that doesn't cut corners.  -->
+
+Using this convention we can generate NeXML files containing simmap
+data, read those files into R, and convert them back into the `phytools`
+package format. These simple functions serve as further illustration of
+how `RNeXML` can be used to extend the NeXML standard.  We illustrate
+their use briefly here, starting with  loading a nexml object containing
+a simmap reconstruction into R:
+
+
+
+```coffee
+data(simmap_ex)
+```
+
+
+The `get_trees` function can be used to return an `ape::phylo` tree as
+usual.  `RNeXML` automatically detects the simmap reconstruction data
+and returns includes this in a `maps` element of the `phylo` object,
+for use with other `phytools` functions.
+
+
+```coffee
+phy <- nexml_to_simmap(simmap_ex)
+```
+
+
+We can then use various functions from `phytools` designed for simmap
+objects, such as the plotting function:
+
+
+```coffee
+library(phytools)
+plotSimmap(phy)
+```
+
+```
+no colors provided. using the following legend:
+       A        B        C 
+ "black"    "red" "green3" 
+```
+
+![plot of chunk unnamed-chunk-38](figure/manuscript-unnamed-chunk-38.png) 
+
+
+Likewise, we can convert the object back in the nexml format and write
+it out to file to be read by other users. 
+
+
+```coffee
+nex <- simmap_to_nexml(phy) 
+nexml_write(nex, "simmap.xml")
+```
+
+```
+[1] "simmap.xml"
+```
+
+
+Though other NeXML parsers (for instance, for perl or python) have
+not been written explicitly to express simmap data, those parsers will
+nonetheless be able to successfully parse this file and expose the simmap
+data to the user.
+
 
 
 
@@ -945,6 +1008,11 @@ At that URL we post a simple description of each term.
 
 
 
+[^1]: By using the commenting mechanism of the Newick format, it is
+possible that other software that doesn't also use the comment mechanism
+for some other such purpose would be able to successfully parse the tree.
+However there is no way to guarentee that this is the case or for the
+data format to describe its use.
 
 
 ### Subsetting nexml objects directly
@@ -973,7 +1041,7 @@ S4 objects have constructor functions to initialize them.  We create a new `nexm
 object with the command:
 
 
-```r
+```coffee
 nex <- new("nexml")
 ```
 
@@ -981,7 +1049,7 @@ nex <- new("nexml")
 We can see a list of slots contained in this object with
 
 
-```r
+```coffee
 slotNames(nex)
 ```
 
@@ -996,7 +1064,7 @@ slotNames(nex)
 Some of these slots have already been populated for us, for instance, the schema version and default namespaces:
 
 
-```r
+```coffee
 nex@version
 ```
 
@@ -1004,7 +1072,7 @@ nex@version
 [1] "0.9"
 ```
 
-```r
+```coffee
 nex@namespaces
 ```
 
@@ -1041,7 +1109,7 @@ Recognize that `nex@namespaces` serves the same role as `get_namespaces` functio
 Some slots can contain multiple elements of the same type, such as `trees`, `characters`, and `otus`.  For instance, we see that 
 
 
-```r
+```coffee
 class(nex@characters)
 ```
 
@@ -1055,7 +1123,7 @@ attr(,"package")
 is an object of class `ListOfcharacters`, and is currently empty,
 
 
-```r
+```coffee
 length(nex@characters)
 ```
 
@@ -1069,7 +1137,7 @@ of the slot.  We can create a new element of any given class with the
 `new` function,
 
 
-```r
+```coffee
 nex@characters <- new("ListOfcharacters", list(new("characters")))
 ```
 
@@ -1077,7 +1145,7 @@ nex@characters <- new("ListOfcharacters", list(new("characters")))
 and now we have a length-1 list of character matrices,
 
 
-```r
+```coffee
 length(nex@characters)
 ```
 
@@ -1089,7 +1157,7 @@ length(nex@characters)
 and we access the first character matrix using the list notation, `[[1]]`. Here we check the class is a `characters` object.  
 
 
-```r
+```coffee
 class(nex@characters[[1]])
 ```
 
@@ -1104,7 +1172,7 @@ Direct subsetting has two primary use cases: (a) useful in looking up (and possi
 
 
 
-```r
+```coffee
 f <- system.file("examples", "trees.xml", package="RNeXML")
 nex <- nexml_read(f)
 ```
@@ -1113,7 +1181,7 @@ nex <- nexml_read(f)
 We can look up the species label of the first `otu` in the first `otus` block:
 
 
-```r
+```coffee
 nex@otus[[1]]@otu[[1]]@label
 ```
 
@@ -1126,7 +1194,7 @@ nex@otus[[1]]@otu[[1]]@label
 We can add metadata to this particular OTU using this subsetting format
 
 
-```r
+```coffee
 nex@otus[[1]]@otu[[1]]@meta <- 
   c(meta("skos:note", 
           "This species was incorrectly identified"),
@@ -1142,8 +1210,8 @@ Here we use the `c` operator to append this element to any existing meta annotat
 ### Publishing NeXML files from R
 
 Data archiving is increasingly required by journals in evolutionary biology and 
-biodiversity [e.g. @Whitlock2011].  The burden of preparing and submitting properly
-annotated data to archives continues to be a significant barrier [Tenopir et al. 2011, Stodden 2013],
+biodiversity (e.g. [Whitlock2011]).  The burden of preparing and submitting properly
+annotated data to archives continues to be a significant barrier ([Tenopir et al. 2011], [Stodden 2010]),
 and many phylogenetic trees upon which studies are based are inaccessible or lost 
 to the research community [Drew et al 2013].  `RNeXML` seeks to lower these barriers
 by providing functions to immediately archive NeXML files in scientific repositories.  
@@ -1152,7 +1220,7 @@ by providing functions to immediately archive NeXML files in scientific reposito
 
 
 
-```r
+```coffee
 doi <- nexml_publish(birds, visibility = "public", repository="figshare")
 ```
 

@@ -100,7 +100,8 @@ setAs("nexml", "phylo", function(from){
 #' @param tree an nexml tree element 
 #' @param otus a character string of taxonomic labels, named by the otu ids.  
 #' e.g. (from get_otu_maps for the otus set matching the relevant trees node. 
-#' @return phylo object 
+#' @return phylo object.  If a "reconstructions" annotation is found on the 
+#' edges, return simmap maps slot as well.  
 toPhylo <- function(tree, otus){
 
   ## Extract the nodes list
@@ -167,6 +168,12 @@ toPhylo <- function(tree, otus){
   if(!is.null(edge.length))
     phy$edge.length = edge.length # optional fields
   class(phy) = "phylo"
+
+
+
+  ## Check for simmap  
+
+
   phy
 }
 
