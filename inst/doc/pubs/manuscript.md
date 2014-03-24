@@ -975,7 +975,7 @@ no colors provided. using the following legend:
  "black"    "red" "green3" 
 ```
 
-![plot of chunk unnamed-chunk-38](figure/manuscript-unnamed-chunk-38.png) 
+![plot of chunk unnamed-chunk-38](http://farm8.staticflickr.com/7208/13390839373_cdc6b99755_o.png) 
 
 
 Likewise, we can convert the object back in the nexml format and write
