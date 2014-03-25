@@ -12,7 +12,7 @@ author:
   - name: Scott Chamberlain
     affiliation: SimonFraser
   - name: Rutger Vos
-    affiliation: NCB
+    affiliation: NBC
 address: 
   - code: cstar
     address: | 
@@ -26,9 +26,9 @@ address:
   - code: SimonFraser
     address: |
       Department of Biology, Simon Fraser University, Burnaby, Canada
-  - code: NCB
+  - code: NBC
     address: | 
-      NCB Naturalis, Leiden, the Netherlands
+      Naturalis Biodiversity Center, Leiden, the Netherlands
 abstract: | 
       1. NeXML promises to be the next generation of phylogenetic
       informatics data and metadata exchange format, offering substantial
