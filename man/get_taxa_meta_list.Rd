@@ -1,0 +1,32 @@
+\name{get_taxa_meta_list}
+\alias{get_taxa_meta_list}
+\title{get_taxa_meta_list}
+\usage{
+get_taxa_meta_list(nexml, what = "href")
+}
+\arguments{
+  \item{nexml}{a nexml object}
+
+  \item{what}{One of href, rel, id, or xsi:type}
+}
+\value{
+the list of metadata for each taxon
+}
+\description{
+Retrieve metadata of all species/otus otus (operational
+taxonomic units) included in the nexml
+}
+\examples{
+data(bird.orders)
+birds <- add_trees(bird.orders)
+birds <- taxize_nexml(birds, "NCBI")
+get_taxa_meta_list(birds)
+get_taxa_meta_list(birds, 'rel')
+get_taxa_meta_list(birds, 'id')
+get_taxa_meta_list(birds, 'xsi:type')
+}
+\seealso{
+\code{\link{get_item}}
+}
+\keyword{internal}
+
