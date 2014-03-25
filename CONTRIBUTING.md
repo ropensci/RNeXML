@@ -93,8 +93,22 @@ pandoc markdown notation, with the corresponding bibtex entries
 added to `citations.bib`. Citations can also be added as a standard
 markdown link. 
 
-<!-- Should add a utility that will 
-gener-->  
+**Caching** To avoid rerunning potentially slow R code embedded in the
+mansucript simply to view changes to the text, results from running the
+code are cached in `cache` (see the knitr documentation for details on
+how caching is used).  Run `make clean` to erase the cache and clear
+your workspace.  Recall that the Makefile will only rerun the relevant
+command if the source file has changed.  Consequently, changes to to
+the package functions themselves will not automatically cause make to
+recompile the manuscript.
+
+
+<!-- Should add a utility that will generate citation metadata from
+the mauscript.Rmd links using knitcitations.  
+
+Consider yaml-based citation format instead, see: 
+http://blog.martinfenner.org/2013/07/30/citeproc-yaml-for-bibliographies/#comment-1046228784 
+-->  
 
 
 Branches
