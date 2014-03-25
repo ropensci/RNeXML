@@ -11,13 +11,15 @@
 #' @seealso  \code{\link{get_item}}
 #' @keywords internal 
 #' @examples 
+#' \dontrun{
 #' data(bird.orders)
 #' birds <- add_trees(bird.orders)
 #' birds <- taxize_nexml(birds, "NCBI")
-#' get_taxa_meta(birds)
-#' get_taxa_meta(birds, 'rel')
-#' get_taxa_meta(birds, 'id')
-#' get_taxa_meta(birds, 'xsi:type')
+#' RNeXML:::get_taxa_meta(birds)
+#' RNeXML:::get_taxa_meta(birds, 'rel')
+#' RNeXML:::get_taxa_meta(birds, 'id')
+#' RNeXML:::get_taxa_meta(birds, 'xsi:type')
+#'  }
 get_taxa_meta <-  
   function(nexml, what='href'){
     out <- lapply(nexml@otus, function(otus)
@@ -35,14 +37,15 @@ get_otu_meta <- get_taxa_meta
 #' @return the list of metadata for each taxon
 #' @seealso  \code{\link{get_item}}
 #' @keywords internal
-#' @examples
+#' @examples \dontrun{
 #' data(bird.orders)
 #' birds <- add_trees(bird.orders)
 #' birds <- taxize_nexml(birds, "NCBI")
-#' get_taxa_meta_list(birds)
-#' get_taxa_meta_list(birds, 'rel')
-#' get_taxa_meta_list(birds, 'id')
-#' get_taxa_meta_list(birds, 'xsi:type')
+#' RNeXML:::get_taxa_meta_list(birds)
+#' RNeXML:::get_taxa_meta_list(birds, 'rel')
+#' RNeXML:::get_taxa_meta_list(birds, 'id')
+#' RNeXML:::get_taxa_meta_list(birds, 'xsi:type')
+#' }
 get_taxa_meta_list <-
   function(nexml, what='href'){
     out <- lapply(nexml@otus, function(otus){

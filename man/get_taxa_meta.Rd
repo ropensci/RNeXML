@@ -17,13 +17,15 @@ Retrieve metadata of all species/otus otus (operational
 taxonomic units) included in the nexml
 }
 \examples{
+\dontrun{
 data(bird.orders)
 birds <- add_trees(bird.orders)
 birds <- taxize_nexml(birds, "NCBI")
-get_taxa_meta(birds)
-get_taxa_meta(birds, 'rel')
-get_taxa_meta(birds, 'id')
-get_taxa_meta(birds, 'xsi:type')
+RNeXML:::get_taxa_meta(birds)
+RNeXML:::get_taxa_meta(birds, 'rel')
+RNeXML:::get_taxa_meta(birds, 'id')
+RNeXML:::get_taxa_meta(birds, 'xsi:type')
+ }
 }
 \seealso{
 \code{\link{get_item}}

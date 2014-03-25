@@ -12,7 +12,8 @@ toPhylo(tree, otus)
   matching the relevant trees node.}
 }
 \value{
-phylo object
+phylo object.  If a "reconstructions" annotation is found
+on the edges, return simmap maps slot as well.
 }
 \description{
 nexml to phylo coercion
