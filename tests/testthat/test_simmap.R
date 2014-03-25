@@ -19,7 +19,7 @@ test_that("we can coerce an ape::phylo tree with a
   nex <- simmap_to_nexml(mtree) 
   expect_is(nex, "nexml")
 
-  phy <- nexml_to_simmap(nex)[[1]][[1]] # returns a list of multiPhylo
+  phy <- nexml_to_simmap(nex) 
 
   orig <- plotSimmap(mtree,cols,ftype="off")
   roundtrip <- plotSimmap(phy,cols,ftype="off")
