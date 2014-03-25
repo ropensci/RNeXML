@@ -49,7 +49,7 @@ tr <- get_trees(nexml) # or: as(nexml, "phylo")
 plot(tr)
 ```
 
-![plot of chunk unnamed-chunk-4](http://farm4.staticflickr.com/3636/12979079864_8d398f5125_o.png) 
+![plot of chunk unnamed-chunk-4](http://i.imgur.com/uvOtlcD.png) 
 
 
 Write an `ape::phylo` tree into the `nexml` format:
@@ -103,10 +103,8 @@ get_metadata(birds)
 ```
 
 ```
-##                                          dc:pubdate 
-##                                        "2014-03-06" 
-##                                          cc:license 
-## "http://creativecommons.org/publicdomain/zero/1.0/"
+## $`cc:license`
+## [1] "http://creativecommons.org/publicdomain/zero/1.0/"
 ```
 
 
