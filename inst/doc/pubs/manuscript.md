@@ -33,7 +33,7 @@ abstract: |
       1. NeXML promises to be the next generation of phylogenetic
       informatics data and metadata exchange format, offering substantial
       improvements in reliability, extensibility, and richness over
-      earlier standards such as Nexus.
+      earlier standards such as NEXUS.
 
       2. In this paper we present the RNeXML package which provides
       a bridge between this rich and reliable data format and the
@@ -83,7 +83,7 @@ See [Vos _et al._ 2012].
 
 ### Challenges with R formats
 
-- Most R users rely on the nexus inherits the limitations of nexus file format
+- Most R users rely on the NEXUS inherits the limitations of NEXUS file format
 
 See [phylobase vignette, 2010]
 
@@ -111,11 +111,11 @@ Mention of data sharing challenges and opportunities.  See [Drew et al 2013]
 
 Why RNeXML?
 
-* Why NeXML -- because Nexus standard isn't a standard.  Developers extend it arbitrarily to meet their needs, making it incompatible <!-- with? -->.  For example, Nexus cannot represent horizontal gene transfer, ambiguous use of symbols, cannot be extended reliably, and there is no way to validate that it is proper Nexus.  NeXML addresses all of these problems [Vos _et al._ 2012] with a state-of-the-art data management format.  
+* Why NeXML -- because NEXUS standard isn't a standard.  Developers extend it arbitrarily to meet their needs, yielding mutually incompatible dialects.  For example, NEXUS cannot represent horizontal gene transfer, ambiguous use of symbols, cannot be extended reliably, and there is no way to validate that it is proper NEXUS.  NeXML addresses all of these problems [Vos _et al._ 2012] with a state-of-the-art data management format.  
 
 * Why RNeXML: Huge ecosystem of phylogenetics packages. (1) Read NeXML.
 All would benefit by being able to read NeXML, both as a robust standard
-free of the pitfalls of Nexus, and more importantly, as a much richer
+free of the pitfalls of NEXUS, and more importantly, as a much richer
 source of data thanks to its extendable annotation model.  (2) Write
 NeXML.  R packages and R users add rich information to the phylogenies
 they work with, but need a platform independent data exchange format to
@@ -177,7 +177,7 @@ nex <- nexml_read(f)
 
 
 (For convenience `nexml_read` is also aliased as `read.nexml`, for
-users familiar with the somewhat analogous `read.nexus` function).
+users familiar with the somewhat analogous `read.NEXUS` function).
 The resulting `nex` object is an R object representation of the NeXML.
 From this object we can extract any phylogenies it contains in the
 `ape::phylo` format:
@@ -228,20 +228,20 @@ nex = nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebas
 
 
 Previously, this was possible using the `treebase` package [@treebase]
-for R, which relied on the nexus parser provided in the `ape` package.
-Due to inconsistencies present in the Nexus standard [Vos _et al._
-2012], a significant number <!-- State explicitly --> of TreeBASE nexus
+for R, which relied on the NEXUS parser provided in the `ape` package.
+Due to inconsistencies present in the NEXUS standard [Vos _et al._
+2012], a significant number <!-- State explicitly --> of TreeBASE NEXUS
 files could not be read in this way.  Using the more precisely defined
-NEXML standard, every valid NeXML file on TreeBASE can now successfully
+NeXML standard, every valid NeXML file on TreeBASE can now successfully
 be parsed to R objects.
 
 
 
 #### Character data 
 
-Like nexus files, NeXML files can also contain character data.  While
+Like NEXUS files, NeXML files can also contain character data.  While
 most researchers will be familiar with the use of character matrices in
-nexus files as a container for molecular sequence data used to infer
+NEXUS files as a container for molecular sequence data used to infer
 the phylogenetic tree, we find this ideal for character data used in
 comparative methods popular in R. Methods to get extract character data
 work much like those for the phylogenetic data:
@@ -347,7 +347,7 @@ At the heart of the NeXML standard is the ability to encode arbitrary
 metadata in precisely specified, machine-readable formats that maintain
 backwards compabitibilty with any existing NeXML parser. NeXML uses the
 "Resource Description Framework in Annotations", or RDFa [W3C 2013],
-as described in [Vos et al 2011].  These annotations can be used to add 
+as described in [Vos et al 2012].  These annotations can be used to add 
 information to any particular element of the data, (a tree, node, edge,
 or taxonomic unit; a character matrix or specific trait, or even another 
 metadata annotation or the NeXML data file as a whole). `RNeXML` provides
@@ -451,7 +451,7 @@ This function uses the `taxize` R library ([Chamberlain 2013]) to check each tax
 label against the NCBI database.  If a unique match is found, a metadata annotation
 is added to the taxon providing the NCBI identification number to the taxonomic unit.
 If no match is found, the user is warned to check for possible typographic errors in
-the taxonomic labels provided.  
+the taxonomic labels provided.<!-- what if multiple NCBI taxon IDs are found, e.g. 'Aotus'? -->
 
 ### Custom metadata extensions
 
@@ -469,7 +469,7 @@ title we gave to the `bird.orders` phylogeny appears in the NeXML as:
 
 We see the title appears as the `content` of this `meta` element.  The `id` attribute
 provides us with a unique way to refer to this meta element in this document.  The `datatype`
-tells us that the content is a text string (as opposed to a numerical or boolean value).  
+tells us that the content is a text string (as opposed to, say, a numerical or boolean value).  
 The `property` is the attribute that most interests us here; it tells us that the content 
 is a title.  The prefix `dc` indicates the vocabulary (called a namespace in XML) to which 
 the word `title` belongs.  The prefix is defined elsewhere in the NeXML file, as we can see with:
@@ -533,7 +533,7 @@ birds <- add_meta(modified, birds)
 ```
 
 
-The built-in vocabularies are just the tip of the iceburg of established vocabularies. Here 
+The built-in vocabularies are just the tip of the iceberg of established vocabularies. Here 
 we add an annotation from the `skos` namespace which describes the history of where the
 data comes from:
 
@@ -935,6 +935,12 @@ We want this example to be something other users could reasonably
 do themselves without expertise in RDFa or XML, but also to be a good
 model case that doesn't cut corners.  -->
 
+<!-- I don't see how this could be improved much without forcing people
+to fire op protege (let's not!). As it happens, the Dublin Core URI, 
+for example, points to an HTML page so even in that case automatic 
+reasoners would not be able to consume the vocabulary and draw inferences
+about, e.g. identity of predicates (owl:sameAs and such). -->
+
 Using this convention we can generate NeXML files containing simmap
 data, read those files into R, and convert them back into the `phytools`
 package format. These simple functions serve as further illustration of
@@ -992,7 +998,7 @@ nexml_write(nex, "simmap.xml")
 ```
 
 
-Though other NeXML parsers (for instance, for perl or python) have
+Though other NeXML parsers (for instance, for Perl or Python) have
 not been written explicitly to express simmap data, those parsers will
 nonetheless be able to successfully parse this file and expose the simmap
 data to the user.
