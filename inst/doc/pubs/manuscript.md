@@ -28,7 +28,7 @@ address:
       Department of Biology, Simon Fraser University, Burnaby, Canada
   - code: NBC
     address: | 
-      Naturalis Biodiversity Center, Leiden, the Netherlands
+      NBC Naturalis, Leiden, the Netherlands
 abstract: | 
       1. NeXML promises to be the next generation of phylogenetic
       informatics data and metadata exchange format, offering substantial
@@ -111,7 +111,12 @@ Mention of data sharing challenges and opportunities.  See [Drew et al 2013]
 
 Why RNeXML?
 
-* Why NeXML -- because NEXUS standard isn't a standard.  Developers extend it arbitrarily to meet their needs, yielding mutually incompatible dialects.  For example, NEXUS cannot represent horizontal gene transfer, ambiguous use of symbols, cannot be extended reliably, and there is no way to validate that it is proper NEXUS.  NeXML addresses all of these problems [Vos _et al._ 2012] with a state-of-the-art data management format.  
+* Why NeXML -- because NEXUS standard isn't a standard.  Developers extend
+it arbitrarily to meet their needs, yielding mutually incompatible dialects. 
+For example, NEXUS cannot represent horizontal gene transfer, ambiguous
+use of symbols, cannot be extended reliably, and there is no way to
+validate that it is proper NEXUS.  NeXML addresses all of these problems
+[Vos _et al._ 2012] with a state-of-the-art data management format.
 
 * Why RNeXML: Huge ecosystem of phylogenetics packages. (1) Read NeXML.
 All would benefit by being able to read NeXML, both as a robust standard
@@ -232,7 +237,7 @@ for R, which relied on the NEXUS parser provided in the `ape` package.
 Due to inconsistencies present in the NEXUS standard [Vos _et al._
 2012], a significant number <!-- State explicitly --> of TreeBASE NEXUS
 files could not be read in this way.  Using the more precisely defined
-NeXML standard, every valid NeXML file on TreeBASE can now successfully
+NEXML standard, every valid NeXML file on TreeBASE can now successfully
 be parsed to R objects.
 
 
@@ -347,7 +352,7 @@ At the heart of the NeXML standard is the ability to encode arbitrary
 metadata in precisely specified, machine-readable formats that maintain
 backwards compabitibilty with any existing NeXML parser. NeXML uses the
 "Resource Description Framework in Annotations", or RDFa [W3C 2013],
-as described in [Vos et al 2012].  These annotations can be used to add 
+as described in [Vos et al 2011].  These annotations can be used to add 
 information to any particular element of the data, (a tree, node, edge,
 or taxonomic unit; a character matrix or specific trait, or even another 
 metadata annotation or the NeXML data file as a whole). `RNeXML` provides
@@ -451,7 +456,8 @@ This function uses the `taxize` R library ([Chamberlain 2013]) to check each tax
 label against the NCBI database.  If a unique match is found, a metadata annotation
 is added to the taxon providing the NCBI identification number to the taxonomic unit.
 If no match is found, the user is warned to check for possible typographic errors in
-the taxonomic labels provided.<!-- what if multiple NCBI taxon IDs are found, e.g. 'Aotus'? -->
+the taxonomic labels provided.  <!-- what if multiple NCBI taxon IDs are found, e.g. 'Aotus'? -->
+
 
 ### Custom metadata extensions
 
@@ -933,13 +939,14 @@ At that URL we have posted a simple description of each term.
 <!-- How could this be improved? Should we use something more formal? 
 We want this example to be something other users could reasonably
 do themselves without expertise in RDFa or XML, but also to be a good
-model case that doesn't cut corners.  -->
+model case that doesn't cut corners. @cboettig -->
 
 <!-- I don't see how this could be improved much without forcing people
 to fire op protege (let's not!). As it happens, the Dublin Core URI, 
 for example, points to an HTML page so even in that case automatic 
 reasoners would not be able to consume the vocabulary and draw inferences
-about, e.g. identity of predicates (owl:sameAs and such). -->
+about, e.g. identity of predicates (owl:sameAs and such). @rvosa -->
+
 
 Using this convention we can generate NeXML files containing simmap
 data, read those files into R, and convert them back into the `phytools`
@@ -981,7 +988,7 @@ no colors provided. using the following legend:
  "black"    "red" "green3" 
 ```
 
-![plot of chunk unnamed-chunk-38](http://farm8.staticflickr.com/7208/13390839373_cdc6b99755_o.png) 
+![plot of chunk unnamed-chunk-38](http://i.imgur.com/z2CzWbB.png) 
 
 
 Likewise, we can convert the object back in the nexml format and write
@@ -1326,5 +1333,6 @@ of the rOpenSci project, [http://ropensci.org].
 phylobase::phylo4 was an attempt to solve the problems associated with
 the popular ape::phylo format (unpredictable errors, loose and multiple
 conflicting specifications).
+
 
 
