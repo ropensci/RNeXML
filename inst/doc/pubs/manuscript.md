@@ -177,7 +177,7 @@ nex <- nexml_read(f)
 
 
 (For convenience `nexml_read` is also aliased as `read.nexml`, for
-users familiar with the somewhat analogous `read.NEXUS` function).
+users familiar with the somewhat analogous `read.nexus` function).
 The resulting `nex` object is an R object representation of the NeXML.
 From this object we can extract any phylogenies it contains in the
 `ape::phylo` format:
@@ -1326,6 +1326,5 @@ of the rOpenSci project, [http://ropensci.org].
 phylobase::phylo4 was an attempt to solve the problems associated with
 the popular ape::phylo format (unpredictable errors, loose and multiple
 conflicting specifications).
-
 
 
