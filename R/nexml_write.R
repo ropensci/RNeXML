@@ -29,6 +29,8 @@
 #'  nexml <- add_characters(geospiza$dat, nexml) # pass the nexml obj to append character data
 #'  nexml <- add_basic_meta(nexml, title="my title", creator = "Carl Boettiger")
 #'  nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())), nexml)
+#'
+#' \dontrun{ # takes > 5s
 #'  write.nexml(nexml, file="example.xml")
 #'
 #'  ## As above, but in one call (except for add_meta() call).  
@@ -47,6 +49,7 @@
 #'              creator = "Carl Boettiger",
 #'              file = "example.xml")
 #' 
+#' }
 nexml_write <- function(x = new("nexml"),
                         file = NULL,
                         trees = NULL,

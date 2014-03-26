@@ -195,6 +195,23 @@ tree_to_simmap <- function(tree, otus, state_maps = NULL){
 }
 
 
+
+#' @name simmap_ex 
+#' @title A nexml class R object that includes simmap annotations
+#' @description A nexml object with simmap stochastic character mapping
+#'  annotations added to the edges, for use with the RNeXML package
+#'  parsing and serializing NeXML into formats that work with the ape and
+#'  phytools packages. 
+#' @docType data
+#' @usage simmap_ex
+#' @format a \code{nexml} instance
+#' @source Simulated tree and stochastic character mapping based on 
+#' Revell 2011 (doi:10.1111/j.2041-210X.2011.00169.x)
+#' @author Carl Boettiger 
+NULL
+
+
+
 ## Extend directly with XML representation instead of S4
 
 #setClass("simmap:reconstructions",
@@ -202,4 +219,7 @@ tree_to_simmap <- function(tree, otus, state_maps = NULL){
 #setClass("ListOfreconstruction", contains = "list")
 #setClass("simmap:stateChange", contains = "IDTagged") 
 #
+
+
+
 
