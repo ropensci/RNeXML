@@ -29,29 +29,30 @@ address:
   - code: NBC
     address: | 
       NBC Naturalis, Leiden, the Netherlands
-abstract: | 
+abstract: |
+
+
+
       1. NeXML promises to be the next generation of phylogenetic
       informatics data and metadata exchange format, offering substantial
       improvements in reliability, extensibility, and richness over
-      earlier standards such as NEXUS.
+      earlier standards such as NEXUS. In this paper we present the RNeXML
+      package which provides a bridge between this rich and reliable
+      data format and the extensive library of phylogenetic tools already
+      available in R, with a particular emphasis on comparative methods.
 
-      2. In this paper we present the RNeXML package which provides
-      a bridge between this rich and reliable data format and the
-      extensive library of phylogenetic tools already available in R,
-      with a particular emphasis on comparative methods. 
-
-      3. RNeXML allows R users to both read and write NeXML files. Yet
+      2. RNeXML allows R users to both read and write NeXML files. Yet
       RNeXML is much richer than a basic parser: here we illustrate
       how the package facilitates adding and manipulating semantic 
       annotations.
 
-      4. An essential feature of NeXML is to provide both the flexibility
+      3. An essential feature of NeXML is to provide both the flexibility
       to be continually extended to meet the emerging needs of the phylogenetics
       community while remaining backwards-compatible with software developed
       for earlier versions.  Here we illustrate how RNeXML makes it easy
-      to extend NeXML in this way.  
+      to extend NeXML in this manner.  
       
-      5. RNeXML is perfectly suited for users to preserve and maintain their
+      4. RNeXML is perfectly suited for users to preserve and maintain their
       personal archives of phylogenetic and comparative trait data in consistent,
       query-able, and cross-platform format, or leverage the rapidly growing 
       public community archives of rich NeXML files.  
@@ -61,9 +62,11 @@ abstract: |
 ---
 
 <!-- Emphasize: 
+
 1) storing character data and tree data together, convenient for the comparative methods community
 2) Adding metadata, including automated addition of metadata and semantic utilities 
 3) Extending the NeXML standard  
+4) Accessing / opening up existing rich NeXML data to the R user
 
 -->
 
@@ -980,13 +983,21 @@ prior to public release.
 
 ### Implementation and architecture
 
+
 The `RNeXML` package is built for the NeXML Schema, [version 2009],
 using the R software environment and the XML package for parsing and
-generating XML [Temple Lang 2013, XML], and provides conversions into
+generating XML [Temple Lang 2013, XML]. 
+
+<!--  Find more consise way to make sure dependencies are cited. 
+      How about citing packages that are only on the suggests list? 
+
+and provides conversions into
 the popular `phylo` format provided by the `ape` package [Paradis 2004].
 `RNeXML` can automatically check taxonomic names and add taxonomic
 identifiers when generating NeXML using methods from the `taxize` package
 ([Chamberlain 2013]).
+--> 
+
 
 <!-- Possibly cite all dependencies and suggests from the DESCRIPTION --> 
 <!-- Reference any installation and configuration instructions necessary (e.g. API credentials for figshare) -->
