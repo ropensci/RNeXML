@@ -28,14 +28,14 @@ address:
       Department of Biology, Simon Fraser University, Burnaby, Canada
   - code: NBC
     address: | 
-      NBC Naturalis, Leiden, the Netherlands
+      Naturalis Biodiversity Center, Leiden, the Netherlands
 abstract: | 
       1. NeXML promises to be the next generation of phylogenetic
-      informatics data and metadata exchange format, offering substantial
+      informatics data and metadata exchange formats, offering substantial
       improvements in reliability, extensibility, and richness over
       earlier standards such as NEXUS.
 
-      2. In this paper we present the RNeXML package which provides
+      2. In this paper we present the RNeXML package, which provides
       a bridge between this rich and reliable data format and the
       extensive library of phylogenetic tools already available in R,
       with a particular emphasis on comparative methods. 
@@ -119,7 +119,7 @@ Mention of data sharing challenges and opportunities.  See [Drew et al 2013]
 
 Why RNeXML?
 
-* Why NeXML -- because NEXUS standard isn't a standard.  Developers extend
+* Why NeXML -- because the NEXUS standard isn't a standard.  Developers extend
 it arbitrarily to meet their needs, yielding mutually incompatible dialects. 
 For example, NEXUS cannot represent horizontal gene transfer, ambiguous
 use of symbols, cannot be extended reliably, and there is no way to
@@ -145,7 +145,7 @@ breaking validation or backwards compatability of the file type.
 ## Introduction to RNeXML
 
 
-A nexml file can be thought of as having three components: (1) phylogeny
+A NeXML file can be thought of as having three components: (1) phylogeny
 data (2) character-trait data, and (3) metadata. `RNeXML` seeks to
 provide a seemless way to convert these to and from their corresponding
 R object representations, such as `ape::phylo` phylogenies, character
