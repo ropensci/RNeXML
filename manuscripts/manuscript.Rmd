@@ -72,6 +72,7 @@ abstract: |
 -->
 
 ```{r compile-settings, include=FALSE}
+library(methods)
 library(knitr)
 opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE, 
                cache = 1, comment = NA, verbose = TRUE)

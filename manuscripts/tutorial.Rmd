@@ -20,10 +20,20 @@ An R package for reading, writing, integrating and publishing data using the Eco
 An extensive and rapidly growing collection of richly annotated phylogenetics data is now available in the NeXML format. NeXML relies on state-of-the-art data exchange technology to provide a format that can be both validated and extended, providing a data quality assurance and and adaptability to the future that is lacking in other formats [Vos et al 2012](http://doi.org/10.1093/sysbio/sys025 "NeXML: Rich, Extensible, and Verifiable Representation of Comparative Data and Metadata."). 
 
 
+```{r compile-settings, include=FALSE}
+## Set the paths for cache and figure
+library(methods)
+library(knitr)
+opts_chunk$set(cache = 1)
+basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile')) 
+opts_chunk$set(fig.path = paste("components/figure/", basename, "-", sep=""),
+               cache.path = paste("components/cache/", basename, "/", sep=""))
+
+
 ```{r echo=FALSE}
 library(knitr)
 opts_knit$set(upload.fun = imgur_upload)
-opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, cache=FALSE)
+opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, comment = NA, verbose = TRUE)
 ```
 
 Getting Started

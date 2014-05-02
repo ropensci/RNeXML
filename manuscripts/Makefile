@@ -9,7 +9,6 @@ all:
 
 tutorial.md: tutorial.Rmd 
 	Rscript -e 'require(knitr); opts_knit[["set"]](upload.fun = imgur_upload); knit("tutorial.Rmd")'
-	rm -rf figure/ 
 
 ../README.md: tutorial.md
 	cp tutorial.md ../README.md
@@ -20,7 +19,7 @@ tutorial.md: tutorial.Rmd
 
 
 manuscript.md: manuscript.Rmd
-	Rscript -e 'require(knitr); require(methods); opts_knit[["set"]](upload.fun = imgur_upload); knit("manuscript.Rmd")'
+	Rscript -e 'require(knitr); opts_knit[["set"]](upload.fun = imgur_upload); knit("manuscript.Rmd")'
 	Rscript components/github_highlighting.R manuscript.md
 
 manuscript.pdf: manuscript.Rmd
@@ -32,6 +31,8 @@ manuscript.pdf: manuscript.Rmd
 clear-cache:
 	rm -rf components/cache
 
+
+## FIXME use default R utils for this 
 restore-cache:
 	cd components
 	wget http://two.ucdavis.edu/~cboettig/data/RNeXML-manuscript-cache.tar.gz
