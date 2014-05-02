@@ -5,4 +5,5 @@ RNeXML.Rproj
 ^\.Rproj\.user$
 inst/doc/pubs
 .git
+manuscripts/
 CONTRIBUTING.md

@@ -1070,5 +1070,11 @@ phylobase::phylo4 was an attempt to solve the problems associated with
 the popular ape::phylo format (unpredictable errors, loose and multiple
 conflicting specifications).
 
-
+```{r include=FALSE}
+# remove external NeXML files created by running this vignette
+unlink("simmap.xml")
+unlink("birds.xml")
+unlink("geospiza.xml")
+unlink("rdf_meta.xml")
+```
 
