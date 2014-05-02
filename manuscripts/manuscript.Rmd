@@ -75,9 +75,9 @@ abstract: |
 library(knitr)
 opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE, 
                cache = 1, comment = NA, verbose = TRUE)
-basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile') )
-opts_chunk$set(fig.path = paste("figure/", basename, "-", sep=""),
-               cache.path = paste("cache/", basename, "/", sep=""))
+basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile')) 
+opts_chunk$set(fig.path = paste("components/figure/", basename, "-", sep=""),
+               cache.path = paste("components/cache/", basename, "/", sep=""))
 
 
 ```

@@ -1,8 +1,6 @@
-inst/doc/pubs/cache
-inst/doc/pubs/figure
-inst/doc/pubs/*.pdf
-inst/doc/pubs/tmp.md
-inst/doc/pubs/*.xml
+manuscripts/components/cache
+manuscripts/components/figure
+manuscripts/*.pdf
 vignettes/*.pdf
 .Rproj.user
 *.Rproj

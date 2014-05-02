@@ -1,36 +1,46 @@
 
 all:
-	make README.md
+	make tutorial.md
 	make ../README.md
-	make ../vignettes/README.Rmd
+	make ../vignettes/tutorial.Rmd
 	make manuscript.md
 	make manuscript.pdf
 
 
-README.md: README.Rmd 
-	Rscript -e 'require(knitr); opts_knit[["set"]](upload.fun = imgur_upload); knit("README.Rmd")'
+tutorial.md: tutorial.Rmd 
+	Rscript -e 'require(knitr); opts_knit[["set"]](upload.fun = imgur_upload); knit("tutorial.Rmd")'
+	rm -rf figure/ 
 
-../README.md: README.md
-	cp README.md ../README.md
-	Rscript github_highlighting.R ../README.md
+../README.md: tutorial.md
+	cp tutorial.md ../README.md
+	Rscript components/github_highlighting.R ../README.md
 
-../vignettes/README.Rmd: README.Rmd
-	cp README.Rmd ../vignettes/README.Rmd
+../vignettes/tutorial.Rmd: tutorial.Rmd
+	cp tutorial.Rmd ../vignettes/
 
 
 manuscript.md: manuscript.Rmd
 	Rscript -e 'require(knitr); require(methods); opts_knit[["set"]](upload.fun = imgur_upload); knit("manuscript.Rmd")'
-	Rscript github_highlighting.R manuscript.md
+	Rscript components/github_highlighting.R manuscript.md
 
 manuscript.pdf: manuscript.Rmd
 	Rscript -e 'require(knitr); opts_chunk[["set"]](dev='pdf'); knit("manuscript.Rmd", "tmp.md")'
 	pandoc tmp.md --template elsarticle.latex -o manuscript.pdf
 	rm tmp.md 
 
-clean: 
-	rm -f *.xml tmp.md
-	rm -f ../*.xml
-	rm -f ../tests/testthat/*.xml
-	rm -f ../vignettes/*.xml
-	rm -rf cache/
+
+clear-cache:
+	rm -rf components/cache
+
+restore-cache:
+	cd components
+	wget http://two.ucdavis.edu/~cboettig/data/RNeXML-manuscript-cache.tar.gz
+	tar -xvf RNeXML-manucript-cache.tar.gz
+	rm RNeXML-manuscript-cache.tar.gz
+	cd ..
+
+clean:
 	rm -rf figure/
+	rm -f tmp.md
+	rm -f RNeXML-manuscript-cache.tar.gz
+	rm -f ../tests/testthat/*.xml

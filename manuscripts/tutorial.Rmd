@@ -172,5 +172,8 @@ fitDiscrete(tree, traits[2])
 
 
 
-
-
+```{r include=FALSE}
+unlink("example.xml")
+unlink("meta_example.xml")
+unlink("test.xml")
+```
