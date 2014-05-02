@@ -18,19 +18,19 @@ which is used for continuous testing and integration.
 Code
 ----
 
-All code for this package is found in `R/`, (except compiled source 
+All code for this package is found in `R/`, (except compiled source
 code, if used, which is in `/src`).  All functions should be thoroughly
-documented with `roxygen2` notation; see Documentation. 
+documented with `roxygen2` notation; see Documentation.
 
 Testing
 -------
 
-Any new feature or bug-fix should include a unit-test demonstrating the 
-change.  Unit tests follow the `testthat` framework with files in 
-`tests/testthat`.  Please make sure that the testing suite passes 
+Any new feature or bug-fix should include a unit-test demonstrating the
+change.  Unit tests follow the `testthat` framework with files in
+`tests/testthat`.  Please make sure that the testing suite passes
 before issuing a pull request.  This can be done by running `check()`
-from the `devtools` package, which will also check for consistent 
-documentation, etc.  
+from the `devtools` package, which will also check for consistent
+documentation, etc.
 
 
 This package uses the [travis](https://github.com/craigcitro/r-travis)
@@ -53,12 +53,12 @@ this workflow is unfamiliar to you.  Note that functions should include
 examples in the documentation. Please use `\dontrun` for examples that
 take more than a few seconds to execute or require an internet connection.
 
-Likewise, the README.md file in the base directory should not be edited 
-directly.  This file is created automatically from code that runs the 
+Likewise, the README.md file in the base directory should not be edited
+directly.  This file is created automatically from code that runs the
 examples shown, helping to ensure that they are functioning as advertised
-and consistent with the package README vignette.  Instead, edit the 
-`README.Rmd` source file in `inst/doc/pubs` and run `make` to build 
-the README.  
+and consistent with the package README vignette.  Instead, edit the
+`README.Rmd` source file in `manuscripts` and run `make` to build
+the README.
 
 
 
@@ -69,29 +69,29 @@ The manuscript files are built using the dynamic documentation tool
 `knitr` from the `.Rmd` versions of the file.  Please do not edit
 the `.md` versions since such files are built automatically.
 The `.md` versions are built for viewing on Github, and take advantage
-of Github's rendering and display of text-based diffs.  The `.md` 
-files should then be generated using the `Makefile` provided, which 
+of Github's rendering and display of text-based diffs.  The `.md`
+files should then be generated using the `Makefile` provided, which
 will also handle details such as Github-compatible syntax highlighting
-and the embedding of images. 
+and the embedding of images.
 
 The `Makefile` will also generate a pdf version of the manuscript
-using pandoc and the appropriate LaTeX templates.  
+using pandoc and the appropriate LaTeX templates.
 
-Text should be hard-wrapped at less than 80 characters width when 
+Text should be hard-wrapped at less than 80 characters width when
 possible. This allows git to better track real changes to the files
-and impoves the display of line-based diffs.  For this reason, 
+and impoves the display of line-based diffs.  For this reason,
 also avoid re-wrapping text frequently, or changing line end encodings,
-etc.  
+etc.
 
 
 **Embedding images**: Image generation is handled by the markdown
-file, which will embed online png images published to imgur for the 
-`.md` output, and vector pdf graphics for the `.pdf` manuscript.  
+file, which will embed online png images published to imgur for the
+`.md` output, and vector pdf graphics for the `.pdf` manuscript.
 
-**Citations**: Citations should be added to the `.Rmd` file using 
-pandoc markdown notation, with the corresponding bibtex entries 
+**Citations**: Citations should be added to the `.Rmd` file using
+pandoc markdown notation, with the corresponding bibtex entries
 added to `citations.bib`. Citations can also be added as a standard
-markdown link. 
+markdown link.
 
 **Caching** To avoid rerunning potentially slow R code embedded in the
 mansucript simply to view changes to the text, results from running the
@@ -104,11 +104,11 @@ recompile the manuscript.
 
 
 <!-- Should add a utility that will generate citation metadata from
-the mauscript.Rmd links using knitcitations.  
+the mauscript.Rmd links using knitcitations.
 
-Consider yaml-based citation format instead, see: 
-http://blog.martinfenner.org/2013/07/30/citeproc-yaml-for-bibliographies/#comment-1046228784 
--->  
+Consider yaml-based citation format instead, see:
+http://blog.martinfenner.org/2013/07/30/citeproc-yaml-for-bibliographies/#comment-1046228784
+-->
 
 
 Branches
@@ -121,7 +121,7 @@ Questions or comments?
 ---------------------
 
 Do not hesistate to open an issue in the issues tracker to raise any
-questions or comments about the package or these guidelines.  
+questions or comments about the package or these guidelines.
 
 
 
