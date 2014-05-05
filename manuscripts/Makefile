@@ -1,9 +1,11 @@
+BIBFILE = components/references.bib
+CSL = components/methods-in-ecology-and-evolution.csl
+TEMPLATE = components/elsarticle.latex
 
 all:
 	make tutorial.md
 	make ../README.md
 	make ../vignettes/tutorial.Rmd
-	make manuscript.md
 	make manuscript.pdf
 
 
@@ -11,36 +13,23 @@ tutorial.md: tutorial.Rmd
 	Rscript -e 'require(knitr); opts_knit[["set"]](upload.fun = imgur_upload); knit("tutorial.Rmd")'
 
 ../README.md: tutorial.md
-	cp tutorial.md ../README.md
+	mv tutorial.md ../README.md
 	Rscript components/github_highlighting.R ../README.md
 
 ../vignettes/tutorial.Rmd: tutorial.Rmd
 	cp tutorial.Rmd ../vignettes/
 
-
-manuscript.md: manuscript.Rmd
-	Rscript -e 'require(knitr); opts_knit[["set"]](upload.fun = imgur_upload); knit("manuscript.Rmd")'
-	Rscript components/github_highlighting.R manuscript.md
-
 manuscript.pdf: manuscript.Rmd
-	Rscript -e 'require(knitr); opts_chunk[["set"]](dev='pdf'); knit("manuscript.Rmd", "tmp.md")'
-	pandoc tmp.md --template elsarticle.latex -o manuscript.pdf
-	rm tmp.md 
-
+	Rscript components/make_pdf.R manuscript.Rmd
 
 clear-cache:
 	rm -rf components/cache
 
-
-## FIXME use default R utils for this 
 restore-cache:
-	cd components
-	wget http://two.ucdavis.edu/~cboettig/data/RNeXML-manuscript-cache.tar.gz
-	tar -xvf RNeXML-manucript-cache.tar.gz
-	rm RNeXML-manuscript-cache.tar.gz
-	cd ..
+	Rscript components/restore-cache.R
 
 clean:
+	rm -rf tutorial.md
 	rm -rf figure/
 	rm -f tmp.md
 	rm -f RNeXML-manuscript-cache.tar.gz

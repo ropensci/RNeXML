@@ -44,13 +44,13 @@ Read in a `nexml` file into the `ape::phylo` format:
 
 
 ```coffee
-f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+f <- system.file("examples", "comp_analysis.xml", package = "RNeXML")
 nexml <- nexml_read(f)
-tr <- get_trees(nexml) # or: as(nexml, "phylo")
+tr <- get_trees(nexml)  # or: as(nexml, 'phylo')
 plot(tr)
 ```
 
-![plot of chunk unnamed-chunk-4](http://i.imgur.com/nHNhXK6.png) 
+![plot of chunk unnamed-chunk-4](http://i.imgur.com/onA1QpQ.png) 
 
 
 Write an `ape::phylo` tree into the `nexml` format:
@@ -62,7 +62,7 @@ nexml_write(bird.orders, "test.xml")
 ```
 
 ```
-[1] "test.xml"
+## [1] "test.xml"
 ```
 
 
@@ -74,7 +74,7 @@ nexml_validate("test.xml")
 ```
 
 ```
-[1] TRUE
+## [1] TRUE
 ```
 
 
@@ -89,23 +89,23 @@ get_taxa(birds)
 ```
 
 ```
- [1] "Struthioniformes" "Tinamiformes"     "Craciformes"     
- [4] "Galliformes"      "Anseriformes"     "Turniciformes"   
- [7] "Piciformes"       "Galbuliformes"    "Bucerotiformes"  
-[10] "Upupiformes"      "Trogoniformes"    "Coraciiformes"   
-[13] "Coliiformes"      "Cuculiformes"     "Psittaciformes"  
-[16] "Apodiformes"      "Trochiliformes"   "Musophagiformes" 
-[19] "Strigiformes"     "Columbiformes"    "Gruiformes"      
-[22] "Ciconiiformes"    "Passeriformes"   
+##  [1] "Struthioniformes" "Tinamiformes"     "Craciformes"     
+##  [4] "Galliformes"      "Anseriformes"     "Turniciformes"   
+##  [7] "Piciformes"       "Galbuliformes"    "Bucerotiformes"  
+## [10] "Upupiformes"      "Trogoniformes"    "Coraciiformes"   
+## [13] "Coliiformes"      "Cuculiformes"     "Psittaciformes"  
+## [16] "Apodiformes"      "Trochiliformes"   "Musophagiformes" 
+## [19] "Strigiformes"     "Columbiformes"    "Gruiformes"      
+## [22] "Ciconiiformes"    "Passeriformes"
 ```
 
 ```coffee
-get_metadata(birds) 
+get_metadata(birds)
 ```
 
 ```
-$`cc:license`
-[1] "http://creativecommons.org/publicdomain/zero/1.0/"
+## $`cc:license`
+## [1] "http://creativecommons.org/publicdomain/zero/1.0/"
 ```
 
 
@@ -116,16 +116,13 @@ Add basic additional metadata:
 
 
 ```coffee
-  nexml_write(bird.orders, file="meta_example.xml",
-              title = "My test title",
-              description = "A description of my test",
-              creator = "Carl Boettiger <cboettig@gmail.com>",
-              publisher = "unpublished data",
-              pubdate = "2012-04-01")
+nexml_write(bird.orders, file = "meta_example.xml", title = "My test title", 
+    description = "A description of my test", creator = "Carl Boettiger <cboettig@gmail.com>", 
+    publisher = "unpublished data", pubdate = "2012-04-01")
 ```
 
 ```
-[1] "meta_example.xml"
+## [1] "meta_example.xml"
 ```
 
 By default, `RNeXML` adds certain metadata, including the NCBI taxon id numbers for all named taxa.  This acts a check on the spelling and definitions of the taxa as well as providing a link to additional metadata about each taxonomic unit described in the dataset.  
@@ -138,8 +135,7 @@ We can also add arbitrary metadata to a NeXML tree by define `meta` objects:
 
 
 ```coffee
-modified <- meta(property = "prism:modificationDate",
-                 content = "2013-10-04")
+modified <- meta(property = "prism:modificationDate", content = "2013-10-04")
 ```
 
 
@@ -151,28 +147,28 @@ RNeXML:::nexml_namespaces
 ```
 
 ```
-                                                     nex 
-                             "http://www.nexml.org/2009" 
-                                                     xsi 
-             "http://www.w3.org/2001/XMLSchema-instance" 
-                                                     xml 
-                  "http://www.w3.org/XML/1998/namespace" 
-                                                    cdao 
-"http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#" 
-                                                     xsd 
-                     "http://www.w3.org/2001/XMLSchema#" 
-                                                      dc 
-                      "http://purl.org/dc/elements/1.1/" 
-                                                 dcterms 
-                             "http://purl.org/dc/terms/" 
-                                                   prism 
-        "http://prismstandard.org/namespaces/1.2/basic/" 
-                                                      cc 
-                        "http://creativecommons.org/ns#" 
-                                                    ncbi 
-                 "http://www.ncbi.nlm.nih.gov/taxonomy#" 
-                                                      tc 
-         "http://rs.tdwg.org/ontology/voc/TaxonConcept#" 
+##                                                      nex 
+##                              "http://www.nexml.org/2009" 
+##                                                      xsi 
+##              "http://www.w3.org/2001/XMLSchema-instance" 
+##                                                      xml 
+##                   "http://www.w3.org/XML/1998/namespace" 
+##                                                     cdao 
+## "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#" 
+##                                                      xsd 
+##                      "http://www.w3.org/2001/XMLSchema#" 
+##                                                       dc 
+##                       "http://purl.org/dc/elements/1.1/" 
+##                                                  dcterms 
+##                              "http://purl.org/dc/terms/" 
+##                                                    prism 
+##         "http://prismstandard.org/namespaces/1.2/basic/" 
+##                                                       cc 
+##                         "http://creativecommons.org/ns#" 
+##                                                     ncbi 
+##                  "http://www.ncbi.nlm.nih.gov/taxonomy#" 
+##                                                       tc 
+##          "http://rs.tdwg.org/ontology/voc/TaxonConcept#"
 ```
 
 
@@ -180,8 +176,7 @@ This next block defines a resource (link), described by the `rel` attribute as a
 
 
 ```coffee
-website <- meta(href = "http://carlboettiger.info", 
-                rel = "foaf:homepage")
+website <- meta(href = "http://carlboettiger.info", rel = "foaf:homepage")
 ```
 
 
@@ -189,9 +184,8 @@ Here we create a history node using the `skos` namespace.  We can also add id va
 
 
 ```coffee
-  history <- meta(property = "skos:historyNote", 
-                  content = "Mapped from the bird.orders data in the ape package using RNeXML",
-                  id = "meta123")
+history <- meta(property = "skos:historyNote", content = "Mapped from the bird.orders data in the ape package using RNeXML", 
+    id = "meta123")
 ```
 
 
@@ -199,15 +193,13 @@ Once we have created the `meta` elements, we can pass them to our `nexml_write` 
 
 
 ```coffee
-  nexml_write(bird.orders, 
-              file = "example.xml", 
-              meta = list(history, modified, website), 
-              namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
-                             foaf = "http://xmlns.com/foaf/0.1/"))
+nexml_write(bird.orders, file = "example.xml", meta = list(history, modified, 
+    website), namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#", 
+    foaf = "http://xmlns.com/foaf/0.1/"))
 ```
 
 ```
-[1] "example.xml"
+## [1] "example.xml"
 ```
 
 
@@ -220,6 +212,77 @@ Add taxonomic identifier metadata to the OTU elements:
 ```coffee
 nex <- add_trees(bird.orders)
 nex <- taxize_nexml(nex)
+```
+
+```
+## 
+## Retrieving data for taxon 'Struthioniformes'
+## 
+## 
+## Retrieving data for taxon 'Tinamiformes'
+## 
+## 
+## Retrieving data for taxon 'Craciformes'
+## 
+## 
+## Retrieving data for taxon 'Galliformes'
+## 
+## 
+## Retrieving data for taxon 'Anseriformes'
+## 
+## 
+## Retrieving data for taxon 'Turniciformes'
+## 
+## 
+## Retrieving data for taxon 'Piciformes'
+## 
+## 
+## Retrieving data for taxon 'Galbuliformes'
+## 
+## 
+## Retrieving data for taxon 'Bucerotiformes'
+## 
+## 
+## Retrieving data for taxon 'Upupiformes'
+## 
+## 
+## Retrieving data for taxon 'Trogoniformes'
+## 
+## 
+## Retrieving data for taxon 'Coraciiformes'
+## 
+## 
+## Retrieving data for taxon 'Coliiformes'
+## 
+## 
+## Retrieving data for taxon 'Cuculiformes'
+## 
+## 
+## Retrieving data for taxon 'Psittaciformes'
+## 
+## 
+## Retrieving data for taxon 'Apodiformes'
+## 
+## 
+## Retrieving data for taxon 'Trochiliformes'
+## 
+## 
+## Retrieving data for taxon 'Musophagiformes'
+## 
+## 
+## Retrieving data for taxon 'Strigiformes'
+## 
+## 
+## Retrieving data for taxon 'Columbiformes'
+## 
+## 
+## Retrieving data for taxon 'Gruiformes'
+## 
+## 
+## Retrieving data for taxon 'Ciconiiformes'
+## 
+## 
+## Retrieving data for taxon 'Passeriformes'
 ```
 
 
@@ -236,7 +299,7 @@ We can load the library, parse the NeXML file and extract both the characters an
 
 ```coffee
 library(RNeXML)
-nexml <- read.nexml(system.file("examples", "comp_analysis.xml", package="RNeXML"))
+nexml <- read.nexml(system.file("examples", "comp_analysis.xml", package = "RNeXML"))
 traits <- get_characters(nexml)
 tree <- get_trees(nexml)
 ```
@@ -253,27 +316,31 @@ fitContinuous(tree, traits[1])
 ```
 
 ```
-GEIGER-fitted comparative model of continuous data
- fitted 'BM' model parameters:
-	sigsq = 1.166011
-	z0 = 0.255591
+## Loading required package: parallel
+```
 
- model summary:
-	log-likelihood = -20.501183
-	AIC = 45.002367
-	AICc = 46.716652
-	free parameters = 2
-
-Convergence diagnostics:
-	optimization iterations = 100
-	failed iterations = 0
-	frequency of best fit = 1.00
-
- object summary:
-	'lik' -- likelihood function
-	'bnd' -- bounds for likelihood search
-	'res' -- optimization iteration summary
-	'opt' -- maximum likelihood parameter estimates
+```
+## GEIGER-fitted comparative model of continuous data
+##  fitted 'BM' model parameters:
+## 	sigsq = 1.166011
+## 	z0 = 0.255591
+## 
+##  model summary:
+## 	log-likelihood = -20.501183
+## 	AIC = 45.002367
+## 	AICc = 46.716652
+## 	free parameters = 2
+## 
+## Convergence diagnostics:
+## 	optimization iterations = 100
+## 	failed iterations = 0
+## 	frequency of best fit = 1.00
+## 
+##  object summary:
+## 	'lik' -- likelihood function
+## 	'bnd' -- bounds for likelihood search
+## 	'res' -- optimization iteration summary
+## 	'opt' -- maximum likelihood parameter estimates
 ```
 
 ```coffee
@@ -281,28 +348,28 @@ fitDiscrete(tree, traits[2])
 ```
 
 ```
-GEIGER-fitted comparative model of discrete data
- fitted Q matrix:
-             0        1
-    0 -0.07308  0.07308
-    1  0.07308 -0.07308
-
- model summary:
-	log-likelihood = -4.574133
-	AIC = 11.148266
-	AICc = 11.648266
-	free parameters = 1
-
-Convergence diagnostics:
-	optimization iterations = 100
-	failed iterations = 0
-	frequency of best fit = 1.00
-
- object summary:
-	'lik' -- likelihood function
-	'bnd' -- bounds for likelihood search
-	'res' -- optimization iteration summary
-	'opt' -- maximum likelihood parameter estimates
+## GEIGER-fitted comparative model of discrete data
+##  fitted Q matrix:
+##              0        1
+##     0 -0.07308  0.07308
+##     1  0.07308 -0.07308
+## 
+##  model summary:
+## 	log-likelihood = -4.574133
+## 	AIC = 11.148266
+## 	AICc = 11.648266
+## 	free parameters = 1
+## 
+## Convergence diagnostics:
+## 	optimization iterations = 100
+## 	failed iterations = 0
+## 	frequency of best fit = 1.00
+## 
+##  object summary:
+## 	'lik' -- likelihood function
+## 	'bnd' -- bounds for likelihood search
+## 	'res' -- optimization iteration summary
+## 	'opt' -- maximum likelihood parameter estimates
 ```
 
 
