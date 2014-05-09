@@ -1,7 +1,7 @@
 Package: RNeXML
 Type: Package
 Title: Implement semantically rich I/O for NeXML format
-Version: 1.0-1
+Version: 1.0-2
 Date: 2013-06-30
 Author: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia Shumelchyk,
     Rutger Vos
@@ -13,22 +13,23 @@ Description: R package that allows access to phyloinformatic data in NeXML
 License: BSD_3_clause + file LICENSE
 VignetteBuilder: knitr
 Suggests:
-    rrdf,
-    geiger,
-    phytools,
-    knitr,
-    testthat,
-    rfigshare
+    rrdf (>= 2.0.2),
+    geiger (>= 2.0),
+    phytools (>= 0.3.93),
+    knitr (>= 1.5),
+    testthat (>= 0.8.1),
+    rfigshare (>= 0.3.0)
 Depends:
-    ape,
-    methods
+    R (>= 3.0.0),
+    ape (>= 3.1),
+    methods (>= 3.0.0)
 Imports:
-    XML,
-    plyr,
-    taxize,
-    reshape2,
-    httr,
-    uuid
+    XML (>= 3.98-1.1),
+    plyr (>= 1.8),
+    taxize (>= 0.2.2),
+    reshape2 (>= 1.2.2),
+    httr (>= 0.3),
+    uuid (>= 0.1-1)
 Collate:
     'add_basic_meta.R'
     'classes.R'
