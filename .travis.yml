@@ -5,12 +5,9 @@ before_script:
 - chmod 755 ./travis-tool.sh
 # We want to install several apt packages *before* we add more repos in bootstrap.
 - sudo apt-get update -qq
-- ./travis-tool.sh install_aptget gdal-bin libgdal1 libgdal1-dev netcdf-bin libproj-dev
 - ./travis-tool.sh bootstrap
-- ./travis-tool.sh install_r_binary rjava
+- ./travis-tool.sh install_r_binary rrdf geiger phytools knitr testthat rfigshare ape plyr taxize reshape2 httr uuid
 - ./travis-tool.sh install_deps
-- ./travis-tool.sh github_package assertthat
-- ./travis-tool.sh github_package ropensci/rfigshare
 notifications:
   hipchat:
     rooms:
