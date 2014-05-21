@@ -6,7 +6,7 @@ before_script:
 # We want to install several apt packages *before* we add more repos in bootstrap.
 - sudo apt-get update -qq
 - ./travis-tool.sh bootstrap
-- ./travis-tool.sh install_r_binary rrdf geiger phytools knitr testthat rfigshare ape plyr taxize reshape2 httr uuid
+- ./travis-tool.sh install_r_binary geiger phytools knitr testthat rfigshare ape plyr taxize reshape2 httr rjava 
 - ./travis-tool.sh install_deps
 notifications:
   hipchat:
