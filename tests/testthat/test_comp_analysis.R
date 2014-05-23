@@ -10,8 +10,8 @@ test_that("We can extract tree and trait data to run fitContinuous and fitDiscre
   traits <- get_characters_list(nexml)
   tree <- get_trees(nexml)
   expect_is(tree, "phylo")
-  cts <- fitContinuous(tree, traits[[1]])
-  dte <- fitDiscrete(tree, traits[[2]])
+  cts <- fitContinuous(tree, traits[[1]], ncores=1)
+  dte <- fitDiscrete(tree, traits[[2]], ncores=1)
 })
 
 

@@ -23,7 +23,6 @@ An extensive and rapidly growing collection of richly annotated phylogenetics da
 
 
 
-
 Getting Started
 ---------------
 
@@ -38,8 +37,6 @@ library(RNeXML)
 
 
 
-
-
 Read in a `nexml` file into the `ape::phylo` format:
 
 
@@ -50,8 +47,7 @@ tr <- get_trees(nexml)  # or: as(nexml, 'phylo')
 plot(tr)
 ```
 
-![plot of chunk unnamed-chunk-4](http://i.imgur.com/onA1QpQ.png) 
-
+![plot of chunk unnamed-chunk-4](http://i.imgur.com/aQza4Lu.png) 
 
 Write an `ape::phylo` tree into the `nexml` format:
 
@@ -65,7 +61,6 @@ nexml_write(bird.orders, "test.xml")
 ## [1] "test.xml"
 ```
 
-
 A key feature of NeXML is the ability to formally validate the construction of the data file against the standard (the lack of such a feature in nexus files had lead to inconsistencies across different software platforms, and some files that cannot be read at all).  While it is difficult to make an invalid NeXML file from `RNeXML`, it never hurts to validate just to be sure:
 
 
@@ -76,7 +71,6 @@ nexml_validate("test.xml")
 ```
 ## [1] TRUE
 ```
-
 
 
 
@@ -108,7 +102,6 @@ get_metadata(birds)
 ## [1] "http://creativecommons.org/publicdomain/zero/1.0/"
 ```
 
-
 --------------------------------------------
 
 
@@ -124,7 +117,6 @@ nexml_write(bird.orders, file = "meta_example.xml", title = "My test title",
 ```
 ## [1] "meta_example.xml"
 ```
-
 By default, `RNeXML` adds certain metadata, including the NCBI taxon id numbers for all named taxa.  This acts a check on the spelling and definitions of the taxa as well as providing a link to additional metadata about each taxonomic unit described in the dataset.  
 
 
@@ -137,7 +129,6 @@ We can also add arbitrary metadata to a NeXML tree by define `meta` objects:
 ```coffee
 modified <- meta(property = "prism:modificationDate", content = "2013-10-04")
 ```
-
 
 Advanced use requires specifying the namespace used.  Metadata follows the RDFa conventions.  Here we indicate the modification date using the prism vocabulary. This namespace is included by default, as it is used for some of the basic metadata shown in the previous example.  We can see from this list:
 
@@ -171,14 +162,12 @@ RNeXML:::nexml_namespaces
 ##          "http://rs.tdwg.org/ontology/voc/TaxonConcept#"
 ```
 
-
 This next block defines a resource (link), described by the `rel` attribute as a homepage, a term in the `foaf` vocabulalry.  Becuase `foaf` is not a default namespace, we will have to provide its URL in the full definition below. 
 
 
 ```coffee
 website <- meta(href = "http://carlboettiger.info", rel = "foaf:homepage")
 ```
-
 
 Here we create a history node using the `skos` namespace.  We can also add id values to any metadata element to make the element easier to reference externally: 
 
@@ -187,7 +176,6 @@ Here we create a history node using the `skos` namespace.  We can also add id va
 history <- meta(property = "skos:historyNote", content = "Mapped from the bird.orders data in the ape package using RNeXML", 
     id = "meta123")
 ```
-
 
 Once we have created the `meta` elements, we can pass them to our `nexml_write` function, along with definitions of the namespaces.  
 
@@ -201,7 +189,6 @@ nexml_write(bird.orders, file = "example.xml", meta = list(history, modified,
 ```
 ## [1] "example.xml"
 ```
-
 
 ### Taxonomic identifiers
 
@@ -287,7 +274,6 @@ nex <- taxize_nexml(nex)
 
 
 
-
 ## Working with character data
 
 NeXML also provides a standard exchange format for handling character data.  The R platform is particularly popular in the context of phylogenetic comparative methods, which consider both a given phylogeny and a set of traits.  NeXML provides an ideal tool for handling this metadata.  
@@ -303,7 +289,6 @@ nexml <- read.nexml(system.file("examples", "comp_analysis.xml", package = "RNeX
 traits <- get_characters(nexml)
 tree <- get_trees(nexml)
 ```
-
 
 (Note that `get_characters` would return both discrete and continuous characters together in the same data.frame, but we use `get_characters_list` to get separate data.frames for the continuous `characters` block and the discrete `characters` block).  
 
@@ -371,8 +356,6 @@ fitDiscrete(tree, traits[2])
 ## 	'res' -- optimization iteration summary
 ## 	'opt' -- maximum likelihood parameter estimates
 ```
-
-
 
 
 
