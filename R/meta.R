@@ -83,6 +83,8 @@ meta <- function(property = character(0),
 
 
 nexml_citation <- function(obj){
+  if(is(obj, "BibEntry"))
+    clas(obj) <- "bibentry"
   if(is(obj, "bibentry")){
     out <- lapply(obj, function(obj){
       if(length(grep("--", obj$pages)) > 0){

@@ -77,6 +77,8 @@ add_basic_meta <- function(nexml = new("nexml"),
       nexml <- add_meta(meta("dc:rights", rights), nexml)
   }
   if(!is.null(citation))
+    if(is(citation, "BibEntry"))
+      class(citation) = "bibentry"
     if(is(citation, "bibentry"))
       nexml <- add_meta(nexml_citation(citation), nexml)
     else
