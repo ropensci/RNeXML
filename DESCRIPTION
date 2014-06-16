@@ -3,22 +3,27 @@ Type: Package
 Title: Implement semantically rich I/O for NeXML format
 Version: 1.0-2
 Date: 2013-06-30
-Author: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia Shumelchyk,
-    Rutger Vos
-Maintainer: Carl Boettiger <cboettig@ropensci.org>
+Authors@R: c(person("Carl", "Boettiger", role = c("cre", "aut"), email="cboettig@ropensci.org"), 
+             person("Scott", "Chamberlain", role = "aut"), 
+             person("Hilmar", "Lapp", role = "aut"), 
+             person("Kseniia", "Shumelchyk", role = "aut"),
+             person("Rutger", "Vos", role = "aut"))
 Description: R package that allows access to phyloinformatic data in NeXML
     format.  The package should add new functionality to R such as the
     possibility to manipulate NeXML objects in more various and refined way and
     compatibility with 'ape' objects.
 License: BSD_3_clause + file LICENSE
 VignetteBuilder: knitr
+
 Suggests:
     rrdf (>= 2.0.2),
     geiger (>= 2.0),
     phytools (>= 0.3.93),
     knitr (>= 1.5),
     testthat (>= 0.8.1),
-    rfigshare (>= 0.3.0)
+    rfigshare (>= 0.3.0),
+    knitcitations (>=1.0.1)
+
 Depends:
     R (>= 3.0.0),
     ape (>= 3.1),
@@ -30,6 +35,7 @@ Imports:
     reshape2 (>= 1.2.2),
     httr (>= 0.3),
     uuid (>= 0.1-1)
+
 Collate:
     'add_basic_meta.R'
     'classes.R'
