@@ -3,11 +3,10 @@ Type: Package
 Title: Implement semantically rich I/O for NeXML format
 Version: 1.0-2
 Date: 2013-06-30
-Authors@R: c(person("Carl", "Boettiger", role = c("cre", "aut"), email="cboettig@ropensci.org"), 
-             person("Scott", "Chamberlain", role = "aut"), 
-             person("Hilmar", "Lapp", role = "aut"), 
-             person("Kseniia", "Shumelchyk", role = "aut"),
-             person("Rutger", "Vos", role = "aut"))
+Authors@R: c(person("Carl", "Boettiger", role = c("cre", "aut"),
+    email="cboettig@ropensci.org"), person("Scott", "Chamberlain", role =
+    "aut"), person("Hilmar", "Lapp", role = "aut"), person("Kseniia",
+    "Shumelchyk", role = "aut"), person("Rutger", "Vos", role = "aut"))
 Description: R package that allows access to phyloinformatic data in NeXML
     format.  The package should add new functionality to R such as the
     possibility to manipulate NeXML objects in more various and refined way and
