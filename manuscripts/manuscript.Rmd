@@ -380,7 +380,7 @@ data(geospiza)
 nexml_write(trees = geospiza$phy, characters = geospiza$dat, file="geospiza.xml")
 ```
 
-These examples use data from the popular phylogenetics software `geiger` `r citep(citation("geiger"))`.  
+These examples use data from the popular phylogenetics software `geiger` `r citep(citation("geiger")[[4]])`.  
 
 
 NeXML files can also be built up bit by bit using the `add_characters`,
@@ -410,7 +410,7 @@ This allows us to include multiple trees and character matrices to a single NeXM
 At the heart of the NeXML standard is the ability to encode arbitrary
 metadata in precisely specified, machine-readable formats that maintain
 backwards compabitibilty with any existing NeXML parser. NeXML uses the
-"Resource Description Framework in Annotations", or RDFa `r citep("http://www.w3.org/TR/xhtml-rdfa-primer")`,
+"Resource Description Framework in Annotations", or RDFa,
 as described in @Vos_2012.  These annotations can be used to add 
 information to any particular element of the data, (a tree, node, edge,
 or taxonomic unit; a character matrix or specific trait, or even another 
@@ -793,7 +793,7 @@ to define a stochastic character mapping (a `simmap` mapping) in NeXML.
 
 
 
-`r citet("Revell phytools 2011")` describes the `phytools` package for R, which includes
+`r citet(citation("phytools"))` describes the `phytools` package for R, which includes
 utilities for reading, manipulating, and writing `simmap` files in R.
 In this example, we also show how to define `RNeXML` functions that 
 map the R representation used by Revell (an extension of the `ape` class)
