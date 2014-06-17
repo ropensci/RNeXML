@@ -292,9 +292,7 @@ phy <- get_trees(nex)
 ```
 
 We can then leverage the rich suite of methods available from the R
-phylogenetics community (including coercion into other representations,
-such as `ouch` `r citep(citation("ouch"))` and `phylobase` `r citep(citation("phylobase"))` phylogeny
-formats). For instance, here we use the standard plotting function from
+phylogenetics community. For instance, here we use the standard plotting function from
 the `ape` package to plot the resulting `ape::phylo` object returned by
 `get_trees`.
 
