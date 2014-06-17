@@ -175,8 +175,8 @@ We can then fire up `geiger` and fit, say, a Brownian motion model the continuou
 
 ```{r}
 library(geiger)
-fitContinuous(tree, traits[1], ncores=1)
-fitDiscrete(tree, traits[2], ncores=1)
+fitContinuous(tree, traits[1])
+fitDiscrete(tree, traits[2])
 ```
 
 

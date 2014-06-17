@@ -1,7 +1,3 @@
-BIBFILE = components/references.bib
-CSL = components/methods-in-ecology-and-evolution.csl
-TEMPLATE = components/elsarticle.latex
-
 all:
 	make tutorial.md
 	make ../README.md
@@ -14,7 +10,6 @@ tutorial.md: tutorial.Rmd
 
 ../README.md: tutorial.md
 	mv tutorial.md ../README.md
-	Rscript components/github-highlighting.R ../README.md
 
 ../vignettes/tutorial.Rmd: tutorial.Rmd
 	cp tutorial.Rmd ../vignettes/
