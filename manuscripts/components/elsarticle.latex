@@ -1,7 +1,7 @@
 \documentclass[author-year, $layout$]{$documentclass$} %review=doublespace preprint=single 5p=2 column
 %%% Begin My package additions %%%%%%%%%%%%%%%%%%%
 \usepackage[hyphens]{url}
-\usepackage{lineno} % add 
+%\usepackage{lineno} % add 
 %\linenumbers % turns line numbering on 
 \bibliographystyle{elsarticle-harv}
 \biboptions{sort&compress} % For natbib
