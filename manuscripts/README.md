@@ -16,7 +16,10 @@ devtools::install_github("rstudio/rmarkdown")
 Build the manuscript
 --------------------
 
-Make sure you set the `manuscripts/` as your working directory and then do:
+
+If you have the [RStudio Preview release](www.rstudio.com/ide/download/preview) (>= 0.98.932), just open the manuscript.Rmd file in RStudio and try pressing the 'knit pdf' button.
+
+Otherwise, make sure you set the `manuscripts/` as your working directory and then do:
 
 ```r
 rmarkdown::render("manuscript.Rmd")
