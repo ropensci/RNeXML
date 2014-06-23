@@ -129,7 +129,7 @@ an essential role in the advancement of phylogenetics research.
 The rapid increase in phylogenetics data and research methods that make
 use of such data has introduced many new challenges and opportunities 
 to sharing this information both between software environments and 
-between research groups `r citet("Drew PLOS Biology Tree of Life 2013")`.  
+between research groups `r citep(c("Drew PLOS Biology Tree of Life 2013", "10.1186/1756-0500-5-574"))`.  
 
 <!-- FIXME -->  
 
