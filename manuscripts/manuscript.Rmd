@@ -650,7 +650,7 @@ so please feel free to edit or re-write.  -->
 
 Much richer metadata annotation is possible. Later we illustrate how
 metadata annotation can be used to extend the base NeXML format to
-represent new forms of data while maintaining compatability with any
+represent new forms of data while maintaining compatibility with any
 NeXML parser. The `RNeXML` package can be easily extended to support
 helper functions such as `taxize_nexml` to add additional metadata
 without imposing a large burden on the user.
