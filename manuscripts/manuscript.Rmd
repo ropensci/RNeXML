@@ -363,7 +363,7 @@ the NeXML.
 
 ## Writing phylogenetic trees 
 
-Generating NeXML files from R is likewise straight forward.  Here we
+Generating NeXML files from R is likewise straightforward.  Here we
 write a phylogeny from the `ape::phylo` format out to a NeXML file:
 
 ```{r}
