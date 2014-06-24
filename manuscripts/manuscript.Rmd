@@ -204,7 +204,7 @@ NeXML. The heart of this section focuses on tools for reading and writing
 the kind of semantically rich metadata that most sets NeXML apart from
 other phylogenetic data formats. Starting simple, we use examples of
 increasing complexity to illustrate concepts and tools from biodiversity
-informatics that allow users to express and intepret complicated data
+informatics that allow users to express and interpret complicated data
 structures automatically.  We end with an example that uses metadata to
 extend the NeXML standard to describe stochastic character mapping, one
 of the kinds of data annotation that is currently available in R formats
