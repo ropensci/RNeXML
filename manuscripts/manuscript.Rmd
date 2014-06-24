@@ -703,7 +703,7 @@ vocabulary, and the term `title` refers to the title of a creative work
 Such explicit definitions allow a computer to reason about these objects,
 as we shall see later.  
 
-
+<!-- the citations run off the page -->
 Common metadata can be accessed with a few dedicated functions:
 
 ```{r}
