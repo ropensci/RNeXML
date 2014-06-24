@@ -138,6 +138,9 @@ ADD STUFF ABOUT:
 - Rapid growth in phylogenetics data (+citations)
 - Rapid growth of research methods and software that use phylogenetic data. Comparative methods in evolution. Ecological phylogenetics. Biodiversity informatics. (+citations)
 - More on data sharing challenges and opportunities a la @Drew_2013
+- More on the hoops that users need to jump through if trees, data
+and other things all need to come from separate files and need to be
+joined on taxon labels.
 
 The ever expanding needs of the phylogenetics community are rapidly
 out-pacing the capacity of current standards, which is resulting in a
