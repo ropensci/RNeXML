@@ -50,8 +50,9 @@ abstract: |
       
       4. RNeXML is well suited for users to preserve and maintain their
       personal archives of phylogenetic and comparative trait data in consistent,
-      query-able, and cross-platform format, or leverage the rapidly growing 
-      public community archives of rich NeXML files.  
+      query-able, and cross-platform format, to leverage the rapidly growing 
+      public community archives of rich NeXML files, and to interact with web
+      services that deliver their results (with their provenance) as NeXML.
 
 bibliography: components/references.bib
 csl: components/methods-in-ecology-and-evolution.csl
