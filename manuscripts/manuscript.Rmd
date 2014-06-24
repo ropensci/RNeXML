@@ -278,9 +278,9 @@ nex <- nexml_read(f)
 
 
 
-The resulting `nex` object is an R object representation of the NeXML.  
-This is a native R object for representing phylogenetic trees (as well as 
-character traits, and metadata), analgous to the `phylo` object from the 
+The resulting `nex` object is an R object representation of the NeXML. This is 
+a native R object for representing phylogenetic trees (as well as 
+character traits, and metadata), analogous to the `phylo` object from the 
 popular `ape` R package `r citep(citation("ape"))`. 
 
 While R functions and packages could be written to use this `nexml` object
