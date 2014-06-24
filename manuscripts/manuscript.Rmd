@@ -343,7 +343,7 @@ Like NEXUS files, NeXML documents can also contain character data.  While
 most researchers will be familiar with the use of character matrices in
 NEXUS files as a container for molecular sequence (or morphological) data 
 used to infer the phylogenetic tree, we find this ideal for character data used in
-comparative methods popular in R. Methods to get extract character data
+comparative methods popular in R. Methods to extract character data
 work much like those for the phylogenetic data:
 
 ```{r }
