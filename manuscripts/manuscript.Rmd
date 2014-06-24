@@ -269,7 +269,11 @@ install_github("RNeXML", "ropensci", dependencies=c("DEPENDS", "IMPORTS", "SUGGE
 library(RNeXML)
 ```
 
-We begin by reading in an example NeXML file provided with the package.[^2]  
+<!-- I still question the wisdom of having multiple names for the same
+method. At first this might seem user-friendly, but it will just be confusing
+and create a document and source code maintenance nightmare. Why not just pick
+read.nexml and be done with it? -->
+We begin by reading in an example NeXML file provided with the package.[^2]
 
 ```{r}
 f <- system.file("examples", "trees.xml", package="RNeXML")
