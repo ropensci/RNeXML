@@ -328,7 +328,7 @@ for R, which relied on the NEXUS parser provided in the `ape` package.
 Due to inconsistencies present in the NEXUS standard `r citep("Vos NeXML 2012")`, 
 a significant number <!-- State explicitly --> of TreeBASE NEXUS
 files could not be read in this way.  Using the more precisely defined
-NEXML standard, every valid NeXML file on TreeBASE can now successfully
+NeXML standard, every valid NeXML file on TreeBASE can now successfully
 be parsed to R objects.
 
 
