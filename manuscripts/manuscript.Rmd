@@ -696,6 +696,7 @@ prefixes <- get_namespaces(birds)
 prefixes["dc"]
 ```
 
+<!-- I feel like we already covered what dc:title is -->
 Following the link we can see that `dc` refers to the "Dublin Core"
 vocabulary, and the term `title` refers to the title of a creative work
 (as opposed to the title of a person, a legal title, the verb title, etc).
