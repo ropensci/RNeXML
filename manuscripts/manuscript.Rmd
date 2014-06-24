@@ -188,7 +188,7 @@ many popular phylogenetic comparative methods tools in R.
 `RNeXML` also provides convenient tools for adding metadata
 to NeXML files, including the automated generation of metadata and examples
 of how to extend the NeXML standard to represent new data features without
-breaking validation or backwards compatability of the file type.  
+breaking validation or backwards compatibility of the file type.  
 
 <!-- FIXME something about how we will increasingly want to work with (semantic) metadata
 and how RNeXML provides a solid platform from which to do so.  
