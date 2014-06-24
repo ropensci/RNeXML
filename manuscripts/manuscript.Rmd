@@ -310,7 +310,7 @@ an `ape::multiPhylo` object (a list of `phylo` objects).  If multiple
 blocks are available, it will return a list of `multiPhylo` blocks.
 While most users will find this behavior convenient, there are times
 (such as looping over many NeXML files) when having a variable return
-type is undisirable.  To always get back a list of `multiPhylo` objects,
+type is undesirable.  To always get back a list of `multiPhylo` objects,
 even when only one tree is available, use `get_trees_list()`.
 
 <!-- have we already said all this above?-->  <!-- no, seems appropriate to repeat here, -scott --> The ability to read in
