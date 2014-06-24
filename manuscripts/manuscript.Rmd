@@ -416,7 +416,7 @@ This allows us to include multiple trees and character matrices to a single NeXM
 
 At the heart of the NeXML standard is the ability to encode arbitrary
 metadata in precisely specified, machine-readable formats that maintain
-backwards compabitibilty with any existing NeXML parser. NeXML uses the
+backwards compatibility with any existing NeXML parser. NeXML uses the
 "Resource Description Framework in Annotations", or RDFa,
 as described in @Vos_2012.  These annotations can be used to add 
 information to any particular element of the data, (a tree, node, edge,
