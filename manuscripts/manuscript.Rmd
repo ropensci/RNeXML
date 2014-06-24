@@ -556,7 +556,7 @@ element in this document.  The `datatype` tells us that the content
 is a text string (as opposed to, say, a numerical or boolean value).
 The `property` is the attribute that most interests us here; it tells us
 that the content is a title.  The prefix `dc` indicates the vocabulary
-(called a namespace in XML) to which the word `title` belongs.  The prefix
+(here identified as an XML namespace) to which the word `title` belongs.  The prefix
 is defined elsewhere in the NeXML file, as we can see with:
 
 
