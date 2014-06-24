@@ -627,6 +627,9 @@ birds <- add_meta(history,
                 namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#"))
 ```
 
+<!-- does this mean we can use CURIEs whose prefix has not yet been 
+bound to a namespace? that would be bad. there should probably be an
+error message when that happens -->
 If we forget to add the namespace with add_meta, we can always add it
 later using the `add_namespaces` function,
 
