@@ -301,7 +301,7 @@ the `ape` package to plot the resulting `ape::phylo` object returned by
 plot(phy[[1]])
 ```
 
-NeXML can not only contain multiple phylogenetic trees in a single file,
+NeXML can not only contain multiple phylogenetic trees in a single document,
 but can also group sets of trees into separate blocks.  The `get_trees`
 function attempts to return the most sensible R object for NeXML: if
 only a single tree is available, it will return an `ape::phylo` object;
