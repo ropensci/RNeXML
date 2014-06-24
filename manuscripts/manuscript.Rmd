@@ -371,6 +371,10 @@ data(bird.orders)
 nexml_write(bird.orders, file = "birds.xml")
 ```
 
+<!-- in caper there is this method comparative.data to join data
+and trees on taxon labels. it would be nice if this merged data
+structure could also be passed to nexml_write (or should that be
+write.nexml?) -->
 The first argument to `nexml_write` can be a `phylo` phylogeny,
 `multiPhylo` list of phylogenies, or a `nexml` object -- anything that
 can be coerced into the `nexml` class.  As we have seen, NeXML files
