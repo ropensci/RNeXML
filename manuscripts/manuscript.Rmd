@@ -389,7 +389,7 @@ nexml_write(trees = geospiza$phy, characters = geospiza$dat, file="geospiza.xml"
 
 These examples use data from the popular phylogenetics software `geiger` `r citep(citation("geiger")[[4]])`.  
 
-
+<!-- how about add_taxa? -->
 NeXML files can also be built up bit by bit using the `add_characters`,
 `add_trees`, and `add_meta`.  Each of these functions can add data to an
 existing `nexml` object or create a new nexml object if none is provided.
