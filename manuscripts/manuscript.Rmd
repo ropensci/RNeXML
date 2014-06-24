@@ -585,13 +585,14 @@ such as we illustrate here.
 
 From the list of namespaces in `prefixes`, we can follow links a handful
 of established vocabularies and find terms that are not included in
-`add_basic_meta`.  For instance, in the `prism` prefix,
+`add_basic_meta`.  For instance, by resolving the location identified
+by the `prism` prefix,
 
 ```{r}
 prefixes["prism"]
 ```
 
-we see that there is a term for `modificationDate` for a file.  We create
+we will find that there is a term for `modificationDate` for a file.  We create
 a `meta` element containing this annotation using the `meta` function:
 
 ```{r}
