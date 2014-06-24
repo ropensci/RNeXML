@@ -281,14 +281,10 @@ nex <- nexml_read(f)
 The resulting `nex` object is an R object representation of the NeXML. This is 
 a native R object for representing phylogenetic trees (as well as 
 character traits, and metadata), analogous to the `phylo` object from the 
-popular `ape` R package `r citep(citation("ape"))`. 
-
-While R functions and packages could be written to use this `nexml` object
-directly, most users will prefer to 
-
-
-From this object we can extract any phylogenies it contains in the
-`ape::phylo` format:
+popular `ape` R package `r citep(citation("ape"))`. While R functions and packages 
+could be written to use this `nexml` object directly, most users will prefer to use
+already existing methods provided by packages they know. From `nex` object we can 
+therefore extract any phylogenies it contains in the `ape::phylo` format:
 
 ```{r}
 phy <- get_trees(nex)
