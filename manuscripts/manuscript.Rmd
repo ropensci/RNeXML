@@ -314,7 +314,7 @@ type is undesirable.  To always get back a list of `multiPhylo` objects,
 even when only one tree is available, use `get_trees_list()`.
 
 <!-- have we already said all this above?-->  <!-- no, seems appropriate to repeat here, -scott --> The ability to read in
-phylogenetic trees in the `nexml` format opens up a wide and rapidly
+phylogenetic trees in the NeXML format opens up a wide and rapidly
 growing array of resources to the R user.  For instance, a user can access
 all the phylogenies available in TreeBASE through the `nexml` format.
 `RNeXML` can read directly from a URL:
