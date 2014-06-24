@@ -679,7 +679,7 @@ names(meta)[1:4]
 ```
 
 and can ask for a particular element using the standard list subsetting
-mechanism (i.e. either the name of an element or it's numeric position),
+mechanism (i.e. either the name of an element or its numeric position),
 
 ```{r}
 meta[["dc:title"]]
