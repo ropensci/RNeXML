@@ -443,6 +443,8 @@ several levels:
 - Generic metadata (`add_meta`)
 - Extending the NeXML standard using RDFa
 
+<!-- in the Perl library I also embed the value of the environment variable
+$USER as a document-level annotation -->
 `RNeXML` automatically adds basic metadata by default such as a timestamp
 of when the tree was produced and an open data license (CC0, compatible
 with deposition on Dryad data repository), which can be configured
