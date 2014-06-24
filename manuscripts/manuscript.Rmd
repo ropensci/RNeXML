@@ -302,10 +302,10 @@ plot(phy[[1]])
 ```
 
 NeXML can not only contain multiple phylogenetic trees in a single document,
-but can also group sets of trees into separate blocks.  The `get_trees`
-function attempts to return the most sensible R object for NeXML: if
-only a single tree is available, it will return an `ape::phylo` object;
-if multiple trees are available in a single `trees` block, it will return
+but can also group sets of trees into separate blocks (e.g. as resulting from
+different workflows). The `get_trees` function attempts to return the most sensible 
+R object for NeXML: if only a single tree is available, it will return an `ape::phylo` 
+object; if multiple trees are available in a single `trees` block, it will return
 an `ape::multiPhylo` object (a list of `phylo` objects).  If multiple
 blocks are available, it will return a list of `multiPhylo` blocks.
 While most users will find this behavior convenient, there are times
