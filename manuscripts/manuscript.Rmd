@@ -509,9 +509,14 @@ geiger_nex <- add_basic_meta(geiger_nex, citation = bib_metadata("10.2307/240842
 other more specific metadata to various elements of the NeXML data.
 One common use case is that of taxonomic identifers.  Misspellings or
 inconsistent use of taxonomic names in phylogenetic data are a common
-source of frustration in reusing phylogenetic trees. By associating the
+source of frustration in reusing phylogenetic trees, especially when 
+integrating data from different sources: trees might come from one place
+that uses one taxonomy, character data and occurrence data might come from
+other places that use different taxonomies. Hence, not just misspellings, 
+but also synonyms, homonyms and incompatible taxon concepts might plague
+the end user. By associating the
 taxonomic labels against a specific, centralized database we can catch
-typographical errors and indicate more precisely which classification
+some of these inconsistencies and indicate more precisely which classification
 we are appealing to in the event of conflicting taxonomic definitions.
 In this example, we indicate that we intend the bird orders listed in
 the tree to correspond to the NCBI definitions
