@@ -550,7 +550,7 @@ phylogeny appears in the NeXML as:
       content="Phylogeny of the Orders of Birds From Sibley and Ahlquist"/> 
 ```
 
-We see the title appears as the `content` of this `meta` element.
+We see the title appears as the value of the `content` attribute of this `meta` element.
 The `id` attribute provides us with a unique way to refer to this meta
 element in this document.  The `datatype` tells us that the content
 is a text string (as opposed to, say, a numerical or boolean value).
