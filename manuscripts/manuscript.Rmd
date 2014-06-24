@@ -745,6 +745,7 @@ Consider a better example than this one:
 rdf <- get_rdf(birds)
 ```
 
+<!-- I think it is unwise to go here: RDF is not structured data -->
 Query the rdf using XPath expressions:
 
 ```{r}
