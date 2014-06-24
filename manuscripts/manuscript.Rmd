@@ -37,10 +37,10 @@ abstract: |
       data format and the extensive library of phylogenetic tools already
       available in R, with a particular emphasis on comparative methods.
 
-
       2. RNeXML is much richer than a basic parser: here we illustrate
       how the package facilitates adding and manipulating semantic 
-      annotations. 
+      annotations, that is annotations whose meaning can be defined externally
+      by way of semantic web technologies.
 
       3. An essential feature of NeXML is to provide both the flexibility
       to be continually extended to meet the emerging needs of the phylogenetics
