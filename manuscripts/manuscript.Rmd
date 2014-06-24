@@ -153,9 +153,9 @@ represent horizontal gene transfer or ambiguity in reading a character
 (such as a DNA sequence base pair).  This has led developers to
 repeatedly add small modifications to the standard to meet the needs
 of their own software, which results in mutually incompatible dialects
-that largely defeat the advantages of a shared standard file format.
+that largely defeat the advantages of a shared  file format.
 NeXML was developed to addresses each of these problems `r citep("Vos NeXML Systematic Biology")`  
-by drawing on state-of-the-art data management technology.
+by drawing on robust web standards in data representation.
 
 <!-- What do we need to say, if anything, about the current R formats?  about phylobase?  -->
 
