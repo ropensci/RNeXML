@@ -179,7 +179,7 @@ but inherits the limitations of the NEXUS format.
 
 `RNeXML` opens up a rich world of both currently available and rapidly
 growing data sets in the NeXML format to the R user and the large ecosystem
-of R packages currently avaliable for handling phylogenetic data  
+of R packages currently available for handling phylogenetic data  
 R packages and R users frequently add rich information to the phylogenies
 they work with, but need a platform independent data exchange format to
 share and archive this. We illustrate how NeXML can
