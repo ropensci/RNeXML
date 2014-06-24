@@ -505,7 +505,7 @@ geiger_nex <- add_basic_meta(geiger_nex, citation = bib_metadata("10.2307/240842
 
 ## Taxonomic identifiers
 
-`RNeXML` also provides various functions to assist in automatically adding
+`RNeXML` provides various functions to assist in automatically adding
 other more specific metadata to various elements of the NeXML data.
 One common use case is that of taxonomic identifers.  Misspellings or
 inconsistent use of taxonomic names in phylogenetic data are a common
