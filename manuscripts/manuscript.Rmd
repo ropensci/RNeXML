@@ -222,7 +222,7 @@ shown into their R terminal to follow along with the exmples shown.
 # Introduction to RNeXML
 
 
-A NeXML file can be thought of as having three components: (1) phylogeny
+A NeXML document can be thought of as having three components: (1) phylogeny
 data (2) character-trait data, and (3) metadata. `RNeXML` seeks to
 provide a seemless way to convert these to and from their corresponding
 R object representations, such as `ape::phylo` phylogenies, character
