@@ -356,7 +356,7 @@ Returns a `data.frame` with columns as characters and rows as
 taxa. Continuous and discrete characters are represented as seperate
 blocks in NeXML files, but will be combined as seperate columns of a
 single data frame by `get_characters()` if they correspond to the same
-taxa. The `get_characters_list()` function will consistently recieve
+taxa. The `get_characters_list()` function will consistently receive
 a list of data frames corresponding to each character matrix block of
 the NeXML.
 
