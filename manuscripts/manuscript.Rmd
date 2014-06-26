@@ -833,7 +833,7 @@ being assigned and the duration (in terms of branch-length) that the edge
 spends in that state (Stochastic character maps are specific to time-calibrated
 or ultrametric trees).  
 
-NeXML already defines the `characters` element to handle descrete character traits (`nex:char`)
+NeXML already defines the `characters` element to handle discrete character traits (`nex:char`)
 and the states they can assume (`nex:state`).  We will thus reuse the `characters` element for
 this purpose, referring to both the character trait and the states by the ids assigned to them
 in that element.  (NeXML's convention of referring to everything by id permits a single canonical
