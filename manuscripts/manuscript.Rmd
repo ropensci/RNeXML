@@ -1115,7 +1115,6 @@ packages `plyr` and `reshape2``r citep(c(citation("plyr"), citation("reshape2"))
 
 <!--  Find more consise way to make sure dependencies are cited. 
       How about citing packages that are only on the suggests list? --> 
---> 
 <!-- Possibly cite all dependencies and suggests from the DESCRIPTION --> 
 <!-- Reference any installation and configuration instructions necessary (e.g. API credentials for figshare) -->
 
