@@ -794,7 +794,7 @@ sparql.rdf(lib, "SELECT ?title WHERE { ?x <http://purl.org/dc/elements/1.1/title
 
 No data standard can anticipate all the uses and extensions researchers
 may one day need. Researchers have repeatedly adapted the existing NEXUS
-file format to accomidate encoding new kinds of information, but in the
+file format to accommodate encoding new kinds of information, but in the
 process break compatibility between different flavors of NEXUS files, with
 few reliable methods to distinguish between these flavors.  NeXML provides
 a solution to this problem through the use of metadata annotation.
