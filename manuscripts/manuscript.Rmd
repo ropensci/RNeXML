@@ -774,6 +774,11 @@ saveXML(rdf, "rdf_meta.xml") # rrdf requires a file name, so we must write the X
 lib <- load.rdf("rdf_meta.xml")
 ```
 
+<!-- it would be nice if we had a more persuasive example here. directly getting the value
+of some predicate can be done the syntax-oriented way by treating the data as XML. what I
+think we should be going for here is an example of a slightly more complex query that would
+be painful to perform by scanning the XML document. I'm thinking of some sort of join of
+multiple predicate values. Nothing great comes to mind yet, though... ->
 We can then make arbitrary SPARQL queries directly from R.  For instance,
 here is a simple query to extract the value of any `dc:title` element, analogous
 to the XPath expression above: 
