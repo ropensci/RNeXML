@@ -163,8 +163,8 @@ The R lanugage `r citep(citation())` has become an important enviroment for
 phylogenetics research, with over 30 packages available including several
 with over 1000 citations `r citep("http://cran.r-project.org/web/views/Phylogenetics.html")`,
 though stand-alone programs remain an important part of this ecosystem
-for tasks such as generating phylogenetic trees from sequence data.  
-Within this ecosystem a variety of different data formats for
+for tasks such as generating phylogenetic trees from sequence data.  Within 
+this ecosystem a variety of different data formats for
 phylogenetic data have been developed and modified. Most but not all 
 are based on the simple and popular `phylo` format provided by the
 ape package `r citep(citation("ape"))`. 
