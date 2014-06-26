@@ -764,7 +764,7 @@ The most powerful way to take advantage of the machine-readable nature
 of the metadata involves the construction of SPARQL queries. This
 approach can exploit the reasoning and logical deduction capacity of
 formal vocabularies (ontologies). For a proper introduction to SPARQL
-queries, see `r citet("Hartig Introduction to SPARQL")`.  Meanwhile, we just introduce the sytnax
+queries, see `r citet("Hartig Introduction to SPARQL")`.  Meanwhile, we just introduce the syntax
 necessary to apply such queries to NeXML files from R.  First we load
 the necessary R library `r citep(citation("rrdf"))` and import the RDF-extracted metadata:
 
