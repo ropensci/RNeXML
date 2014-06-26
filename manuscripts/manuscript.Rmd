@@ -983,8 +983,8 @@ S3 objects in R are likely familar with the use of the `$` operator, such as
 using numeric arguments such as `phy[[1]]` or named arguments such as phy[["edge"]]).  
 
 
-The `nexml` object is an S4 object, as are all of its components (slots).  It's 
-heirachical structure corresponds exactly with the XML tree of a NeXML file, with 
+The `nexml` object is an S4 object, as are all of its components (slots).  Its 
+hierarchical structure corresponds exactly with the XML tree of a NeXML file, with 
 the single exception that both XML attributes and children are represented as slots.  
 S4 objects have constructor functions to initialize them.  We create a new `nexml` 
 object with the command:
