@@ -1109,7 +1109,7 @@ the popular `phylo` format provided by the `ape` package `r citep(citation("ape"
 `RNeXML` can automatically check taxonomic names and add taxonomic
 identifiers when generating NeXML using methods from the `taxize` package `r citep(citation("taxize"))`.
 Unique identifiers are provided with the `uuid` package `r citep(citation("uuid"))`,
-and internet interfaces by the `r citep(citation("httr"))` package. The
+and internet interfaces by the `httr` package `r citep(citation("httr"))`. The
 packages `plyr` and `reshape2``r citep(c(citation("plyr"), citation("reshape2")))` are also imported for internal methods .
 
 
