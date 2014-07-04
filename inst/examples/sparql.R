@@ -12,10 +12,38 @@ root <- sparql.rdf(graph,
     }"               
 )
 
-# compose query to fetch the children of the root
-query <- paste("SELECT ?id WHERE { ?id <http://www.w3.org/2000/01/rdf-schema#subClassOf> <",root,"> }",sep="")
+# define a recursive function to build newick
+recurse <- function(node) {
+  
+    # fetch the taxonomic rank and id string
+    rank_query <- paste(
+        "SELECT ?rank ?id WHERE {
+            ?id <http://rs.tdwg.org/ontology/voc/TaxonConcept#toTaxon> <",node,"> .
+            ?id <http://rs.tdwg.org/ontology/voc/TaxonConcept#rank> ?rank
+          }",
+          sep=""
+    );
+    result <- sparql.rdf(graph,rank_query);
+  
+    # if rank is terminal, return the name
+    if ( result[1] == "http://rs.tdwg.org/ontology/voc/TaxonRank#Species" ) {
+        return result[2];
+    }
+  
+    # recurse deeper
+    else {
+        child_query <- paste(
+            "SELECT ?uri WHERE {
+                ?id <http://www.w3.org/2000/01/rdf-schema#subClassOf> <",node,"> .
+                ?id <http://rs.tdwg.org/ontology/voc/TaxonConcept#toTaxon> ?uri
+            }",
+            sep=""
+        );
+        children <- sparql.rdf(graph,child_query);
+        return paste( "(", paste( sapply( children, recurse ), sep="," ), ")", sep="");
+    }
+}
 
-# run the query
-children <- sparql.rdf(graph,query)
-
-# I will leave the recursive traversal as an exercise for the reader ;-)
+# run it
+newick <- paste( recurse(root), ";", sep="" );
+plot(read.tree(text=newick));
