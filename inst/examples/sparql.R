@@ -2,7 +2,7 @@ library(rrdf)
 library(ape)
 
 # load the graph as extracted from primates.xml by RDFa2RDFXML.xsl
-graph <- load.rdf("/Users/rvosa/Documents/projects/RNeXML/inst/examples/primates_meta_xslt.xml")
+graph <- load.rdf("/Users/rutger.vos/Documents/projects/RNeXML/inst/examples/primates_meta_xslt.xml")
 
 # fetch the NCBI URI for the taxon that has rank 'Order', i.e. the root of the primates. The dot operator
 # '.' between clauses implies a join, in this case
@@ -43,10 +43,10 @@ recurse <- function(node) {
             sep=""
         );
         children <- sparql.rdf(graph,child_query);
-        return( paste( "(", paste( sapply( children, recurse ), sep="," ), ")", sep="" ) );
+        return( paste( "(", paste( sapply( children, recurse ), sep=",", collapse="," ), ")", sep="", collapse="" ) );
     }
 }
 
 # run it
-newick <- paste( recurse(root), ";", sep="" );
+newick <- paste( recurse(root), ";", sep="", collapse="" );
 plot( read.tree( text=newick ) );
