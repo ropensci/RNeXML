@@ -1,8 +1,10 @@
 library(rrdf)
-library(ape)
+library(phytools)
+library(RNeXML)
 
 # load the graph as extracted from primates.xml by RDFa2RDFXML.xsl
 graph <- load.rdf("/Users/rutger.vos/Documents/projects/RNeXML/inst/examples/primates_meta_xslt.xml")
+nexml <- nexml_read("/Users/rutger.vos/Documents/projects/RNeXML/inst/examples/primates.xml")
 
 # fetch the NCBI URI for the taxon that has rank 'Order', i.e. the root of the primates. The dot operator
 # '.' between clauses implies a join, in this case
@@ -12,6 +14,18 @@ root <- sparql.rdf(graph,
         ?id <http://rs.tdwg.org/ontology/voc/TaxonConcept#toTaxon> ?uri    
     }"               
 )
+
+# get the name 
+get_name <- function(id) {
+    max <- length(nexml@otus[[1]]@otu)
+    for(i in 1:max) {
+        if ( nexml@otus[[1]]@otu[[i]]@id == id ) {
+            label <- nexml@otus[[1]]@otu[[i]]@label
+            label <- gsub(" ","_",label)
+            return(label)
+        }
+    }
+}
 
 # define a recursive function to build newick
 recurse <- function(node) {
@@ -23,14 +37,16 @@ recurse <- function(node) {
             ?id <http://rs.tdwg.org/ontology/voc/TaxonConcept#rank> ?rank
           }",
           sep=""
-    );
-    result <- sparql.rdf(graph,rank_query);    
-  
+    )
+    result <- sparql.rdf(graph,rank_query)
+    
+    # get the local ID, strip URI part
+    id <- result[2]
+    id <- gsub("^.+#","",id,perl=TRUE)
+    
     # if rank is terminal, return the name
     if ( result[1] == "http://rs.tdwg.org/ontology/voc/TaxonRank#Species" ) {
-        name <- result[2];
-        name <- gsub("^.+#","",name,perl=TRUE);
-        return(name);
+        return(get_name(id))
     }
     
     # recurse deeper
@@ -41,12 +57,16 @@ recurse <- function(node) {
                 ?id <http://rs.tdwg.org/ontology/voc/TaxonConcept#toTaxon> ?uri
             }",
             sep=""
-        );
-        children <- sparql.rdf(graph,child_query);
-        return( paste( "(", paste( sapply( children, recurse ), sep=",", collapse="," ), ")", sep="", collapse="" ) );
+        )
+        children <- sparql.rdf(graph,child_query)
+        
+        # the newick can be made to contain interior node labels by inserting get_name(id), before the sep="" argument
+        return( paste( "(", paste( sapply( children, recurse ), sep=",", collapse="," ), ")", sep="", collapse="" ) )
     }
 }
 
-# run it
-newick <- paste( recurse(root), ";", sep="", collapse="" );
-plot( read.tree( text=newick ) );
+# build the tree and visualize it
+newick <- paste( recurse(root), ";", sep="", collapse="" )
+tree <- read.newick( text=newick )
+collapsed <- collapse.singles( tree )
+plot( collapsed, type="cladogram" )
