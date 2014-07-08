@@ -1,6 +1,6 @@
 ---
-layout: preprint
-#layout: review, 11pt
+#layout: preprint
+layout: review, 11pt
 title: "RNeXML: Parsing and Serializing the Next Generation of Phyloinformatic Data in R"
 author: 
   - name: Carl Boettiger
@@ -745,21 +745,6 @@ Consider a better example than this one:
 rdf <- get_rdf(birds)
 ```
 
-<!-- I think it is unwise to go here: RDF is not structured data -->
-Query the rdf using XPath expressions:
-
-```{r}
-library("XML")
-xpathSApply(rdf, "//dc:title", xmlValue) 
-```
-
-XPath is an expressive syntax for querying XML-structured data such
-as RDF.  Queries using the XPath syntax are possible in R using the
-XML library `r citep(citation("XML"))`.  (Note that XPath is far more
-expressive for querying the metadata once the RDFa has been extracted,
-since attribute values are now interpreted as namespaced XML nodes and
-not just arbitrary text.)
-
 The most powerful way to take advantage of the machine-readable nature
 of the metadata involves the construction of SPARQL queries. This
 approach can exploit the reasoning and logical deduction capacity of
@@ -774,11 +759,12 @@ saveXML(rdf, "rdf_meta.xml") # rrdf requires a file name, so we must write the X
 lib <- load.rdf("rdf_meta.xml")
 ```
 
-<!-- it would be nice if we had a more persuasive example here. directly getting the value
+<!-- FIXME it would be nice if we had a more persuasive example here. directly getting the value
 of some predicate can be done the syntax-oriented way by treating the data as XML. what I
 think we should be going for here is an example of a slightly more complex query that would
 be painful to perform by scanning the XML document. I'm thinking of some sort of join of
 multiple predicate values. Nothing great comes to mind yet, though... ->
+
 We can then make arbitrary SPARQL queries directly from R.  For instance,
 here is a simple query to extract the value of any `dc:title` element, analogous
 to the XPath expression above: 
@@ -902,7 +888,7 @@ do themselves without expertise in RDFa or XML, but also to be a good
 model case that doesn't cut corners. @cboettig -->
 
 <!-- I don't see how this could be improved much without forcing people
-to fire op protege (let's not!). As it happens, the Dublin Core URI, 
+to fire up protege (let's not!). As it happens, the Dublin Core URI, 
 for example, points to an HTML page so even in that case automatic 
 reasoners would not be able to consume the vocabulary and draw inferences
 about, e.g. identity of predicates (owl:sameAs and such). @rvosa -->
@@ -953,120 +939,6 @@ data to the user.
 
 
 
-<!--
-[Revell 2011]: http://doi.org/10.1111/j.2041-210X.2011.00169.x
-[Huelsenbeck et al 2003]: http://doi.org/10.1080/10635150390192780 "Stochastic Mapping of Morphological Characters"
-[Bollback 2006]: http://doi.org/10.1186/1471-2105-7-88 "SIMMAP: stochastic character mapping of discrete traits on phylogenies."
--->
-
-
-
-
-<!-- Consider moving to the supplement? -->
-
-## Understanding the `nexml` S4 object
-
-The `RNeXML` package provides many convenient functions to add and extract
-information from `nexml` objects in the R environment without requiring
-the reader to understand the details of the NeXML data structure and
-making it less likely that a user will generate invalid NeXML syntax
-that could not be read by other parsers. The `nexml` object we have been using
-in all of the examples is built on R's S4 mechanism. Advanced users may
-sometimes prefer to interact with the data structure more directly using 
-R's S4 class mechanism and subsetting methods. Many R users are more familiar
-with the S3 class mechanism (such as in the `ape` package phylo objects)
-rather than the S4 class mechanism used in phylogenetics packages such as 
-`ouch` and `phylobase`. The `phylobase` vignette provides an excellent introduction
-to these data structures.  Users already familiar with subsetting lists and other
-S3 objects in R are likely familar with the use of the `$` operator, such as
-`phy$edge`. S4 objects simply use an `@` operator instead (but cannot be subset
-using numeric arguments such as `phy[[1]]` or named arguments such as phy[["edge"]]).  
-
-
-The `nexml` object is an S4 object, as are all of its components (slots).  Its 
-hierarchical structure corresponds exactly with the XML tree of a NeXML file, with 
-the single exception that both XML attributes and children are represented as slots.  
-S4 objects have constructor functions to initialize them.  We create a new `nexml` 
-object with the command:
-
-```{r}
-nex <- new("nexml")
-```
-
-We can see a list of slots contained in this object with
-
-```{r}
-slotNames(nex)
-```
-
-Some of these slots have already been populated for us, for instance, the schema version and default namespaces:
-
-```{r}
-nex@version
-nex@namespaces
-```
-
-Recognize that `nex@namespaces` serves the same role as `get_namespaces` function, but provides direct access to the slot data.  For instance, with this syntax we could also overwrite the existing namespaces with `nex@namespaces <- NULL`.  Changing the namespace in this way is not advised.
-
-Some slots can contain multiple elements of the same type, such as `trees`, `characters`, and `otus`.  For instance, we see that 
-
-```{r}
-class(nex@characters)
-```
-
-is an object of class `ListOfcharacters`, and is currently empty,
-
-```{r}
-length(nex@characters)
-```
-
-In order to assign an object to a slot, it must match the class definition
-of the slot.  We can create a new element of any given class with the
-`new` function,
-
-```{r}
-nex@characters <- new("ListOfcharacters", list(new("characters")))
-```
-
-and now we have a length-1 list of character matrices,
-
-```{r}
-length(nex@characters)
-```
-
-and we access the first character matrix using the list notation, `[[1]]`. Here we check the class is a `characters` object.  
-
-```{r}
-class(nex@characters[[1]])
-```
-
-Direct subsetting has two primary use cases: (a) useful in looking up (and possibly editing) a specific value of an element, or (b) when adding metadata annotations to specific elements. Consider the example file
-
-
-```{r}
-f <- system.file("examples", "trees.xml", package="RNeXML")
-nex <- nexml_read(f)
-```
-
-We can look up the species label of the first `otu` in the first `otus` block:
-
-```{r}
-nex@otus[[1]]@otu[[1]]@label
-```
-
-We can add metadata to this particular OTU using this subsetting format
-
-```{r}
-nex@otus[[1]]@otu[[1]]@meta <- 
-  c(meta("skos:note", 
-          "This species was incorrectly identified"),
-         nex@otus[[1]]@otu[[1]]@meta)
-```
-
-Here we use the `c` operator to append this element to any existing meta annotations to this otu.  
-
-
-
 
 ## Publishing NeXML files from R
 
@@ -1096,49 +968,6 @@ publication that provides a way to backup and share data with collaborators
 prior to public release.  
 
 <!-- Wouldn't it be nice to publish to Dryad or TreeBASE in this way?  -->
-
-
-
-# Implementation, architecture and quality control
-
-
-The `RNeXML` package is built for the NeXML Schema, [version 2009],
-using the R software environment and the XML package for parsing and
-generating XML `r citep(citation("XML"))`,  provides conversions into
-the popular `phylo` format provided by the `ape` package `r citep(citation("ape"))`
-`RNeXML` can automatically check taxonomic names and add taxonomic
-identifiers when generating NeXML using methods from the `taxize` package `r citep(citation("taxize"))`.
-Unique identifiers are provided with the `uuid` package `r citep(citation("uuid"))`,
-and internet interfaces by the `httr` package `r citep(citation("httr"))`. The
-packages `plyr` and `reshape2``r citep(c(citation("plyr"), citation("reshape2")))` are also imported for internal methods .
-
-
-<!--  Find more consise way to make sure dependencies are cited. 
-      How about citing packages that are only on the suggests list? --> 
-<!-- Possibly cite all dependencies and suggests from the DESCRIPTION --> 
-<!-- Reference any installation and configuration instructions necessary (e.g. API credentials for figshare) -->
-
-
-The `RNeXML` package performs several levels of validation on NeXML files
-written from or read into R: validating the XML, and validating against
-the current NeXML schema, and performing additional checks through the 
-NeXML online validation tool for elements that cannot be enforced by
-schema validation alone.  Validation serves to improve consistency in
-data encoding which facilitates the use of NeXML across a wide variety
-of platforms and software.  A lack of a consistent standard and validation
-mechanism has continually plagued the current NEXUS standard and made 
-interoperability difficult [@Vos_2012].  
-
-Several mechanisms are in place to evaluate the quality of the `RNeXML`
-package functions themselves.  In addition to the examples from the
-documentation and the automated package checks provided for the R system,
-the `RNeXML` package includes a complete test suite using the `testthat`
-package `r citep(citation("testthat"))`. Package development on Github includes continuous 
-integration through the `travis` platform, in which the full test suite
-is run every time the code is changed.  This not only gives users confidence
-that the development copy can be successfully installed, but should assist
-other developers seeking to contribute to the package to test that their proposed 
-changes have not negatively impacted any of the existing code base.  
 
 
 # Software reuse and support
@@ -1196,32 +1025,6 @@ However there is no way to guarentee that this is the case or for the
 data format to describe its use.
 
 
-
-
-
-
-
-<!-- MISC / SCRATCH
-
-What to say about existing formats?  
-A summary of some phylogenetic formats in R:
-
-| Class     | R package   | R Object 
-|-----------|-------------|-------
-| phylo     | ape         | S3 
-| phylo4    | phylobase   | S4
-| phylo4d   | adephylo    | S4
-| ouchtree  | ouch        | S4 
-| treeshape | apTreeshape | list 
-
-
-See [phylobase vignette, 2010]
-
-phylobase::phylo4 was an attempt to solve the problems associated with
-the popular ape::phylo format (unpredictable errors, loose and multiple
-conflicting specifications).
-
--->
 
 
 
