@@ -3,8 +3,9 @@ library(phytools)
 library(RNeXML)
 
 # load the graph as extracted from primates.xml by RDFa2RDFXML.xsl
-graph <- load.rdf("/Users/rutger.vos/Documents/projects/RNeXML/inst/examples/primates_meta_xslt.xml")
-nexml <- nexml_read("/Users/rutger.vos/Documents/projects/RNeXML/inst/examples/primates.xml")
+graph <- load.rdf(system.file("examples/primates_meta_xslt.xml", package="RNeXML"))
+nexml <- nexml_read(system.file("examples/primates.xml", package="RNeXML"))
+
 
 # fetch the NCBI URI for the taxon that has rank 'Order', i.e. the root of the primates. The dot operator
 # '.' between clauses implies a join, in this case
