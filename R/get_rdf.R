@@ -7,14 +7,11 @@
 #'   SPARQL queries from the rrdf R package.  
 #' @export
 #' @import httr XML
+# @import Xslt # not yet
 #' @examples \dontrun{
 #' f <- system.file("examples", "meta_example.xml", package="RNeXML")
 #' rdf <- get_rdf(f)
 #'
-#' ## Query the rdf with XPath:
-#' library(XML)
-#' xpathSApply(rdf, "//dc:title", xmlValue) 
-#' 
 #' ## Write to a file and read in with rrdf
 #' saveXML(rdf, "rdf_meta.xml")
 #' library(rrdf)
@@ -24,18 +21,23 @@
 #' sparql.rdf(lib, "SELECT ?title WHERE { ?x <http://purl.org/dc/elements/1.1/title> ?title}")
 #' }
 get_rdf <- function(file){
-  clean <- FALSE
-  if(is(file, "nexml")){
-    write.nexml(file, file = "tmpnexmlrdf.xml")
-    clean <- TRUE
-    file <- "tmpnexmlrdf.xml"
+
+  success <- require("Sxslt", , 
+                     character.only = TRUE, 
+                     quietly = TRUE) # Wait until package is available on CRAN to formally depend on it.  
+
+  if(success){
+    if(is(file, "nexml")){
+      file <- nexml_write(file)
+    }
+    to_rdf <- system.file("examples", "RDFa2RDFXML.xsl", package="RNeXML")
+    rdf <- xsltApplyStyleSheet(file, to_rdf)
+  } else {
+    warning("Package SXslt not available, please install it from www.omegahat.org") 
   }
-  response <- POST("http://rdf-translator.appspot.com/convert/rdfa/xml/content", 
-                   body=list(content=upload_file(file)))
-  doc <- content(response, "parsed", "text/xml")
-  if(clean)
-    unlink("tmpnexmlrdf.xml")
-  doc
+  
 }
+
+
 
 

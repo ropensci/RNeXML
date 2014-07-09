@@ -20,7 +20,8 @@ Suggests:
     knitr (>= 1.5),
     testthat (>= 0.8.1),
     rfigshare (>= 0.3.0),
-    knitcitations (>= 1.0.1)
+    knitcitations (>= 1.0.1),
+    Sxslt
 Depends:
     R (>= 3.0.0),
     ape (>= 3.1),

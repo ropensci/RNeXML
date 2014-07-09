@@ -7,6 +7,7 @@ before_script:
 - sudo apt-get update -qq
 - ./travis-tool.sh bootstrap
 - ./travis-tool.sh install_r_binary geiger phytools knitr testthat rfigshare ape plyr taxize reshape2 httr rjava 
+- Rscript -e 'install.packages("Sxslt", repos="http://www.omegahat.org/R", type="source")'
 - ./travis-tool.sh install_deps
 - ./travis-tool.sh install_github cboettig/knitcitations@v1
 notifications:

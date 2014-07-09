@@ -4,9 +4,7 @@ test_that("we can extract rdf-xml", {
 
  f <- system.file("examples", "meta_example.xml", package="RNeXML")
  rdf <- get_rdf(f)
-
- ## Query the rdf with XPath: 
- out <- xpathSApply(rdf, "//dc:title", xmlValue) 
+ expect_is(rdf, "XMLInternalXSLTDocument")
 
 })
 
