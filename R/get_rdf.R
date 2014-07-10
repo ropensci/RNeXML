@@ -28,14 +28,16 @@ get_rdf <- function(file){
 
   if(success){
     if(is(file, "nexml")){
-      file <- nexml_write(file)
+      who <- tempfile()
+      nexml_write(x=file, file=who)
+      file <- who
     }
     to_rdf <- system.file("examples", "RDFa2RDFXML.xsl", package="RNeXML")
     rdf <- xsltApplyStyleSheet(file, to_rdf)
   } else {
     warning("Package SXslt not available, please install it from www.omegahat.org") 
   }
-  
+  rdf  
 }
 
 
