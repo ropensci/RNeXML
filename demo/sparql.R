@@ -6,7 +6,7 @@ library(RNeXML)
 nexml <- nexml_read(system.file("examples/primates.xml", package="RNeXML"))
 
 # Extract the RDF graph from the nexml
-rdf <- get_rdf(nexml)
+rdf <- get_rdf(system.file("examples/primates.xml", package="RNeXML"))
 saveXML(rdf, "rdf_meta.xml") # rrdf requires a file name, so we must write the XML out first
 graph <- load.rdf("rdf_meta.xml")
 
