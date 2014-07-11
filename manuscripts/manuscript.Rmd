@@ -61,7 +61,7 @@ documentclass: components/elsarticle
 output: 
   pdf_document:
     template: components/elsarticle.latex
-    keep_tex: false
+    keep_tex: true
     fig_caption: true
 
 
@@ -85,7 +85,7 @@ Map/Outline:
 
   - Metadata
     - Adding basic metadata
-    - Adding taxonomic identifers
+    - Adding taxonomic identifiers
     - Adding Generic metadata
     - Parsing metadata. XML. RDF.
     - Extending NeXML with metadata: Example defining simmap stochastic character mappings.  
@@ -118,7 +118,6 @@ cite_options(citation_format = "pandoc", check.entries=FALSE)
 
 # Introduction
 
-<!-- Need to say some of this stuff without repeating too much of existing literature -->
 
 
 Though R provides the most extensive and widely used collection of
@@ -131,7 +130,7 @@ use of such data has introduced many new challenges and opportunities
 to sharing this information both between software environments and 
 between research groups `r citep(c("Drew PLOS Biology Tree of Life 2013", "10.1186/1756-0500-5-574"))`.  
 
-<!-- FIXME -->  
+<!-- FIXME 
 
 ADD STUFF ABOUT:
 
@@ -142,11 +141,13 @@ ADD STUFF ABOUT:
 and other things all need to come from separate files and need to be
 joined on taxon labels.
 
+-->
+
 The ever expanding needs of the phylogenetics community are rapidly
 out-pacing the capacity of current standards, which is resulting in a
 radiation of different data representations and a loss of interoperability
-at the very time when the growth of available data and mehtods has made
-that interoprability most valuable.
+at the very time when the growth of available data and methods has made
+that interoperability most valuable. 
 
 For example, the currently popular NEXUS file format cannot consistently
 represent horizontal gene transfer or ambiguity in reading a character
@@ -156,10 +157,15 @@ of their own software, which results in mutually incompatible dialects
 that largely defeat the advantages of a shared  file format.
 NeXML was developed to addresses each of these problems `r citep("Vos NeXML Systematic Biology")`  
 by drawing on robust web standards in data representation.
+The design and expressiveness of NeXML makes it much easier to meet
+the rising bar for best practices in data sharing in phylogenetic 
+research `r citep("10.1371/currents.tol.bf01eff4a6b60ca4825c69293dc59645")`.  
+
+
 
 <!-- What do we need to say, if anything, about the current R formats?  about phylobase?  -->
 
-The R lanugage `r citep(citation())` has become an important enviroment for 
+The R language `r citep(citation())` has become an important environment for 
 phylogenetics research, with over 30 packages available including several
 with over 1000 citations `r citep("http://cran.r-project.org/web/views/Phylogenetics.html")`,
 though stand-alone programs remain an important part of this ecosystem
@@ -209,7 +215,7 @@ structures automatically.  We end with an example that uses metadata to
 extend the NeXML standard to describe stochastic character mapping, one
 of the kinds of data annotation that is currently available in R formats
 but lacks a consistent, extensible export format. We illustrate how NeXML
-files can be formally published to a data respository directly from R.
+files can be formally published to a data repository directly from R.
 Finally, we provide an brief description of how the software has been
 implemented, what quality control measures are in place, as well as
 information about software reuse and getting support.
@@ -224,7 +230,7 @@ shown into their R terminal to follow along with the exmples shown.
 
 A NeXML document can be thought of as having multiple components: (1) phylogeny
 data (2) character-trait data, (3) operational taxonomic units, and (4) metadata. 
-`RNeXML` seeks to provide a seemless way to convert these to and from their 
+`RNeXML` seeks to provide a seamless way to convert these to and from their 
 corresponding R object representations, such as `ape::phylo` phylogenies, character
 matrices (`data.frames`) and metadata lists (or for advanced users,
 `XMLInternalDocument` and `rrdf` triplestores). Metadata can provide
@@ -317,17 +323,16 @@ While most users will find this behavior convenient, there are times
 type is undesirable.  To always get back a list of `multiPhylo` objects,
 even when only one tree is available, use `get_trees_list()`.
 
-<!-- have we already said all this above?-->  <!-- no, seems appropriate to repeat here, -scott --> The ability to read in
-phylogenetic trees in the NeXML format opens up a wide and rapidly
-growing array of resources to the R user.  For instance, a user can access
-all the phylogenies available in TreeBASE through the `nexml` format.
-`RNeXML` can read directly from a URL:
+The ability to read in phylogenetic trees in the NeXML format opens up a
+wide and rapidly growing array of resources to the R user.  For instance,
+a user can access all the phylogenies available in TreeBASE through the
+`nexml` format.  `RNeXML` can read directly from a URL:
 
 ```{r eval=FALSE}
 nex = nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
 ```
 
-Previously, this was possible using the `treebase` package `r citep("Boettiger Temple Lang treebase 2012")`.
+Previously, this was possible using the `treebase` package `r citep("Boettiger Temple Lang treebase 2012")`
 for R, which relied on the NEXUS parser provided in the `ape` package.
 Due to inconsistencies present in the NEXUS standard `r citep("Vos NeXML 2012")`, 
 a significant number <!-- State explicitly --> of TreeBASE NEXUS
@@ -353,8 +358,8 @@ get_characters(nex)
 ```
 
 Returns a `data.frame` with columns as characters and rows as
-taxa. Continuous and discrete characters are represented as seperate
-blocks in NeXML files, but will be combined as seperate columns of a
+taxa. Continuous and discrete characters are represented as separate
+blocks in NeXML files, but will be combined as separate columns of a
 single data frame by `get_characters()` if they correspond to the same
 taxa. The `get_characters_list()` function will consistently receive
 a list of data frames corresponding to each character matrix block of
@@ -445,7 +450,7 @@ several levels:
 
 <!-- in the Perl library I also embed the value of the environment variable
 $USER as a document-level annotation -->
-`RNeXML` automatically adds basic metadata by default such as a timestamp
+`RNeXML` automatically adds basic metadata by default such as a time-stamp
 of when the tree was produced and an open data license (CC0, compatible
 with deposition on Dryad data repository), which can be configured
 as needed.  
@@ -507,19 +512,19 @@ geiger_nex <- add_basic_meta(geiger_nex, citation = bib_metadata("10.2307/240842
 
 `RNeXML` provides various functions to assist in automatically adding
 other more specific metadata to various elements of the NeXML data.
-One common use case is that of taxonomic identifers.  Misspellings or
+One common use case is that of taxonomic identifiers.  Misspellings or
 inconsistent use of taxonomic names in phylogenetic data are a common
-source of frustration in reusing phylogenetic trees, especially when 
+source of frustration in reusing phylogenetic trees, especially when
 integrating data from different sources: trees might come from one place
 that uses one taxonomy, character data and occurrence data might come from
-other places that use different taxonomies. Hence, not just misspellings, 
+other places that use different taxonomies. Hence, not just misspellings,
 but also synonyms, homonyms and incompatible taxon concepts might plague
-the end user. By associating the
-taxonomic labels against a specific, centralized database we can catch
-some of these inconsistencies and indicate more precisely which classification
-we are appealing to in the event of conflicting taxonomic definitions.
-In this example, we indicate that we intend the bird orders listed in
-the tree to correspond to the NCBI definitions
+the end user. By associating the taxonomic labels against a specific,
+centralized database we can catch some of these inconsistencies and
+indicate more precisely which classification we are appealing to in the
+event of conflicting taxonomic definitions.  In this example, we indicate
+that we intend the bird orders listed in the tree to correspond to the
+NCBI definitions
 
 ```{r message=FALSE, results='hide'}
 birds <- taxize_nexml(birds, "NCBI")
@@ -538,7 +543,7 @@ errors in the taxonomic labels provided.
 
 So far our examples have relied on functions that have a built-in
 understanding of the kind of metadata being provided, and can thus
-generate the appropriate metadata with little further guidence.
+generate the appropriate metadata with little further guidance.
 In order to be machine-readable and understandable, NeXML requires
 all metadata annotations follow the RDFa format (see @Vos_2012) which
 explicitly declares the meaning of the annotation in a way a computer
@@ -565,7 +570,7 @@ prefixes <- get_namespaces(birds)
 prefixes["dc"]
 ```
 
-This URL links us to a webpage providing both a human and machine-readable
+This URL links us to a web page providing both a human and machine-readable
 version of precisely what the term `title` means, showing us that it
 refers to `title` in the sense of a creative work, rather than the title
 of a person, a legal title, the verb title, etc.  This precision can allow
@@ -599,9 +604,9 @@ a `meta` element containing this annotation using the `meta` function:
 modified <- meta(property = "prism:modificationDate", content = "2013-10-04")
 ```
 
-We can add this annotation to our existing `birds` nexml file using the
+We can add this annotation to our existing `birds` NeXML file using the
 `add_meta` function.  Because we do not specify a level, it is added to
-the root node, refering to the nexml file as a whole.
+the root node, referring to the NeXML file as a whole.
 
 ```{r}
 birds <- add_meta(modified, birds) 
@@ -618,7 +623,7 @@ history <- meta(property = "skos:historyNote",
 
 Because `skos` is not in the current namespace list, we add it with a
 url when adding this meta element.  We also specify that this annotation
-be placed at the level of the `trees` subnode in the NeXML file.
+be placed at the level of the `trees` sub-node in the NeXML file.
 
 ```{r}
 birds <- add_meta(history, 
@@ -627,26 +632,11 @@ birds <- add_meta(history,
                 namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#"))
 ```
 
-<!-- does this mean we can use CURIEs whose prefix has not yet been 
-bound to a namespace? that would be bad. there should probably be an
-error message when that happens -->
-If we forget to add the namespace with add_meta, we can always add it
-later using the `add_namespaces` function,
 
-
-```{r}
-birds <- add_namespaces(c(skos = "http://www.w3.org/2004/02/skos/core#"), birds)
-```
-
-Note that the `add_namespaces` function will automatically avoid creating
-any duplicate definitions. 
 For finer control of the level at which a `meta` element is added,
-we will manipulate the nexml R object directly using S4 subsetting,
-as shown later.
+we will manipulate the `nexml` R object directly using S4 sub-setting,
+as shown in the supplement.
 
-<!--FIXME Ugh. y'all have much more practice explaining this well and without tangents, 
-so please feel free to edit or re-write.  -->
-<!-- I am not quite sure what points we are trying to make here -->
 
 Much richer metadata annotation is possible. Later we illustrate how
 metadata annotation can be used to extend the base NeXML format to
@@ -658,7 +648,7 @@ without imposing a large burden on the user.
 
 ## Reading NeXML metadata
 
-A call to the nexml object prints some metadata summarizing the data structure: 
+A call to the `nexml` object prints some metadata summarizing the data structure: 
 
 ```{r }
 birds
@@ -678,7 +668,7 @@ of metadata recorded from the names (showing the first 4):
 names(meta)[1:4]
 ```
 
-and can ask for a particular element using the standard list subsetting
+and can ask for a particular element using the standard list sub-setting
 mechanism (i.e. either the name of an element or its numeric position),
 
 ```{r}
@@ -696,12 +686,6 @@ prefixes <- get_namespaces(birds)
 prefixes["dc"]
 ```
 
-<!-- I feel like we already covered what dc:title is -->
-Following the link we can see that `dc` refers to the "Dublin Core"
-vocabulary, and the term `title` refers to the title of a creative work
-(as opposed to the title of a person, a legal title, the verb title, etc).
-Such explicit definitions allow a computer to reason about these objects,
-as we shall see later.  
 
 <!-- the citations run off the page -->
 Common metadata can be accessed with a few dedicated functions:
@@ -731,49 +715,28 @@ otu_meta[1:4]
 
 This approach does not preserve the relationship between the metadata element and the 
 `otu` it was annotating, and as such is most useful for quick visual exploration. 
-Metadata values for specific elements or sets of elemetns can always be accessed using
-the S4 subsetting mechanisms (see section below).  
+Metadata values for specific elements or sets of elements can always be accessed using
+the S4 sub-setting mechanisms (see section below).  
 
 
 
 ## RDF manipulation and SPARQL queries 
 
-Consider a better example than this one: 
-
-
-```{r}
-rdf <- get_rdf(birds)
-```
-
 The most powerful way to take advantage of the machine-readable nature
 of the metadata involves the construction of SPARQL queries. This
 approach can exploit the reasoning and logical deduction capacity of
 formal vocabularies (ontologies). For a proper introduction to SPARQL
-queries, see `r citet("Hartig Introduction to SPARQL")`.  Meanwhile, we just introduce the syntax
-necessary to apply such queries to NeXML files from R.  First we load
-the necessary R library `r citep(citation("rrdf"))` and import the RDF-extracted metadata:
+queries, see `r citet("http://www.w3.org/TR/rdf-sparql-query/")` and
+`r citet("Hartig Introduction to SPARQL")`.  
 
-```{r}
-library("rrdf")
-saveXML(rdf, "rdf_meta.xml") # rrdf requires a file name, so we must write the XML out first
-lib <- load.rdf("rdf_meta.xml")
-```
-
-<!-- FIXME it would be nice if we had a more persuasive example here. directly getting the value
-of some predicate can be done the syntax-oriented way by treating the data as XML. what I
-think we should be going for here is an example of a slightly more complex query that would
-be painful to perform by scanning the XML document. I'm thinking of some sort of join of
-multiple predicate values. Nothing great comes to mind yet, though... ->
-
-We can then make arbitrary SPARQL queries directly from R.  For instance,
-here is a simple query to extract the value of any `dc:title` element, analogous
-to the XPath expression above: 
-
-```{r}
-sparql.rdf(lib, "SELECT ?title WHERE { ?x <http://purl.org/dc/elements/1.1/title> ?title}")
-```
-
-
+The real expressiveness of SPARQL is better illustrated through more
+complex examples such as the one shown in the supplementary materials
+(which can also be run from R using the command: `demo("sparql", "RNeXML")`).
+This demonstration constructs a cladogram based on the taxonomic ranks
+provided in the NeXML. SPARQL allows us to make explicit use of ontological
+concepts such as manipulating sub-classes (i.e. that "Genus" is a subclass 
+of "Family"), or joining multiple predicates (i.e. retrieve the NCBI identifier
+of the OTU that has taxon rank of "Order").  
 
 
 ## Extending the NeXML standard through metadata annotation.
@@ -841,7 +804,7 @@ need to indicate:
       data explicit, rather than relying on the structure of the data file to
       convey information).  
 
-Thus the the annotation for an edge that switches from state `s2` to state 
+Thus the annotation for an edge that switches from state `s2` to state 
 `s1` of character `cr1` would be constructed like this:
 
 ```{r}
@@ -882,23 +845,11 @@ nex <- add_namespaces(c(simmap = "https://github.com/ropensci/RNeXML/tree/master
 
 At that URL we have posted a simple description of each term. 
 
-<!-- How could this be improved? Should we use something more formal? 
-We want this example to be something other users could reasonably
-do themselves without expertise in RDFa or XML, but also to be a good
-model case that doesn't cut corners. @cboettig -->
-
-<!-- I don't see how this could be improved much without forcing people
-to fire up protege (let's not!). As it happens, the Dublin Core URI, 
-for example, points to an HTML page so even in that case automatic 
-reasoners would not be able to consume the vocabulary and draw inferences
-about, e.g. identity of predicates (owl:sameAs and such). @rvosa -->
-
-
 Using this convention we can generate NeXML files containing simmap
 data, read those files into R, and convert them back into the `phytools`
 package format. These simple functions serve as further illustration of
 how `RNeXML` can be used to extend the NeXML standard.  We illustrate
-their use briefly here, starting with  loading a nexml object containing
+their use briefly here, starting with  loading a `nexml` object containing
 a simmap reconstruction into R:
 
 
@@ -923,7 +874,7 @@ library("phytools")
 plotSimmap(phy)
 ```
 
-Likewise, we can convert the object back in the nexml format and write
+Likewise, we can convert the object back in the NeXML format and write
 it out to file to be read by other users. 
 
 ```{r}
@@ -956,18 +907,10 @@ by providing functions to immediately archive NeXML files in scientific reposito
 doi <- nexml_publish(birds, visibility = "public", repository="figshare")
 ```
 
-
-_Show downloading the nexml file directly from figshare, explain value
-of global paths instead of personal directory paths appearing in scripts, etc_
-
-
-
 Robust data archiving need not involve immediate release of the data. The `figshare` 
 repository supports the option of `visibility = "private"`, allowing secure 
 publication that provides a way to backup and share data with collaborators 
 prior to public release.  
-
-<!-- Wouldn't it be nice to publish to Dryad or TreeBASE in this way?  -->
 
 
 # Software reuse and support
@@ -1021,7 +964,7 @@ for users familiar with the somewhat analogous `read.nexus` function.
 [^3]: By using the commenting mechanism of the Newick format, it is
 possible that other software that doesn't also use the comment mechanism
 for some other such purpose would be able to successfully parse the tree.
-However there is no way to guarentee that this is the case or for the
+However there is no way to guarantee that this is the case or for the
 data format to describe its use.
 
 
