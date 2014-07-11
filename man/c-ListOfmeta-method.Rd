@@ -22,6 +22,6 @@ Concatenate ListOfmeta elements into a ListOfmeta
 metalist <- c(meta(content="example", property="dc:title"),
               meta(content="Carl", property="dc:creator"))
 out <- c(metalist, metalist)
-out <- c(metalist, meta(content="a", propery="b"))
+out <- c(metalist, meta(content="a", property="b"))
 }
 

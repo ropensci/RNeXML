@@ -80,6 +80,9 @@ test_that("we can concatenate two ListOfmeta elements", {
 
 test_that("we can concatenate a ListOfmeta and a meta", {
 
+  metalist <- c(meta(content="example", property="dc:title"),
+                meta(content="Carl", property="dc:creator"))
+
   out <- c(metalist, meta(content="a", property="b")) 
   expect_is(out, "ListOfmeta")
   expect_is(out[[1]], "meta")
