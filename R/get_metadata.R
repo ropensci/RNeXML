@@ -45,9 +45,10 @@ get_metadata <-  function(nexml, level="nexml"){
 ## Using newXMLDoc(object) leads invariably to segfaults....
 ## safer to write out and parse.  
 setxpath <- function(object){
-            suppressWarnings(saveXML(object, "tmp.xml"))
-            doc <- xmlParse("tmp.xml")
-            unlink("tmp.xml")
+            tmp <- tempfile()
+            suppressWarnings(saveXML(object, tmp))
+            doc <- xmlParse(tmp)
+            unlink(tmp)
             doc
 }
 
