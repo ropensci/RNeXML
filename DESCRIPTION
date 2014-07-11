@@ -27,7 +27,7 @@ Depends:
     ape (>= 3.1),
     methods (>= 3.0.0)
 Imports:
-    XML (>= 3.98-1.1),
+    XML (>= 3.95),
     plyr (>= 1.8),
     taxize (>= 0.2.2),
     reshape2 (>= 1.2.2),
