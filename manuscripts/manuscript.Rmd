@@ -690,12 +690,12 @@ prefixes["dc"]
 <!-- the citations run off the page -->
 Common metadata can be accessed with a few dedicated functions:
 
-```{r}
+```{r get_citation}
 get_citation(birds)
 ```
 
 
-```{r}
+```{r get_taxa}
 get_taxa(birds)
 ```
 

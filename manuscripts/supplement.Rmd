@@ -29,7 +29,7 @@ address:
     address: | 
       Naturalis Biodiversity Center, Leiden, the Netherlands
 
-bibliography: components/references.bib
+bibliography: components/sup-references.bib
 csl: components/methods-in-ecology-and-evolution.csl
 documentclass: components/elsarticle
 
@@ -291,7 +291,7 @@ schema validation alone.  Validation serves to improve consistency in
 data encoding which facilitates the use of NeXML across a wide variety
 of platforms and software.  A lack of a consistent standard and validation
 mechanism has continually plagued the current NEXUS standard and made 
-interoperability difficult [@Vos_2012].  
+interoperability difficult `r citep("Vos NeXML 2012")`.  
 
 Several mechanisms are in place to evaluate the quality of the `RNeXML`
 package functions themselves.  In addition to the examples from the
@@ -304,6 +304,14 @@ that the development copy can be successfully installed, but should assist
 other developers seeking to contribute to the package to test that their proposed 
 changes have not negatively impacted any of the existing code base.  
 
+
+```{r cleanup, include=FALSE, cache=FALSE}
+write.bibtex(file="components/sup-references.bib")
+unlink("simmap.xml")
+unlink("birds.xml")
+unlink("geospiza.xml")
+unlink("rdf_meta.xml")
+```
 
 
 
