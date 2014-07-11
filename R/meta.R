@@ -25,6 +25,7 @@
 #' meta(content="example", property="dc:title")
 #' @export 
 #' @seealso \code{\link{nexml_write}}
+#' @include classes.R
 meta <- function(property = character(0), 
                  content = character(0), 
                  rel = character(0), 
@@ -158,14 +159,24 @@ setMethod("c",
 #' @param recursive  logical, if 'recursive=TRUE', the function 
 #' descends through lists and combines their elements into a vector.
 #' @return a listOfmeta object containing multiple meta elements. 
+#' @include classes.R
 #' @examples 
-#' c(c(meta(content="example", property="dc:title")),
-#'   meta(content="Carl", property="dc:creator"))
+#' metalist <- c(meta(content="example", property="dc:title"),
+#'               meta(content="Carl", property="dc:creator"))
+#' out <- c(metalist, metalist) 
+#' library(testthat)
+#' expect_is(out, "ListOfmeta")
+#' expect_is(out[[1]], "meta")
+#' expect_that(length(out), 4)
 #' 
+#' out <- c(metalist, meta(content="a", propery="b")) 
+#' expect_is(out, "ListOfmeta")
+#' expect_is(out[[1]], "meta")
+#' expect_that(length(out), 3)
 setMethod("c", 
           signature("ListOfmeta"),
           function(x, ..., recursive = FALSE){
-            elements <- list(x, ...)
+            elements <- list(x, unlist(...))
             elements <- meta_recursion(elements)
             new("ListOfmeta", elements)
 

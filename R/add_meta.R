@@ -28,6 +28,7 @@
 #'                 namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#"))
 #' 
 #' @export add_meta
+#' @include classes.R
 #' 
 add_meta <- function(meta, 
                      nexml=new("nexml"), 
@@ -45,7 +46,7 @@ add_meta <- function(meta,
     stop("function does not yet handle at_id assignments")
     # case not written yet
   } else if(level =="nexml"){ 
-    nexml@meta <- new("ListOfmeta", c(nexml@meta, meta))
+    nexml@meta <- new("ListOfmeta", c(unlist(nexml@meta), unlist(meta)))
   } else if(level =="otus"){ 
     nexml@otus[[i]]@meta <- new("ListOfmeta", c(nexml@otus[[i]]@meta, meta))
   }  else if(level =="nexml"){ 

@@ -47,6 +47,7 @@
 #'  library(knitcitations)
 #'  nexml <- add_basic_meta(citation=cite("10.2307/2408428"))
 #'  }
+#' @include classes.R
 add_basic_meta <- function(nexml = new("nexml"), 
                            title = NULL, 
                            description = NULL,
@@ -85,5 +86,4 @@ add_basic_meta <- function(nexml = new("nexml"),
       nexml <- add_meta(meta("dcterms:bibliographicCitation", citation), nexml)
   nexml
 }
-
 

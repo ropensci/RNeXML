@@ -1,6 +1,8 @@
 <nex:nexml xmlns:nex="http://www.nexml.org/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdao="http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/" xmlns:cc="http://creativecommons.org/ns#" xmlns:ncbi="http://www.ncbi.nlm.nih.gov/taxonomy#" xmlns:tc="http://rs.tdwg.org/ontology/voc/TaxonConcept#" xmlns="http://www.nexml.org/2009" version="0.9" generator="Bio::Phylo::Project v.0.58">
-  <meta xsi:type="nex:ResourceMeta" id="m7" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="cc:license"/>
-  <meta xsi:type="nex:LiteralMeta" id="m8" property="dcterms:bibliographicCitation" datatype="xsd:string"/>
+  <meta xsi:type="nex:LiteralMeta" id="ma1724" property="dc:creator" datatype="xsd:string" content="rvosa"/>
+  <meta xsi:type="nex:LiteralMeta" id="ma1725" property="dc:date" datatype="xsd:string" content="2014-07-03T23:43:34"/>
+  <meta xsi:type="nex:LiteralMeta" id="ma2051" property="dc:creator" datatype="xsd:string" content="rutger.vos"/>
+  <meta xsi:type="nex:LiteralMeta" id="ma2052" property="dc:date" datatype="xsd:date" content="2014-07-04T12:39:57"/>
   <otus id="os441">
     <otu about="#ou475" label="Allenopithecus nigroviridis" id="ou475">
       <meta xsi:type="nex:ResourceMeta" href="http://ncbi.nlm.nih.gov/taxonomy/54135" rel="concept:toTaxon"/>

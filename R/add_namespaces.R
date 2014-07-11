@@ -28,7 +28,10 @@
 #' @export 
 add_namespaces <- function(namespaces, nexml = new("nexml")){
   if(!is.null(namespaces)){
-    notdups <- match(namespaces, nexml@namespaces)
+## check for duplicated abbreviation, not for duplicated URI. OKAY to have multiple abbrs for same URI...
+
+## FIXME Make sure that cases where abbreviation match actually match the URI as well
+    notdups <- match(names(namespaces), names(nexml@namespaces)) 
     notdups <- sapply(notdups, is.na)
     if(all(notdups)) # all are unique 
       nexml@namespaces <-  c(nexml@namespaces, namespaces)

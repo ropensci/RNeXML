@@ -19,7 +19,17 @@ a listOfmeta object containing multiple meta elements.
 Concatenate ListOfmeta elements into a ListOfmeta
 }
 \examples{
-c(c(meta(content="example", property="dc:title")),
-  meta(content="Carl", property="dc:creator"))
+metalist <- c(meta(content="example", property="dc:title"),
+              meta(content="Carl", property="dc:creator"))
+out <- c(metalist, metalist)
+library(testthat)
+expect_is(out, "ListOfmeta")
+expect_is(out[[1]], "meta")
+expect_that(length(out), 4)
+
+out <- c(metalist, meta(content="a", propery="b"))
+expect_is(out, "ListOfmeta")
+expect_is(out[[1]], "meta")
+expect_that(length(out), 3)
 }
 

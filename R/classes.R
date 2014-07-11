@@ -607,8 +607,23 @@ setMethod("fromNeXML",
             if(!is.na(attrs["generator"]))       # optional attribute
                obj@generator <- attrs["generator"]
 
-            # handle these guys, kinda attributes? Are they optional?
-            slot(obj, "xsi:schemaLocation") <- attrs["xsi:schemaLocation"]
+            if(!is.na(attrs["xsi:schemaLocation"]))
+              slot(obj, "xsi:schemaLocation") <- attrs["xsi:schemaLocation"]
+            if(!is.na(attrs["schemaLocation"]))
+              slot(obj, "xsi:schemaLocation") <- attrs["schemaLocation"]
+
+            if(!is.na(attrs["xsi:type"]))
+              slot(obj, "xsi:type") <- attrs["xsi:type"]
+            if(!is.na(attrs["type"]))
+              slot(obj, "xsi:type") <- attrs["type"]
+
+            if(!is.na(attrs["about"]))
+              obj@about <- attrs["about"]
+
+
+            ns_defs <- xmlNamespaceDefinitions(from)
+            ns <- sapply(ns_defs, `[[`, "uri")
+            obj <- add_namespaces(ns, obj)
 
             # Handle children
             kids <- xmlChildren(from)
