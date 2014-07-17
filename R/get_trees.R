@@ -103,7 +103,7 @@ setAs("nexml", "phylo", function(from){
 #' @return phylo object.  If a "reconstructions" annotation is found on the 
 #' edges, return simmap maps slot as well.  
 toPhylo <- function(tree, otus){
-
+  otu <- NULL # Avoid CRAN NOTE as per http://stackoverflow.com/questions/8096313/no-visible-binding-for-global-variable-note-in-r-cmd-check
   ## Extract the nodes list
   nodes <- sapply(unname(tree@node), 
                   function(x) 

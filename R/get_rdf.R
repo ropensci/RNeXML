@@ -7,7 +7,7 @@
 #'   SPARQL queries from the rrdf R package.  
 #' @export
 #' @import httr XML
-# @import Xslt # not yet
+# @import Sxslt # not yet
 #' @examples \dontrun{
 #' f <- system.file("examples", "meta_example.xml", package="RNeXML")
 #' rdf <- get_rdf(f)
@@ -35,7 +35,7 @@ get_rdf <- function(file){
     to_rdf <- system.file("examples", "RDFa2RDFXML.xsl", package="RNeXML")
     rdf <- xsltApplyStyleSheet(file, to_rdf)
   } else {
-    warning("Package SXslt not available, please install it from www.omegahat.org") 
+    warning("Package Sxslt not available, please install it from www.omegahat.org") 
   }
   rdf  
 }

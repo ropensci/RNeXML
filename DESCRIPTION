@@ -10,8 +10,11 @@ Authors@R: c(person("Carl", "Boettiger", role = c("cre", "aut"),
 Description: R package that allows access to phyloinformatic data in NeXML
     format.  The package should add new functionality to R such as the
     possibility to manipulate NeXML objects in more various and refined way and
-    compatibility with 'ape' objects.
+    compatibility with 'ape' objects. Note that the Sxslt package suggested can
+    be installed from the Omegahat repository, though it can also be obtained
+    from https://github.com/cboettig/Sxslt
 License: BSD_3_clause + file LICENSE
+Additional_repositories: http://www.omegahat.org/R
 VignetteBuilder: knitr
 Suggests:
     rrdf (>= 2.0.2),
