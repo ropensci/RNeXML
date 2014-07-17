@@ -6,7 +6,7 @@ context("publish")
 # data loaded to this testing sandbox is periodically purged.  
 library(rfigshare)
 status <- try(fs_auth(token = "xdBjcKOiunwjiovwkfTF2QjGhROeLMw0y0nSCSgvg3YQxdBjcKOiunwjiovwkfTF2Q", token_secret = "4mdM3pfekNGO16X4hsvZdg"))
-if(is(status, "try-error")){
+if(is(status, "try-error") || (is(status, "response") && status$status_code != 200)){
   warning("Could not authenticate figshare, skipping figshare tests")
 } else {
 
