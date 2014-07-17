@@ -13,9 +13,10 @@
 #' rdf <- get_rdf(f)
 #'
 #' ## Write to a file and read in with rrdf
-#' saveXML(rdf, "rdf_meta.xml")
+#' tmp <- tempfile()
+#' saveXML(rdf, tmp)
 #' library(rrdf)
-#' lib <- load.rdf("rdf_meta.xml")
+#' lib <- load.rdf(tmp)
 #' 
 #' ## Perform a SPARQL query:
 #' sparql.rdf(lib, "SELECT ?title WHERE { ?x <http://purl.org/dc/elements/1.1/title> ?title}")
