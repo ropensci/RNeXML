@@ -1,4 +1,10 @@
 
+v1.1.0-99
+------
+
+* Unit tests relying on the Figshare API are not run (without failing) if authentication to figshare server fails
+* Documentation updated to include examples for all functions
+
 v1.1-0
 ------
 
