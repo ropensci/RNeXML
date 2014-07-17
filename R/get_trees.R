@@ -5,6 +5,10 @@
 #' @return returns a list of lists of multiphylo trees, even if all trees are in the same `trees` node (and hence the outer list will be of length 1) or if there is only a single tree (and hence the inner list will also be of length 1.  This guarentees a consistent return type regardless of the number of trees present in the nexml file, and also preserves any heirarchy/grouping of trees.  
 #' @export
 #' @import plyr 
+#' @examples
+#' comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+#' nex <- nexml_read(comp_analysis)
+#' get_trees_list(nex)
 #' @seealso \code{\link{get_trees}} \code{\link{get_flat_trees}} \code{\link{get_item}}
 get_trees_list <- function(nexml) as(nexml, "multiPhyloList")
 
@@ -17,6 +21,10 @@ get_trees_list <- function(nexml) as(nexml, "multiPhyloList")
 #' @return an ape::phylo tree, if only one tree is represented.  Otherwise returns a list of lists of multiphylo trees.  To consistently recieve the list of lists format (preserving the heriarchical nature of the nexml), use \code{\link{get_trees_list}} instead.  
 #' @export
 #' @seealso \code{\link{get_trees}} \code{\link{get_flat_trees}} \code{\link{get_item}}
+#' @examples
+#' comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+#' nex <- nexml_read(comp_analysis)
+#' get_trees(nex)
 get_trees <- function(nexml) as(nexml, "phylo")
 
 
@@ -28,6 +36,10 @@ get_trees <- function(nexml) as(nexml, "phylo")
 #' @param nexml a representation of the nexml object from  which the data is to be retrieved
 #' @export
 #' @seealso \code{\link{get_trees}} \code{\link{get_trees}} \code{\link{get_item}} 
+#' @examples
+#' comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+#' nex <- nexml_read(comp_analysis)
+#' get_flat_trees(nex)
 get_flat_trees <- function(nexml) flatten_multiphylo(get_trees_list(nexml))
 
 

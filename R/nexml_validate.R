@@ -4,6 +4,12 @@
 #' @return TRUE if the file is valid, false otherwise
 #' @export
 #' @import httr XML
+#' @examples \dontrun{
+#' data(bird.orders)
+#' birds <- nexml_write(bird.orders, "birds_orders.xml")
+#' nexml_validate("bird_orders.xml")
+#' unlink("bird_orders.xml") # delete file to clean up
+#' }
 nexml_validate <- function(file){
 #   xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", file)  
   # Consider providing a copy of the schema so this works offline?

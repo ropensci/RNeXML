@@ -5,6 +5,10 @@
 #'
 #' @param nexml nexml object (e.g. from read.nexml)
 #' @return the list of taxa
+#' @examples
+#' comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+#' nex <- nexml_read(comp_analysis)
+#' get_characters_list(nex)
 #' @export
 get_characters_list <- function(nexml){
 # extract mapping between otus and taxon ids 

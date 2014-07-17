@@ -9,6 +9,11 @@
 #' @param ... additional arguments (not implemented yet)
 #' @import taxize
 #' @export 
+#' @examples \dontrun{
+#' data(bird.orders)
+#' birds <- add_trees(bird.orders)
+#' birds <- taxize_nexml(birds, "NCBI")
+#' }
 taxize_nexml <- function(nexml, type = c("NCBI"), ...){
           type <- match.arg(type)
           if(type == "NCBI"){

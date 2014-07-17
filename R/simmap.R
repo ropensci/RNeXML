@@ -18,6 +18,10 @@
 #' @return a nexml representation of the simmap
 #' @export 
 #' @import XML
+#' @examples
+#' data(simmap_ex)
+#' phy <- nexml_to_simmap(simmap_ex)
+#' nex <- simmap_to_nexml(phy) 
 simmap_to_nexml <- function(phy, state_ids = NULL){
 
   
@@ -106,6 +110,10 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
 #' @return a simmap object (phylo object with a $maps element 
 #'  for use in phytools functions).
 #' @export 
+#' @examples
+#' data(simmap_ex)
+#' phy <- nexml_to_simmap(simmap_ex)
+#' nex <- simmap_to_nexml(phy) 
 nexml_to_simmap <- function(nexml){
 
   ## Get the statemap, if available

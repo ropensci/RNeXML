@@ -14,6 +14,11 @@ an ape::phylo tree, if only one tree is represented.  Otherwise returns a list o
 \description{
 extract a phylogenetic tree from the nexml
 }
+\examples{
+comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+nex <- nexml_read(comp_analysis)
+get_trees(nex)
+}
 \seealso{
 \code{\link{get_trees}} \code{\link{get_flat_trees}} \code{\link{get_item}}
 }

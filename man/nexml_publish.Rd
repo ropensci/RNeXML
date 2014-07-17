@@ -18,4 +18,11 @@ a digital object identifier to the published data
 \description{
 publish nexml files to the web and receive a DOI
 }
+\examples{
+\dontrun{
+data(bird.orders)
+birds <- add_trees(bird.orders)
+doi <- nexml_publish(birds, visibility = "public", repository="figshare")
+}
+}
 

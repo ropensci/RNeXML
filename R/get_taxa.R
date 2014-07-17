@@ -6,6 +6,10 @@
 #' @param nexml a nexml object
 #' @return the list of taxa
 #' @export get_taxa get_otu
+#' @examples
+#' comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+#' nex <- nexml_read(comp_analysis)
+#' get_taxa(nex)
 #' @seealso  \code{\link{get_item}}
 get_taxa <-  
           function(nexml){

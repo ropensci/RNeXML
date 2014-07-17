@@ -17,6 +17,11 @@ extract a single multiPhylo object containing all trees in the nexml
 \details{
 Note that this method collapses any heirachical structure that may have been present as multiple `trees` nodes in the original nexml (though such a feature is rarely used).  To preserve that structure, use \code{\link{get_trees}} instead.
 }
+\examples{
+comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+nex <- nexml_read(comp_analysis)
+get_flat_trees(nex)
+}
 \seealso{
 \code{\link{get_trees}} \code{\link{get_trees}} \code{\link{get_item}}
 }

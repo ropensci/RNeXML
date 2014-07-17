@@ -9,6 +9,10 @@
 #'  use "all" to access all meta elements.  
 #' @return the requested metadata
 #' @import XML
+#' @examples
+#' comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+#' nex <- nexml_read(comp_analysis)
+#' get_metadata(nex)
 #' @export
 get_metadata <-  function(nexml, level="nexml"){
 # c("nexml", "otus", "otu", "trees", "tree", "characters", "format", "states", "all")

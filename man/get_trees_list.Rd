@@ -14,6 +14,11 @@ returns a list of lists of multiphylo trees, even if all trees are in the same `
 \description{
 extract all phylogenetic trees in ape format
 }
+\examples{
+comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+nex <- nexml_read(comp_analysis)
+get_trees_list(nex)
+}
 \seealso{
 \code{\link{get_trees}} \code{\link{get_flat_trees}} \code{\link{get_item}}
 }

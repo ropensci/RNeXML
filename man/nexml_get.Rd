@@ -33,6 +33,12 @@ For a slightly cleaner interface, each of these elements is also defined as an S
 for a nexml object.  So in place of `get_item(nexml, "tree")`, one could use `get_tree(nexml)`,
 and so forth for each element type.
 }
+\examples{
+comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+nex <- nexml_read(comp_analysis)
+nexml_get(nex, "trees")
+nexml_get(nex, "characters_list")
+}
 \seealso{
 \code{\link{get_trees}}
 }

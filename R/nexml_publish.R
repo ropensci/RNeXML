@@ -7,6 +7,11 @@
 #' @param repository desitination respository
 #' @return a digital object identifier to the published data
 #' @export 
+#' @examples \dontrun{
+#' data(bird.orders)
+#' birds <- add_trees(bird.orders)
+#' doi <- nexml_publish(birds, visibility = "public", repository="figshare")
+#' }
 nexml_publish <- function(nexml, ..., repository="figshare"){
   repository = match.arg(repository)
   switch(repository, 
@@ -29,6 +34,11 @@ nexml_publish <- function(nexml, ..., repository="figshare"){
 #' @param ... additional arguments
 #' @return the figshare id of the object  
 #' @export
+#' @examples \dontrun{
+#' data(bird.orders)
+#' birds <- add_trees(bird.orders)
+#' doi <- nexml_figshare(birds, visibility = "public", repository="figshare")
+#' }
 nexml_figshare <- function(nexml,
                            file = "nexml.xml", 
                            categories = "Evolutionary Biology", 

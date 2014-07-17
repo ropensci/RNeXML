@@ -23,4 +23,9 @@ files from scratch with both characters and trees.}
 \description{
 Add character data to a nexml object
 }
+\examples{
+library("geiger")
+data(geospiza)
+geiger_nex <- add_characters(geospiza$dat)
+}
 

@@ -17,4 +17,11 @@ Check taxanomic names against the specified service and
 add appropriate semantic metadata to the nexml OTU unit
 containing the corresponding identifier.
 }
+\examples{
+\dontrun{
+data(bird.orders)
+birds <- add_trees(bird.orders)
+birds <- taxize_nexml(birds, "NCBI")
+}
+}
 

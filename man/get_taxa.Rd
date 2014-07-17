@@ -15,6 +15,11 @@ the list of taxa
 \description{
 Retrieve names of all species/otus otus (operational taxonomic units) included in the nexml
 }
+\examples{
+comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+nex <- nexml_read(comp_analysis)
+get_taxa(nex)
+}
 \seealso{
 \code{\link{get_item}}
 }

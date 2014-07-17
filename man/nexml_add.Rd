@@ -21,6 +21,12 @@ a nexml object with the additional data
 \description{
 add elements to a new or existing nexml object
 }
+\examples{
+library("geiger")
+data(geospiza)
+geiger_nex <- nexml_add(geospiza$phy, type="trees")
+geiger_nex <- nexml_add(geospiza$dat, nexml = geiger_nex, type="characters")
+}
 \seealso{
 \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_meta}} \code{\link{add_namespaces}}
 }

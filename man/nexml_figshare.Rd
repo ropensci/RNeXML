@@ -31,4 +31,11 @@ the figshare id of the object
 \description{
 publish nexml to figshare
 }
+\examples{
+\dontrun{
+data(bird.orders)
+birds <- add_trees(bird.orders)
+doi <- nexml_figshare(birds, visibility = "public", repository="figshare")
+}
+}
 

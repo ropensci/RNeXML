@@ -17,4 +17,12 @@ validate nexml using the online validator tool
 \details{
 Requires an internet connection.  see http://www.nexml.org/nexml/phylows/validator for more information in debugging invalid files
 }
+\examples{
+\dontrun{
+data(bird.orders)
+birds <- nexml_write(bird.orders, "birds_orders.xml")
+nexml_validate("bird_orders.xml")
+unlink("bird_orders.xml") # delete file to clean up
+}
+}
 

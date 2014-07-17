@@ -1,3 +1,35 @@
+#' add_trees
+#' 
+#' add_trees
+#' @param phy a phylo object, multiPhylo object, or list of 
+#'  mulitPhylo to be added to the nexml
+#' @param nexml a nexml object to which we should append this phylo.
+#'  By default, a new nexml object will be created.  
+#' @param append_to_existing_otus logical, indicating if we should 
+#'  make a new OTU block (default) or append to the existing one. 
+#' @return a nexml object containing the phy in nexml format. 
+#' @export 
+#' @examples 
+#' library("geiger")
+#' data(geospiza)
+#' geiger_nex <- add_trees(geospiza$phy)
+add_trees <- function(phy, 
+                      nexml=new("nexml"), 
+                      append_to_existing_otus=FALSE){
+  nexml <- as(nexml, "nexml")
+
+  phy <- standardize_phylo_list(phy)
+  ## handle multiPhlyo cases
+  new_taxa <- unlist(sapply(phy, function(y)
+                      sapply(y, function(z) 
+                        z$tip.label)))
+
+  nexml <- add_otu(nexml, new_taxa, append=append_to_existing_otus)
+  otus_id <- nexml@otus[[length(nexml@otus)]]@id
+  nexml <- add_trees_block(nexml, phy, otus_id)
+  nexml
+}
+
 
 ##################### phylo -> nexml ###############
 
@@ -27,35 +59,6 @@ standardize_phylo_list <- function(phy){
     class(phy) <- "multiPhylo"
     list(phy) 
   }
-}
-
-
-#' add_trees
-#' 
-#' add_trees
-#' @param phy a phylo object, multiPhylo object, or list of 
-#'  mulitPhylo to be added to the nexml
-#' @param nexml a nexml object to which we should append this phylo.
-#'  By default, a new nexml object will be created.  
-#' @param append_to_existing_otus logical, indicating if we should 
-#'  make a new OTU block (default) or append to the existing one. 
-#' @return a nexml object containing the phy in nexml format. 
-#' @export 
-add_trees <- function(phy, 
-                      nexml=new("nexml"), 
-                      append_to_existing_otus=FALSE){
-  nexml <- as(nexml, "nexml")
-
-  phy <- standardize_phylo_list(phy)
-  ## handle multiPhlyo cases
-  new_taxa <- unlist(sapply(phy, function(y)
-                      sapply(y, function(z) 
-                        z$tip.label)))
-
-  nexml <- add_otu(nexml, new_taxa, append=append_to_existing_otus)
-  otus_id <- nexml@otus[[length(nexml@otus)]]@id
-  nexml <- add_trees_block(nexml, phy, otus_id)
-  nexml
 }
 
 add_trees_block <- function(nexml, phy, otus_id){

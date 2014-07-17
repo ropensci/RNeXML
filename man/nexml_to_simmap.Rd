@@ -15,4 +15,9 @@ a simmap object (phylo object with a $maps element
 \description{
 nexml_to_simmap
 }
+\examples{
+data(simmap_ex)
+phy <- nexml_to_simmap(simmap_ex)
+nex <- simmap_to_nexml(phy)
+}
 

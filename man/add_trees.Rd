@@ -21,4 +21,9 @@ a nexml object containing the phy in nexml format.
 \description{
 add_trees
 }
+\examples{
+library("geiger")
+data(geospiza)
+geiger_nex <- add_trees(geospiza$phy)
+}
 
