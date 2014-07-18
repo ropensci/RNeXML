@@ -10,7 +10,7 @@ author:
   - name: Hilmar Lapp
     affiliation: NESCent
   - name: Scott Chamberlain
-    affiliation: SimonFraser
+    affiliation: ropensci
   - name: Rutger Vos
     affiliation: NBC
 address: 
@@ -23,9 +23,9 @@ address:
   - code: NESCent
     address: | 
       National Evolutionary Synthesis Center, Durham, NC, USA
-  - code: SimonFraser
+  - code: ropensci
     address: |
-      Department of Biology, Simon Fraser University, Burnaby, Canada
+      University of California, Berkeley, CA, USA
   - code: NBC
     address: | 
       Naturalis Biodiversity Center, Leiden, the Netherlands
@@ -937,7 +937,7 @@ Web Ontology language (OWL), as discussed in the Challenges section.
 ## Acknowledgements
 
 This project was supported in part by a grant from the Alfred P Sloan
-Foundation (CB and SC), NSF Grant DBI-1306697 (CB), ... <!-- FIXME Rutger, Hilmar, add whatever you'd like to acknowledge here -->
+Foundation Grant 2013-6-22 (CB and SC), NSF Grant DBI-1306697 (CB), ... <!-- FIXME Rutger, Hilmar, add whatever you'd like to acknowledge here -->
 
 `RNeXML` is part of the rOpenSci project, [http://ropensci.org].
 

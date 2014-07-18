@@ -25,9 +25,9 @@ An extensive and rapidly growing collection of richly annotated phylogenetics da
 library(methods)
 library(knitr)
 opts_chunk$set(cache = 1)
-basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile')) 
-opts_chunk$set(fig.path = paste("components/figure/", basename, "-", sep=""),
-               cache.path = paste("components/cache/", basename, "/", sep=""))
+basename <- 'tutorial' 
+opts_chunk$set(fig.path = paste("figure/", basename, "-", sep=""),
+               cache.path = paste("cache/", basename, "/", sep=""))
 
 
 ```{r echo=FALSE}
@@ -145,9 +145,9 @@ Once we have created the `meta` elements, we can pass them to our `nexml_write` 
 ### Taxonomic identifiers
 
 Add taxonomic identifier metadata to the OTU elements:
+<!-- This block relies on a robust internet connection that can occassionally fail.  Also it's a bit slow, so don't run it. After all, this command is tested in the unit tests.-->
 
-
-```{r}
+```{r eval=FALSE}
 nex <- add_trees(bird.orders)
 nex <- taxize_nexml(nex)
 ```
