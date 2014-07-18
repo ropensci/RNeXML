@@ -20,7 +20,7 @@ test_that("We can serialize tree and trait data for a comparative analysis", {
   add_trees(geospiza$phy)
   nexml <- add_characters(geospiza$dat)
   write.nexml(nexml, file = "geospiza.xml")
-  expect_true(nexml_validate("geospiza.xml"))
+  RNeXML:::expect_true_or_null(nexml_validate("geospiza.xml"))
   unlink("geospiza.xml")
 })
 

@@ -14,7 +14,7 @@ test_that("We can add additional metadata", {
               pubdate = "2012-04-01")
   write.nexml(nex, file = "meta_example.xml")
 
-  expect_true(nexml_validate("meta_example.xml"))
+  RNeXML:::expect_true_or_null(nexml_validate("meta_example.xml"))
   expect_is(nexml_read("meta_example.xml"), "nexml")
 
   unlink("meta_example.xml") # cleanup
@@ -29,7 +29,7 @@ test_that("We can add R bibentry type metadata", {
   nex <- add_basic_meta(nex, citation=citation("ape")) 
   write.nexml(nex, file = "meta_example.xml")
 
-  expect_true(nexml_validate("meta_example.xml"))
+  RNeXML:::expect_true_or_null(nexml_validate("meta_example.xml"))
   expect_is(nexml_read("meta_example.xml"), "nexml")
   unlink("meta_example.xml") # cleanup
 
@@ -58,7 +58,7 @@ test_that("We can add additional metadata", {
 
   nexml_write(nex, file = "meta_example.xml")  
 
-  expect_true(nexml_validate("meta_example.xml"))
+  RNeXML:::expect_true_or_null(nexml_validate("meta_example.xml"))
   expect_is(nexml_read("meta_example.xml"), "nexml")
   unlink("meta_example.xml") # cleanup
 
@@ -114,7 +114,7 @@ test_that("We can add arbitrary metadata", {
   results <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "example.xml")
 #  expect_equal(results$status, 0)
 #  expect_equal(length(results$errors), 0)
-#  expect_true(nexml_validate("example.xml"))
+#  RNeXML:::expect_true_or_null(nexml_validate("example.xml"))
 
   
   expect_is(nexml_read("example.xml", "nexml"), "nexml")

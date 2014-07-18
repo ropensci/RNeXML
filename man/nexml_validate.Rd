@@ -9,7 +9,7 @@ nexml_validate(file)
 \item{file}{path to the nexml file to validate}
 }
 \value{
-TRUE if the file is valid, false otherwise
+TRUE if the file is valid, FALSE or error message otherwise
 }
 \description{
 validate nexml using the online validator tool

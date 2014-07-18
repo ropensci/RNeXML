@@ -15,7 +15,7 @@ test_that("We can generate valid EML with uuid ids on all elements", {
     expect_equal(length(results$errors), 0)
 
     
-    expect_true(nexml_validate("geospiza.xml"))
+    RNeXML:::expect_true_or_null(nexml_validate("geospiza.xml"))
     unlink("geospiza.xml")
   }
 })

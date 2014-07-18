@@ -1,11 +1,47 @@
-v1.1.1-99
----------
+NEWS
+====
 
-* Skip uuid unit test if uuid is not available
+For more fine-grained list of changes or to report a bug, consult 
+
+* [The issues log](https://github.com/ropensci/RNeXML/issues)
+* [The commit log](https://github.com/ropensci/RNeXML/commits/master)
+
+Versioning
+----------
+
+Releases will be numbered with the following semantic versioning format:
+
+<major>.<minor>.<patch>
+
+And constructed with the following guidelines:
+
+* Breaking backward compatibility bumps the major (and resets the minor 
+  and patch)
+* New additions without breaking backward compatibility bumps the minor 
+  (and resets the patch)
+* Bug fixes and misc changes bumps the patch
+* Following the RStudio convention, a .99 is appended after the patch
+  number to indicate the development version on Github.  Any version
+  Coming from Github will now use the .99 extension, which will never
+  appear in a version number for the package on CRAN. 
+
+For more information on SemVer, please visit http://semver.org/.
+
+
+v1.1.2
+-------
+
+Less aggressive unit-tests
+
+* nexml_validate now returns NULL if the validation cannot be performed. Unit tests now consider either TRUE or NULL as acceptable.   
+* Just skips the uuid unit test if uuid package is not available
+* Documented versioning practice in NEWS
 
 
 v1.1.1
 ------
+
+Documentation and less agressive unit tests
 
 * Unit tests relying on the Figshare API are not run (without failing) if authentication to figshare server fails
 * Documentation updated to include examples for all functions

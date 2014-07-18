@@ -2,6 +2,9 @@ manuscripts/components/cache
 manuscripts/components/github_highlighting.R
 manuscripts/components/figure
 manuscripts/*.pdf
+vignettes/cache
+vignettes/figure
+vignettes/*.md
 vignettes/*.pdf
 .Rproj.user
 *.Rproj

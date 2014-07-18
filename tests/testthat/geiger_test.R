@@ -8,7 +8,7 @@ library(geiger)
 test_that("We can write caudata data to nexml", {
   data(caudata)
   nexml_write(trees = caudata$phy, characters = caudata$dat, file="tmp.xml")
-  expect_true(nexml_validate("tmp.xml"))
+  RNeXML:::expect_true_or_null(nexml_validate("tmp.xml"))
   library(XML)
   results <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "tmp.xml")
   expect_equal(results$status, 0)
@@ -20,21 +20,21 @@ test_that("We can write caudata data to nexml", {
 test_that("We can write geospiza data to nexml", {
   data(geospiza)
   nexml_write(trees = geospiza$phy, characters = geospiza$dat, file="tmp.xml")
-  expect_true(nexml_validate("tmp.xml"))
+  RNeXML:::expect_true_or_null(nexml_validate("tmp.xml"))
   unlink("tmp.xml") # cleanup
 })
 
 test_that("We can write chelonia data to nexml", {
   data(chelonia)
   nexml_write(trees = chelonia$phy, characters = chelonia$dat, file="tmp.xml")
-  expect_true(nexml_validate("tmp.xml"))
+  RNeXML:::expect_true_or_null(nexml_validate("tmp.xml"))
   unlink("tmp.xml") # cleanup
 })
 
 test_that("We can write primates data to nexml", {
   data(primates)
   nexml_write(trees = primates$phy, characters = primates$dat, file="tmp.xml")
-  expect_true(nexml_validate("tmp.xml"))
+  RNeXML:::expect_true_or_null(nexml_validate("tmp.xml"))
   unlink("tmp.xml") # cleanup
 })
 
@@ -44,7 +44,7 @@ test_that("We can write whales data to nexml", {
   whales$dat <- whales$richness[[2]]
   names(whales$dat) <- whales$richness[[1]] 
   nexml_write(trees = whales$phy, characters = whales$dat, file="tmp.xml")
-  expect_true(nexml_validate("tmp.xml"))
+  RNeXML:::expect_true_or_null(nexml_validate("tmp.xml"))
   unlink("tmp.xml") # cleanup
 })
 
@@ -59,7 +59,7 @@ test_that("We can write amphibia multiphylo to nexml. Two of these phylogenies e
   expect_equal(results$status, 0)
   expect_equal(length(results$errors), 0)
 
-  expect_true(nexml_validate("tmp.xml"))
+  RNeXML:::expect_true_or_null(nexml_validate("tmp.xml"))
   unlink("tmp.xml") # cleanup
 })
 
