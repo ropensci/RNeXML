@@ -1,7 +1,7 @@
 ---
 #layout: preprint
 layout: review, 11pt
-title: "RNeXML: Parsing and Serializing the Next Generation of Phyloinformatic Data in R"
+title: "RNeXML: a package for reading and writing richly annotated phylogenetic, character, and trait data in R"
 author: 
   - name: Carl Boettiger
     affiliation: cstar

@@ -1,6 +1,6 @@
 ---
 layout: review, 11pt
-title: "Supplementary material for -- RNeXML: Parsing and Serializing the Next Generation of Phyloinformatic Data in R"
+title: "Supplementary material"
 author: 
   - name: Carl Boettiger
     affiliation: cstar
