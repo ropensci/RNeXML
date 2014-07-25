@@ -926,7 +926,7 @@ or email the phylogenetics R users group list at `r-sig-phylo@r-project.org`.
 
 
 There are many promising directions for further development of the
-`RNeXML` package.  The project's [Milestones page][https://github.com/ropensci/RNeXML/issues/milestones] page provides a list of
+`RNeXML` package.  The project's [Milestones page](https://github.com/ropensci/RNeXML/issues/milestones) page provides a list of
 steps currently planned or under consideration.  In particular, these
 milestones include increased support for interactive mode of entering data
 (wizards), and support for integration of semantics defined through the
@@ -935,10 +935,12 @@ Web Ontology language (OWL), as discussed in the Challenges section.
 
 
 ## Acknowledgements
+<!-- FIXME Rutger, Hilmar, add whatever you'd like to acknowledge here -->. 
 
 This project was supported in part by a grant from the Alfred P Sloan
-Foundation Grant 2013-6-22 (CB and SC), NSF Grant DBI-1306697 (CB), ... <!-- FIXME Rutger, Hilmar, add whatever you'd like to acknowledge here -->
-
+Foundation Grant 2013-6-22 (CB and SC), NSF Grant DBI-1306697 (CB), ... 
+We thank F. Michonneau for helpful comments on an earlier version
+of this manuscript.
 `RNeXML` is part of the rOpenSci project, [http://ropensci.org].
 
 
