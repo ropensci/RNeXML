@@ -1,7 +1,7 @@
 ---
 #layout: preprint
 layout: review, 11pt
-title: "RNeXML: Parsing and Serializing the Next Generation of Phyloinformatic Data in R"
+title: "RNeXML: a package for reading and writing richly annotated phylogenetic, character, and trait data in R"
 author: 
   - name: Carl Boettiger
     affiliation: cstar
@@ -216,7 +216,7 @@ extend the NeXML standard to describe stochastic character mapping, one
 of the kinds of data annotation that is currently available in R formats
 but lacks a consistent, extensible export format. We illustrate how NeXML
 files can be formally published to a data repository directly from R.
-Finally, we provide an brief description of how the software has been
+Finally, we provide a brief description of how the software has been
 implemented, what quality control measures are in place, as well as
 information about software reuse and getting support.
 
@@ -281,6 +281,10 @@ and create a document and source code maintenance nightmare. Why not just pick
 read.nexml and be done with it? -->
 We begin by reading in an example NeXML file provided with the package.[^2]
 
+<!-- I think it would be useful to provide an overview of what is contained in this -->
+<!-- example file here. The reader will know better what to expect (e.g., the -->
+<!-- object contains 2 trees.) -->
+
 ```{r}
 f <- system.file("examples", "trees.xml", package="RNeXML")
 nex <- nexml_read(f)
@@ -289,11 +293,11 @@ nex <- nexml_read(f)
 
 
 The resulting `nex` object is an R object representation of the NeXML. This is 
-a native R object for representing phylogenetic trees (as well as 
+a native R object, of the `nexml` class, for representing phylogenetic trees (as well as 
 character traits, and metadata), analogous to the `phylo` object from the 
 popular `ape` R package `r citep(citation("ape"))`. While R functions and packages 
 could be written to use this `nexml` object directly, most users will prefer to use
-already existing methods provided by packages they know. From `nex` object we can 
+already existing methods provided by packages they know. From a `nexml` object, we can 
 therefore extract any phylogenies it contains in the `ape::phylo` format:
 
 ```{r}
@@ -302,10 +306,11 @@ phy <- get_trees(nex)
 
 We can then leverage the rich suite of methods available from the R
 phylogenetics community. For instance, here we use the standard plotting function from
-the `ape` package to plot the resulting `ape::phylo` object returned by
+the `ape` package to plot the first tree in the resulting `ape::phylo` object returned by
 `get_trees`.
 
-
+<!-- I am not sure it really matters but `phy` is actually a `multiPhylo` -->
+<!-- object -->
 
 ```{r eval=FALSE}
 plot(phy[[1]])
@@ -325,11 +330,12 @@ even when only one tree is available, use `get_trees_list()`.
 
 The ability to read in phylogenetic trees in the NeXML format opens up a
 wide and rapidly growing array of resources to the R user.  For instance,
-a user can access all the phylogenies available in TreeBASE through the
+a user can access all the phylogenies available in TreeBASE <!-- first mention -->
+<!-- of TreeBase, include URL? or introduce it in intro? --> through the
 `nexml` format.  `RNeXML` can read directly from a URL:
 
 ```{r eval=FALSE}
-nex = nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
+nex <- nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
 ```
 
 Previously, this was possible using the `treebase` package `r citep("Boettiger Temple Lang treebase 2012")`
@@ -356,8 +362,9 @@ comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nex <- nexml_read(comp_analysis)
 get_characters(nex)
 ```
+<!-- I think it's better to be explicit rather than referring to the chunk above -->
 
-Returns a `data.frame` with columns as characters and rows as
+`get_characters` returns a `data.frame` with columns as characters and rows as
 taxa. Continuous and discrete characters are represented as separate
 blocks in NeXML files, but will be combined as separate columns of a
 single data frame by `get_characters()` if they correspond to the same
@@ -464,7 +471,7 @@ if none is provided, like the other `add_` functions), and any of the following
 fields: `title`, `description`, `creator`, `pubdate`, `rights`, `publisher`,
 `citation`.  Additional fields may be added to subsequent versions, see
 `?add_basic_metadata` for the most up-to-date information.  Here we create
-an new `nexml` object with the basic metadata for the `bird.orders` data
+a new `nexml` object with the basic metadata for the `bird.orders` data
 provided in the `ape` package:
 
 ```{r}
@@ -473,7 +480,7 @@ birds <- add_trees(bird.orders)
 birds <- add_basic_meta(birds,
   title = "Phylogeny of the Orders of Birds From Sibley and Ahlquist",
 
-  description =" This data set describes the phylogenetic relationships of the
+  description = "This data set describes the phylogenetic relationships of the
      orders of birds as reported by Sibley and Ahlquist (1990). Sibley
      and Ahlquist inferred this phylogeny from an extensive number of
      DNA/DNA hybridization experiments. The ``tapestry'' reported by
@@ -498,14 +505,15 @@ a user to add citations to R packages,
 birds <- add_basic_meta(birds, citation = citation("ape"))
 ```
 
-or to papers by simply using the object's DOI (using `r citet(citation("knitcitations"))`):
+or to papers by simply using the object's DOI (using `r citet(citation("knitcitations"))`).
+For instance to add the citation information of the paper that generated the
+`geospiza` phylogeny included in the `geiger` package: 
 
 ```{r}
 library("knitcitations")
 geiger_nex <- add_basic_meta(geiger_nex, citation = bib_metadata("10.2307/2408428"))
 ```
 
-(Which is the paper on which the `geospiza` phylogeny from the geiger dataset is based)
 
 
 ## Taxonomic identifiers
@@ -530,7 +538,7 @@ NCBI definitions
 birds <- taxize_nexml(birds, "NCBI")
 ```
 
-This function uses the `taxize` R library `r citep("Chamberlain taxize F1000Research 2013")` to check each taxon label against the NCBI database.
+This function uses the R package `taxize` `r citep("Chamberlain taxize F1000Research 2013")` to check each taxon label against the NCBI database.
 If a unique match is found, a metadata annotation is added to the taxon
 providing the NCBI identification number to the taxonomic unit.  If no
 match is found, the user is warned to check for possible typographic
@@ -546,9 +554,9 @@ understanding of the kind of metadata being provided, and can thus
 generate the appropriate metadata with little further guidance.
 In order to be machine-readable and understandable, NeXML requires
 all metadata annotations follow the RDFa format (see @Vos_2012) which
-explicitly declares the meaning of the annotation in a way a computer
-can understand.  For instance, the title we gave to the `bird.orders`
-phylogeny appears in the NeXML as:
+explicitly declares the meaning of the annotation <!-- in a way a computer
+can understand -- this is redundant with the beginning of the sentence -->.  For instance, the title we gave to the `bird.orders`
+phylogeny appears in the NeXML file as:
 
 ```xml
 <meta id="m2" property="dc:title" datatype="xsd:string"
@@ -829,7 +837,7 @@ Of course writing out such a definition manually becomes tedious quickly. Becaus
 these are just R commands, we can easily define a function that can loop over an
 assignment like this for each edge, extracting the appropriate order, length and
 state from an existing R object such as that provided in the `phytools` package.  
-Likewise, it is straight forward to define a function that reads this data using
+Likewise, it is straightforward to define a function that reads this data using
 the `RNeXML` utilities and converts it back to the `phytools` package. The full
 implementation of this mapping can be seen in the `simmap_to_nexml()` and the
 `nexml_to_simmap()` functions provided in the `RNeXML` package.  
