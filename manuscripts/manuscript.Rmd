@@ -560,14 +560,41 @@ understanding of the kind of metadata being provided, and can thus
 generate the appropriate metadata with little further guidance.
 In order to be machine-readable and understandable, NeXML requires
 all metadata annotations follow the RDFa format (see @Vos_2012) which
-explicitly declares the meaning of the annotation. For instance, the title we gave to the `bird.orders`
-phylogeny appears in the NeXML file as:
+explicitly declares the meaning of the annotation. 
+
+Some basic definitions about the XML syntax used to express NeXML
+will be helpful for this discussion, though a more comprehensive 
+introduction can be found in @Vos_2012.  For instance, consider how
+the title we gave to the `bird.orders` phylogeny appears in the NeXML file
+using the XML format:
 
 ```xml
 <meta id="m2" property="dc:title" datatype="xsd:string"
       content="Phylogeny of the Orders of Birds From Sibley and Ahlquist"/> 
 ```
 
+The format begins with an XML "tag" and the name "meta", indicated by the opening
+angle bracket; `<meta`.  A closing tag `\>` indicates the end of this
+XML "element" .  This tag contains several "attributes", named "id",
+"property", etc., that an R user can think of as names in a `list`. What
+follows the equals sign after the attribute name is called the attribute "value",
+(e.g. the `id` attribute has value "m2").  
+
+The name of any element (like "meta") or attribute (like "id") in XML must be associated
+with a particular dictionary called a "namespace" and specified using a "prefix"
+of an abbreviation followed by a colon appearing before the name.  If no prefix
+is given, as is the case for all attributes here: `id`, `property`, `datatype`,
+and `content`, then a default prefix specified at the beginning of the document applies,
+in this case, the NeXML namespace.  This allows users to combine different XML
+that have different definitions of terms like `id` or `property`.  
+
+The example element above also uses namespaces on some of the attribute values themselves.
+This is a consequence of RDFa annotation, and not strictly part of XML, though
+it works much the same way.  While we hope the following examples will make these
+concepts clearer, users do not need to understand XML and namespaces to use most
+of the basic annotation features provided by `RNeXML`.   
+
+So much for the structure; we can now briefly explain the meaning of this element. 
 We see the title appears as the value of the `content` attribute of this `meta` element.
 The `id` attribute provides us with a unique way to refer to this meta
 element in this document.  The `datatype` tells us that the content
