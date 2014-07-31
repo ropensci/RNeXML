@@ -172,7 +172,7 @@ though stand-alone programs remain an important part of this ecosystem
 for tasks such as generating phylogenetic trees from sequence data.  Within 
 this ecosystem a variety of different data formats for
 phylogenetic data have been developed and modified. Most but not all 
-are based on the simple and popular `phylo` format provided by the
+are based on the simple and popular `ape::phylo` format provided by the
 ape package `r citep(citation("ape"))`. 
 
 Though certain functions allow R users to switch between these formats
@@ -248,28 +248,14 @@ the data representation to new uses such as stochastic character maps.
 The current stable version of the `RNeXML` package can be installed from
 the CRAN library[^1].  
 
-<!-- actually not yet, but before submission -->
-
 ```r
 install.packages("RNeXML", dependencies=c("DEPENDS", "IMPORTS", "SUGGESTS"))
 ```
 
 
-
-
-
-<!-- 
-The latest stable development version can be installed from Github using the `devtools` package:
-
-```r
-library(devtools)
-install_github("RNeXML", "ropensci", dependencies=c("DEPENDS", "IMPORTS", "SUGGESTS"))
-```
---> 
-
-
-
 ## Reading phylogenetic trees
+
+
 
 ```{r echo=FALSE}
 library(RNeXML)
@@ -279,26 +265,30 @@ library(RNeXML)
 method. At first this might seem user-friendly, but it will just be confusing
 and create a document and source code maintenance nightmare. Why not just pick
 read.nexml and be done with it? -->
-We begin by reading in an example NeXML file provided with the package.[^2]
+<!-- For whatever reason, R has native support for aliasing function names;
+     so I don't see this creating a maintenance/documentation issue.  If I 
+     had to pick, I'd go with read_nexml though; a lot of the R developer 
+     community strongly opposes the `.` in function names, since it falsely
+     mimics the S3 class structure.  - CB -->
 
-<!-- I think it would be useful to provide an overview of what is contained in this -->
-<!-- example file here. The reader will know better what to expect (e.g., the -->
-<!-- object contains 2 trees.) -->
+We begin by loading the `RNeXML` package and reading in an example
+NeXML file provided with the package, containing two small phylogenetic
+trees.[^2]
 
 ```{r}
+library("RNeXML")
 f <- system.file("examples", "trees.xml", package="RNeXML")
 nex <- nexml_read(f)
 ```
 
-
-
 The resulting `nex` object is an R object representation of the NeXML. This is 
 a native R object, of the `nexml` class, for representing phylogenetic trees (as well as 
-character traits, and metadata), analogous to the `phylo` object from the 
+character traits, and metadata), analogous to the `ape::phylo` object from the 
 popular `ape` R package `r citep(citation("ape"))`. While R functions and packages 
 could be written to use this `nexml` object directly, most users will prefer to use
 already existing methods provided by packages they know. From a `nexml` object, we can 
-therefore extract any phylogenies it contains in the `ape::phylo` format:
+therefore extract any phylogenies it contains in the `ape::phylo` format. In this 
+case we will get back a `multiPhylo` object, since the file contains two phylogenies.  
 
 ```{r}
 phy <- get_trees(nex)
@@ -309,9 +299,6 @@ phylogenetics community. For instance, here we use the standard plotting functio
 the `ape` package to plot the first tree in the resulting `ape::phylo` object returned by
 `get_trees`.
 
-<!-- I am not sure it really matters but `phy` is actually a `multiPhylo` -->
-<!-- object -->
-
 ```{r eval=FALSE}
 plot(phy[[1]])
 ```
@@ -321,7 +308,7 @@ but can also group sets of trees into separate blocks (e.g. as resulting from
 different workflows). The `get_trees` function attempts to return the most sensible 
 R object for NeXML: if only a single tree is available, it will return an `ape::phylo` 
 object; if multiple trees are available in a single `trees` block, it will return
-an `ape::multiPhylo` object (a list of `phylo` objects).  If multiple
+an `ape::multiPhylo` object (a list of `ape::phylo` objects).  If multiple
 blocks are available, it will return a list of `multiPhylo` blocks.
 While most users will find this behavior convenient, there are times
 (such as looping over many NeXML files) when having a variable return
@@ -355,17 +342,18 @@ most researchers will be familiar with the use of character matrices in
 NEXUS files as a container for molecular sequence (or morphological) data 
 used to infer the phylogenetic tree, we find this ideal for character data used in
 comparative methods popular in R. Methods to extract character data
-work much like those for the phylogenetic data:
+work much like those for the phylogenetic data. Here we read in an example
+NeXML file that contains both a phylogeny and character data. 
+`get_characters` returns a `data.frame` with columns as characters and rows as
+taxa:
 
 ```{r }
 comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nex <- nexml_read(comp_analysis)
 get_characters(nex)
 ```
-<!-- I think it's better to be explicit rather than referring to the chunk above -->
 
-`get_characters` returns a `data.frame` with columns as characters and rows as
-taxa. Continuous and discrete characters are represented as separate
+As this example shows, continuous and discrete characters are represented as separate
 blocks in NeXML files, but will be combined as separate columns of a
 single data frame by `get_characters()` if they correspond to the same
 taxa. The `get_characters_list()` function will consistently receive
@@ -387,7 +375,11 @@ nexml_write(bird.orders, file = "birds.xml")
 and trees on taxon labels. it would be nice if this merged data
 structure could also be passed to nexml_write (or should that be
 write.nexml?) -->
-The first argument to `nexml_write` can be a `phylo` phylogeny,
+<!-- Great observation.  I think we should add a coercion method
+from the caper structure to the nexml S4 structure.  Then nexml_write
+can automatically handle this. added as issue now  -->
+
+The first argument to `nexml_write` can be a `ape::phylo` phylogeny,
 `multiPhylo` list of phylogenies, or a `nexml` object -- anything that
 can be coerced into the `nexml` class.  As we have seen, NeXML files
 can contain multiple phylogenetic trees, as well as character matrices.
@@ -402,6 +394,15 @@ nexml_write(trees = geospiza$phy, characters = geospiza$dat, file="geospiza.xml"
 These examples use data from the popular phylogenetics software `geiger` `r citep(citation("geiger")[[4]])`.  
 
 <!-- how about add_taxa? -->
+<!-- A taxa block is added when trees or characters are added.  Yeah,
+     I guess it would make sense to be able to add taxa directly,
+     (e.g. a NeXML file containing only RDFa metadata about taxa, 
+     independent of characters or trees), but I worry about confusing
+     people into thinking they must add taxa blocks separately, and
+     about when we should merge or not merge taxa blocks of matching
+     species. See https://github.com/ropensci/RNeXML/issues/43 
+     Added new issue for this, https://github.com/ropensci/RNeXML/issues/85 -->
+
 NeXML files can also be built up bit by bit using the `add_characters`,
 `add_trees`, and `add_meta`.  Each of these functions can add data to an
 existing `nexml` object or create a new nexml object if none is provided.
@@ -457,6 +458,8 @@ several levels:
 
 <!-- in the Perl library I also embed the value of the environment variable
 $USER as a document-level annotation -->
+<!-- Good idea-->
+
 `RNeXML` automatically adds basic metadata by default such as a time-stamp
 of when the tree was produced and an open data license (CC0, compatible
 with deposition on Dryad data repository), which can be configured
@@ -532,17 +535,20 @@ centralized database we can catch some of these inconsistencies and
 indicate more precisely which classification we are appealing to in the
 event of conflicting taxonomic definitions.  In this example, we indicate
 that we intend the bird orders listed in the tree to correspond to the
-NCBI definitions
+NCBI definitions.
+
+The `taxize_nexml` function uses the R package `taxize` 
+`r citep("Chamberlain taxize F1000Research 2013")` to check each taxon label against the NCBI database.
+If a unique match is found, a metadata annotation is added to the taxon
+providing the NCBI identification number to the taxonomic unit.  If no
+match is found, the user is warned to check for possible typographic
+errors in the taxonomic labels provided.
+
 
 ```{r message=FALSE, results='hide'}
 birds <- taxize_nexml(birds, "NCBI")
 ```
 
-This function uses the R package `taxize` `r citep("Chamberlain taxize F1000Research 2013")` to check each taxon label against the NCBI database.
-If a unique match is found, a metadata annotation is added to the taxon
-providing the NCBI identification number to the taxonomic unit.  If no
-match is found, the user is warned to check for possible typographic
-errors in the taxonomic labels provided.
 
 <!-- what if multiple NCBI taxon IDs are found, e.g. 'Aotus'? -->
 
@@ -554,8 +560,7 @@ understanding of the kind of metadata being provided, and can thus
 generate the appropriate metadata with little further guidance.
 In order to be machine-readable and understandable, NeXML requires
 all metadata annotations follow the RDFa format (see @Vos_2012) which
-explicitly declares the meaning of the annotation <!-- in a way a computer
-can understand -- this is redundant with the beginning of the sentence -->.  For instance, the title we gave to the `bird.orders`
+explicitly declares the meaning of the annotation. For instance, the title we gave to the `bird.orders`
 phylogeny appears in the NeXML file as:
 
 ```xml
@@ -774,8 +779,6 @@ what it is encoding.
 In this example, we illustrate how the additional information required
 to define a stochastic character mapping (a `simmap` mapping) in NeXML.  
 
-
-
 `r citet(citation("phytools"))` describes the `phytools` package for R, which includes
 utilities for reading, manipulating, and writing `simmap` files in R.
 In this example, we also show how to define `RNeXML` functions that 
@@ -853,12 +856,12 @@ nex <- add_namespaces(c(simmap = "https://github.com/ropensci/RNeXML/tree/master
 
 At that URL we have posted a simple description of each term. 
 
-Using this convention we can generate NeXML files containing simmap
+Using this convention we can generate NeXML files containing `simmap`
 data, read those files into R, and convert them back into the `phytools`
 package format. These simple functions serve as further illustration of
 how `RNeXML` can be used to extend the NeXML standard.  We illustrate
 their use briefly here, starting with  loading a `nexml` object containing
-a simmap reconstruction into R:
+a `simmap` reconstruction into R:
 
 
 ```{r}
@@ -866,15 +869,15 @@ data(simmap_ex)
 ```
 
 The `get_trees` function can be used to return an `ape::phylo` tree as
-usual.  `RNeXML` automatically detects the simmap reconstruction data
-and returns includes this in a `maps` element of the `phylo` object,
+usual.  `RNeXML` automatically detects the `simmap` reconstruction data
+and returns includes this in a `maps` element of the `ape::phylo` object,
 for use with other `phytools` functions.
 
 ```{r}
 phy <- nexml_to_simmap(simmap_ex)
 ```
 
-We can then use various functions from `phytools` designed for simmap
+We can then use various functions from `phytools` designed for `simmap`
 objects `r citep(citation("phytools"))`, such as the plotting function:
 
 ```{r caption="Stochastic character mapping on a phylogeny, as generated by the phytools package after parsing the simmap-extended NeXML"}
@@ -891,8 +894,8 @@ nexml_write(nex, "simmap.xml")
 ```
 
 Though other NeXML parsers (for instance, for Perl or Python) have
-not been written explicitly to express simmap data, those parsers will
-nonetheless be able to successfully parse this file and expose the simmap
+not been written explicitly to express `simmap` data, those parsers will
+nonetheless be able to successfully parse this file and expose the `simmap`
 data to the user.
 
 
