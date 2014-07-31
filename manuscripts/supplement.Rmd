@@ -331,7 +331,13 @@ from the semantic RDFa data and then visualize it
 newick <- paste(recurse(root), ";", sep = "", collapse = "")
 tree <- read.newick(text = newick)
 collapsed <- collapse.singles(tree)
-plot(collapsed, type = "cladogram")
+plot(collapsed, 
+     type='cladogram', 
+     show.tip.label=FALSE, 
+     show.node.label=TRUE, 
+     cex=0.75, 
+     edge.color='grey60', 
+     label.offset=-9)
 ```
 
 
