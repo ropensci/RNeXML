@@ -85,7 +85,7 @@
 \hypersetup{breaklinks=true,
             bookmarks=true,
             pdfauthor={},
-            pdftitle={RNeXML: Parsing and Serializing the Next Generation of Phyloinformatic Data in R},
+            pdftitle={RNeXML: a package for reading and writing richly annotated phylogenetic, character, and trait data in R},
             colorlinks=true,
             urlcolor=blue,
             linkcolor=magenta,
@@ -104,15 +104,15 @@
 \begin{document}
 \begin{frontmatter}
 
-  \title{RNeXML: Parsing and Serializing the Next Generation of Phyloinformatic
-Data in R}
+  \title{RNeXML: a package for reading and writing richly annotated phylogenetic,
+character, and trait data in R}
     \author[cstar]{Carl Boettiger\corref{c1}}
    \ead{cboettig(at)gmail.com} 
    \cortext[c1]{Corresponding author}
     \author[NESCent]{Hilmar Lapp}
   
   
-    \author[SimonFraser]{Scott Chamberlain}
+    \author[ropensci]{Scott Chamberlain}
   
   
     \author[NBC]{Rutger Vos}
@@ -122,7 +122,7 @@ Data in R}
 Statistics, University of California, Mail Stop SOE-2, Santa Cruz, CA
 95064, USA}    
     \address[NESCent]{National Evolutionary Synthesis Center, Durham, NC, USA}    
-    \address[SimonFraser]{Department of Biology, Simon Fraser University, Burnaby, Canada}    
+    \address[ropensci]{University of California, Berkeley, CA, USA}    
     \address[NBC]{Naturalis Biodiversity Center, Leiden, the Netherlands}    
   
   \begin{abstract}
@@ -197,8 +197,8 @@ stand-alone programs remain an important part of this ecosystem for
 tasks such as generating phylogenetic trees from sequence data. Within
 this ecosystem a variety of different data formats for phylogenetic data
 have been developed and modified. Most but not all are based on the
-simple and popular \texttt{phylo} format provided by the ape package
-(Paradis \emph{et al.} 2004).
+simple and popular \texttt{ape::phylo} format provided by the ape
+package (Paradis \emph{et al.} 2004).
 
 Though certain functions allow R users to switch between these formats
 within R, these formats frequently contain more information than their
@@ -236,7 +236,7 @@ uses metadata to extend the NeXML standard to describe stochastic
 character mapping, one of the kinds of data annotation that is currently
 available in R formats but lacks a consistent, extensible export format.
 We illustrate how NeXML files can be formally published to a data
-repository directly from R. Finally, we provide an brief description of
+repository directly from R. Finally, we provide a brief description of
 how the software has been implemented, what quality control measures are
 in place, as well as information about software reuse and getting
 support.
@@ -279,27 +279,31 @@ installed from the CRAN library\footnote{By providing the optional
 \subsection{Reading phylogenetic
 trees}\label{reading-phylogenetic-trees}
 
-We begin by reading in an example NeXML file provided with the
-package.\footnote{For convenience \texttt{nexml\_read} is also aliased
-  as \texttt{read.nexml}, for users familiar with the somewhat analogous
-  \texttt{read.nexus} function.}
+We begin by loading the \texttt{RNeXML} package and reading in an
+example NeXML file provided with the package, containing two small
+phylogenetic trees.\footnote{For convenience \texttt{nexml\_read} is
+  also aliased as \texttt{read.nexml}, for users familiar with the
+  somewhat analogous \texttt{read.nexus} function.}
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(}\StringTok{"RNeXML"}\NormalTok{)}
 \NormalTok{f <-}\StringTok{ }\KeywordTok{system.file}\NormalTok{(}\StringTok{"examples"}\NormalTok{, }\StringTok{"trees.xml"}\NormalTok{, }\DataTypeTok{package=}\StringTok{"RNeXML"}\NormalTok{)}
 \NormalTok{nex <-}\StringTok{ }\KeywordTok{nexml_read}\NormalTok{(f)}
 \end{Highlighting}
 \end{Shaded}
 
 The resulting \texttt{nex} object is an R object representation of the
-NeXML. This is a native R object for representing phylogenetic trees (as
-well as character traits, and metadata), analogous to the \texttt{phylo}
-object from the popular \texttt{ape} R package (Paradis \emph{et al.}
-2004). While R functions and packages could be written to use this
-\texttt{nexml} object directly, most users will prefer to use already
-existing methods provided by packages they know. From \texttt{nex}
-object we can therefore extract any phylogenies it contains in the
-\texttt{ape::phylo} format:
+NeXML. This is a native R object, of the \texttt{nexml} class, for
+representing phylogenetic trees (as well as character traits, and
+metadata), analogous to the \texttt{ape::phylo} object from the popular
+\texttt{ape} R package (Paradis \emph{et al.} 2004). While R functions
+and packages could be written to use this \texttt{nexml} object
+directly, most users will prefer to use already existing methods
+provided by packages they know. From a \texttt{nexml} object, we can
+therefore extract any phylogenies it contains in the \texttt{ape::phylo}
+format. In this case we will get back a \texttt{multiPhylo} object,
+since the file contains two phylogenies.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -309,8 +313,8 @@ object we can therefore extract any phylogenies it contains in the
 
 We can then leverage the rich suite of methods available from the R
 phylogenetics community. For instance, here we use the standard plotting
-function from the \texttt{ape} package to plot the resulting
-\texttt{ape::phylo} object returned by \texttt{get\_trees}.
+function from the \texttt{ape} package to plot the first tree in the
+resulting \texttt{ape::phylo} object returned by \texttt{get\_trees}.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -324,13 +328,13 @@ resulting from different workflows). The \texttt{get\_trees} function
 attempts to return the most sensible R object for NeXML: if only a
 single tree is available, it will return an \texttt{ape::phylo} object;
 if multiple trees are available in a single \texttt{trees} block, it
-will return an \texttt{ape::multiPhylo} object (a list of \texttt{phylo}
-objects). If multiple blocks are available, it will return a list of
-\texttt{multiPhylo} blocks. While most users will find this behavior
-convenient, there are times (such as looping over many NeXML files) when
-having a variable return type is undesirable. To always get back a list
-of \texttt{multiPhylo} objects, even when only one tree is available,
-use \texttt{get\_trees\_list()}.
+will return an \texttt{ape::multiPhylo} object (a list of
+\texttt{ape::phylo} objects). If multiple blocks are available, it will
+return a list of \texttt{multiPhylo} blocks. While most users will find
+this behavior convenient, there are times (such as looping over many
+NeXML files) when having a variable return type is undesirable. To
+always get back a list of \texttt{multiPhylo} objects, even when only
+one tree is available, use \texttt{get\_trees\_list()}.
 
 The ability to read in phylogenetic trees in the NeXML format opens up a
 wide and rapidly growing array of resources to the R user. For instance,
@@ -339,7 +343,7 @@ a user can access all the phylogenies available in TreeBASE through the
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{nex =}\StringTok{ }\KeywordTok{nexml_read}\NormalTok{(}\StringTok{"https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml"}\NormalTok{)}
+\NormalTok{nex <-}\StringTok{ }\KeywordTok{nexml_read}\NormalTok{(}\StringTok{"https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -358,7 +362,10 @@ most researchers will be familiar with the use of character matrices in
 NEXUS files as a container for molecular sequence (or morphological)
 data used to infer the phylogenetic tree, we find this ideal for
 character data used in comparative methods popular in R. Methods to
-extract character data work much like those for the phylogenetic data:
+extract character data work much like those for the phylogenetic data.
+Here we read in an example NeXML file that contains both a phylogeny and
+character data. \texttt{get\_characters} returns a \texttt{data.frame}
+with columns as characters and rows as taxa:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -382,13 +389,12 @@ taxon_6                  6.259             1
 taxon_7                  0.910             1
 \end{verbatim}
 
-Returns a \texttt{data.frame} with columns as characters and rows as
-taxa. Continuous and discrete characters are represented as separate
-blocks in NeXML files, but will be combined as separate columns of a
-single data frame by \texttt{get\_characters()} if they correspond to
-the same taxa. The \texttt{get\_characters\_list()} function will
-consistently receive a list of data frames corresponding to each
-character matrix block of the NeXML.
+As this example shows, continuous and discrete characters are
+represented as separate blocks in NeXML files, but will be combined as
+separate columns of a single data frame by \texttt{get\_characters()} if
+they correspond to the same taxa. The \texttt{get\_characters\_list()}
+function will consistently receive a list of data frames corresponding
+to each character matrix block of the NeXML.
 
 \subsection{Writing phylogenetic
 trees}\label{writing-phylogenetic-trees}
@@ -407,7 +413,7 @@ a phylogeny from the \texttt{ape::phylo} format out to a NeXML file:
 [1] "birds.xml"
 \end{verbatim}
 
-The first argument to \texttt{nexml\_write} can be a \texttt{phylo}
+The first argument to \texttt{nexml\_write} can be a \texttt{ape::phylo}
 phylogeny, \texttt{multiPhylo} list of phylogenies, or a \texttt{nexml}
 object -- anything that can be coerced into the \texttt{nexml} class. As
 we have seen, NeXML files can contain multiple phylogenetic trees, as
@@ -508,7 +514,7 @@ following fields: \texttt{title}, \texttt{description},
 \texttt{creator}, \texttt{pubdate}, \texttt{rights}, \texttt{publisher},
 \texttt{citation}. Additional fields may be added to subsequent
 versions, see \texttt{?add\_basic\_metadata} for the most up-to-date
-information. Here we create an new \texttt{nexml} object with the basic
+information. Here we create a new \texttt{nexml} object with the basic
 metadata for the \texttt{bird.orders} data provided in the \texttt{ape}
 package:
 
@@ -519,7 +525,7 @@ package:
 \NormalTok{birds <-}\StringTok{ }\KeywordTok{add_basic_meta}\NormalTok{(birds,}
   \DataTypeTok{title =} \StringTok{"Phylogeny of the Orders of Birds From Sibley and Ahlquist"}\NormalTok{,}
 
-  \DataTypeTok{description =}\StringTok{" This data set describes the phylogenetic relationships of the}
+  \DataTypeTok{description =} \StringTok{"This data set describes the phylogenetic relationships of the}
 \StringTok{     orders of birds as reported by Sibley and Ahlquist (1990). Sibley}
 \StringTok{     and Ahlquist inferred this phylogeny from an extensive number of}
 \StringTok{     DNA/DNA hybridization experiments. The ``tapestry'' reported by}
@@ -547,7 +553,9 @@ allows a user to add citations to R packages,
 \end{Highlighting}
 \end{Shaded}
 
-or to papers by simply using the object's DOI (using Boettiger (2014)):
+or to papers by simply using the object's DOI (using Boettiger (2014)).
+For instance to add the citation information of the paper that generated
+the \texttt{geospiza} phylogeny included in the \texttt{geiger} package:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -555,9 +563,6 @@ or to papers by simply using the object's DOI (using Boettiger (2014)):
 \NormalTok{geiger_nex <-}\StringTok{ }\KeywordTok{add_basic_meta}\NormalTok{(geiger_nex, }\DataTypeTok{citation =} \KeywordTok{bib_metadata}\NormalTok{(}\StringTok{"10.2307/2408428"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
-
-(Which is the paper on which the \texttt{geospiza} phylogeny from the
-geiger dataset is based)
 
 \subsection{Taxonomic identifiers}\label{taxonomic-identifiers}
 
@@ -575,20 +580,20 @@ against a specific, centralized database we can catch some of these
 inconsistencies and indicate more precisely which classification we are
 appealing to in the event of conflicting taxonomic definitions. In this
 example, we indicate that we intend the bird orders listed in the tree
-to correspond to the NCBI definitions
+to correspond to the NCBI definitions.
+
+The \texttt{taxize\_nexml} function uses the R package \texttt{taxize}
+(Chamberlain \& Sz{ö}cs 2013) to check each taxon label against the NCBI
+database. If a unique match is found, a metadata annotation is added to
+the taxon providing the NCBI identification number to the taxonomic
+unit. If no match is found, the user is warned to check for possible
+typographic errors in the taxonomic labels provided.
 
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{birds <-}\StringTok{ }\KeywordTok{taxize_nexml}\NormalTok{(birds, }\StringTok{"NCBI"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
-
-This function uses the \texttt{taxize} R library (Chamberlain \& Sz{ö}cs
-2013) to check each taxon label against the NCBI database. If a unique
-match is found, a metadata annotation is added to the taxon providing
-the NCBI identification number to the taxonomic unit. If no match is
-found, the user is warned to check for possible typographic errors in
-the taxonomic labels provided.
 
 \subsection{Custom metadata
 extensions}\label{custom-metadata-extensions}
@@ -598,9 +603,13 @@ understanding of the kind of metadata being provided, and can thus
 generate the appropriate metadata with little further guidance. In order
 to be machine-readable and understandable, NeXML requires all metadata
 annotations follow the RDFa format (see Vos et al. (2012)) which
-explicitly declares the meaning of the annotation in a way a computer
-can understand. For instance, the title we gave to the
-\texttt{bird.orders} phylogeny appears in the NeXML as:
+explicitly declares the meaning of the annotation.
+
+Some basic definitions about the XML syntax used to express NeXML will
+be helpful for this discussion, though a more comprehensive introduction
+can be found in Vos et al. (2012). For instance, consider how the title
+we gave to the \texttt{bird.orders} phylogeny appears in the NeXML file
+using the XML format:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -609,15 +618,43 @@ can understand. For instance, the title we gave to the
 \end{Highlighting}
 \end{Shaded}
 
-We see the title appears as the value of the \texttt{content} attribute
-of this \texttt{meta} element. The \texttt{id} attribute provides us
-with a unique way to refer to this meta element in this document. The
-\texttt{datatype} tells us that the content is a text string (as opposed
-to, say, a numerical or boolean value). The \texttt{property} is the
-attribute that most interests us here; it tells us that the content is a
-title. The prefix \texttt{dc} indicates the vocabulary (here identified
-as an XML namespace) to which the word \texttt{title} belongs. The
-prefix is defined elsewhere in the NeXML file, as we can see with:
+The format begins with an XML ``tag'' and the name ``meta'', indicated
+by the opening angle bracket; \texttt{\textless{}meta}. A closing tag
+\texttt{\textbackslash{}\textgreater{}} indicates the end of this XML
+``element'' . This tag contains several ``attributes'', named ``id'',
+``property'', etc., that an R user can think of as names in a
+\texttt{list}. What follows the equals sign after the attribute name is
+called the attribute ``value'', (e.g.~the \texttt{id} attribute has
+value ``m2'').
+
+The name of any element (like ``meta'') or attribute (like ``id'') in
+XML must be associated with a particular dictionary called a
+``namespace'' and specified using a ``prefix'' of an abbreviation
+followed by a colon appearing before the name. If no prefix is given, as
+is the case for all attributes here: \texttt{id}, \texttt{property},
+\texttt{datatype}, and \texttt{content}, then a default prefix specified
+at the beginning of the document applies, in this case, the NeXML
+namespace. This allows users to combine different XML that have
+different definitions of terms like \texttt{id} or \texttt{property}.
+
+The example element above also uses namespaces on some of the attribute
+values themselves. This is a consequence of RDFa annotation, and not
+strictly part of XML, though it works much the same way. While we hope
+the following examples will make these concepts clearer, users do not
+need to understand XML and namespaces to use most of the basic
+annotation features provided by \texttt{RNeXML}.
+
+So much for the structure; we can now briefly explain the meaning of
+this element. We see the title appears as the value of the
+\texttt{content} attribute of this \texttt{meta} element. The
+\texttt{id} attribute provides us with a unique way to refer to this
+meta element in this document. The \texttt{datatype} tells us that the
+content is a text string (as opposed to, say, a numerical or boolean
+value). The \texttt{property} is the attribute that most interests us
+here; it tells us that the content is a title. The prefix \texttt{dc}
+indicates the vocabulary (here identified as an XML namespace) to which
+the word \texttt{title} belongs. The prefix is defined elsewhere in the
+NeXML file, as we can see with:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1005,7 +1042,7 @@ quickly. Because these are just R commands, we can easily define a
 function that can loop over an assignment like this for each edge,
 extracting the appropriate order, length and state from an existing R
 object such as that provided in the \texttt{phytools}
-package.\\Likewise, it is straight forward to define a function that
+package.\\Likewise, it is straightforward to define a function that
 reads this data using the \texttt{RNeXML} utilities and converts it back
 to the \texttt{phytools} package. The full implementation of this
 mapping can be seen in the \texttt{simmap\_to\_nexml()} and the
@@ -1025,13 +1062,13 @@ with more detailed descriptions of what each of these elements mean:
 
 At that URL we have posted a simple description of each term.
 
-Using this convention we can generate NeXML files containing simmap
-data, read those files into R, and convert them back into the
-\texttt{phytools} package format. These simple functions serve as
-further illustration of how \texttt{RNeXML} can be used to extend the
+Using this convention we can generate NeXML files containing
+\texttt{simmap} data, read those files into R, and convert them back
+into the \texttt{phytools} package format. These simple functions serve
+as further illustration of how \texttt{RNeXML} can be used to extend the
 NeXML standard. We illustrate their use briefly here, starting with
-loading a \texttt{nexml} object containing a simmap reconstruction into
-R:
+loading a \texttt{nexml} object containing a \texttt{simmap}
+reconstruction into R:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1041,9 +1078,9 @@ R:
 
 The \texttt{get\_trees} function can be used to return an
 \texttt{ape::phylo} tree as usual. \texttt{RNeXML} automatically detects
-the simmap reconstruction data and returns includes this in a
-\texttt{maps} element of the \texttt{phylo} object, for use with other
-\texttt{phytools} functions.
+the \texttt{simmap} reconstruction data and returns includes this in a
+\texttt{maps} element of the \texttt{ape::phylo} object, for use with
+other \texttt{phytools} functions.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1052,7 +1089,7 @@ the simmap reconstruction data and returns includes this in a
 \end{Shaded}
 
 We can then use various functions from \texttt{phytools} designed for
-simmap objects (Revell 2012), such as the plotting function:
+\texttt{simmap} objects (Revell 2012), such as the plotting function:
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1088,9 +1125,9 @@ it out to file to be read by other users.
 \end{verbatim}
 
 Though other NeXML parsers (for instance, for Perl or Python) have not
-been written explicitly to express simmap data, those parsers will
-nonetheless be able to successfully parse this file and expose the
-simmap data to the user.
+been written explicitly to express \texttt{simmap} data, those parsers
+will nonetheless be able to successfully parse this file and expose the
+\texttt{simmap} data to the user.
 
 \subsection{Publishing NeXML files from
 R}\label{publishing-nexml-files-from-r}
@@ -1120,7 +1157,7 @@ public release.
 
 The \texttt{RNeXML} package is available through the CRAN repository
 under a CC0 license. At the time of writing, the current version is
-1.1-0. The current development branch can be found on Github at
+1.1.1. The current development branch can be found on Github at
 {[}\url{https://github.com/ropensci/RNeXML}{]}. See the NEWS file for
 changes in recent versions. Users are encouraged to submit bug reports
 or feature requests in the issues log. Contact
@@ -1129,21 +1166,29 @@ help, or email the phylogenetics R users group list at
 \texttt{r-sig-phylo@r-project.org}.
 
 There are many promising directions for further development of the
-\texttt{RNeXML} package. The project's {[}Milestones
-page{]}{[}\url{https://github.com/ropensci/RNeXML/issues/milestones}{]}
-page provides a list of steps currently planned or under consideration.
-In particular, these milestones include increased support for
-interactive mode of entering data (wizards), and support for integration
-of semantics defined through the Web Ontology language (OWL), as
-discussed in the Challenges section.
+\texttt{RNeXML} package. The project's
+\href{https://github.com/ropensci/RNeXML/issues/milestones}{Milestones
+page} page provides a list of steps currently planned or under
+consideration. In particular, these milestones include increased support
+for interactive mode of entering data (wizards), conversions to and from
+other existing R phylogenetics formats such those found in the
+\texttt{phylobase} package (al. 2014), and support for integration of
+semantics defined through the Web Ontology language (OWL), as discussed
+in the Challenges section.
 
 \subsection{Acknowledgements}\label{acknowledgements}
 
-This project was supported in part by a grant from the Alfred P Sloan
-Foundation (CB and SC), NSF Grant DBI-1306697 (CB), \ldots{}
+.
 
-\texttt{RNeXML} is part of the rOpenSci project,
-{[}\url{http://ropensci.org}{]}.
+This project was supported in part by a grant from the Alfred P Sloan
+Foundation Grant 2013-6-22 (CB and SC), NSF Grant DBI-1306697 (CB),
+\ldots{} We thank F. Michonneau for helpful comments on an earlier
+version of this manuscript. \texttt{RNeXML} is part of the rOpenSci
+project, {[}\url{http://ropensci.org}{]}.
+
+al., R.H. et. (2014). \emph{phylobase: Base package for phylogenetic
+structures and comparative data}. Retrieved from
+\url{http://CRAN.R-project.org/package=phylobase}
 
 Boettiger, C. (2014). \emph{knitcitations: Citations for knitr markdown
 files}. Retrieved from \url{https://github.com/cboettig/knitcitations}

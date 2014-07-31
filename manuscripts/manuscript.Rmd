@@ -967,7 +967,9 @@ There are many promising directions for further development of the
 `RNeXML` package.  The project's [Milestones page](https://github.com/ropensci/RNeXML/issues/milestones) page provides a list of
 steps currently planned or under consideration.  In particular, these
 milestones include increased support for interactive mode of entering data
-(wizards), and support for integration of semantics defined through the
+(wizards), conversions to and from other existing R phylogenetics formats
+such those found in the `phylobase` package `r citep(citation("phylobase"))`,
+and support for integration of semantics defined through the
 Web Ontology language (OWL), as discussed in the Challenges section.
 
 
