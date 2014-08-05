@@ -1,5 +1,6 @@
 #' validate nexml using the online validator tool
 #' @param file path to the nexml file to validate
+#' @param schema URL of schema (for fallback method only, set by default).  
 #' @details Requires an internet connection.  see http://www.nexml.org/nexml/phylows/validator for more information in debugging invalid files
 #' @return TRUE if the file is valid, FALSE or error message otherwise
 #' @export
@@ -10,7 +11,7 @@
 #' nexml_validate("bird_orders.xml")
 #' unlink("bird_orders.xml") # delete file to clean up
 #' }
-nexml_validate <- function(file){
+nexml_validate <- function(file, schema="http://www.nexml.org/2009/nexml.xsd"){
 #   xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", file)  
   # Consider providing a copy of the schema so this works offline?
   # xmlSchemaValidate potentially provides more useful debugging output...
@@ -19,7 +20,7 @@ nexml_validate <- function(file){
     TRUE
   } else if(a$status_code == 504){
     warning("Online validator timed out, trying schema-only validation.")
-    nexml_schema_validate(file)
+    nexml_schema_validate(file, schema=schema)
 
   } else if(a$status_code == 400){
     warning(paste("Validation failed, error messages:",
@@ -33,15 +34,20 @@ nexml_validate <- function(file){
   }
 }
 
-nexml_schema_validate <- function(file){
+nexml_schema_validate <- function(file, schema="http://www.nexml.org/2009/nexml.xsd"){
   a = GET("http://www.nexml.org/2009/nexml.xsd")
   if(a$status_code == 200){
-    result <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", file) 
-    if(length(result$errors) == 0){
-      TRUE
+    if(is.null(xmlSchemaParse(schema))){
+        warning(paste("Schema not accessible at", schema))
+        NULL
     } else {
-      warning(paste(result$errors))
-      FALSE
+      result <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", file) 
+      if(length(result$errors) == 0){
+        TRUE
+      } else {
+        warning(paste(result$errors))
+        FALSE
+      }
     }
   } else {
     warning("Unable to obtain schema, couldn't validate")

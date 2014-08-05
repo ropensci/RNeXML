@@ -3,10 +3,12 @@
 \alias{nexml_validate}
 \title{validate nexml using the online validator tool}
 \usage{
-nexml_validate(file)
+nexml_validate(file, schema = "http://www.nexml.org/2009/nexml.xsd")
 }
 \arguments{
 \item{file}{path to the nexml file to validate}
+
+\item{schema}{URL of schema (for fallback method only, set by default).}
 }
 \value{
 TRUE if the file is valid, FALSE or error message otherwise

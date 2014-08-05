@@ -2,7 +2,7 @@ context("Online validator tool")
 library(RNeXML)
 test_that("example file validates", {
   f <- system.file("examples", "trees.xml", package="RNeXML")
-  RNeXML:::expect_true_or_null(nexml_validate(f)) # null if we cannot perform validation, don't fail
+  expect_true_or_null(nexml_validate(f)) # null if we cannot perform validation, don't fail
 })
 
 test_that("RNeXML-generated file validates", {

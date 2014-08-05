@@ -23,12 +23,9 @@ test_that("write.nexml works (from ape::phylo)", {
   write.nexml(bird.orders, file="example.xml") # check alias too
 
 ## Check that that example is valid NeXML
-  RNeXML:::expect_true_or_null(nexml_validate("example.xml"))
+  expect_true_or_null(nexml_validate("example.xml"))
   expect_is(nexml_read("example.xml", "nexml"), "nexml")
 
-  results <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", "example.xml")
-  expect_equal(results$status, 0)
-  expect_equal(length(results$errors), 0)
   unlink("example.xml") # cleanup
 
 })
@@ -42,11 +39,11 @@ test_that("write.nexml can write multiple trees at once ", {
 
   ##  We can write a listOfmultiPhylo if the argument is named
   nexml_write(trees = trees, file="example.xml")
-  RNeXML:::expect_true_or_null(nexml_validate("example.xml"))
+  expect_true_or_null(nexml_validate("example.xml"))
 
   # we can write a multiPhylo (or phylo) by attempting coercion on the first argument instead:  
   nexml_write(trees[[1]], file="example.xml")
-  RNeXML:::expect_true_or_null(nexml_validate("example.xml"))
+  expect_true_or_null(nexml_validate("example.xml"))
 
 
   unlink("example.xml") # cleanup

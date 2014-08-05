@@ -21,7 +21,7 @@ test_that("We preserve existing namespace", {
   g <- tempfile()
   nexml_write(nex, g)
 
-  RNeXML:::expect_true_or_null(nexml_validate(g))
+  expect_true_or_null(nexml_validate(g))
 
   nex2 <- nexml_read(g)
 
