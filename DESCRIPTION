@@ -1,7 +1,7 @@
 Package: RNeXML
 Type: Package
 Title: Implement semantically rich I/O for NeXML format
-Version: 1.1.2
+Version: 1.1.3
 Authors@R: c(person("Carl", "Boettiger", role = c("cre", "aut"),
     email="cboettig@gmail.com"), person("Scott", "Chamberlain", role =
     "aut"), person("Hilmar", "Lapp", role = "aut"), person("Kseniia",
@@ -22,6 +22,7 @@ Suggests:
     knitr (>= 1.5),
     rfigshare (>= 0.3.0),
     knitcitations (>= 1.0.1),
+    testthat (>= 0.8.1),
     Sxslt
 Depends:
     R (>= 3.0.0),
@@ -33,8 +34,7 @@ Imports:
     taxize (>= 0.2.2),
     reshape2 (>= 1.2.2),
     httr (>= 0.3),
-    uuid (>= 0.1-1),
-    testthat (>= 0.8.1)
+    uuid (>= 0.1-1)
 Collate:
     'classes.R'
     'add_basic_meta.R'

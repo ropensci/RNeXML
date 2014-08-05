@@ -28,6 +28,13 @@ And constructed with the following guidelines:
 For more information on SemVer, please visit http://semver.org/.
 
 
+v1.1.3
+------
+
+Minor bugfix
+
+* Fixes typo that caused validator to fail when nexml.org couldn't be reached
+
 v1.1.2
 -------
 

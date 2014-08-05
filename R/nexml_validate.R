@@ -17,7 +17,7 @@ nexml_validate <- function(file){
   a = POST("http://www.nexml.org/nexml/phylows/validator", body=list(file = upload_file(file)))
   if(a$status_code == 201){
     TRUE
-  } else if(a$staus_code == 504){
+  } else if(a$status_code == 504){
     warning("Online validator timed out, trying schema-only validation.")
     nexml_schema_validate(file)
 
@@ -28,7 +28,7 @@ nexml_validate <- function(file){
          ))
     FALSE
   } else {
-    warning(paste("Unable to reach validator, status code", a$status_code, "message", content(a, "text")))
+    warning(paste("Unable to reach validator. status code:", a$status_code, ".  Message:\n\n", content(a, "text")))
     NULL
   }
 }
@@ -52,20 +52,4 @@ nexml_schema_validate <- function(file){
 #xmlSchemaValidate(xmlSchemaParse(content(a, "text"), asText=TRUE), file)   # fails to get other remote resources
 
 
-## Helper function for testing
-#' @importFrom testthat expect_true
-expect_true_or_null <- function(result){
-  validated <- if(is.null(result)){
-    TRUE
-  } else if(is.logical(result)){
-    if(result){
-      TRUE
-    } else {
-      FALSE
-    }
-  } else {
-    FALSE
-  }
-  expect_true(validated)
-}
 

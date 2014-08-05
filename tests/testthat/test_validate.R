@@ -8,7 +8,23 @@ test_that("example file validates", {
 test_that("RNeXML-generated file validates", {
   data(bird.orders)
   f <- nexml_write(bird.orders, file="test.xml") 
-  RNeXML:::expect_true_or_null(nexml_validate(f))
+  o <- nexml_validate(f)
+  if(!is.null(o)){
+    expect_true(o)
+  } else {
+    expect_null(o)
+  }
   unlink("test.xml")
+})
+
+
+test_that("Validation can fail gracefully", {
+  f <- system.file("examples/sparql.newick", package="RNeXML")
+  o <- nexml_validate(f)
+  if(!is.null(o)) { 
+    expect_false(o)
+  } else {
+    expect_null(o)
+  }
 })
 
