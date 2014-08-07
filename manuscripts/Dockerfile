@@ -1,18 +1,29 @@
 FROM cboettig/ropensci-docker:latest
 MAINTAINER Carl Boettiger cboettig@ropensci.org
 
+## Remain current
+RUN apt-get update -qq && apt-get dist-upgrade -y
 
-# Install package, with dependencies and suggests
-RUN apt-get install r-cran-rjava
+## LaTeX dependencies for building the manuscript
+RUN apt-get install -y texlive-humanities lmodern texlive-fonts-recommended texlive-latex-extra
 
-RUN Rscript -e 'options(repos=c(CRAN="http://cran.rstudio.com")); devtool::install_github("ropensci/RNeXML")'
+## This is stupidly large but easiest way to grab the various .sty files in use...
+# RUN apt-get install texlive-full
 
-# Clone the repo and switch into manscripts directory
+## Install package, with dependencies and suggests
+RUN Rscript -e 'options(repos=c(CRAN="http://cran.rstudio.com")); devtools::install_github("ropensci/RNeXML")'
+
+RUN apt-get install wget
+RUN wget http://www.phytools.org/nonstatic/phytools_0.4-27.tar.gz
+RUN R CMD INSTALL phytools_0.4-27.tar.gz
+
+
+## Clone the repo and switch into manscripts directory
 RUN git clone http://github.com/ropensci/RNeXML.git /tmp/RNeXML
 WORKDIR /tmp/RNeXML/manuscripts
 
-# Compile the manuscript
-RUN Rscript -e 'rmarkdown::render("manuscript.Rmd")
-RUN Rscript -e 'rmarkdown::render("supplement.Rmd")
+## Compile the manuscript & supplement
+RUN Rscript -e 'rmarkdown::render("manuscript.Rmd")'
+RUN Rscript -e 'rmarkdown::render("supplement.Rmd")'
 
 
