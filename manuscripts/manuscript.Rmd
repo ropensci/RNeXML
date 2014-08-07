@@ -249,7 +249,7 @@ The current stable version of the `RNeXML` package can be installed from
 the CRAN library[^1].  
 
 ```r
-install.packages("RNeXML", dependencies=c("DEPENDS", "IMPORTS", "SUGGESTS"))
+install.packages("RNeXML", dependencies=TRUE)
 ```
 
 
