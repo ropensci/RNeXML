@@ -3,7 +3,6 @@ Contributing Guidelines
 =======================
 
 
-
 Repository structure
 --------------------
 
