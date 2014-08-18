@@ -218,7 +218,7 @@ implemented, what quality control measures are in place, as well as
 information about software reuse and getting support.
 
 This paper has been written as a dynamic document 
-[@Xiei_2013].  The reader may paste the code blocks
+[@Xie_2013].  The reader may paste the code blocks
 shown into their R terminal to follow along with the exmples shown.
 
 
@@ -785,7 +785,7 @@ few reliable methods to distinguish between these flavors.  NeXML provides
 a solution to this problem through the use of metadata annotation.
 
 Here we illustrate this process using the example of stochastic character
-mapping [@Huelsenbecki_2003]. A stochastic character map is simply
+mapping [@Huelsenbeck_2003]. A stochastic character map is simply
 an annotation of the branches on a phylogeny, assigning each section
 of each branch to a particular "state" (typically of a morphological
 characteristic).
@@ -928,7 +928,7 @@ data to the user.
 ## Publishing NeXML files from R
 
 Data archiving is increasingly required by journals in evolutionary biology and 
-biodiversity (e.g. @Whitlock_2010).  The burden of preparing and submitting properly
+biodiversity (e.g. @Rausher_2010).  The burden of preparing and submitting properly
 annotated data to archives continues to be a significant barrier [@Tenopir_2011; @Stodden_2014],
 and many phylogenetic trees upon which studies are based are inaccessible or lost 
 to the research community [@Drew_2013].  `RNeXML` seeks to lower these barriers
