@@ -241,9 +241,9 @@ how the software has been implemented, what quality control measures are
 in place, as well as information about software reuse and getting
 support.
 
-This paper has been written as a dynamic document (Xie 2013). The reader
-may paste the code blocks shown into their R terminal to follow along
-with the exmples shown.
+This paper has been written as a dynamic document ({\textbf{???}}). The
+reader may paste the code blocks shown into their R terminal to follow
+along with the exmples shown.
 
 \section{Introduction to RNeXML}\label{introduction-to-rnexml}
 
@@ -348,12 +348,12 @@ a user can access all the phylogenies available in TreeBASE through the
 \end{Shaded}
 
 Previously, this was possible using the \texttt{treebase} package
-(Boettiger \& {Temple Lang} 2012) for R, which relied on the NEXUS
-parser provided in the \texttt{ape} package. Due to inconsistencies
-present in the NEXUS standard (Vos \emph{et al.} 2012), a significant
-number of TreeBASE NEXUS files could not be read in this way. Using the
-more precisely defined NeXML standard, every valid NeXML document on
-TreeBASE can now successfully be parsed to R objects.
+{[}Boettiger \& {Temple Lang} (2012)``{]} for R, which relied on the
+NEXUS parser provided in the \texttt{ape} package. Due to
+inconsistencies present in the NEXUS standard (Vos \emph{et al.} 2012),
+a significant number of TreeBASE NEXUS files could not be read in this
+way. Using the more precisely defined NeXML standard, every valid NeXML
+document on TreeBASE can now successfully be parsed to R objects.
 
 \subsection{Reading character data}\label{reading-character-data}
 
@@ -469,11 +469,12 @@ At the heart of the NeXML standard is the ability to encode arbitrary
 metadata in precisely specified, machine-readable formats that maintain
 backwards compatibility with any existing NeXML parser. NeXML uses the
 ``Resource Description Framework in Annotations'', or RDFa, as described
-in Vos et al. (2012). These annotations can be used to add information
-to any particular element of the data, (a tree, node, edge, or taxonomic
-unit; a character matrix or specific trait, or even another metadata
-annotation or the NeXML data file as a whole). \texttt{RNeXML} provides
-a range of tools for accessing metadata embedded in a NeXML file.
+in Vos et al. (2012) or Prud'hommeaux (2014). These annotations can be
+used to add information to any particular element of the data, (a tree,
+node, edge, or taxonomic unit; a character matrix or specific trait, or
+even another metadata annotation or the NeXML data file as a whole).
+\texttt{RNeXML} provides a range of tools for accessing metadata
+embedded in a NeXML file.
 
 \subsection{Writing NeXML metadata}\label{writing-nexml-metadata}
 
@@ -912,7 +913,7 @@ The most powerful way to take advantage of the machine-readable nature
 of the metadata involves the construction of SPARQL queries. This
 approach can exploit the reasoning and logical deduction capacity of
 formal vocabularies (ontologies). For a proper introduction to SPARQL
-queries, see Prud'hommeaux (2014) and Hartig (2012).
+queries, see Prud'hommeaux (2014) or Hartig (2012)).
 
 The real expressiveness of SPARQL is better illustrated through more
 complex examples such as the one shown in the supplementary materials
@@ -936,10 +937,10 @@ provides a solution to this problem through the use of metadata
 annotation.
 
 Here we illustrate this process using the example of stochastic
-character mapping (Huelsenbeck \emph{et al.} 2003). A stochastic
-character map is simply an annotation of the branches on a phylogeny,
-assigning each section of each branch to a particular ``state''
-(typically of a morphological characteristic).
+character mapping ({\textbf{???}}). A stochastic character map is simply
+an annotation of the branches on a phylogeny, assigning each section of
+each branch to a particular ``state'' (typically of a morphological
+characteristic).
 
 Bollback (2006) provides a widely used stand-alone software
 implementation of this method in the software \texttt{simmap}, which
@@ -1134,13 +1135,13 @@ will nonetheless be able to successfully parse this file and expose the
 R}\label{publishing-nexml-files-from-r}
 
 Data archiving is increasingly required by journals in evolutionary
-biology and biodiversity (e.g. Rausher et al. (2010)). The burden of
+biology and biodiversity (e.g. ({\textbf{???}})). The burden of
 preparing and submitting properly annotated data to archives continues
-to be a significant barrier (Tenopir et al. (2011), Stodden (2014)), and
-many phylogenetic trees upon which studies are based are inaccessible or
-lost to the research community (Drew \emph{et al.} 2013).
-\texttt{RNeXML} seeks to lower these barriers by providing functions to
-immediately archive NeXML files in scientific repositories.
+to be a significant barrier (Tenopir \emph{et al.} 2011; Stodden 2014),
+and many phylogenetic trees upon which studies are based are
+inaccessible or lost to the research community (Drew \emph{et al.}
+2013). \texttt{RNeXML} seeks to lower these barriers by providing
+functions to immediately archive NeXML files in scientific repositories.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1230,11 +1231,6 @@ data. \emph{Web engineering} pp. 506--507. Springer Science + Business
 Media. Retrieved from
 \url{http://dx.doi.org/10.1007/978-3-642-31753-8_56}
 
-Huelsenbeck, J.P., Nielsen, R. \& Bollback, J.P. (2003). Stochastic
-mapping of morphological characters. \emph{Systematic Biology},
-\textbf{52}, 131--158. Retrieved from
-\url{http://dx.doi.org/10.1080/10635150390192780}
-
 Paradis, E., Claude, J. \& Strimmer, K. (2004). APE: analyses of
 phylogenetics and evolution in R language. \emph{Bioinformatics},
 \textbf{20}, 289--290.
@@ -1245,10 +1241,6 @@ Retrieved from \url{http://www.w3.org/TR/rdf-sparql-query/}
 R Core Team. (2014). \emph{R: A language and environment for statistical
 computing}. R Foundation for Statistical Computing, Vienna, Austria.
 Retrieved from \url{http://www.R-project.org/}
-
-Rausher, M.D., McPeek, M.A., Moore, A.J., Rieseberg, L. \& Whitlock,
-M.C. (2010). DATA aRCHIVING. \emph{Evolution}, \textbf{64}, 603--604.
-Retrieved from \url{http://dx.doi.org/10.1111/j.1558-5646.2009.00940.x}
 
 Revell, L.J. (2012). phytools: An r package for phylogenetic comparative
 biology (and other things). \emph{Methods in Ecology and Evolution},
@@ -1276,10 +1268,6 @@ Stoltzfus, A. (2012). NeXML: Rich, extensible, and verifiable
 representation of comparative data and metadata. \emph{Systematic
 Biology}, \textbf{61}, 675--689. Retrieved from
 \url{http://dx.doi.org/10.1093/sysbio/sys025}
-
-Xie, Y. (2013). \emph{Dynamic documents with R and knitr}. Chapman;
-Hall/CRC, Boca Raton, Florida. Retrieved from
-\url{http://yihui.name/knitr/}
 
 \end{document}
 

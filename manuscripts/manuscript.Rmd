@@ -982,7 +982,6 @@ of this manuscript.
 
 
 ```{r cleanup, include=FALSE, cache=FALSE}
-write.bibtex(file="components/references.bib")
 unlink("simmap.xml")
 unlink("birds.xml")
 unlink("geospiza.xml")

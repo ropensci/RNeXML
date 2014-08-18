@@ -52,9 +52,6 @@ opts_chunk$set(fig.path = paste("components/figure/", basename, "-", sep=""),
                cache.path = paste("components/cache/", basename, "/", sep=""))
 
 
-library("knitcitations")
-cleanbib()
-cite_options(citation_format = "pandoc", check.entries=FALSE)
 ```
 
 ```{r include=FALSE}
@@ -190,7 +187,7 @@ While users should consult a formal introduction to SPARQL for further
 background, here we illustrate how SPARQL can be used in combination
 with R functions in ways that would be much more tedious to assemble
 with only traditional/non-semantic queries.  The SPARQL query language
-is provided for the R environment through the `rrdf` package `r citep(citation("rrdf"))`,
+is provided for the R environment through the `rrdf` package [@Willighagen_2014],
 so we start by loading that package.  We will also make use of functions
 from `phytools` and `RNeXML`.  
 
@@ -243,7 +240,7 @@ We begin by extracting the RDF graph from the NeXML,
 
 ```{r}
 rdf <- get_rdf(system.file("examples/primates.xml", package="RNeXML"))
-tmp <- tempfile()  # rrdf requires a file name, so we must write the XML out first
+tmp <- tempfile()  # so we must write the XML out first
 saveXML(rdf, tmp) 
 graph <- load.rdf(tmp)
 ```
@@ -348,13 +345,13 @@ plot(collapsed,
 
 The `RNeXML` package is built for the NeXML Schema, [version 2009],
 using the R software environment and the XML package for parsing and
-generating XML `r citep(citation("XML"))`,  provides conversions into
-the popular `phylo` format provided by the `ape` package `r citep(citation("ape"))`
+generating XML [@Temple_Lang_2013],  provides conversions into
+the popular `phylo` format provided by the `ape` package [@Paradis_2004],  
 `RNeXML` can automatically check taxonomic names and add taxonomic
-identifiers when generating NeXML using methods from the `taxize` package `r citep(citation("taxize"))`.
-Unique identifiers are provided with the `uuid` package `r citep(citation("uuid"))`,
-and internet interfaces by the `httr` package `r citep(citation("httr"))`. The
-packages `plyr` and `reshape2``r citep(c(citation("plyr"), citation("reshape2")))` are also imported for internal methods .
+identifiers when generating NeXML using methods from the `taxize` package [@Chamberlain_2014].
+Unique identifiers are provided with the `uuid` package [@Urbank_2014],
+and internet interfaces by the `httr` package [@Wickham_2014]. The
+packages `plyr` and `reshape2` [@Wickham_2011; Wickham_2007] are also imported for internal methods.
 
 
 The `RNeXML` package performs several levels of validation on NeXML files
@@ -365,13 +362,13 @@ schema validation alone.  Validation serves to improve consistency in
 data encoding which facilitates the use of NeXML across a wide variety
 of platforms and software.  A lack of a consistent standard and validation
 mechanism has continually plagued the current NEXUS standard and made 
-interoperability difficult `r citep("Vos NeXML 2012")`.  
+interoperability difficult [@Vos_2012].  
 
 Several mechanisms are in place to evaluate the quality of the `RNeXML`
 package functions themselves.  In addition to the examples from the
 documentation and the automated package checks provided for the R system,
 the `RNeXML` package includes a complete test suite using the `testthat`
-package `r citep(citation("testthat"))`. Package development on Github includes continuous 
+package [@Wickham_2011a]. Package development on Github includes continuous 
 integration through the `travis` platform, in which the full test suite
 is run every time the code is changed.  This not only gives users confidence
 that the development copy can be successfully installed, but should assist
@@ -380,7 +377,6 @@ changes have not negatively impacted any of the existing code base.
 
 
 ```{r cleanup, include=FALSE, cache=FALSE}
-write.bibtex(file="components/sup-references.bib")
 unlink("simmap.xml")
 unlink("birds.xml")
 unlink("geospiza.xml")
