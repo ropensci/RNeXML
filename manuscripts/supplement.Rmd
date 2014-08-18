@@ -349,7 +349,7 @@ generating XML [@Temple_Lang_2013],  provides conversions into
 the popular `phylo` format provided by the `ape` package [@Paradis_2004],  
 `RNeXML` can automatically check taxonomic names and add taxonomic
 identifiers when generating NeXML using methods from the `taxize` package [@Chamberlain_2014].
-Unique identifiers are provided with the `uuid` package [@Urbank_2014],
+Unique identifiers are provided with the `uuid` package [@Urbanek_2014],
 and internet interfaces by the `httr` package [@Wickham_2014]. The
 packages `plyr` and `reshape2` [@Wickham_2011; Wickham_2007] are also imported for internal methods.
 
