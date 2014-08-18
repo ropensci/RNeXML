@@ -1,6 +1,5 @@
-FROM cboettig/ropensci-docker:latest
+FROM cboettig/ropensci:latest
 MAINTAINER Carl Boettiger cboettig@ropensci.org
-
 ## Remain current
 RUN apt-get update -qq && apt-get dist-upgrade -y
 
@@ -10,8 +9,10 @@ RUN apt-get install -y texlive-humanities lmodern texlive-fonts-recommended texl
 ## This is stupidly large but easiest way to grab the various .sty files in use...
 # RUN apt-get install texlive-full
 
+## Could skip this, but installs binary versions which is much faster
+RUN apt-get install -yq r-cran-taxize r-cran-ape r-cran-phytools r-cran-uuid r-cran-plyr r-cran-reshape2 r-cran-phylobase r-cran-geiger r-cran-rfigshare r-cran-testthat r-cran-knitcitations
 ## Install package, with dependencies and suggests
-RUN Rscript -e 'options(repos=c(CRAN="http://cran.rstudio.com")); devtools::install_github("ropensci/RNeXML")'
+RUN Rscript -e 'devtools::install_github("ropensci/RNeXML")'
 
 RUN apt-get install wget
 RUN wget http://www.phytools.org/nonstatic/phytools_0.4-27.tar.gz
