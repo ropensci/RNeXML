@@ -111,9 +111,6 @@ opts_chunk$set(fig.path = paste("components/figure/", basename, "-", sep=""),
                cache.path = paste("components/cache/", basename, "/", sep=""))
 
 
-library("knitcitations")
-cleanbib()
-cite_options(citation_format = "pandoc", check.entries=FALSE)
 ```
 
 # Introduction
@@ -128,7 +125,7 @@ an essential role in the advancement of phylogenetics research.
 The rapid increase in phylogenetics data and research methods that make
 use of such data has introduced many new challenges and opportunities 
 to sharing this information both between software environments and 
-between research groups `r citep(c("Drew PLOS Biology Tree of Life 2013", "10.1186/1756-0500-5-574"))`.  
+between research groups [@Drew_2013; @Stoltzfus_2012].  
 
 <!-- FIXME 
 
@@ -155,25 +152,25 @@ represent horizontal gene transfer or ambiguity in reading a character
 repeatedly add small modifications to the standard to meet the needs
 of their own software, which results in mutually incompatible dialects
 that largely defeat the advantages of a shared  file format.
-NeXML was developed to addresses each of these problems `r citep("Vos NeXML Systematic Biology")`  
+NeXML was developed to addresses each of these problems [@Vos_2012]  
 by drawing on robust web standards in data representation.
 The design and expressiveness of NeXML makes it much easier to meet
 the rising bar for best practices in data sharing in phylogenetic 
-research `r citep("10.1371/currents.tol.bf01eff4a6b60ca4825c69293dc59645")`.  
+research [@Cranston_2014].  
 
 
 
 <!-- What do we need to say, if anything, about the current R formats?  about phylobase?  -->
 
-The R language `r citep(citation())` has become an important environment for 
+The R language [@R] has become an important environment for 
 phylogenetics research, with over 30 packages available including several
-with over 1000 citations `r citep("http://cran.r-project.org/web/views/Phylogenetics.html")`,
+with over 1000 citations [@taskview],
 though stand-alone programs remain an important part of this ecosystem
 for tasks such as generating phylogenetic trees from sequence data.  Within 
 this ecosystem a variety of different data formats for
 phylogenetic data have been developed and modified. Most but not all 
 are based on the simple and popular `ape::phylo` format provided by the
-ape package `r citep(citation("ape"))`. 
+ape package [@Paradis_2004]. 
 
 Though certain functions allow R users to switch between these formats
 within R, these formats frequently contain more information than their
@@ -221,7 +218,7 @@ implemented, what quality control measures are in place, as well as
 information about software reuse and getting support.
 
 This paper has been written as a dynamic document 
-`r citep(citation("knitr")[[2]])`.  The reader may paste the code blocks
+[@Xiei_2013].  The reader may paste the code blocks
 shown into their R terminal to follow along with the exmples shown.
 
 
@@ -284,7 +281,7 @@ nex <- nexml_read(f)
 The resulting `nex` object is an R object representation of the NeXML. This is 
 a native R object, of the `nexml` class, for representing phylogenetic trees (as well as 
 character traits, and metadata), analogous to the `ape::phylo` object from the 
-popular `ape` R package `r citep(citation("ape"))`. While R functions and packages 
+popular `ape` R package [@Paradis_2004]. While R functions and packages 
 could be written to use this `nexml` object directly, most users will prefer to use
 already existing methods provided by packages they know. From a `nexml` object, we can 
 therefore extract any phylogenies it contains in the `ape::phylo` format. In this 
@@ -325,9 +322,9 @@ a user can access all the phylogenies available in TreeBASE <!-- first mention -
 nex <- nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
 ```
 
-Previously, this was possible using the `treebase` package `r citep("Boettiger Temple Lang treebase 2012")`
+Previously, this was possible using the `treebase` package [@Boettiger_2012"]
 for R, which relied on the NEXUS parser provided in the `ape` package.
-Due to inconsistencies present in the NEXUS standard `r citep("Vos NeXML 2012")`, 
+Due to inconsistencies present in the NEXUS standard [@Vos_2012], 
 a significant number <!-- State explicitly --> of TreeBASE NEXUS
 files could not be read in this way.  Using the more precisely defined
 NeXML standard, every valid NeXML document on TreeBASE can now successfully
@@ -391,7 +388,7 @@ data(geospiza)
 nexml_write(trees = geospiza$phy, characters = geospiza$dat, file="geospiza.xml")
 ```
 
-These examples use data from the popular phylogenetics software `geiger` `r citep(citation("geiger")[[4]])`.  
+These examples use data from the popular phylogenetics software `geiger` [@Harmon_2008].  
 
 <!-- how about add_taxa? -->
 <!-- A taxa block is added when trees or characters are added.  Yeah,
@@ -431,7 +428,7 @@ At the heart of the NeXML standard is the ability to encode arbitrary
 metadata in precisely specified, machine-readable formats that maintain
 backwards compatibility with any existing NeXML parser. NeXML uses the
 "Resource Description Framework in Annotations", or RDFa,
-as described in @Vos_2012. <!-- better to cite the W3C's RDFa TR -->
+as described in @Vos_2012 or @W3C_2014. 
 These annotations can be used to add 
 information to any particular element of the data, (a tree, node, edge,
 or taxonomic unit; a character matrix or specific trait, or even another 
@@ -445,7 +442,7 @@ a range of tools for accessing metadata embedded in a NeXML file.
 Researchers cannot take advantage of NeXML metadata manipulation if
 there is no metadata there.  The burden of adding good metadata remains a
 significant barrier to increased sharing and reuse of scientific research
-`r citep("Tenopir Data Sharing by Scientists: Practices and Perceptions")`.
+[@Tenopir_2011].
 `RNeXML` seeks to reduce the burden of adding
 high quality, machine-readable metadata to NeXML files. This occurs on
 several levels:
@@ -508,7 +505,7 @@ a user to add citations to R packages,
 birds <- add_basic_meta(birds, citation = citation("ape"))
 ```
 
-or to papers by simply using the object's DOI (using `r citet(citation("knitcitations"))`).
+or to papers by simply using the object's DOI (using @Boettiger_2014).
 For instance to add the citation information of the paper that generated the
 `geospiza` phylogeny included in the `geiger` package: 
 
@@ -538,7 +535,7 @@ that we intend the bird orders listed in the tree to correspond to the
 NCBI definitions.
 
 The `taxize_nexml` function uses the R package `taxize` 
-`r citep("Chamberlain taxize F1000Research 2013")` to check each taxon label against the NCBI database.
+[@Chamberlain_2013] to check each taxon label against the NCBI database.
 If a unique match is found, a metadata annotation is added to the taxon
 providing the NCBI identification number to the taxonomic unit.  If no
 match is found, the user is warned to check for possible typographic
@@ -766,8 +763,7 @@ The most powerful way to take advantage of the machine-readable nature
 of the metadata involves the construction of SPARQL queries. This
 approach can exploit the reasoning and logical deduction capacity of
 formal vocabularies (ontologies). For a proper introduction to SPARQL
-queries, see `r citet("http://www.w3.org/TR/rdf-sparql-query/")` and
-`r citet("Hartig Introduction to SPARQL")`.  
+queries, see @W3C_2014 or @Hartig_2012).  
 
 The real expressiveness of SPARQL is better illustrated through more
 complex examples such as the one shown in the supplementary materials
@@ -789,12 +785,12 @@ few reliable methods to distinguish between these flavors.  NeXML provides
 a solution to this problem through the use of metadata annotation.
 
 Here we illustrate this process using the example of stochastic character
-mapping `r citep("Huelsenbeck stochastic character mapping")`. A stochastic character map is simply
+mapping [@Huelsenbecki_2003]. A stochastic character map is simply
 an annotation of the branches on a phylogeny, assigning each section
 of each branch to a particular "state" (typically of a morphological
 characteristic).
 
-`r citet("Bollback simmap 2006")` provides a widely used stand-alone software implementation
+@Bollback_2006 provides a widely used stand-alone software implementation
 of this method in the software `simmap`, which modified the standard
 Newick tree format to express this additional information. This can
 break compatibility with other software [^3], and creates a format that
@@ -806,7 +802,7 @@ what it is encoding.
 In this example, we illustrate how the additional information required
 to define a stochastic character mapping (a `simmap` mapping) in NeXML.  
 
-`r citet(citation("phytools"))` describes the `phytools` package for R, which includes
+@Revell_2012 describes the `phytools` package for R, which includes
 utilities for reading, manipulating, and writing `simmap` files in R.
 In this example, we also show how to define `RNeXML` functions that 
 map the R representation used by Revell (an extension of the `ape` class)
@@ -905,7 +901,7 @@ phy <- nexml_to_simmap(simmap_ex)
 ```
 
 We can then use various functions from `phytools` designed for `simmap`
-objects `r citep(citation("phytools"))`, such as the plotting function:
+objects [@Revell_2012], such as the plotting function:
 
 ```{r Figure1, fig.cap="Stochastic character mapping on a phylogeny, as generated by the phytools package after parsing the simmap-extended NeXML."}
 library("phytools")
@@ -932,8 +928,8 @@ data to the user.
 ## Publishing NeXML files from R
 
 Data archiving is increasingly required by journals in evolutionary biology and 
-biodiversity (e.g. `r citet("Whitlock data archiving Evolution 2010")`).  The burden of preparing and submitting properly
-annotated data to archives continues to be a significant barrier (@Tenopir_2011, `r citet("10.2139/ssrn.1550193")`),
+biodiversity (e.g. @Whitlock_2010).  The burden of preparing and submitting properly
+annotated data to archives continues to be a significant barrier [@Tenopir_2011; @Stodden_2014],
 and many phylogenetic trees upon which studies are based are inaccessible or lost 
 to the research community [@Drew_2013].  `RNeXML` seeks to lower these barriers
 by providing functions to immediately archive NeXML files in scientific repositories.  
@@ -968,7 +964,7 @@ There are many promising directions for further development of the
 steps currently planned or under consideration.  In particular, these
 milestones include increased support for interactive mode of entering data
 (wizards), conversions to and from other existing R phylogenetics formats
-such those found in the `phylobase` package `r citep(citation("phylobase"))`,
+such those found in the `phylobase` package [@phylobase],
 and support for integration of semantics defined through the
 Web Ontology language (OWL), as discussed in the Challenges section.
 
