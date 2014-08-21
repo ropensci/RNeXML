@@ -32,6 +32,7 @@ address:
 abstract: | 
       1. NeXML is a new phylogenetic informatics data and metadata exchange 
       format that offers substantial improvements in reliability, extensibility, 
+      <!-- refer to NeXML as a format and NEXUS as a standard, correct? -->
       and richness over earlier standards such as NEXUS. In this paper we present 
       the RNeXML package which provides a bridge between this rich and reliable
       data format and the extensive library of phylogenetic tools already
@@ -46,6 +47,7 @@ abstract: |
       to be continually extended to meet the emerging needs of the phylogenetics
       community while remaining backwards-compatible with software developed
       for earlier versions.  Here we illustrate how RNeXML makes it easy
+      <!-- earlier versions of what? -->
       to extend NeXML in this manner.  
       
       4. RNeXML is well suited for users to preserve and maintain their
