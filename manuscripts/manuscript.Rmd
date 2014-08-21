@@ -629,7 +629,7 @@ to generate arbitrary metadata annotations given an external vocabulary,
 such as we illustrate here.
 
 
-From the list of namespaces in `prefixes`, we can follow links a handful
+From the list of namespaces in `prefixes`, we can follow links to a handful
 of established vocabularies and find terms that are not included in
 `add_basic_meta()`.  For instance, by resolving the location identified
 by the `prism` prefix,
@@ -956,7 +956,7 @@ prior to public release.
 The `RNeXML` package is available through the CRAN repository under
 a CC0 license. At the time of writing, the current version is `r packageDescription("RNeXML", fields="Version")`. 
 The current development
-branch can be found on Github at [https://github.com/ropensci/RNeXML].
+branch can be found on Github at [https://github.com/ropensci/RNeXML]().
 See the NEWS file for changes in recent versions. Users are encouraged
 to submit bug reports or feature requests in the issues log.  Contact
 `ropensci-discuss@googlegroups.com` or the package maintainer for help,
