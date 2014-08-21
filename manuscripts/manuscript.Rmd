@@ -306,7 +306,7 @@ plot(phy[[1]])
 
 NeXML can not only contain multiple phylogenetic trees in a single document,
 but can also group sets of trees into separate blocks (e.g. as resulting from
-different workflows). The `get_trees` function attempts to return the most sensible 
+different workflows). The `get_trees()` function attempts to return the most sensible 
 R object for NeXML: if only a single tree is available, it will return an `ape::phylo` 
 object; if multiple trees are available in a single `trees` block, it will return
 an `ape::multiPhylo` object (a list of `ape::phylo` objects).  If multiple
@@ -345,7 +345,7 @@ used to infer the phylogenetic tree, we find this ideal for character data used 
 comparative methods popular in R. Methods to extract character data
 work much like those for the phylogenetic data. Here we read in an example
 NeXML file that contains both a phylogeny and character data. 
-`get_characters` returns a `data.frame` with columns as characters and rows as
+`get_characters()` returns a `data.frame` with columns as characters and rows as
 taxa:
 
 ```{r }
@@ -380,11 +380,11 @@ write.nexml?) -->
 from the caper structure to the nexml S4 structure.  Then nexml_write
 can automatically handle this. added as issue now  -->
 
-The first argument to `nexml_write` can be a `ape::phylo` phylogeny,
+The first argument to `nexml_write()` can be a `ape::phylo` phylogeny,
 `multiPhylo` list of phylogenies, or a `nexml` object -- anything that
 can be coerced into the `nexml` class.  As we have seen, NeXML files
 can contain multiple phylogenetic trees, as well as character matrices.
-We can add both trees  and character data using `nexml_write`,
+We can add both trees and character data using `nexml_write()`,
 
 ```{r}
 library("geiger")
@@ -404,8 +404,8 @@ These examples use data from the popular phylogenetics software `geiger` [@Harmo
      species. See https://github.com/ropensci/RNeXML/issues/43 
      Added new issue for this, https://github.com/ropensci/RNeXML/issues/85 -->
 
-NeXML files can also be built up bit by bit using the `add_characters`,
-`add_trees`, and `add_meta`.  Each of these functions can add data to an
+NeXML files can also be built up bit by bit using `add_characters()`,
+`add_trees()`, and `add_meta()`.  Each of these functions can add data to an
 existing `nexml` object or create a new nexml object if none is provided.
 Here we first create a `nexml` object containing the phylogeny data,
 and then add the character data to it:
@@ -470,7 +470,7 @@ To adjust these and other common metadata fields that should
 be part of any data deposition, `RNeXML` provides the `add_basic_meta()`
 function.  This function does not assume any familiarity with the concepts
 of namespaces or other more advanced metadata tools discussed later.  The
-`add_basic_meta` takes an existing `nexml` object (or will create a new one
+`add_basic_meta()` function takes an existing `nexml` object (or will create a new one
 if none is provided, like the other `add_` functions), and any of the following
 fields: `title`, `description`, `creator`, `pubdate`, `rights`, `publisher`,
 `citation`.  Additional fields may be added to subsequent versions, see
@@ -538,7 +538,7 @@ event of conflicting taxonomic definitions.  In this example, we indicate
 that we intend the bird orders listed in the tree to correspond to the
 NCBI definitions.
 
-The `taxize_nexml` function uses the R package `taxize` 
+The `taxize_nexml()` function uses the R package `taxize` 
 [@Chamberlain_2013] to check each taxon label against the NCBI database.
 If a unique match is found, a metadata annotation is added to the taxon
 providing the NCBI identification number to the taxonomic unit.  If no
@@ -631,7 +631,7 @@ such as we illustrate here.
 
 From the list of namespaces in `prefixes`, we can follow links a handful
 of established vocabularies and find terms that are not included in
-`add_basic_meta`.  For instance, by resolving the location identified
+`add_basic_meta()`.  For instance, by resolving the location identified
 by the `prism` prefix,
 
 ```{r}
@@ -646,7 +646,7 @@ modified <- meta(property = "prism:modificationDate", content = "2013-10-04")
 ```
 
 We can add this annotation to our existing `birds` NeXML file using the
-`add_meta` function.  Because we do not specify a level, it is added to
+`add_meta()` function.  Because we do not specify a level, it is added to
 the root node, referring to the NeXML file as a whole.
 
 ```{r}
@@ -895,7 +895,7 @@ a `simmap` reconstruction into R:
 data(simmap_ex)
 ```
 
-The `get_trees` function can be used to return an `ape::phylo` tree as
+The `get_trees()` function can be used to return an `ape::phylo` tree as
 usual.  `RNeXML` automatically detects the `simmap` reconstruction data
 and returns includes this in a `maps` element of the `ape::phylo` object,
 for use with other `phytools` functions.
