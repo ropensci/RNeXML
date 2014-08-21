@@ -969,6 +969,7 @@ steps currently planned or under consideration.  In particular, these
 milestones include increased support for interactive mode of entering data
 (wizards), conversions to and from other existing R phylogenetics formats
 such those found in the `phylobase` package [@phylobase],
+<!-- hmm, phylobase ref renders for me as 'al. 2014' -->
 and support for integration of semantics defined through the
 Web Ontology language (OWL), as discussed in the Challenges section.
 
