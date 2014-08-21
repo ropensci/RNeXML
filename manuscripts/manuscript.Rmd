@@ -167,6 +167,7 @@ research [@Cranston_2014].
 The R language [@R] has become an important environment for 
 phylogenetics research, with over 30 packages available including several
 with over 1000 citations [@taskview],
+<!-- hmm, taskview citation renders as "'CRAN task view' 2014" intended? -->
 though stand-alone programs remain an important part of this ecosystem
 for tasks such as generating phylogenetic trees from sequence data.  Within 
 this ecosystem a variety of different data formats for
@@ -184,7 +185,8 @@ but inherits the limitations of the NEXUS format.
 
 `RNeXML` opens up a rich world of both currently available and rapidly
 growing data sets in the NeXML format to the R user and the large ecosystem
-of R packages currently available for handling phylogenetic data  
+of R packages currently available for handling phylogenetic data.  
+<!-- Carl, I assume a period goes here, I inserted one -->
 R packages and R users frequently add rich information to the phylogenies
 they work with, but need a platform independent data exchange format to
 share and archive this. We illustrate how NeXML can
