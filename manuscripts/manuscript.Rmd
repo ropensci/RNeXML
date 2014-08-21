@@ -326,7 +326,7 @@ a user can access all the phylogenies available in TreeBASE <!-- first mention -
 nex <- nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
 ```
 
-Previously, this was possible using the `treebase` package [@Boettiger_2012"]
+Previously, this was possible using the `treebase` package [@Boettiger_2012]
 for R, which relied on the NEXUS parser provided in the `ape` package.
 Due to inconsistencies present in the NEXUS standard [@Vos_2012], 
 a significant number <!-- State explicitly --> of TreeBASE NEXUS
