@@ -553,7 +553,9 @@ birds <- taxize_nexml(birds, "NCBI")
 
 
 <!-- what if multiple NCBI taxon IDs are found, e.g. 'Aotus'? -->
-
+<!-- the function internally used in taxize_nexml, taxize::get_uid, 
+should prompt user to pick which taxon they want, or is that not desired
+behavior  -->
 
 ## Custom metadata extensions
 
