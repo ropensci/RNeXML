@@ -1,3 +1,9 @@
+env:
+ global:
+   - R_BUILD_ARGS="--no-manual"
+   - R_CHECK_ARGS="--as-cran --no-manual"
+   - BOOTSTRAP_LATEX=""
+
 init:
   ps: |
         $ErrorActionPreference = "Stop"
@@ -8,6 +14,11 @@ install:
   ps: Bootstrap
 
 build_script:
+  - sudo apt-get update -qq
+  - sudo apt-get install libxslt1-dev
+  - travis-tool.sh bootstrap
+  - travis-tool.sh install_r_binary geiger phytools knitr testthat rfigshare ape plyr taxize reshape2 httr rjava
+  - travis-tool.sh install_github cboettig/Sxslt
   - travis-tool.sh install_deps
 
 test_script:
