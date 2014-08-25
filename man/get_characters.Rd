@@ -3,7 +3,7 @@
 \alias{get_characters}
 \title{Get character data.frame, accepts either nexml object, or a list of data.frames}
 \usage{
-get_characters(input, suffixes = FALSE)
+get_characters(input, suffixes = FALSE, rownames_as_col = FALSE)
 }
 \arguments{
 \item{input}{A nexml object (e.g., as output from \code{\link{read.nexml}}), or
@@ -11,6 +11,10 @@ a list of data.frame's (e.g., as output from \code{\link{get_characters_list}})}
 
 \item{suffixes}{Add list element names as suffixes to output data.frame column
 names.}
+
+\item{rownames_as_col}{option to return character matrix rownames
+(with taxon ids) as it's own column in the data.frame. Default is FALSE
+for compatibility with geiger and similar packages.}
 }
 \description{
 Get character data.frame, accepts either nexml object, or a list of data.frames

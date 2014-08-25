@@ -3,10 +3,14 @@
 \alias{get_characters_list}
 \title{Extract the character matrix}
 \usage{
-get_characters_list(nexml)
+get_characters_list(nexml, rownames_as_col = FALSE)
 }
 \arguments{
 \item{nexml}{nexml object (e.g. from read.nexml)}
+
+\item{rownames_as_col}{option to return character matrix rownames
+(with taxon ids) as it's own column in the data.frame. Default is FALSE
+for compatibility with geiger and similar packages.}
 }
 \value{
 the list of taxa

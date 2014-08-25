@@ -4,13 +4,16 @@
 #' Extract the character matrix
 #'
 #' @param nexml nexml object (e.g. from read.nexml)
+#' @param rownames_as_col option to return character matrix rownames
+#'  (with taxon ids) as it's own column in the data.frame. Default is FALSE
+#'  for compatibility with geiger and similar packages.
 #' @return the list of taxa
 #' @examples
 #' comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 #' nex <- nexml_read(comp_analysis)
 #' get_characters_list(nex)
 #' @export
-get_characters_list <- function(nexml){
+get_characters_list <- function(nexml, rownames_as_col=FALSE){
 # extract mapping between otus and taxon ids 
   maps <- get_otu_maps(nexml)
 # loop over all character matrices 
@@ -34,6 +37,10 @@ get_characters_list <- function(nexml){
     } else {
       dat <- NULL 
     }
+    if(rownames_as_col){
+      dat <- cbind(taxa = rownames(dat), dat)
+      rownames(dat) <- NULL
+    }
     dat
   })
   # name the character matrices by their labels,
@@ -48,6 +55,9 @@ get_characters_list <- function(nexml){
 #' a list of data.frame's (e.g., as output from \code{\link{get_characters_list}})
 #' @param suffixes Add list element names as suffixes to output data.frame column 
 #' names. 
+#' @param rownames_as_col option to return character matrix rownames
+#'  (with taxon ids) as it's own column in the data.frame. Default is FALSE
+#'  for compatibility with geiger and similar packages.
 #' @export
 #' @examples
 #' \dontrun{
@@ -66,7 +76,7 @@ get_characters_list <- function(nexml){
 #' nex <- read.nexml(f)
 #' get_characters(nex)
 #' }
-get_characters <- function(input, suffixes=FALSE){
+get_characters <- function(input, suffixes=FALSE, rownames_as_col=FALSE){
   
   if(inherits(input, "nexml")){
     list_chars <- get_characters_list(input)
@@ -89,7 +99,14 @@ get_characters <- function(input, suffixes=FALSE){
       row.names(tt) <- tt[,"Row.names"]
       tt[,!names(tt) %in% "Row.names"]
     }
-    return( Reduce(mrecurse, list_chars) )
+
+    out <- Reduce(mrecurse, list_chars)
+
+    if(rownames_as_col){
+      out <- cbind(taxa = rownames(out), out)
+      rownames(out) <- NULL
+    }
+    return(out)
   }
 }
 

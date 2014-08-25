@@ -32,8 +32,7 @@ address:
 abstract: | 
       1. NeXML is a new phylogenetic informatics data and metadata exchange 
       format that offers substantial improvements in reliability, extensibility, 
-      <!-- refer to NeXML as a format and NEXUS as a standard, correct? -->
-      and richness over earlier standards such as NEXUS. In this paper we present 
+      and richness over earlier formats such as NEXUS. In this paper we present 
       the RNeXML package which provides a bridge between this rich and reliable
       data format and the extensive library of phylogenetic tools already
       available in R, with a particular emphasis on comparative methods.
@@ -542,20 +541,16 @@ NCBI definitions.
 The `taxize_nexml()` function uses the R package `taxize` 
 [@Chamberlain_2013] to check each taxon label against the NCBI database.
 If a unique match is found, a metadata annotation is added to the taxon
-providing the NCBI identification number to the taxonomic unit.  If no
-match is found, the user is warned to check for possible typographic
-errors in the taxonomic labels provided.
+providing the NCBI identification number to the taxonomic unit.
 
 
 ```{r message=FALSE, results='hide'}
 birds <- taxize_nexml(birds, "NCBI")
 ```
+If no match is found, the user is warned to check for possible typographic
+errors in the taxonomic labels provided. If multiple matches are found,
+the user will be prompted to choose between them.
 
-
-<!-- what if multiple NCBI taxon IDs are found, e.g. 'Aotus'? -->
-<!-- the function internally used in taxize_nexml, taxize::get_uid, 
-should prompt user to pick which taxon they want, or is that not desired
-behavior  -->
 
 ## Custom metadata extensions
 
@@ -972,7 +967,6 @@ steps currently planned or under consideration.  In particular, these
 milestones include increased support for interactive mode of entering data
 (wizards), conversions to and from other existing R phylogenetics formats
 such those found in the `phylobase` package [@phylobase],
-<!-- hmm, phylobase ref renders for me as 'al. 2014' -->
 and support for integration of semantics defined through the
 Web Ontology language (OWL), as discussed in the Challenges section.
 
