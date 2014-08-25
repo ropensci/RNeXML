@@ -21,11 +21,11 @@ RUN R CMD INSTALL phytools_0.4-27.tar.gz
 
 ## Clone the repo and switch into manscripts directory
 RUN git clone http://github.com/ropensci/RNeXML.git /home/rstudio/RNeXML
-RUN chmod u+rw,g+rw,o+rw /home/rstudio/RNeXML
+RUN chmod -R 777 /home/rstudio/RNeXML
 WORKDIR /home/rstudio/RNeXML/manuscripts
 
 ## Compile the manuscript & supplement
-RUN Rscript -e 'rmarkdown::render("manuscript.Rmd")'
-RUN Rscript -e 'rmarkdown::render("supplement.Rmd")'
+#RUN Rscript -e 'rmarkdown::render("manuscript.Rmd")'
+#RUN Rscript -e 'rmarkdown::render("supplement.Rmd")'
 
 
