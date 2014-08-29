@@ -5,7 +5,7 @@ MAINTAINER Carl Boettiger cboettig@ropensci.org
 #RUN apt-get install -yq r-cran-taxize r-cran-ape r-cran-phytools r-cran-uuid r-cran-plyr r-cran-phylobase r-cran-geiger r-cran-rfigshare r-cran-testthat r-cran-knitcitations
 
 ## Install this package itself, along with dependencies and suggests
-RUN apt-get install -yq r-cran-taxize r-cran-ape
+RUN apt-get install -yq r-cran-ape r-cran-expm
 RUN Rscript -e 'devtools::install_github("ropensci/RNeXML", dependencies=TRUE)'
 
 ## Install the latest version of phytools, since it's not yet on CRAN (or Github)
