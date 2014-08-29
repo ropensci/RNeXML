@@ -2,10 +2,9 @@ FROM cboettig/ropensci:latest
 MAINTAINER Carl Boettiger cboettig@ropensci.org
 
 ## Could skip this, but installing these binary versions is much faster
-#RUN apt-get install -yq r-cran-taxize r-cran-ape r-cran-phytools r-cran-uuid r-cran-plyr r-cran-phylobase r-cran-geiger r-cran-rfigshare r-cran-testthat r-cran-knitcitations
+## Also, some of these won't install properly from cran at the moment...
+RUN apt-get install -yq r-cran-taxize r-cran-ape r-cran-phytools r-cran-uuid r-cran-plyr r-cran-phylobase r-cran-geiger r-cran-rfigshare r-cran-testthat r-cran-knitcitations
 
-## Install this package itself, along with dependencies and suggests
-RUN apt-get install -yq r-cran-ape r-cran-expm r-cran-taxize
 RUN Rscript -e 'devtools::install_github("ropensci/RNeXML", dependencies=TRUE)'
 
 ## Install the latest version of phytools, since it's not yet on CRAN (or Github)
