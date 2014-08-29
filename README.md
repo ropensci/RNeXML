@@ -4,20 +4,21 @@
 -->
 
 [![Build Status](https://api.travis-ci.org/ropensci/RNeXML.png)](https://travis-ci.org/ropensci/RNeXML)
+[![Build status](https://ci.appveyor.com/api/projects/status/f334rwt8oubuife6/branch/master)](https://ci.appveyor.com/project/sckott/rnexml/branch/master)
 
 RNeXML: The next-generation phylogenetics format comes to R
 =====================================================
 
 
-An R package for reading, writing, integrating and publishing data using the Ecological Metadata Language (EML) format.   
+An R package for reading, writing, integrating and publishing data using the Ecological Metadata Language (EML) format.
 
 * **Note:** This package is still in active development and not yet submitted to CRAN.  Functions and documentation may be incomplete and subject to change.  
 * Maintainer: Carl Boettiger
 * Authors: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia Shumelchyk, Rutger Vos
-* License: BSD-3 
+* License: BSD-3
 * [Issues](https://github.com/ropensci/RNeXML/issues): Bug reports, feature requests, and development discussion.
 
-An extensive and rapidly growing collection of richly annotated phylogenetics data is now available in the NeXML format. NeXML relies on state-of-the-art data exchange technology to provide a format that can be both validated and extended, providing a data quality assurance and and adaptability to the future that is lacking in other formats [Vos et al 2012](http://doi.org/10.1093/sysbio/sys025 "NeXML: Rich, Extensible, and Verifiable Representation of Comparative Data and Metadata."). 
+An extensive and rapidly growing collection of richly annotated phylogenetics data is now available in the NeXML format. NeXML relies on state-of-the-art data exchange technology to provide a format that can be both validated and extended, providing a data quality assurance and and adaptability to the future that is lacking in other formats [Vos et al 2012](http://doi.org/10.1093/sysbio/sys025 "NeXML: Rich, Extensible, and Verifiable Representation of Comparative Data and Metadata.").
 
 
 
@@ -47,7 +48,7 @@ tr <- get_trees(nexml)  # or: as(nexml, 'phylo')
 plot(tr)
 ```
 
-![plot of chunk unnamed-chunk-4](http://i.imgur.com/bgUKw2N.png) 
+![plot of chunk unnamed-chunk-4](http://i.imgur.com/bgUKw2N.png)
 
 Write an `ape::phylo` tree into the `nexml` format:
 
@@ -74,7 +75,7 @@ nexml_validate("test.xml")
 
 
 
-Extract metadata from the NeXML file: 
+Extract metadata from the NeXML file:
 
 
 ```coffee
@@ -83,13 +84,13 @@ get_taxa(birds)
 ```
 
 ```
-##  [1] "Struthioniformes" "Tinamiformes"     "Craciformes"     
-##  [4] "Galliformes"      "Anseriformes"     "Turniciformes"   
+##  [1] "Struthioniformes" "Tinamiformes"     "Craciformes"
+##  [4] "Galliformes"      "Anseriformes"     "Turniciformes"
 ##  [7] "Piciformes"       "Galbuliformes"    "Bucerotiformes"  
-## [10] "Upupiformes"      "Trogoniformes"    "Coraciiformes"   
+## [10] "Upupiformes"      "Trogoniformes"    "Coraciiformes"
 ## [13] "Coliiformes"      "Cuculiformes"     "Psittaciformes"  
-## [16] "Apodiformes"      "Trochiliformes"   "Musophagiformes" 
-## [19] "Strigiformes"     "Columbiformes"    "Gruiformes"      
+## [16] "Apodiformes"      "Trochiliformes"   "Musophagiformes"
+## [19] "Strigiformes"     "Columbiformes"    "Gruiformes"
 ## [22] "Ciconiiformes"    "Passeriformes"
 ```
 
@@ -109,8 +110,8 @@ Add basic additional metadata:
 
 
 ```coffee
-nexml_write(bird.orders, file = "meta_example.xml", title = "My test title", 
-    description = "A description of my test", creator = "Carl Boettiger <cboettig@gmail.com>", 
+nexml_write(bird.orders, file = "meta_example.xml", title = "My test title",
+    description = "A description of my test", creator = "Carl Boettiger <cboettig@gmail.com>",
     publisher = "unpublished data", pubdate = "2012-04-01")
 ```
 
@@ -138,42 +139,42 @@ RNeXML:::nexml_namespaces
 ```
 
 ```
-##                                                      nex 
-##                              "http://www.nexml.org/2009" 
-##                                                      xsi 
-##              "http://www.w3.org/2001/XMLSchema-instance" 
-##                                                      xml 
-##                   "http://www.w3.org/XML/1998/namespace" 
-##                                                     cdao 
-## "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#" 
-##                                                      xsd 
-##                      "http://www.w3.org/2001/XMLSchema#" 
-##                                                       dc 
-##                       "http://purl.org/dc/elements/1.1/" 
-##                                                  dcterms 
-##                              "http://purl.org/dc/terms/" 
-##                                                    prism 
-##         "http://prismstandard.org/namespaces/1.2/basic/" 
-##                                                       cc 
-##                         "http://creativecommons.org/ns#" 
-##                                                     ncbi 
-##                  "http://www.ncbi.nlm.nih.gov/taxonomy#" 
-##                                                       tc 
+##                                                      nex
+##                              "http://www.nexml.org/2009"
+##                                                      xsi
+##              "http://www.w3.org/2001/XMLSchema-instance"
+##                                                      xml
+##                   "http://www.w3.org/XML/1998/namespace"
+##                                                     cdao
+## "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#"
+##                                                      xsd
+##                      "http://www.w3.org/2001/XMLSchema#"
+##                                                       dc
+##                       "http://purl.org/dc/elements/1.1/"
+##                                                  dcterms
+##                              "http://purl.org/dc/terms/"
+##                                                    prism
+##         "http://prismstandard.org/namespaces/1.2/basic/"
+##                                                       cc
+##                         "http://creativecommons.org/ns#"
+##                                                     ncbi
+##                  "http://www.ncbi.nlm.nih.gov/taxonomy#"
+##                                                       tc
 ##          "http://rs.tdwg.org/ontology/voc/TaxonConcept#"
 ```
 
-This next block defines a resource (link), described by the `rel` attribute as a homepage, a term in the `foaf` vocabulalry.  Becuase `foaf` is not a default namespace, we will have to provide its URL in the full definition below. 
+This next block defines a resource (link), described by the `rel` attribute as a homepage, a term in the `foaf` vocabulalry.  Becuase `foaf` is not a default namespace, we will have to provide its URL in the full definition below.
 
 
 ```coffee
 website <- meta(href = "http://carlboettiger.info", rel = "foaf:homepage")
 ```
 
-Here we create a history node using the `skos` namespace.  We can also add id values to any metadata element to make the element easier to reference externally: 
+Here we create a history node using the `skos` namespace.  We can also add id values to any metadata element to make the element easier to reference externally:
 
 
 ```coffee
-history <- meta(property = "skos:historyNote", content = "Mapped from the bird.orders data in the ape package using RNeXML", 
+history <- meta(property = "skos:historyNote", content = "Mapped from the bird.orders data in the ape package using RNeXML",
     id = "meta123")
 ```
 
@@ -181,8 +182,8 @@ Once we have created the `meta` elements, we can pass them to our `nexml_write` 
 
 
 ```coffee
-nexml_write(bird.orders, file = "example.xml", meta = list(history, modified, 
-    website), namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#", 
+nexml_write(bird.orders, file = "example.xml", meta = list(history, modified,
+    website), namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
     foaf = "http://xmlns.com/foaf/0.1/"))
 ```
 
@@ -202,73 +203,73 @@ nex <- taxize_nexml(nex)
 ```
 
 ```
-## 
+##
 ## Retrieving data for taxon 'Struthioniformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Tinamiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Craciformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Galliformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Anseriformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Turniciformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Piciformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Galbuliformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Bucerotiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Upupiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Trogoniformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Coraciiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Coliiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Cuculiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Psittaciformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Apodiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Trochiliformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Musophagiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Strigiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Columbiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Gruiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Ciconiiformes'
-## 
-## 
+##
+##
 ## Retrieving data for taxon 'Passeriformes'
 ```
 
@@ -309,18 +310,18 @@ fitContinuous(tree, traits[1])
 ##  fitted 'BM' model parameters:
 ## 	sigsq = 1.166011
 ## 	z0 = 0.255591
-## 
+##
 ##  model summary:
 ## 	log-likelihood = -20.501183
 ## 	AIC = 45.002367
 ## 	AICc = 46.716652
 ## 	free parameters = 2
-## 
+##
 ## Convergence diagnostics:
 ## 	optimization iterations = 100
 ## 	failed iterations = 0
 ## 	frequency of best fit = 1.00
-## 
+##
 ##  object summary:
 ## 	'lik' -- likelihood function
 ## 	'bnd' -- bounds for likelihood search
@@ -338,26 +339,21 @@ fitDiscrete(tree, traits[2])
 ##              0        1
 ##     0 -0.07308  0.07308
 ##     1  0.07308 -0.07308
-## 
+##
 ##  model summary:
 ## 	log-likelihood = -4.574133
 ## 	AIC = 11.148266
 ## 	AICc = 11.648266
 ## 	free parameters = 1
-## 
+##
 ## Convergence diagnostics:
 ## 	optimization iterations = 100
 ## 	failed iterations = 0
 ## 	frequency of best fit = 1.00
-## 
+##
 ##  object summary:
 ## 	'lik' -- likelihood function
 ## 	'bnd' -- bounds for likelihood search
 ## 	'res' -- optimization iteration summary
 ## 	'opt' -- maximum likelihood parameter estimates
 ```
-
-
-
-
-
