@@ -18,6 +18,7 @@ ADD . /tmp/RNeXML/manuscripts
 
 ## Run tests: make sure we can compile the manuscript & supplement without errors
 WORKDIR /tmp/RNeXML/manuscripts
+RUN R CMD check ..
 RUN Rscript -e 'rmarkdown::render("manuscript.Rmd"); rmarkdown::render("supplement.Rmd")'
 
 
