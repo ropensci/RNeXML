@@ -20,7 +20,7 @@ RUN git clone https://github.com/ropensci/RNeXML.git /tmp/RNeXML
 
 ## Run tests: make sure we can compile the manuscript & supplement without errors
 WORKDIR /tmp/RNeXML/manuscripts
-RUN Rscript -e 'devtools::check("..")'
+RUN Rscript -e 'setwd(".."); devtools::install(); devtools::check()'
 RUN Rscript -e 'rmarkdown::render("manuscript.Rmd"); rmarkdown::render("supplement.Rmd")'
 
 
