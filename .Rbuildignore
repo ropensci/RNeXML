@@ -3,8 +3,6 @@ RNeXML.Rproj
 .gitignore
 appveyor.yml
 shippable.yml
-^.*\.yml
-^.*\.xml
 ^.*\.Rproj$
 ^\.Rproj\.user$
 inst/doc/pubs
