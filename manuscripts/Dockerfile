@@ -13,13 +13,13 @@ RUN wget http://www.phytools.org/nonstatic/phytools_0.4-27.tar.gz
 RUN R CMD INSTALL phytools_0.4-27.tar.gz
 
 ## Clone the repository onto the image
-RUN git clone https://github.com/ropensci/RNeXML.git /tmp/RNeXML
+RUN git clone https://github.com/ropensci/RNeXML.git /host/RNeXML
 
 ## Cannot add parent directory with the package itself this way, only the current dir/subdirs
-## ADD . /tmp/RNeXML/manuscripts
+## ADD . /host/RNeXML/manuscripts
 
 ## Run tests: make sure we can compile the manuscript & supplement without errors
-WORKDIR /tmp/RNeXML/manuscripts
+WORKDIR /host/RNeXML/manuscripts
 RUN Rscript -e 'setwd(".."); devtools::install(); devtools::check()'
 RUN Rscript -e 'rmarkdown::render("manuscript.Rmd"); rmarkdown::render("supplement.Rmd")'
 

@@ -1,0 +1,7 @@
+image: cboettig/rnexml
+script:
+  - Rscript -e 'rmarkdown::render("manuscript.Rmd")'
+notify:
+  email:
+    recipients:
+      - cboettig@ropensci.org
