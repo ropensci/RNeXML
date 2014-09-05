@@ -4,7 +4,6 @@
 -->
 
 [![Build Status](https://api.travis-ci.org/ropensci/RNeXML.png)](https://travis-ci.org/ropensci/RNeXML)
-[![Build status](https://ci.appveyor.com/api/projects/status/f334rwt8oubuife6/branch/master)](https://ci.appveyor.com/project/sckott/rnexml/branch/master)
 
 RNeXML: The next-generation phylogenetics format comes to R
 =====================================================
