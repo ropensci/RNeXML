@@ -1,6 +1,6 @@
 image: cboettig/rnexml
 script:
-  - Rscript -e 'rmarkdown::render("manuscript.Rmd")'
+  - Rscript -e 'rmarkdown::render("manuscripts/manuscript.Rmd")'
 notify:
   email:
     recipients:
