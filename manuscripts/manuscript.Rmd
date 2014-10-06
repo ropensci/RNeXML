@@ -30,30 +30,34 @@ address:
     address: | 
       Naturalis Biodiversity Center, Leiden, the Netherlands
 abstract: | 
-      1. NeXML is a new phylogenetic informatics data and metadata exchange 
-      format that offers substantial improvements in reliability, extensibility, 
-      and richness over earlier formats such as NEXUS. In this paper we present 
-      the RNeXML package which provides a bridge between this rich and reliable
-      data format and the extensive library of phylogenetic tools already
-      available in R, with a particular emphasis on comparative methods.
+      1. NeXML is a new exchange format for phylogenetic data and
+      metadata that offers substantial improvements in reliability,
+      extensibility, and richness over earlier formats such as
+      NEXUS. In this paper we present the RNeXML package which
+      provides a bridge between this data format and the extensive
+      library of phylogenetic tools already available in the popular
+      data analysis environment and programming language R, with a
+      particular emphasis on comparative methods.
 
-      2. RNeXML is much richer than a basic parser: here we illustrate
-      how the package facilitates adding and manipulating semantic 
-      annotations, that is annotations whose meaning can be defined externally
-      by way of semantic web technologies.
+      2. The ability to parse and write NeXML from within R is only a
+      small part of the functionality offered by the package.  We
+      illustrate how RNeXML facilitates adding and manipulating data
+      annotations whose meaning can be defined in a precise and
+      machine-interpretable way by means of formal ontologies and other
+      semantic web technologies.
 
-      3. An essential feature of NeXML is to provide both the flexibility
-      to be continually extended to meet the emerging needs of the phylogenetics
-      community while remaining backwards-compatible with software developed
-      for earlier versions.  Here we illustrate how RNeXML makes it easy
-      <!-- earlier versions of what? -->
-      to extend NeXML in this manner.  
+      3. An essential feature of NeXML is to provide both the
+      flexibility to be continually extended to meet the emerging
+      needs of the phylogenetics community without breaking software
+      unaware of such extensions. We illustrate how RNeXML makes
+      it easy to extend NeXML in this manner.
       
-      4. RNeXML is well suited for users to preserve and maintain their
-      personal archives of phylogenetic and comparative trait data in consistent,
-      query-able, and cross-platform format, to leverage the rapidly growing 
-      public community archives of rich NeXML files, and to interact with web
-      services that deliver their results (with their provenance) as NeXML.
+      4. RNeXML is well suited for users to preserve and maintain
+      their personal archives of phylogenetic and comparative trait
+      data in consistent, query-able, and cross-platform format, to
+      leverage the rapidly growing public community archives of rich
+      NeXML files, and to interact with web services that return data
+      and their metadata packaged together as NeXML.
 
 bibliography: components/references.bib
 csl: components/methods-in-ecology-and-evolution.csl
