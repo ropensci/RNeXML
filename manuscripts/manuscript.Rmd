@@ -180,11 +180,16 @@ ape package [@Paradis_2004].
 
 Though certain functions allow R users to switch between these formats
 within R, these formats frequently contain more information than their
-NEXUS file counterparts, and users lack a suitable alternative for
+NEXUS file counterparts,
+<!-- such as what? we haven't talked about metadata yet. HL -->
+and users lack a suitable alternative for
 archiving and sharing phylogenetic data outside of the R ecosystem. 
 Consequently, information added to phylogenies by these R programs cannot 
 easily be shared, archived, and made available to other software;
-but inherits the limitations of the NEXUS format.  
+<!-- such as what? should walk through an example here. HL -->
+but inherits the limitations of the NEXUS format.
+<!-- how can information inherit the limitations of a serialization -->
+<!-- format if it's added to data read from that format? HL -->
 
 `RNeXML` opens up a rich world of both currently available and rapidly
 growing data sets in the NeXML format to the R user and the large ecosystem
@@ -201,8 +206,12 @@ of how to extend the NeXML standard to represent new data features without
 breaking validation or backwards compatibility of the file type.  
 
 <!-- FIXME something about how we will increasingly want to work with (semantic) metadata
-and how RNeXML provides a solid platform from which to do so.  
+and how RNeXML provides a solid platform from which to do so.
 -->
+<!-- I think this is in fact more important than the paragraph above. I.e., -->
+<!-- whether exchanging basic comparative data needs another format is -->
+<!-- debatable, but that metadata that can hardly be expressed in -->
+<!-- current standards does is a clear point. HL -->
 
 <!-- Map paragraph -->
 
@@ -217,7 +226,9 @@ increasing complexity to illustrate concepts and tools from biodiversity
 informatics that allow users to express and interpret complicated data
 structures automatically.  We end with an example that uses metadata to
 extend the NeXML standard to describe stochastic character mapping, one
-of the kinds of data annotation that is currently available in R formats
+of the kinds of data annotation that is currently available in R
+formats
+<!-- R packages, not formats, right? HL -->
 but lacks a consistent, extensible export format. We illustrate how NeXML
 files can be formally published to a data repository directly from R.
 Finally, we provide a brief description of how the software has been
@@ -232,19 +243,25 @@ shown into their R terminal to follow along with the exmples shown.
 # Introduction to RNeXML
 
 
-A NeXML document can be thought of as having multiple components: (1) phylogeny
-data (2) character-trait data, (3) operational taxonomic units, and (4) metadata. 
+A NeXML document can be thought of as having the following components: (1) phylogeny
+data, (2) character-trait data, (3) operational taxonomic units, and (4) metadata. 
 `RNeXML` seeks to provide a seamless way to convert these to and from their 
-corresponding R object representations, such as `ape::phylo` phylogenies, character
-matrices (`data.frames`) and metadata lists (or for advanced users,
-`XMLInternalDocument` and `rrdf` triplestores). Metadata can provide
-information about the study in which the phylogeny was generated or
+corresponding R object representations, in particular `ape::phylo`,
+`data.frame`, and lists for phylogenies, character
+matrices, and metadata, respectively.
+<!-- I feel the following is a little early - it will likely be over -->
+<!-- most most readers' heads. HL
+(or for advanced users,
+`XMLInternalDocument` and `rrdf` triplestores).
+-->
+Metadata can provide bibliographic and provenance
+information about the study as part of which the phylogeny was generated or
 applied (such as authors, citations to publications, timestamps, and even
-descriptions of methods), but can also be used to annotate individual
-data components.  We illustrate how metadata annotations can be added to
+descriptions of methods). They can also be used to attach annotations to individual
+data elements.  We illustrate how metadata annotations can be added to
 the operational taxonomic units of the phylogeny and can be used to extend
 the data representation to new uses such as stochastic character maps.
-
+<!-- sounds awkward - need to smoothen the language. HL -->
 
 ## Getting Started
 
@@ -284,13 +301,17 @@ library("RNeXML")
 f <- system.file("examples", "trees.xml", package="RNeXML")
 nex <- nexml_read(f)
 ```
-
-The resulting `nex` object is an R object representation of the NeXML. This is 
-a native R object, of the `nexml` class, for representing phylogenetic trees (as well as 
-character traits, and metadata), analogous to the `ape::phylo` object from the 
-popular `ape` R package [@Paradis_2004]. While R functions and packages 
-could be written to use this `nexml` object directly, most users will prefer to use
-already existing methods provided by packages they know. From a `nexml` object, we can 
+<!-- The system.file() command is not pretty. Can we not just read in -->
+<!-- the file directly? HL -->
+The resulting `nex` object is of type `nexml` and is a native R object representation of the NeXML
+file. <!-- This seems redundant to me to what has already been -->
+<!-- said. HL
+Objects of type `nexml` represent phylogenetic trees as well as 
+character traits, and metadata, analogous to the `ape::phylo` object from the 
+popular `ape` R package [@Paradis_2004]. --> Although new custom R functions and packages 
+could be written for using `nexml` objects, for most users it will be
+more convienent to use methods of the many already existing R packages for 
+phylogenetics. From a `nexml` object, we can 
 therefore extract any phylogenies it contains in the `ape::phylo` format. In this 
 case we will get back a `multiPhylo` object, since the file contains two phylogenies.  
 
@@ -314,6 +335,9 @@ R object for NeXML: if only a single tree is available, it will return an `ape::
 object; if multiple trees are available in a single `trees` block, it will return
 an `ape::multiPhylo` object (a list of `ape::phylo` objects).  If multiple
 blocks are available, it will return a list of `multiPhylo` blocks.
+<!-- having a function's return type being more or less unpredictable -->
+<!-- sounds like a bad design pattern. Is there at least precedence for -->
+<!-- this practice in other R packages? HL --> 
 While most users will find this behavior convenient, there are times
 (such as looping over many NeXML files) when having a variable return
 type is undesirable.  To always get back a list of `multiPhylo` objects,
@@ -322,34 +346,44 @@ even when only one tree is available, use `get_trees_list()`.
 The ability to read in phylogenetic trees in the NeXML format opens up a
 wide and rapidly growing array of resources to the R user.  For instance,
 a user can access all the phylogenies available in 
-[TreeBASE](http://treebase.org/treebase-web/home.html) <!-- first mention -->
+[TreeBASE](http://treebase.org/) <!-- first mention -->
 <!-- of TreeBase, include URL? or introduce it in intro? --> through the
 `nexml` format.  `RNeXML` can read directly from a URL:
 
 ```{r eval=FALSE}
 nex <- nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
 ```
-
-Previously, this was possible using the `treebase` package [@Boettiger_2012]
-for R, which relied on the NEXUS parser provided in the `ape` package.
-Due to inconsistencies present in the NEXUS standard [@Vos_2012], 
+<!-- the example makes me wonder how nexml_read() distinguishes -->
+<!-- between a URL and a file name as its argument. HL -->
+Reading phylogenies from TreeBASE into R was already possible using
+the R package `treebase` [@Boettiger_2012]. However, because it relied
+on the NEXUS parser provided in the `ape` package, and because of
+incompatible flavors of the NEXUS standard [@Vos_2012], 
 a significant number <!-- State explicitly --> of TreeBASE NEXUS
-files could not be read in this way.  Using the more precisely defined
-NeXML standard, every valid NeXML document on TreeBASE can now successfully
-be parsed to R objects.
+files could not be read in this way.  Owing to the syntactically strict
+definition of the
+NeXML standard, the RNeXML package can successfully read every valid
+NeXML document from TreeBASE. <!-- are there invalid ones as well that -->
+<!-- it can't read? the sentence as is suggests so, and so is a little -->
+<!-- awkward (it leaves open the possibility that the NEXUS files ape -->
+<!-- can't read are now invalid NeXML files. Which is probably not -->
+<!-- what you mean to suggest. HL -->
 
 
 
 ## Reading character data 
 
-Like NEXUS files, NeXML documents can also contain character data.  While
-most researchers will be familiar with the use of character matrices in
-NEXUS files as a container for molecular sequence (or morphological) data 
-used to infer the phylogenetic tree, we find this ideal for character data used in
-comparative methods popular in R. Methods to extract character data
-work much like those for the phylogenetic data. Here we read in an example
-NeXML file that contains both a phylogeny and character data. 
-`get_characters()` returns a `data.frame` with columns as characters and rows as
+Like NEXUS files, NeXML documents can in addition to trees also
+contain character data in the form of matrices.  Character data can be
+of molecular (molecular sequence alignments), discrete (most
+morphological character data), or continuous type (many trait data). 
+Often character data, especially molecular and morphological, is used
+for phylogenetic tree reconstruction, but they are also a common input
+for the many comparative phylogenetic analysis methods available in R. Methods to extract character data
+work much like those for extracting the phylogenetic trees. Here we read in an example
+NeXML file that contains both a phylogeny and character data. The
+function
+`get_characters()` can then be used to obtain a `data.frame` with columns as characters and rows as
 taxa:
 
 ```{r }
@@ -357,13 +391,14 @@ comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nex <- nexml_read(comp_analysis)
 get_characters(nex)
 ```
-
-As this example shows, continuous and discrete characters are represented as separate
+<!-- same as above - why can this not be one call? HL -->
+Continuous and discrete character data are represented as separate
 blocks in NeXML files, but will be combined as separate columns of a
 single data frame by `get_characters()` if they correspond to the same
-taxa. The `get_characters_list()` function will consistently receive
-a list of data frames corresponding to each character matrix block of
-the NeXML.
+taxa. If this behavior is undesired, the function
+`get_characters_list()` can be used to obtain
+a list of data frames, where list elements correspond to the character matrix blocks of
+the NeXML file.
 
 
 ## Writing phylogenetic trees 
@@ -384,11 +419,10 @@ write.nexml?) -->
 from the caper structure to the nexml S4 structure.  Then nexml_write
 can automatically handle this. added as issue now  -->
 
-The first argument to `nexml_write()` can be a `ape::phylo` phylogeny,
-`multiPhylo` list of phylogenies, or a `nexml` object -- anything that
-can be coerced into the `nexml` class.  As we have seen, NeXML files
-can contain multiple phylogenetic trees, as well as character matrices.
-We can add both trees and character data using `nexml_write()`,
+The first argument to `nexml_write()` is a `nexml` object, or any
+object that can be coerced to it, such as a `ape::phylo` phylogeny,
+or a `multiPhylo` list of phylogenies. The `nexml_write()` function
+also allows to add character data:
 
 ```{r}
 library("geiger")
@@ -408,9 +442,11 @@ These examples use data from the popular phylogenetics software `geiger` [@Harmo
      species. See https://github.com/ropensci/RNeXML/issues/43 
      Added new issue for this, https://github.com/ropensci/RNeXML/issues/85 -->
 
-NeXML files can also be built up bit by bit using `add_characters()`,
+Instead of packaging trees and characters at the time of writing a
+NeXML file, the document can also be built up step by step using the
+functions `add_characters()`,
 `add_trees()`, and `add_meta()`.  Each of these functions can add data to an
-existing `nexml` object or create a new nexml object if none is provided.
+existing `nexml` object, or create a new nexml object if none is provided.
 Here we first create a `nexml` object containing the phylogeny data,
 and then add the character data to it:
 
@@ -428,14 +464,17 @@ geiger_nex <- add_trees(primates$phy, geiger_nex)
 geiger_nex <- add_characters(primates$dat, geiger_nex)
 ```
 
-This allows us to include multiple trees and character matrices to a single NeXML file.  
+This allows us to include multiple trees and character matrices to a
+single NeXML file.
+<!-- perhaps give a motivating use case for why one might -->
+<!-- want to do this? HL -->
 
 # Metadata
 
 At the heart of the NeXML standard is the ability to encode arbitrary
 metadata in precisely specified, machine-readable formats that maintain
 backwards compatibility with any existing NeXML parser. NeXML uses the
-"Resource Description Framework in Annotations", or RDFa,
+"Resource Description Framework in Annotations" (RDFa),
 as described in @Vos_2012 or @W3C_2014. 
 These annotations can be used to add 
 information to any particular element of the data, (a tree, node, edge,
@@ -447,12 +486,11 @@ a range of tools for accessing metadata embedded in a NeXML file.
 
 ## Writing NeXML metadata
 
-Researchers cannot take advantage of NeXML metadata manipulation if
-there is no metadata there.  The burden of adding good metadata remains a
+The burden typically involved with documenting and sharing good
+metadata alongside the data remains a
 significant barrier to increased sharing and reuse of scientific research
-[@Tenopir_2011].
-`RNeXML` seeks to reduce the burden of adding
-high quality, machine-readable metadata to NeXML files. This occurs on
+[@Tenopir_2011]. To promote sharing of well-documented phylogenetic data,
+`RNeXML` aims to provide a simple interface to adding well-defined machine-readable metadata to NeXML files. This occurs on
 several levels:
 
 - Automatic annotation
@@ -465,23 +503,33 @@ several levels:
 $USER as a document-level annotation -->
 <!-- Good idea-->
 
-`RNeXML` automatically adds basic metadata by default such as a time-stamp
-of when the tree was produced and an open data license (CC0, compatible
-with deposition on Dryad data repository), which can be configured
-as needed.  
+`RNeXML` automatically adds basic metadata by default
+<!-- what does "by default" mean here? It doesn't seem like calling -->
+<!-- any RNeXML function will add such metadata if it's not there -->
+<!-- already? HL -->
+such as a time-stamp
+of when a tree was produced, and an open data license. The latter by
+default is the Creative Commons Zero (CC0) public domain waiver, which
+is compatible
+with deposition in the Dryad data repository, but can be configured
+as a different license if needed.  
 
-To adjust these and other common metadata fields that should 
-be part of any data deposition, `RNeXML` provides the `add_basic_meta()`
-function.  This function does not assume any familiarity with the concepts
-of namespaces or other more advanced metadata tools discussed later.  The
-`add_basic_meta()` function takes an existing `nexml` object (or will create a new one
-if none is provided, like the other `add_` functions), and any of the following
-fields: `title`, `description`, `creator`, `pubdate`, `rights`, `publisher`,
-`citation`.  Additional fields may be added to subsequent versions, see
-`?add_basic_metadata` for the most up-to-date information.  Here we create
-a new `nexml` object with the basic metadata for the `bird.orders` data
-provided in the `ape` package:
+To adjust these and other metadata fields commonly recommended to be
+included with publicly archived data, `RNeXML` provides the `add_basic_meta()`
+function.  This function hides the complexities of anchoring metadata
+attribute names in common vocabularies from the user.  The
+`add_basic_meta()` function takes as input an existing `nexml` object
+(like the other `add_` functions, if none is provided it will create one), and at the time
+of this writing any of the following
+parameters: `title`, `description`, `creator`, `pubdate`, `rights`, `publisher`,
+`citation`.  Other metadata elements and corresponding parameters may
+be added in the future.
 
+Here we create a `nexml` object for the `bird.orders` data
+provided in the `ape` package, and then add basic metadata:
+<!-- I notice that other add_* methods take the nexml object as the -->
+<!-- last argument, not the first as seems to be the case here. This -->
+<!-- is inconsistent and should be fixed. HL -->
 ```{r}
 data(bird.orders)
 birds <- add_trees(bird.orders)
@@ -506,15 +554,17 @@ birds <- add_basic_meta(birds,
   creator = "Sibley, C. G. and Ahlquist, J. E.")
 ```
 
-Citations can also be added using R's `bibentry` type, which allows
-a user to add citations to R packages, 
+Instead of a literal string, citations can also be provided in R's
+`bibentry` type, which is the one in which R package citations are obtained:
 
 ```{r}
 birds <- add_basic_meta(birds, citation = citation("ape"))
 ```
 
-or to papers by simply using the object's DOI (using @Boettiger_2014).
-For instance to add the citation information of the paper that generated the
+Alternatively, a citation to a published paper with a Digital
+Object Identifier (DOI) can be provided in the form of the DOI,
+which the package `knitcitations` [@Boettiger_2014] can turn into a
+formatted citation using. As an example, to add the citation information of the paper that generated the
 `geospiza` phylogeny included in the `geiger` package: 
 
 ```{r}
@@ -530,7 +580,7 @@ geiger_nex <- add_basic_meta(geiger_nex, citation = bib_metadata("10.2307/240842
 other more specific metadata to various elements of the NeXML data.
 One common use case is that of taxonomic identifiers.  Misspellings or
 inconsistent use of taxonomic names in phylogenetic data are a common
-source of frustration in reusing phylogenetic trees, especially when
+source of frustration when reusing phylogenetic trees, especially when
 integrating data from different sources: trees might come from one place
 that uses one taxonomy, character data and occurrence data might come from
 other places that use different taxonomies. Hence, not just misspellings,
