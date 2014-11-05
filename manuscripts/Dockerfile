@@ -4,9 +4,6 @@ MAINTAINER Carl Boettiger cboettig@ropensci.org
 ## Clone the repository onto the image
 RUN git clone https://github.com/ropensci/RNeXML.git /host/RNeXML
 
-## Cannot add parent directory with the package itself this way, only the current dir/subdirs
-## ADD . /host/RNeXML/manuscripts
-
 ## Run tests: make sure we can compile the manuscript & supplement without errors
 WORKDIR /host/RNeXML/manuscripts
 RUN Rscript -e 'setwd(".."); devtools::install(); devtools::check()'
