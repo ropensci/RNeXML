@@ -1,8 +1,7 @@
 #' Add basic metadata
 #' 
 #' adds Dublin Core metadata elements to (top-level) nexml 
-#' @param nexml a nexml object to which metadata should be added.  A new 
-#'   nexml object will be created if none exists. 
+
 #' @param title A title for the dataset
 #' @param description a description of the dataset
 #' @param creator name of the data creator.  Can be a string or R person object
@@ -20,7 +19,8 @@
 #'    can be included here.  
 #'    citation can be a plain text object, but is preferably an R `citation` or `bibentry` object (which
 #'    can include multiple citations.  See examples
-#' @param ... additional arguments, currently no effect. 
+#' @param nexml a nexml object to which metadata should be added.  A new 
+#'   nexml object will be created if none exists. 
 #' @return an updated nexml object
 #' @details \code{add_basic_meta()} is just a wrapper for \code{\link{add_meta}} to make it easy to 
 #'    provide generic metadata without explicitly providing the namespace.  For instance, 
@@ -48,15 +48,15 @@
 #'  nexml <- add_basic_meta(citation=cite("10.2307/2408428"))
 #'  }
 #' @include classes.R
-add_basic_meta <- function(nexml = new("nexml"), 
-                           title = NULL, 
+add_basic_meta <- function(title = NULL, 
                            description = NULL,
                            creator = NULL,
                            pubdate = Sys.Date(),
                            rights = "CC0",
                            publisher = NULL,
                            citation = NULL,
-                           ...){
+                           nexml = new("nexml")
+                           ){
 
   m <- get_metadata(nexml)
 
