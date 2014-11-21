@@ -8,7 +8,7 @@
 #' see \code{\link{add_trees}} for details.  
 #' @param characters additional characters
 #' @param meta A meta element or list of meta elements, see \code{\link{add_meta}}
-#' @param ... additional arguments to add_meta, such as the namespaces.  See \code{\link{add_meta}}.   
+#' @param ... additional arguments to add__basic_meta, such as the title.  See \code{\link{add_basic_meta}}.   
 #' @return Writes out a nexml file
 #' @import ape
 #' @import XML 
@@ -63,7 +63,7 @@ nexml_write <- function(x = new("nexml"),
   if(!is.null(characters))
     nexml <- add_characters(characters, nexml = nexml)
   if(!is.null(meta))
-    nexml <- add_meta(meta, nexml = nexml, ...)
+    nexml <- add_meta(meta, nexml = nexml)
   nexml <- do.call(add_basic_meta, c(list(...), list(nexml=nexml)))
   
   out <- as(nexml, "XMLInternalNode")
