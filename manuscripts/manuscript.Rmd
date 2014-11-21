@@ -297,20 +297,6 @@ nex <- nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treeba
 ```
 
 
-
-Reading phylogenies from TreeBASE into R was already possible using
-the R package `treebase` [@Boettiger_2012]. However, because it relied
-on the NEXUS parser provided in the `ape` package, and because of
-incompatible flavors of the NEXUS standard [@Vos_2012], 
-a sizable number of TreeBASE NEXUS
-files could not be read in this way <!-- CB to rephrase to make a -->
-<!-- broader point and refer back to arguments made in the NeXML -->
-<!-- paper, possibly moving this larger point to the introduction -->.  Owing to the syntactically strict
-definition of the
-NeXML standard, the RNeXML package can successfully read every 
-NeXML document from TreeBASE.
-
-
 ## Reading character data 
 
 Like NEXUS files, NeXML documents can in addition to trees also
@@ -418,21 +404,14 @@ several levels:
 - Generic metadata (`add_meta`)
 - Extending the NeXML standard using RDFa
 
-`RNeXML` automatically adds basic metadata by default
-<!-- what does "by default" mean here? It doesn't seem like calling -->
-<!-- any RNeXML function will add such metadata if it's not there -->
-<!-- already? HL -->
-<!-- Indeed it does.  We add the time stamp, default license, and user ID even though
-     it's not "there" in the data.  -->
-such as a time-stamp
-of when a tree was produced, and an open data license. The latter by
-default is the Creative Commons Zero (CC0) public domain waiver, which
-is compatible
-with deposition in the Dryad data repository, but can be configured
-as a different license if needed. 
+`RNeXML`'s `nexml_write` function adds certain basic metadata by automatically
+if it has not yet been provided; using default values
+consistent with recommended best practices [@Cranston_2014]. At this time,
+this includes naming the software generating the NeXML, a time-stamp of
+when a tree was produced, and an open data license.
 
-To adjust these and other metadata fields commonly recommended to be
-included with publicly archived data, `RNeXML` provides the `add_basic_meta()`
+To adjust these values and also add other metadata fields commonly recommended for
+includion with publicly archived data, `RNeXML` provides the `add_basic_meta()`
 function.  This function hides the complexities of anchoring metadata
 attribute names in common vocabularies from the user.  The
 `add_basic_meta()` function takes as input an existing `nexml` object
