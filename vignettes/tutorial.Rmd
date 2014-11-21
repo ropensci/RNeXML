@@ -131,14 +131,19 @@ Here we create a history node using the `skos` namespace.  We can also add id va
                   id = "meta123")
 ```
 
-Once we have created the `meta` elements, we can pass them to our `nexml_write` function, along with definitions of the namespaces.  
+For this kind of richer annotation, it is best to build up our NeXML object sequentially. Frist
+we will add `bird.orders` phylogeny to a new phylogenetic object, and then we will add the metadata
+elements created above to this object. Finally, we will write the object out as an XML file:
 
 ```{r}
-  nexml_write(bird.orders, 
-              file = "example.xml", 
-              meta = list(history, modified, website), 
-              namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
-                             foaf = "http://xmlns.com/foaf/0.1/"))
+  birds <- add_trees(bird.orders)
+  birds <- add_meta(meta = list(history, modified, website),
+                    namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
+                                   foaf = "http://xmlns.com/foaf/0.1/"),
+                    nexml=birds)
+  nexml_write(birds, 
+              file = "example.xml")
+              
 
 ```
 
