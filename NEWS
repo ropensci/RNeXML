@@ -27,6 +27,13 @@ And constructed with the following guidelines:
 
 For more information on SemVer, please visit http://semver.org/.
 
+v1.1.3.99
+---------
+
+* for consistency with other `add_` methods, the `nexml` object is now the _last_, not the _first_, 
+argument to `add_basic_meta`.  As this changes the function API, it could break code that does not
+explicitly name the arguments, so we should consider releasing this as 2.0.0
+
 
 v1.1.3
 ------
