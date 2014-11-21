@@ -26,7 +26,7 @@ test_that("We can add R bibentry type metadata", {
   ## The short version using an RNeXML API
 
   nex <- add_trees(bird.orders)
-  nex <- add_basic_meta(nex, citation=citation("ape")) 
+  nex <- add_basic_meta(nexml=nex, citation=citation("ape")) 
   write.nexml(nex, file = "meta_example.xml")
 
   expect_true_or_null(nexml_validate("meta_example.xml"))
@@ -40,7 +40,7 @@ test_that("We can add R bibentry type metadata", {
 test_that("We can add additional metadata", {
   ## The short version using an RNeXML API
   nex <- add_trees(bird.orders)
-  nex <- add_basic_meta(nex, citation=citation("ape")) 
+  nex <- add_basic_meta(nexml = nex, citation=citation("ape")) 
 
   history <- meta(property = "skos:historyNote",
                   content = "Mapped from the bird.orders data in the ape package using RNeXML",
