@@ -26,9 +26,9 @@
 #'  library(geiger)
 #'  data(geospiza)
 #'  nexml <- add_trees(geospiza$phy) # creates new nexml
-#'  nexml <- add_characters(geospiza$dat, nexml) # pass the nexml obj to append character data
-#'  nexml <- add_basic_meta(nexml, title="my title", creator = "Carl Boettiger")
-#'  nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())), nexml)
+#'  nexml <- add_characters(geospiza$dat, nexml = nexml) # pass the nexml obj to append character data
+#'  nexml <- add_basic_meta(title="my title", creator = "Carl Boettiger", nexml = nexml)
+#'  nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())), nexml = nexml)
 #'
 #' \dontrun{ # takes > 5s
 #'  write.nexml(nexml, file="example.xml")
@@ -59,12 +59,12 @@ nexml_write <- function(x = new("nexml"),
   
   nexml <- as(x, "nexml")
   if(!is.null(trees))
-    nexml <- add_trees(trees, nexml)
+    nexml <- add_trees(trees, nexml = nexml)
   if(!is.null(characters))
-    nexml <- add_characters(characters, nexml)
+    nexml <- add_characters(characters, nexml = nexml)
   if(!is.null(meta))
-    nexml <- add_meta(meta, nexml, ...)
-  nexml <- do.call(add_basic_meta, c(list(nexml=nexml), list(...)))
+    nexml <- add_meta(meta, nexml = nexml, ...)
+  nexml <- do.call(add_basic_meta, c(list(...), list(nexml=nexml)))
   
   out <- as(nexml, "XMLInternalNode")
   saveXML(out, file = file)
