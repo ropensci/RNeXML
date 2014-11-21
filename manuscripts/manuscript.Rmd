@@ -225,7 +225,7 @@ information about software reuse and getting support.
 
 This paper has been written as a dynamic document 
 [@Xie_2013].  The reader may paste the code blocks
-shown into their R terminal to follow along with the exmples shown.
+shown into their R terminal to follow along with the examples shown.
 
 
 # Introduction to RNeXML
@@ -247,7 +247,6 @@ the data representation to new uses such as stochastic character maps.
 <!-- sounds awkward - need to smoothen the language. HL -->
 
 ## Getting Started
-
 
 The current stable version of the `RNeXML` package can be installed from
 the CRAN library[^1].  
@@ -301,24 +300,14 @@ the `ape` package to plot the first tree in the resulting `ape::phylo` object re
 plot(phy[[1]])
 ```
 
-NeXML can not only contain multiple phylogenetic trees in a single document,
+Note that NeXML can not only contain multiple phylogenetic trees in a single document,
 but can also group sets of trees into separate blocks (e.g. as resulting from
-different workflows). The `get_trees()` function attempts to return the most sensible 
-R object for NeXML: if only a single tree is available, it will return an `ape::phylo` 
+different workflows). The `get_trees()` function is designed for interactive use, and thus attempts to return the most sensible R object for NeXML: if only a single tree is available, it will return an `ape::phylo` 
 object; if multiple trees are available in a single `trees` block, it will return
 an `ape::multiPhylo` object (a list of `ape::phylo` objects).  If multiple
 blocks are available, it will return a list of `multiPhylo` blocks.
-<!-- having a function's return type being more or less unpredictable -->
-<!-- sounds like a bad design pattern. Is there at least precedence for -->
-<!-- this practice in other R packages? HL --> 
 
-<!-- Yes, sadly it is.  Really this is a class definition issue that multiPhylo isn't a
-proper generalization of a phylo object, but rather a different class entirely. 
-Users who don't like this function can use the get_trees_list() to always be predictable.  -->
-
-While most users will find this behavior convenient, there are times
-(such as looping over many NeXML files) when having a variable return
-type is undesirable.  To always get back a list of `multiPhylo` objects,
+For scripted use, it is desirable to have a consistent return type.  To always get back a list of `multiPhylo` objects,
 even when only one tree is available, use `get_trees_list()`.
 
 The ability to read in phylogenetic trees in the NeXML format opens up a
@@ -326,14 +315,13 @@ wide and rapidly growing array of resources to the R user.  For instance,
 a user can access all the phylogenies available in 
 [TreeBASE](http://treebase.org/) 
  through the
-`nexml` format.  `RNeXML` can read directly from a URL:
+`nexml` format.  `RNeXML`'s `nexml_read` can also read a file directly from a URL by automatically recognizing the URL patterns and first downloading the file to a working directory:
 
 ```{r eval=FALSE}
 nex <- nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
 ```
-<!-- the example makes me wonder how nexml_read() distinguishes -->
-<!-- between a URL and a file name as its argument. HL -->
-<!-- just type `nexml_read` and you'll find out ;-).  We use a simple regex  CB -->
+
+
 
 Reading phylogenies from TreeBASE into R was already possible using
 the R package `treebase` [@Boettiger_2012]. However, because it relied
@@ -979,7 +967,12 @@ such those found in the `phylobase` package [@phylobase],
 and support for integration of semantics defined through the
 Web Ontology language (OWL), as discussed in the Challenges section.
 
+## Future Directions
 
+For convenience, the RNeXML package can parse compressed XML binaries (gzipped XML) directly, facilitating work with very large data files.  As most R functions, especially those in common phylogenetics packages, require in-memory data structures, RNeXML currently loads this data directly into memory. Future work could facilitate manipulation of NeXML data directly from the disk.
+
+Emerging formats such as the JSON based NeXSON format provide alternate representations of semantic, machine-readable phylogenetic data. At this time, R users must still rely on other tools that can convert these formats into NeXML.
+Because the NeXML syntax is extensible, semantic, and machine-readable, this can be done without loss, unlike NEXUS formats.  Nevertheless, a possible future direction would be to provide direct support of such formats through RNeXML or a companion R package.
 
 ## Acknowledgements
 <!-- FIXME Rutger, Hilmar, add whatever you'd like to acknowledge here -->. 
