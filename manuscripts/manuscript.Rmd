@@ -241,21 +241,23 @@ terminal to follow along with the examples.
 
 # Introduction to RNeXML
 
+Conceptually, a NeXML document has the following components: (1) phylogeny
+data, (2) character or trait data in matrix form, (3) operational
+taxonomic units (OTUs), and (4) metadata. When reading and writing NeXML,
+`RNeXML` aims to map these to and from, respectively, their most
+natural representations in R. These are the `phylo` object from the
+`ape` package [@Paradis_2004], R's native `data.frame` list structure for
+phylogenies, character matrices, and metadata, respectively.
+<!-- compared to the preceding enumeration, this is missing where the OTUs go -->
 
-A NeXML document can be thought of as having the following components: (1) phylogeny
-data, (2) character-trait data, (3) operational taxonomic units, and (4) metadata. 
-`RNeXML` seeks to provide a seamless way to convert these to and from their 
-corresponding R object representations, in particular `ape::phylo`,
-`data.frame`, and lists for phylogenies, character
-matrices, and metadata, respectively.
-Metadata can provide bibliographic and provenance
-information about the study as part of which the phylogeny was generated or
-applied (such as authors, citations to publications, timestamps, and even
-descriptions of methods). They can also be used to attach annotations to individual
-data elements.  We illustrate how metadata annotations can be added to
-the operational taxonomic units of the phylogeny and can be used to extend
-the data representation to new uses such as stochastic character maps.
-<!-- sounds awkward - need to smoothen the language. HL -->
+NeXML allows attaching metadata to any data element, and even to
+metadata themselves. At the level of the document as a whole or the
+phylogeny, metadata can provide bibliographic and provenance
+information, for example about the study as part of which the
+phylogeny was generated or applied, and with which methods it was
+generated. In the form of annotations, metadata can also be attached
+to very specific elements of the data, such as individual OTUs, nodes,
+or even edges of the phylogeny.
 
 ## Getting Started
 
