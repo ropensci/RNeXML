@@ -362,30 +362,36 @@ plot(tb_phy[[1]])
 
 ## Reading character data 
 
-Like NEXUS files, NeXML documents can in addition to trees also
-contain character data in the form of matrices.  Character data can be
-of molecular (molecular sequence alignments), discrete (most
-morphological character data), or continuous type (many trait data). 
-Often character data, especially molecular and morphological, is used
-for phylogenetic tree reconstruction, but they are also a common input
-for the many comparative phylogenetic analysis methods available in R. Methods to extract character data
-work much like those for extracting the phylogenetic trees. Here we read in an example
-NeXML file that contains both a phylogeny and character data. The
-function
-`get_characters()` can then be used to obtain a `data.frame` with columns as characters and rows as
-taxa:
+NeXML documents can contain character or trait data in the form of
+matrices. A data matrix can be of molecular (for molecular sequence
+alignments), discrete (for most morphological character data), or
+continuous type (for many trait data). Character data, especially
+molecular and morphological matrices, are often used for phylogenetic
+tree reconstruction, but they are also a common input for the many
+comparative phylogenetic analysis methods available in R. The method
+`get_characters()` obtains character data from a `nexml` object, and
+returns them as a standard `data.frame` R object with columns as
+characters and rows as taxa. The following example, which uses a file
+that comes with `RNeXML`, demonstrates this:
 
 ```{r }
 nex <- nexml_read("components/comp_analysis.xml")
 get_characters(nex)
 ```
-Continuous and discrete character data are represented as separate
-blocks in NeXML files, but will be combined as separate columns of a
-single data frame by `get_characters()` if they correspond to the same
-taxa. If this behavior is undesired, the function
-`get_characters_list()` can be used to obtain
-a list of data frames, where list elements correspond to the character matrix blocks of
-the NeXML file.
+
+To allow strict validation of data types, the NeXML schema requires
+continuous and discrete character data to be separated into different
+"characters" blocks. Since the `data.frame` data structure in R has no
+such constraints, the `get_characters()` method will combine such
+blocks as separate columns into a single `data.frame` object, provided
+they correspond to the same taxa.
+<!-- does the example data file actually demonstrate this? if not, it -->
+<!-- should. HL -->
+Otherwise, a list of `data.frame`s
+is returned, with list elements corresponding to characters
+blocks. Similar to the distinction between `get_trees()` and
+`get_trees_list()`, there is also a method `get_characters_list()`,
+which always returns a list of `data.frame`s.
 
 
 ## Writing phylogenetic trees 
