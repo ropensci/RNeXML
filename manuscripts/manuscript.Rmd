@@ -248,7 +248,7 @@ taxonomic units (OTUs), and (4) metadata. When reading and writing NeXML,
 natural representations in R. These are the `phylo` object from the
 `ape` package [@Paradis_2004], R's native `data.frame` list structure for
 phylogenies, character matrices, and metadata, respectively.
-<!-- compared to the preceding enumeration, this is missing where the OTUs go -->
+<!-- compared to the preceding enumeration, this is missing where the OTUs go. HL -->
 
 NeXML allows attaching metadata to any data element, and even to
 metadata themselves. At the level of the document as a whole or the
@@ -261,79 +261,104 @@ or even edges of the phylogeny.
 
 ## Getting Started
 
-The current stable version of the `RNeXML` package can be installed from
-the CRAN library[^1].  
+As for other R packages, prior to using `RNeXML`, the package needs to
+be installed and loaded. The current stable version can be installed from
+the CRAN library[^1]:
 
 ```r
 install.packages("RNeXML", dependencies=TRUE)
 ```
 
-
-## Reading phylogenetic trees
-
-
+This will also install its dependencies. Once installed, R scripts
+using the library only need to load it:
 
 ```{r echo=FALSE}
 library(RNeXML)
 ```
 
-We begin by loading the `RNeXML` package and reading in an example
-NeXML file provided with the package, containing two small phylogenetic
-trees.[^2]
+## Reading phylogenetic trees
+
+We begin by reading in an example NeXML file provided with the
+package, containing two small phylogenetic trees.[^2]
 
 ```{r}
-library("RNeXML")
 nex <- nexml_read("components/trees.xml")
+typeof(nex)
 ```
-The resulting `nex` object is of type `nexml` and is a native R object representation of the NeXML
-file. 
-Objects of type `nexml` represent phylogenetic trees as well as 
-character traits, and semantic metadata. As such, this new R object format differs
-from existing formats such as `ape::phylo` format [@Paradis2004],
-which describes trees alone, or any of the `phylobase` classes of object that contain 
-trees and traits but more limited metadata [@phylobase]. 
 
-Although new custom R functions and packages 
-could be written for using `nexml` objects, for most users it will be
-more convienent to use methods of the many already existing R packages for 
-phylogenetics. From a `nexml` object, we can 
-therefore extract any phylogenies it contains in the `ape::phylo` format. In this 
-case we will get back a `multiPhylo` object, since the file contains two phylogenies.
+The method `nexml_read()` reads NeXML files, either from a local
+file, or from a remote location via its URL, and returns an object of
+type `nexml`. This object type is a representation of the NeXML
+document contents, and therefore holds phylogenetic trees as well as 
+character or trait matrices, and all metadata. This is similar in
+design to the classes in the `phylobase` package, which contain 
+trees and traits but hold only limited metadata [@phylobase], but
+different from R object types such as `ape::phylo` (the `phylo` class
+in the `ape` package [@Paradis2004]), which represents trees alone.
+
+To interface conveniently with the many already existing R packages for 
+phylogenetics, which conventionally accept phylogenies as `ape::phylo`
+objects, the method `get_trees_list()` returns a `ape::multiPhylo`
+object, which can be treated as a list of `ape::phylo` objects:
 
 ```{r}
-phy <- get_trees(nex)
+phy <- get_trees_list(nex)
+typeof(phy)
 ```
 
-We can then leverage the rich suite of methods available from the R
-phylogenetics community. For instance, here we use the standard plotting function from
-the `ape` package to plot the first tree in the resulting `ape::phylo` object returned by
-`get_trees`.
+As an example for leveraging the wealth of resources in R
+interoperating with the `ape::phylo` type, we use `ape`'s standard
+plotting function to plot the first tree in the list of trees:
 
 ```{r eval=FALSE}
 plot(phy[[1]])
 ```
 
-Note that NeXML can not only contain multiple phylogenetic trees in a single document,
-but can also group sets of trees into separate blocks (e.g. as resulting from
-different workflows). The `get_trees()` function is designed for interactive use, and thus attempts to return the most sensible R object for NeXML: if only a single tree is available, it will return an `ape::phylo` 
-object; if multiple trees are available in a single `trees` block, it will return
-an `ape::multiPhylo` object (a list of `ape::phylo` objects).  If multiple
-blocks are available, it will return a list of `multiPhylo` blocks.
+The `get_trees_list()` method is designed for use in scripts, for
+which a consistent and predictable return type (namely
+`ape::multiPhylo`) is desirable.
+<!-- the open (and previously not covered) issue here is what does -->
+<!-- get_trees_list() return in the case of multiple trees blocks? HL -->
+Following a common design practice
+for R packages, `RNeXML` also contains a method `get_trees()`, which
+is designed for interactive use and returns the R object most
+intuitive given the arrangement of phylogeny data in the source NeXML
+document. NeXML inherits from NEXUS the ability to contain multiple
+phylogenies, and to group sets of phylogenies into "blocks". The
+`get_trees()` method will return an `ape::phylo` object if the NeXML
+document contains a single phylogeny, an `ape::multiPhylo` object if
+it contains multiple phylogenies arranged in a single `trees` block,
+and a list of `ape::multiPhylo` objects if it contains multiple
+`trees` blocks. This design spares an interactive user from having to
+type unnecessary data conversion commands, at the expense of needing
+to know which return type to expect (or verifying the type via
+introspection commands such as `typeof()`).
 
-For scripted use, it is desirable to have a consistent return type.  To always get back a list of `multiPhylo` objects,
-even when only one tree is available, use `get_trees_list()`.
+Because the example file supplied with the package contains two
+phylogenies in a single `trees` block, in this case the return type of both
+phylogeny accessor methods is the same:
 
-The ability to read in phylogenetic trees in the NeXML format opens up a
-wide and rapidly growing array of resources to the R user.  For instance,
-a user can access all the phylogenies available in 
-[TreeBASE](http://treebase.org/) 
- through the
-`nexml` format.  `RNeXML`'s `nexml_read` can also read a file directly from a URL by automatically recognizing the URL patterns and first downloading the file to a working directory:
-
-```{r eval=FALSE}
-nex <- nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
+```{r}
+phy <- get_trees(nex)
+typeof(phy)
+plot(phy[[1]])
 ```
 
+As mentioned above, the `nexml_read()` method allows specifying the
+NeXML document to read not only as the name of a local file, but also
+as the URL of a document on the web. If the location parameter is
+recognized as a URL, the method will automatically download the
+document to the local working directory and read it from there. This
+gives convenient and rapid access to phylogenetic data published in
+NeXML format on the web, which includes the content of the
+phylogenetic data repository TreeBASE [@Piel_2002]. For
+example, the following plots a tree in TreeBASE:
+
+```{r eval=FALSE}
+tb_nex <- nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
+tb_phy <- get_trees_list(tb_nex)
+plot(tb_phy[[1]])
+```
 
 ## Reading character data 
 
