@@ -394,54 +394,74 @@ blocks. Similar to the distinction between `get_trees()` and
 which always returns a list of `data.frame`s.
 
 
-## Writing phylogenetic trees 
+## Writing phylogenetic trees and character data
 
-Generating NeXML files from R is likewise straightforward.  Here we
-write a phylogeny from the `ape::phylo` format out to a NeXML file:
+Aside from providing an easy-to-use interface to data already in
+NeXML, `RNeXML` also aims to facilitate broader adoption of the
+standard for sharing phylogenetic data, and thus to make it
+straightforward to generate them. The method `nexml_write()`, as the
+name suggests, generates a NeXML file from its input parameters. In
+its simplest invocation, the method writes a tree to a file:
 
 ```{r}
 data(bird.orders)
 nexml_write(bird.orders, file = "birds.xml")
 ```
 
-The first argument to `nexml_write()` is a `nexml` object, or any
-object that can be coerced to it, such as a `ape::phylo` phylogeny,
-or a `multiPhylo` list of phylogenies. The `nexml_write()` function
-also allows to add character data:
+The first argument to `nexml_write()` is an object of type `nexml`, or any
+object that can be coerced to it, such as in the above example an
+`ape::phylo` phylogeny. Alternatively, passing a `multiPhylo` object
+would write a list of phylogenies to the file.
+
+In addition to trees, the `nexml_write()` method also to specify
+character data as another parameter. The following example uses data
+from the comparative phylogenetics R package `geiger` [@Harmon_2008].
 
 ```{r}
 library("geiger")
 data(geospiza)
-nexml_write(trees = geospiza$phy, characters = geospiza$dat, file="geospiza.xml")
+nexml_write(trees = geospiza$phy, characters = geospiza$dat,
+            file="geospiza.xml")
 ```
 
-These examples use data from the popular phylogenetics software `geiger` [@Harmon_2008].
-Instead of packaging trees and characters at the time of writing a
-NeXML file, the document can also be built up step by step using the
-functions `add_characters()`,
-`add_trees()`, and `add_meta()`.  Each of these functions can add data to an
-existing `nexml` object, or create a new nexml object if none is provided.
-Here we first create a `nexml` object containing the phylogeny data,
-and then add the character data to it:
+## Creating and populating `nexml` objects
+
+Instead of packaging the various components for a NeXML file at the
+time of writing the file, the user can also create and iteratively
+populate an in-memory R object representation of the NeXML document,
+i.e., an object of type `nexml`. The methods to do this are `add_characters()`,
+`add_trees()`, and `add_meta()`, for adding characters, trees, and
+metadata, respectively. Each of these functions will automatically
+create a new nexml object if not supplied with an existing one as the
+last (optional) argument.
+
+For example, here we use `add_trees()` to first create a `nexml`
+object with the phylogeny data, and then add the character data to it:
 
 ```{r}
-geiger_nex <- add_trees(geospiza$phy)
-geiger_nex <- add_characters(geospiza$dat, geiger_nex)
+nexObj <- add_trees(geospiza$phy)
+nexObj <- add_characters(geospiza$dat, nexObj)
 ```
 
-The data need not share the same taxa.  We can append additional
-phylogenies and characters corresponding to different taxa:
+The data components being added to a `nexml` object need not share the
+same OTUs.  For example, here we append additional phylogenies and characters
+using different OTUs to the `nexml` object originally populated with
+the `geospiza` phylogeny and character data:
 
 ```{r}
 data(primates)
-geiger_nex <- add_trees(primates$phy, geiger_nex)
-geiger_nex <- add_characters(primates$dat, geiger_nex)
+nexObj <- add_trees(primates$phy, nexObj)
+nexObj <- add_characters(primates$dat, nexObj)
 ```
 
-This allows us to include multiple trees and character matrices to a
-single NeXML file, for instance, to represent samples from posterior
-probability distributions of inferred or simulated phylogenies or
-character states.
+<!-- Might be worth adding some brief explanation here as to what -->
+<!-- happens internally in such a case. For example, automatic -->
+<!-- generation of multiple `otus` blocks? HL --> 
+Other than storage size, there is no limit to the number of
+phylogenies and character matrices that can be included in a
+single NeXML file. This allows, for example, to capture samples from a
+posterior probability distribution of inferred or simulated phylogenies or
+character states in one NeXML file.
 
 # Metadata
 
