@@ -1,13 +1,25 @@
 FROM rocker/ropensci:latest
 MAINTAINER Carl Boettiger cboettig@ropensci.org
 
-RUN mkdir /home/rstudio
-RUN git clone https://github.com/ropensci/RNeXML.git /home/rstudio/rnexml
-RUN Rscript -e 'devtools::install("/home/rstudio/rnexml")'
+COPY . /host
+RUN chown -R docker:docker /host
+WORKDIR /host
+USER docker
+CMD ["R", "-e", "rmarkdown::render('manuscript.Rmd')"]
 
-## Allows us to run using RStudio's non-root owner
-RUN chown -R docker:docker /home/rstudio/rnexml
 
-## build manuscript:
-# docker run --name rnexml --rm -it -w /home/rstudio/rnexml/mansucripts cboettig/rnexml Rscript -e 'rmarkdown::render("manuscript.Rmd")'
-# docker copy rnexml:/home/rstudio/rnexml/manuscripts/manuscript.pdf .
+## Non-interactive use:
+## 
+##     docker run --name rnexml cboettig/rnexml
+##     docker cp rnexml:/host/manuscript.pdf .
+
+## Equivalent to:
+##  
+##     docker run --name rnexml --volumes $(pwd):/host \
+##       --workdir /host --user docker rocker/ropensci \
+##       R -e "rmarkdown::render('manuscript.Rmd')"
+## 
+##
+## Interactive use: 
+## 
+##    docker run -dP cboettig/RNeXML supervisord

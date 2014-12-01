@@ -182,11 +182,11 @@ most importantly, NeXML is **semantically rich**.
 The use of formal semantics in NeXML makes its data representation
 not only machine-readable in a predictable manner, but also enables machine reasoning about
 the data and metadata (see @Parr2011 for an overview on semantic reasoning in 
-evolutionary informatics). Instead of asking the computer to
-return "the data on line #93" <!-- this is a pretty obscure example, -->
-<!-- and I'm not even clear what you mean here, so having a hard time -->
-<!-- coming up with an improvement -->, we can expect the computer to reason about
-taxonomic concepts (as we illustrate in the supplement). 
+evolutionary informatics). For instance, through the use of semantics we can
+expect the computer to reason about taxonomic concepts
+(as we illustrate in the supplement). 
+<!-- Sorry, just trying to contrast what it means to make a 'semantic' query 
+vs a non-semantic one.  Most R users won't be familiar with SQL queries either anyway.  Let me know if this is better.-->
 
 The R language and platform [@R] has become a powerful ecosystem for
 evolutionary analysis, with over 30 packages available alone for
@@ -283,7 +283,6 @@ package, containing two small phylogenetic trees.[^2]
 
 ```{r}
 nex <- nexml_read("components/trees.xml")
-typeof(nex)
 ```
 
 The method `nexml_read()` reads NeXML files, either from a local
@@ -294,7 +293,7 @@ character or trait matrices, and all metadata. This is similar in
 design to the classes in the `phylobase` package, which contain 
 trees and traits but hold only limited metadata [@phylobase], but
 different from R object types such as `ape::phylo` (the `phylo` class
-in the `ape` package [@Paradis2004]), which represents trees alone.
+in the `ape` package [@Paradis_2004]), which represents trees alone.
 
 To interface conveniently with the many already existing R packages for 
 phylogenetics, which conventionally accept phylogenies as `ape::phylo`
@@ -315,12 +314,9 @@ plot(phy[[1]])
 ```
 
 The `get_trees_list()` method is designed for use in scripts, for
-which a consistent and predictable return type (namely
-`ape::multiPhylo`) is desirable.
-<!-- the open (and previously not covered) issue here is what does -->
-<!-- get_trees_list() return in the case of multiple trees blocks? HL -->
-Following a common design practice
-for R packages, `RNeXML` also contains a method `get_trees()`, which
+which a consistent and predictable return type (namely a `list` of
+`ape::multiPhylo` objects, reflecting the nested structure of NeXML) is desirable.
+`RNeXML` also contains a method `get_trees()`, which
 is designed for interactive use and returns the R object most
 intuitive given the arrangement of phylogeny data in the source NeXML
 document. NeXML inherits from NEXUS the ability to contain multiple
@@ -332,7 +328,7 @@ and a list of `ape::multiPhylo` objects if it contains multiple
 `trees` blocks. This design spares an interactive user from having to
 type unnecessary data conversion commands, at the expense of needing
 to know which return type to expect (or verifying the type via
-introspection commands such as `typeof()`).
+introspection commands such as `class()`).
 
 Because the example file supplied with the package contains two
 phylogenies in a single `trees` block, in this case the return type of both
@@ -340,7 +336,6 @@ phylogeny accessor methods is the same:
 
 ```{r}
 phy <- get_trees(nex)
-typeof(phy)
 plot(phy[[1]])
 ```
 
@@ -384,10 +379,7 @@ continuous and discrete character data to be separated into different
 "characters" blocks. Since the `data.frame` data structure in R has no
 such constraints, the `get_characters()` method will combine such
 blocks as separate columns into a single `data.frame` object, provided
-they correspond to the same taxa.
-<!-- does the example data file actually demonstrate this? if not, it -->
-<!-- should. HL -->
-Otherwise, a list of `data.frame`s
+they correspond to the same taxa. Otherwise, a list of `data.frame`s
 is returned, with list elements corresponding to characters
 blocks. Similar to the distinction between `get_trees()` and
 `get_trees_list()`, there is also a method `get_characters_list()`,
@@ -420,7 +412,8 @@ from the comparative phylogenetics R package `geiger` [@Harmon_2008].
 ```{r}
 library("geiger")
 data(geospiza)
-nexml_write(trees = geospiza$phy, characters = geospiza$dat,
+nexml_write(trees = geospiza$phy, 
+            characters = geospiza$dat,
             file="geospiza.xml")
 ```
 
@@ -454,9 +447,8 @@ nexObj <- add_trees(primates$phy, nexObj)
 nexObj <- add_characters(primates$dat, nexObj)
 ```
 
-<!-- Might be worth adding some brief explanation here as to what -->
-<!-- happens internally in such a case. For example, automatic -->
-<!-- generation of multiple `otus` blocks? HL --> 
+`RNeXML` automatically adds new, separate OTU blocks into the NeXML file
+for each of these new data sets.
 Other than storage size, there is no limit to the number of
 phylogenies and character matrices that can be included in a
 single NeXML file. This allows, for example, to capture samples from a
@@ -537,8 +529,10 @@ birds <- add_basic_meta(
   creator = "Sibley, C. G. and Ahlquist, J. E.",
   nexml = birds)
 ```
+
 <!-- the above will get fixed by CB, this is just a reminder and -->
 <!-- placeholder to adjust when that's done. -->
+<!-- Um, sorry, remind me what I am supposed to fix here? formatting? -->
 
 Instead of a literal string, citations can also be provided in R's
 `bibentry` type, which is the one in which R package citations are obtained:
@@ -550,12 +544,12 @@ birds <- add_basic_meta(citation = citation("ape"), nexml=birds)
 Alternatively, a citation to a published paper with a Digital
 Object Identifier (DOI) can be provided in the form of the DOI,
 which the package `knitcitations` [@Boettiger_2014] can turn into a
-formatted citation using. As an example, to add the citation information of the paper that generated the
-`geospiza` phylogeny included in the `geiger` package: 
+formatted citation using. As an example, to add the above citation
+using the DOI: 
 
-```{r}
+```{r }
 library("knitcitations")
-geiger_nex <- add_basic_meta(citation = bib_metadata("10.2307/2408428"), nexml=geiger_nex)
+birds <- add_basic_meta(citation = bib_metadata("10.1093/bioinformatics/btg412"), nexml=birds)
 ```
 
 
