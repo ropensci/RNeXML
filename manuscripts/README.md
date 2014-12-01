@@ -1,33 +1,39 @@
 Instructions for compiling manuscripts
 ======================================
 
-
+[![Build Status](http://107.170.225.143:88/api/badge/github.com/ropensci/RNeXML/status.svg?branch=master)](http://107.170.225.143:88/github.com/ropensci/RNeXML)
 
 
 Install dependencies
 --------------------
 
-Note that `rmarkdown` requires `pandoc` (>= 0.12) and `pandoc-citeproc` be installed. See [installing pandoc](http://johnmacfarlane.net/pandoc/installing.html). Then from R (with `devtools` R package installed):
+Install the dependencies required for the supplementary examples using the `devtools` package:
 
 ```r
-devtools::install_github("cboettig/knitcitations@v1")
-devtools::install_github("ropensci/RNeXML@devel", dependencies = c("Depends", "Imports", "Suggests"))
-devtools::install_github("rstudio/rmarkdown")
+install.packages("devtools")
+devtools::install_github(c("egonw/rrdf/rrdflibs", "egonw/rrdf/rrdf", "cboettig/Sxslt"))
 ```
+
+Then install the `RNeXML` R package, including the suggested packages, using the following R command:
+
+```r
+install.packages("RNeXML", dependencies=TRUE)
+```
+
+Note that `rmarkdown` requires `pandoc` (>= 0.12.3) and `pandoc-citeproc` be installed. These ship with the current version of RStudio (`>=0.98`). Additionally, a LaTeX environment is required to generate the output pdf. 
+
 
 
 Build the manuscript
 --------------------
 
 
-If you have the [RStudio Preview release](www.rstudio.com/ide/download/preview) (>= 0.98.932), just open the manuscript.Rmd file in RStudio and try pressing the 'knit pdf' button.
-
-Otherwise, make sure you set the `manuscripts/` as your working directory and then do:
+Make sure you set the `manuscripts/` as your working directory and then do:
 
 ```r
 rmarkdown::render("manuscript.Rmd")
 ```
-
+or use the `knit2pdf` button in your RStudio console. 
 
 Alternately: Using Docker
 -------------------------
@@ -36,7 +42,6 @@ Instead of installing R packages seperately, you can try out RNeXML
 by running RStudio in a container.  This (a) avoids having to install
 software dependencies, and (b) avoids altering anything on your local
 library. If the above doesn't work, or just for fun, give this a try.
-
 
 Installation: In a Mac or Windows machine, this will aslo install boot2docker
 (easy point & click install, ~24 MB). On Linux, this installs
