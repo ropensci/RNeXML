@@ -23,7 +23,8 @@ Suggests:
     rfigshare (>= 0.3.0),
     knitcitations (>= 1.0.1),
     testthat (>= 0.8.1),
-    phylobase,
+    phylobase (>= 0.6.8),
+    rmarkdown (>= 0.3.3),
     Sxslt
 Depends:
     R (>= 3.0.0),
