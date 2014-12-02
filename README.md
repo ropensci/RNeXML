@@ -296,3 +296,7 @@ Convergence diagnostics:
 
 
 
+-----
+
+[![ropensci footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
+

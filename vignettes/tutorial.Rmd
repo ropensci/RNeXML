@@ -192,3 +192,9 @@ unlink("example.xml")
 unlink("meta_example.xml")
 unlink("test.xml")
 ```
+
+
+-----
+
+[![ropensci footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
+
