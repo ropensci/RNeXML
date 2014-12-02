@@ -247,8 +247,9 @@ taxonomic units (OTUs), and (4) metadata. When reading and writing NeXML,
 `RNeXML` aims to map these to and from, respectively, their most
 natural representations in R. These are the `phylo` object from the
 `ape` package [@Paradis_2004], R's native `data.frame` list structure for
-phylogenies, character matrices, and metadata, respectively.
-<!-- compared to the preceding enumeration, this is missing where the OTUs go. HL -->
+phylogenies, character matrices, and metadata, respectively. Note that
+unlike NeXML or NEXUS, the `phylo` object stores taxonomic information
+only as tip labels and not as a separate block of data.
 
 NeXML allows attaching metadata to any data element, and even to
 metadata themselves. At the level of the document as a whole or the
@@ -374,6 +375,9 @@ nex <- nexml_read("components/comp_analysis.xml")
 get_characters(nex)
 ```
 
+Observe that `RNeXML` has automatically merged the different NeXML character
+blocks, (representing continuous and discrete characters respectively) 
+into a single data frame with appropriate column classes. 
 To allow strict validation of data types, the NeXML schema requires
 continuous and discrete character data to be separated into different
 "characters" blocks. Since the `data.frame` data structure in R has no
@@ -383,7 +387,8 @@ they correspond to the same taxa. Otherwise, a list of `data.frame`s
 is returned, with list elements corresponding to characters
 blocks. Similar to the distinction between `get_trees()` and
 `get_trees_list()`, there is also a method `get_characters_list()`,
-which always returns a list of `data.frame`s.
+which always returns a list of `data.frame`s, one for each
+character block.
 
 
 ## Writing phylogenetic trees and character data
