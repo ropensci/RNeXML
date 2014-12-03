@@ -351,7 +351,7 @@ phylogenetic data repository TreeBASE [@Piel_2002]. For
 example, the following plots a tree in TreeBASE:
 
 ```{r eval=FALSE}
-tb_nex <- nexml_read("https://raw.github.com/rvosa/supertreebase/master/data/treebase/S100.xml")
+tb_nex <- nexml_read("https://raw.github.com/TreeBASE/supertreebase/master/data/treebase/S100.xml")
 tb_phy <- get_trees_list(tb_nex)
 plot(tb_phy[[1]])
 ```
