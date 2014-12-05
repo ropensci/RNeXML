@@ -72,7 +72,7 @@ nexml_figshare <- function(nexml,
 
   
   if(is.null(id)){
-    id <- fs_create(title = m[["dc:title"]],
+    id <- rfigshare::fs_create(title = m[["dc:title"]],
                     description = m[["dc:description"]], 
                     type = "dataset")
   }
@@ -80,9 +80,9 @@ nexml_figshare <- function(nexml,
 
   doi <- paste("http://doi.org/10.6084/m9.figshare", id, sep=".")
 
-  fs_add_authors(id, authors = m[["dc:creator"]])
-  fs_add_categories(id, categories)
-  fs_add_tags(id, tags)
+  rfigshare::fs_add_authors(id, authors = m[["dc:creator"]])
+  rfigshare::fs_add_categories(id, categories)
+  rfigshare::fs_add_tags(id, tags)
 
   # Use object DOI instead of figshare id when available? 
   # Construct DOI from figshare id? 
@@ -90,9 +90,9 @@ nexml_figshare <- function(nexml,
 
   nexml_write(nexml, file) 
 
-  fs_upload(id, file)
+  rfigshare::fs_upload(id, file)
   if (visibility == "private"){ 
-      fs_make_private(id)
+      rfigshare::fs_make_private(id)
       message(paste("Your data has been uploaded to figshare privately.
            You may make further edits and publish the data from
            the online control panel at figshare.com or by using 
@@ -101,7 +101,7 @@ nexml_figshare <- function(nexml,
            is made public."))
 
   } else if (visibility == "public"){ 
-      fs_make_public(id)
+      rfigshare::fs_make_public(id)
       message(paste("Your data is published and now accessible at", doi))
   } else {
   message(paste("Your data has been uploaded to figshare as a draft.
