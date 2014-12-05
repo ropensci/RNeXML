@@ -1,17 +1,19 @@
 Package: RNeXML
 Type: Package
-Title: Implement semantically rich I/O for NeXML format
+Title: Implement semantically rich I/O for the NeXML format
 Version: 1.1.3.99
 Authors@R: c(person("Carl", "Boettiger", role = c("cre", "aut"),
     email="cboettig@gmail.com"), person("Scott", "Chamberlain", role =
     "aut"), person("Hilmar", "Lapp", role = "aut"), person("Kseniia",
     "Shumelchyk", role = "aut"), person("Rutger", "Vos", role = "aut"))
-Description: R package that allows access to phyloinformatic data in NeXML
+Description: Provides access to phyloinformatic data in NeXML
     format.  The package should add new functionality to R such as the
     possibility to manipulate NeXML objects in more various and refined way and
     compatibility with 'ape' objects. Note that the Sxslt package suggested can
     be installed from the Omegahat repository, though it can also be obtained
     from https://github.com/cboettig/Sxslt
+URL: https://github.com/ropensci/RNeXML
+BugReports: https://github.com/ropensci/RNeXML/issues
 License: BSD_3_clause + file LICENSE
 Additional_repositories: http://www.omegahat.org/R
 VignetteBuilder: knitr
