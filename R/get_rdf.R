@@ -34,7 +34,7 @@ get_rdf <- function(file){
       file <- who
     }
     to_rdf <- system.file("examples", "RDFa2RDFXML.xsl", package="RNeXML")
-    rdf <- xsltApplyStyleSheet(file, to_rdf)
+    rdf <- Sxslt::xsltApplyStyleSheet(file, to_rdf)
   } else {
     warning("Package Sxslt not available, please install it from www.omegahat.org") 
   }
