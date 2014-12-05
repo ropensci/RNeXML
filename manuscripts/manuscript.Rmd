@@ -303,7 +303,7 @@ object, which can be treated as a list of `ape::phylo` objects:
 
 ```{r}
 phy <- get_trees_list(nex)
-typeof(phy)
+class(phy)
 ```
 
 As an example for leveraging the wealth of resources in R
@@ -311,7 +311,7 @@ interoperating with the `ape::phylo` type, we use `ape`'s standard
 plotting function to plot the first tree in the list of trees:
 
 ```{r eval=FALSE}
-plot(phy[[1]])
+plot(phy[[1]]) 
 ```
 
 The `get_trees_list()` method is designed for use in scripts, for
@@ -335,9 +335,9 @@ Because the example file supplied with the package contains two
 phylogenies in a single `trees` block, in this case the return type of both
 phylogeny accessor methods is the same:
 
-```{r}
+```{r fig.show="hide"}
 phy <- get_trees(nex)
-plot(phy[[1]])
+plot(phy[[1]]) 
 ```
 
 As mentioned above, the `nexml_read()` method allows specifying the
@@ -351,9 +351,9 @@ phylogenetic data repository TreeBASE [@Piel_2002]. For
 example, the following plots a tree in TreeBASE:
 
 ```{r eval=FALSE}
-tb_nex <- nexml_read("https://raw.github.com/TreeBASE/supertreebase/master/data/treebase/S100.xml")
+tb_nex <- nexml_read(
+"https://raw.github.com/TreeBASE/supertreebase/master/data/treebase/S100.xml")
 tb_phy <- get_trees_list(tb_nex)
-plot(tb_phy[[1]])
 ```
 
 ## Reading character data 

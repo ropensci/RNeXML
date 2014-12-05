@@ -11,3 +11,4 @@ manuscripts/
 CONTRIBUTING.md
 vignettes/cache/
 .drone.yml
+cran-comments.md
