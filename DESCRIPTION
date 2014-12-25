@@ -1,7 +1,7 @@
 Package: RNeXML
 Type: Package
 Title: Implement semantically rich I/O for the NeXML format
-Version: 2.0.0
+Version: 2.0.1
 Authors@R: c(person("Carl", "Boettiger", role = c("cre", "aut"),
     email="cboettig@gmail.com"), person("Scott", "Chamberlain", role =
     "aut"), person("Hilmar", "Lapp", role = "aut"), person("Kseniia",
@@ -9,13 +9,14 @@ Authors@R: c(person("Carl", "Boettiger", role = c("cre", "aut"),
 Description: Provides access to phyloinformatic data in NeXML
     format.  The package should add new functionality to R such as the
     possibility to manipulate NeXML objects in more various and refined way and
-    compatibility with 'ape' objects. Note that the Sxslt package suggested can
-    be installed from the Omegahat repository, though it can also be obtained
-    from https://github.com/cboettig/Sxslt. rrdf is available at https://github.com/egonw/rrdf/
+    compatibility with 'ape' objects. Note that for the suggested packages,
+		Sxslt is available through Omegahat.org and rrdf from carlboettiger.info using
+		the additional repository URLs given below. Alternatively these can be installed
+		from Github, https://github.com/cboettig/Sxslt and https://github.com/egonw/rrdf/
 URL: https://github.com/ropensci/RNeXML
 BugReports: https://github.com/ropensci/RNeXML/issues
 License: BSD_3_clause + file LICENSE
-Additional_repositories: http://www.omegahat.org/R
+Additional_repositories: http://www.omegahat.org/R, http://server.carlboettiger.info:5555/R
 VignetteBuilder: knitr
 Suggests:
     rrdf (>= 2.0.2),
@@ -27,7 +28,7 @@ Suggests:
     testthat (>= 0.8.1),
     phylobase (>= 0.6.8),
     rmarkdown (>= 0.3.3),
-    Sxslt
+    Sxslt (>=0.91)
 Depends:
     R (>= 3.0.0),
     ape (>= 3.1),

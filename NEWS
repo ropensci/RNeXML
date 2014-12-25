@@ -27,6 +27,11 @@ And constructed with the following guidelines:
 
 For more information on SemVer, please visit http://semver.org/.
 
+v2.0.1
+-------
+
+- Update DESCRIPTION to provide a standard `install.packages()` compatible repository for `rrdf`, as per request from the CRAN team.
+
 v2.0.0
 ---------
 
