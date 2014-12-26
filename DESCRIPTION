@@ -1,6 +1,6 @@
 Package: RNeXML
 Type: Package
-Title: Implement semantically rich I/O for the NeXML format
+Title: Semantically Rich I/O for the NeXML Format
 Version: 2.0.1.99
 Authors@R: c(person("Carl", "Boettiger", role = c("cre", "aut"),
     email="cboettig@gmail.com"), person("Scott", "Chamberlain", role =
