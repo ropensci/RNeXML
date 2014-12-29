@@ -212,18 +212,29 @@ using the library only need to load it:
 library(RNeXML)
 ```
 
-## Reading phylogenetic trees
+## Reading and writing phylogenies and character data
 
-We begin by reading in an example NeXML file provided with the
-package, containing two small phylogenetic trees.[^2]
+Conceptually, a NeXML document has the following components: (1)
+phylogeny data, (2) character or trait data in matrix form, (3)
+operational taxonomic units (OTUs), and (4) metadata. When reading and
+writing NeXML, `RNeXML` aims to map these to and from, respectively,
+their most natural representations in R. These are the `phylo` and
+`multiPhylo` objects from the `ape` package [@Paradis_2004] for
+phylogenies, and R's native `data.frame` list structure for character
+matrices.
+
+## Reading phylogenies and character data
+
+The method `nexml_read()` reads NeXML files, either from a local
+file, or from a remote location via its URL, and returns an object of
+type `nexml` [^2]:
 
 ```{r}
 nex <- nexml_read("components/trees.xml")
 ```
 
-The method `nexml_read()` reads NeXML files, either from a local
-file, or from a remote location via its URL, and returns an object of
-type `nexml`. This object type is a representation of the NeXML
+
+The `nexml` object type is a representation of the NeXML
 document contents, and therefore holds phylogenetic trees as well as 
 character or trait matrices, and all metadata. This is similar in
 design to the classes in the `phylobase` package, which contain 
@@ -238,21 +249,12 @@ object, which can be treated as a list of `ape::phylo` objects:
 
 ```{r}
 phy <- get_trees_list(nex)
-class(phy)
-```
-
-As an example for leveraging the wealth of resources in R
-interoperating with the `ape::phylo` type, we use `ape`'s standard
-plotting function to plot the first tree in the list of trees:
-
-```{r eval=FALSE}
-plot(phy[[1]]) 
 ```
 
 The `get_trees_list()` method is designed for use in scripts, for
 which a consistent and predictable return type (namely a `list` of
-`ape::multiPhylo` objects, reflecting the nested structure of NeXML) is desirable.
-`RNeXML` also contains a method `get_trees()`, which
+`ape::multiPhylo` objects, reflecting the nested structure of NeXML)
+is desirable. `RNeXML` also contains a method `get_trees()`, which
 is designed for interactive use and returns the R object most
 intuitive given the arrangement of phylogeny data in the source NeXML
 document. NeXML inherits from NEXUS the ability to contain multiple
@@ -266,22 +268,11 @@ type unnecessary data conversion commands, at the expense of needing
 to know which return type to expect (or verifying the type via
 introspection commands such as `class()`).
 
-Because the example file supplied with the package contains two
-phylogenies in a single `trees` block, in this case the return type of both
-phylogeny accessor methods is the same:
-
-```{r fig.show="hide"}
-phy <- get_trees(nex)
-plot(phy[[1]]) 
-```
-
-As mentioned above, the `nexml_read()` method allows specifying the
-NeXML document to read not only as the name of a local file, but also
-as the URL of a document on the web. If the location parameter is
-recognized as a URL, the method will automatically download the
+If the location parameter with which the `nexml_read()` method is
+invoked is recognized as a URL, the method will automatically download the
 document to the local working directory and read it from there. This
 gives convenient and rapid access to phylogenetic data published in
-NeXML format on the web, which includes the content of the
+NeXML format on the web, such as the content of the
 phylogenetic data repository TreeBASE [@Piel_2002]. For
 example, the following plots a tree in TreeBASE:
 
@@ -291,48 +282,34 @@ tb_nex <- nexml_read(
 tb_phy <- get_trees_list(tb_nex)
 ```
 
-## Reading character data 
-
-NeXML documents can contain character or trait data in the form of
-matrices. A data matrix can be of molecular (for molecular sequence
-alignments), discrete (for most morphological character data), or
-continuous type (for many trait data). Character data, especially
-molecular and morphological matrices, are often used for phylogenetic
-tree reconstruction, but they are also a common input for the many
-comparative phylogenetic analysis methods available in R. The method
-`get_characters()` obtains character data from a `nexml` object, and
-returns them as a standard `data.frame` R object with columns as
-characters and rows as taxa. The following example, which uses a file
-that comes with `RNeXML`, demonstrates this:
+The method `get_characters()` obtains character data matrics from a
+`nexml` object, and returns them as a standard `data.frame` R object
+with columns as characters and rows as taxa:
 
 ```{r }
 nex <- nexml_read("components/comp_analysis.xml")
 get_characters(nex)
 ```
 
-Observe that `RNeXML` has automatically merged the different NeXML character
-blocks, (representing continuous and discrete characters respectively) 
-into a single data frame with appropriate column classes. 
-To allow strict validation of data types, the NeXML schema requires
-continuous and discrete character data to be separated into different
-"characters" blocks. Since the `data.frame` data structure in R has no
-such constraints, the `get_characters()` method will combine such
-blocks as separate columns into a single `data.frame` object, provided
-they correspond to the same taxa. Otherwise, a list of `data.frame`s
-is returned, with list elements corresponding to characters
-blocks. Similar to the distinction between `get_trees()` and
-`get_trees_list()`, there is also a method `get_characters_list()`,
-which always returns a list of `data.frame`s, one for each
-character block.
+A NeXML data matrix can be of molecular (for molecular sequence
+alignments), discrete (for most morphological character data), or
+continuous type (for many trait data).  Similarly as for trees, data
+matrices can also be arranged in blocks; in fact, matrices of
+different data types are required to be separated into different
+"blocks" to allow strict validation of data typs. Since the
+`data.frame` data structure in R has no such constraints, the
+`get_characters()` method will combine such blocks as separate columns
+into a single `data.frame` object, provided they correspond to the
+same taxa. Otherwise, a list of `data.frame`s is returned, with list
+elements corresponding to characters blocks. Similar to the methods
+for obtaining trees, there is also a method `get_characters_list()`,
+which always returns a list of `data.frame`s, one for each character
+block.
 
 
 ## Writing phylogenetic trees and character data
 
-Aside from providing an easy-to-use interface to data already in
-NeXML, `RNeXML` also aims to facilitate broader adoption of the
-standard for sharing phylogenetic data, and thus to make it
-straightforward to generate them. The method `nexml_write()`, as the
-name suggests, generates a NeXML file from its input parameters. In
+The method `nexml_write()` generates a NeXML file from its input parameters. In
 its simplest invocation, the method writes a tree to a file:
 
 ```{r}
@@ -345,7 +322,7 @@ object that can be coerced to it, such as in the above example an
 `ape::phylo` phylogeny. Alternatively, passing a `multiPhylo` object
 would write a list of phylogenies to the file.
 
-In addition to trees, the `nexml_write()` method also to specify
+In addition to trees, the `nexml_write()` method also allows to specify
 character data as another parameter. The following example uses data
 from the comparative phylogenetics R package `geiger` [@Harmon_2008].
 
