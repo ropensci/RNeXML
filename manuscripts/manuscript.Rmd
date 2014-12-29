@@ -374,6 +374,16 @@ character states in one NeXML file.
 
 # Metadata
 
+NeXML allows attaching metadata to any data element, and even to
+metadata themselves. At the level of the document as a whole or the
+phylogeny, metadata can provide bibliographic and provenance
+information, for example about the study as part of which the
+phylogeny was generated or applied, and with which methods it was
+generated. In the form of annotations, metadata can also be attached
+to very specific elements of the data, such as individual OTUs, nodes,
+or even edges of the phylogeny.
+
+
 At the heart of the NeXML standard is the ability to encode arbitrary
 metadata in precisely specified, machine-readable formats that maintain
 backwards compatibility with any existing NeXML parser. NeXML uses the
