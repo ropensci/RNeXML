@@ -223,8 +223,6 @@ their most natural representations in R. These are the `phylo` and
 phylogenies, and R's native `data.frame` list structure for character
 matrices.
 
-## Reading phylogenies and character data
-
 The method `nexml_read()` reads NeXML files, either from a local
 file, or from a remote location via its URL, and returns an object of
 type `nexml` [^2]:
@@ -293,11 +291,10 @@ get_characters(nex)
 
 A NeXML data matrix can be of molecular (for molecular sequence
 alignments), discrete (for most morphological character data), or
-continuous type (for many trait data).  Similarly as for trees, data
-matrices can also be arranged in blocks; in fact, matrices of
-different data types are required to be separated into different
-"blocks" to allow strict validation of data typs. Since the
-`data.frame` data structure in R has no such constraints, the
+continuous type (for many trait data).  Data matrices can be, and
+matrices of different data types are required to be separated into
+different "blocks", to allow strict validation of data types. Since
+the `data.frame` data structure in R has no such constraints, the
 `get_characters()` method will combine such blocks as separate columns
 into a single `data.frame` object, provided they correspond to the
 same taxa. Otherwise, a list of `data.frame`s is returned, with list
@@ -305,9 +302,6 @@ elements corresponding to characters blocks. Similar to the methods
 for obtaining trees, there is also a method `get_characters_list()`,
 which always returns a list of `data.frame`s, one for each character
 block.
-
-
-## Writing phylogenetic trees and character data
 
 The method `nexml_write()` generates a NeXML file from its input parameters. In
 its simplest invocation, the method writes a tree to a file:
