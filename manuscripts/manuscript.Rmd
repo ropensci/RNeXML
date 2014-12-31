@@ -212,16 +212,27 @@ using the library only need to load it:
 library(RNeXML)
 ```
 
-## Reading and writing phylogenies and character data
+## Representation of NeXML documents in R
 
 Conceptually, a NeXML document has the following components: (1)
 phylogeny data, (2) character or trait data in matrix form, (3)
-operational taxonomic units (OTUs), and (4) metadata. When reading and
-writing NeXML, `RNeXML` aims to map these to and from, respectively,
-their most natural representations in R. These are the `phylo` and
-`multiPhylo` objects from the `ape` package [@Paradis_2004] for
-phylogenies, and R's native `data.frame` list structure for character
-matrices.
+operational taxonomic units (OTUs), and (4) metadata. `RNeXML` defines
+the `nexml` object type, which is a representation of the NeXML
+document contents. It therefore holds phylogenetic trees as well as
+character or trait matrices, and all metadata. This is similar in
+design to the classes in the `phylobase` package, which contain trees
+and traits but hold only limited metadata [@phylobase], but different
+from R object types such as `ape::phylo` (the `phylo` class in the
+`ape` package [@Paradis_2004]), which represents trees alone.
+
+When reading and writing NeXML documents, `RNeXML` aims to map their
+components to and from, respectively, their most natural
+representations in R. Hence, the types of objects accepted or returned
+by the package's methods are the `phylo` and `multiPhylo` objects from
+the `ape` package [@Paradis_2004] for phylogenies, and R's native
+`data.frame` list structure for character matrices.
+
+## Reading phylogenies and character data
 
 The method `nexml_read()` reads NeXML files, either from a local
 file, or from a remote location via its URL, and returns an object of
@@ -231,14 +242,6 @@ type `nexml` [^2]:
 nex <- nexml_read("components/trees.xml")
 ```
 
-
-The `nexml` object type is a representation of the NeXML
-document contents, and therefore holds phylogenetic trees as well as 
-character or trait matrices, and all metadata. This is similar in
-design to the classes in the `phylobase` package, which contain 
-trees and traits but hold only limited metadata [@phylobase], but
-different from R object types such as `ape::phylo` (the `phylo` class
-in the `ape` package [@Paradis_2004]), which represents trees alone.
 
 To interface conveniently with the many already existing R packages for 
 phylogenetics, which conventionally accept phylogenies as `ape::phylo`
@@ -302,6 +305,8 @@ elements corresponding to characters blocks. Similar to the methods
 for obtaining trees, there is also a method `get_characters_list()`,
 which always returns a list of `data.frame`s, one for each character
 block.
+
+## Writing phylogenies and character data
 
 The method `nexml_write()` generates a NeXML file from its input parameters. In
 its simplest invocation, the method writes a tree to a file:
