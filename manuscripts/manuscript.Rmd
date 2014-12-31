@@ -389,12 +389,6 @@ sharing of well-documented phylogenetic data, `RNeXML` aims to
 alleviate the burden to recording useful and machine-readable metadata
 at several levels.
 
-- Automatic annotation: 
-- Adding common metadata fields (`add_basic_metadata`)
-- Taxonomic identifiers (`taxize_nexml`)
-- Generic metadata (`add_meta`)
-- Extending the NeXML standard using RDFa
-
 First, when writing a NeXML file the package adds certain basic
 metadata automatically if it has not yet been provided, using default
 values consistent with recommended best practices
