@@ -336,13 +336,12 @@ nexml_write(trees = geospiza$phy,
 ## Creating and populating `nexml` objects
 
 Instead of packaging the various components for a NeXML file at the
-time of writing the file, the user can also create and iteratively
-populate an in-memory R object representation of the NeXML document,
-i.e., an object of type `nexml`. The methods to do this are `add_characters()`,
-`add_trees()`, and `add_meta()`, for adding characters, trees, and
-metadata, respectively. Each of these functions will automatically
-create a new nexml object if not supplied with an existing one as the
-last (optional) argument.
+time of writing the file, `RNeXML` also allows users to create and
+iteratively populate an in-memory `nexml` object. The methods to do
+this are `add_characters()`, `add_trees()`, and `add_meta()`, for
+adding characters, trees, and metadata, respectively. Each of these
+functions will automatically create a new nexml object if not supplied
+with an existing one as the last (optional) argument.
 
 For example, here we use `add_trees()` to first create a `nexml`
 object with the phylogeny data, and then add the character data to it:
