@@ -351,216 +351,116 @@ nexObj <- add_trees(geospiza$phy)
 nexObj <- add_characters(geospiza$dat, nexObj)
 ```
 
-The data components being added to a `nexml` object need not share the
-same OTUs.  For example, here we append additional phylogenies and characters
-using different OTUs to the `nexml` object originally populated with
-the `geospiza` phylogeny and character data:
+The data with which a `nexml` object is populated need not share the
+same OTUs.  `RNeXML` automatically adds new, separate OTU blocks into
+the NeXML file for each data matrix and tree that uses a set of OTUs
+that differs from others.
 
-```{r}
-data(primates)
-nexObj <- add_trees(primates$phy, nexObj)
-nexObj <- add_characters(primates$dat, nexObj)
-```
-
-`RNeXML` automatically adds new, separate OTU blocks into the NeXML file
-for each of these new data sets.
 Other than storage size, there is no limit to the number of
 phylogenies and character matrices that can be included in a
 single NeXML file. This allows, for example, to capture samples from a
 posterior probability distribution of inferred or simulated phylogenies or
 character states in one NeXML file.
 
-# Metadata
+## Data documentation and annotation with built-in metadata
 
-NeXML allows attaching metadata to any data element, and even to
-metadata themselves. At the level of the document as a whole or the
-phylogeny, metadata can provide bibliographic and provenance
-information, for example about the study as part of which the
-phylogeny was generated or applied, and with which methods it was
-generated. In the form of annotations, metadata can also be attached
-to very specific elements of the data, such as individual OTUs, nodes,
-or even edges of the phylogeny.
+NeXML allows attaching metadata ("_annotations_") to any data element,
+and even to metadata themselves. Whether at the level of the document
+as a whole or the an individual data matrix or phylogeny, metadata can
+provide bibliographic and provenance information, for example about
+the study as part of which the phylogeny was generated or applied,
+which data matrix and which methods were used to generate it. Metadata
+can also be attached to very specific elements of the data, such as
+specific traits, individual OTUs, nodes, or even edges of the
+phylogeny.
 
-
-At the heart of the NeXML standard is the ability to encode arbitrary
-metadata in precisely specified, machine-readable formats that maintain
-backwards compatibility with any existing NeXML parser. NeXML uses the
-"Resource Description Framework in Annotations" (RDFa),
-as described in @Vos_2012 or @W3C_2014. 
-These annotations can be used to add 
-information to any particular element of the data, (a tree, node, edge,
-or taxonomic unit; a character matrix or specific trait, or even another 
-metadata annotation or the NeXML data file as a whole). `RNeXML` provides
-a range of tools for accessing metadata embedded in a NeXML file. 
-
-
-
-## Writing NeXML metadata
+NeXML uses the "Resource Description Framework in Annotations" (RDFa),
+as described in @Vos_2012 or @W3C_2014, to encode metadata
+annotations. This standard provides a precisely specified,
+machine-readable format that maintains backwards compatibility with
+compliant NeXML parsers (and thus `RNeXML`), because the capacity of a
+tool to _parse_ annotations is not predicated on _understanding_
+annotations it has not seen before.
 
 The burden typically involved with documenting and sharing good
-metadata alongside the data remains a
-significant barrier to increased sharing and reuse of scientific research
-[@Tenopir_2011]. To promote sharing of well-documented phylogenetic data,
-`RNeXML` aims to provide a simple interface to adding well-defined machine-readable metadata to NeXML files. This occurs on
-several levels:
+metadata alongside the data remains a significant barrier to increased
+sharing and reuse of scientific research [@Tenopir_2011]. To promote
+sharing of well-documented phylogenetic data, `RNeXML` aims to
+alleviate the burden to recording useful and machine-readable metadata
+at several levels.
 
-- Automatic annotation
+- Automatic annotation: 
 - Adding common metadata fields (`add_basic_metadata`)
 - Taxonomic identifiers (`taxize_nexml`)
 - Generic metadata (`add_meta`)
 - Extending the NeXML standard using RDFa
 
-`RNeXML`'s `nexml_write` function adds certain basic metadata by automatically
-if it has not yet been provided; using default values
-consistent with recommended best practices [@Cranston_2014]. At this time,
-this includes naming the software generating the NeXML, a time-stamp of
-when a tree was produced, and an open data license.
+First, when writing a NeXML file the package adds certain basic
+metadata automatically if it has not yet been provided, using default
+values consistent with recommended best practices
+[@Cranston_2014]. Currently, this includes naming the software
+generating the NeXML, a time-stamp of when a tree was produced, and an
+open data license.
 
-To adjust these values and also add other metadata fields commonly recommended for
-includion with publicly archived data, `RNeXML` provides the `add_basic_meta()`
-function.  This function hides the complexities of anchoring metadata
-attribute names in common vocabularies from the user.  The
-`add_basic_meta()` function takes as input an existing `nexml` object
-(like the other `add_` functions, if none is provided it will create one), and at the time
-of this writing any of the following
-parameters: `title`, `description`, `creator`, `pubdate`, `rights`, `publisher`,
-`citation`.  Other metadata elements and corresponding parameters may
-be added in the future.
+Second, `RNeXML` provides a simple method, called
+`add_basic_metadata()`, to set metadata attributes commonly
+recommended to be included with publicly archived or shared data
+[@Cranston_2014]. The currently accepted parameters include `title`,
+`description`, `creator`, `pubdate`, `rights`, `publisher`, and
+`citation`. Behind the scenes the method automatically anchors these
+attributes in common vocabularies (such as Dublin Core). 
 
-Here we create a `nexml` object for the `bird.orders` data
-provided in the `ape` package, and then add basic metadata:
-
-```{r}
-data(bird.orders)
-birds <- add_trees(bird.orders)
-birds <- add_basic_meta(
-  title = "Phylogeny of the Orders of Birds From Sibley and Ahlquist",
-
-  description = "This data set describes the phylogenetic relationships of the
-     orders of birds as reported by Sibley and Ahlquist (1990). Sibley
-     and Ahlquist inferred this phylogeny from an extensive number of
-     DNA/DNA hybridization experiments. The ``tapestry'' reported by
-     these two authors (more than 1000 species out of the ca. 9000
-     extant bird species) generated a lot of debates.
-
-     The present tree is based on the relationships among orders. The
-     branch lengths were calculated from the values of Delta T50H as
-     found in Sibley and Ahlquist (1990, fig. 353).",
-
-  citation = "Sibley, C. G. and Ahlquist, J. E. (1990) Phylogeny and
-     classification of birds: a study in molecular evolution. New
-     Haven: Yale University Press.",
-
-  creator = "Sibley, C. G. and Ahlquist, J. E.",
-  nexml = birds)
-```
-
-<!-- the above will get fixed by CB, this is just a reminder and -->
-<!-- placeholder to adjust when that's done. -->
-<!-- Um, sorry, remind me what I am supposed to fix here? formatting? -->
-
-Instead of a literal string, citations can also be provided in R's
-`bibentry` type, which is the one in which R package citations are obtained:
-
-```{r}
-birds <- add_basic_meta(citation = citation("ape"), nexml=birds)
-```
-
-Alternatively, a citation to a published paper with a Digital
-Object Identifier (DOI) can be provided in the form of the DOI,
-which the package `knitcitations` [@Boettiger_2014] can turn into a
-formatted citation using. As an example, to add the above citation
-using the DOI: 
-
-```{r }
-library("knitcitations")
-birds <- add_basic_meta(citation = bib_metadata("10.1093/bioinformatics/btg412"), nexml=birds)
-```
+Third, `RNeXML` includes methods to assist with common cases of adding
+metadata to specific elements of the NeXML data that increase the
+data's utility for reuse. For example, misspellings and inconsistent
+taxonomic names are a frequent source of frustration especially when
+recombining phylogenetic data from different sources. These obstacles
+can be mitigated by annotating the taxonomic names with identifiers,
+which also allows being explicit about the identifier authority being
+used. `RNeXML` includes the `taxize_nexml()` method, which uses the R
+package `taxize` [@Chamberlain_2013] to match each taxon label against
+the NCBI database, and, provided a unique match is found, annotates
+the respective OTU with the matching NCBI identifier,.
 
 
+## Data annotation with custom metadata extensions
 
-## Taxonomic identifiers
+The RDFa standard adopted by NeXML (see @Vos_2012) for all metadata
+annotations defines the structure and syntax for such annotations, but
+does not restrict the content. Specifically, every metadata annotation
+consists of a metadata property and a value of the property; the
+bearer of the property is determined by where the annotation appears
+in the NeXML document (technically, the containing element in the XML
+document model). Technically, this structure corresponds directly to
+Resource Description Framework (RDF) subject-predicate-object triples.
+It therefore allows for arbitrary custom extensions to meet ongoing
+scientific needs without requiring modifications (or "extensions") of
+the syntax, provided the metadata annotations are cast as RDF triples.
 
-`RNeXML` provides various functions to assist in automatically adding
-other more specific metadata to various elements of the NeXML data.
-One common use case is that of taxonomic identifiers.  Misspellings or
-inconsistent use of taxonomic names in phylogenetic data are a common
-source of frustration when reusing phylogenetic trees, especially when
-integrating data from different sources: trees might come from one place
-that uses one taxonomy, character data and occurrence data might come from
-other places that use different taxonomies. Hence, not just misspellings,
-but also synonyms, homonyms and incompatible taxon concepts might plague
-the end user. By associating the taxonomic labels against a specific,
-centralized database we can catch some of these inconsistencies and
-indicate more precisely which classification we are appealing to in the
-event of conflicting taxonomic definitions.  In this example, we indicate
-that we intend the bird orders listed in the tree to correspond to the
-NCBI definitions.
+The `RNeXML` methods described above for built-in metadata annotations
+perform this cast automatically behind the scenes, including mapping
+metadata attributes to terms in requisite common vocabularies (such as
+Dublin Core for "title", "creator", etc.) or ontologies. Giving
+metadata properties (and sometimes values) as vocabulary or ontology
+terms rather than simple text strings is crucial for allowing machines
+to not only parse but also interpret their semantics. To achieve this
+benefit for custom metadata extensions, the user necessarily needs to
+handle certain technical details from which the `RNeXML` API shields
+her otherwise, in particular the vocabularies or ontologies of
+metadata terms in the form of globally unique identifiers (normally
+HTTP URIs). To be consistent with XML terminology for more technical
+users, `RNeXML` calls these _namespaces_, and their abbreviations
+_prefixes_. For example, the namespace for the Dublin Core Metadata
+Terms vocabulary, commonly abbreviated with "dc", is
+"http://purl.org/dc/elements/1.1/". Using its abbreviation, a metadata
+property "dc:title" expands to the identifier
+"http://purl.org/dc/elements/1.1/title", the identifier for the term
+"title" in said vocabulary.
 
-The `taxize_nexml()` function uses the R package `taxize` 
-[@Chamberlain_2013] to check each taxon label against the NCBI database.
-If a unique match is found, a metadata annotation is added to the taxon
-providing the NCBI identification number to the taxonomic unit.
-
-
-```{r message=FALSE, results='hide'}
-birds <- taxize_nexml(birds, "NCBI")
-```
-If no match is found, the user is warned to check for possible typographic
-errors in the taxonomic labels provided. If multiple matches are found,
-the user will be prompted to choose between them.
-
-
-## Custom metadata extensions
-
-So far our examples have relied on functions that have a built-in
-understanding of the kind of metadata being provided, and can thus
-generate the appropriate metadata with little further guidance.
-In order to be machine-readable and understandable, NeXML requires
-all metadata annotations follow the RDFa format (see @Vos_2012) which
-explicitly declares the meaning of the annotation. 
-
-Some basic definitions about the XML syntax used to express NeXML
-will be helpful for this discussion, though a more comprehensive 
-introduction can be found in @Vos_2012.  For instance, consider how
-the title we gave to the `bird.orders` phylogeny appears in the NeXML file
-using the XML format:
-
-```xml
-<meta id="m2" property="dc:title" datatype="xsd:string"
-      content="Phylogeny of the Orders of Birds From Sibley and Ahlquist"/> 
-```
-
-The format begins with an XML "tag" and the name "meta", indicated by the opening
-angle bracket; `<meta`.  A closing tag `\>` indicates the end of this
-XML "element" .  This tag contains several "attributes", named "id",
-"property", etc., that an R user can think of as names in a `list`. What
-follows the equals sign after the attribute name is called the attribute "value",
-(e.g. the `id` attribute has value "m2").  
-
-The name of any element (like "meta") or attribute (like "id") in XML must be associated
-with a particular dictionary called a "namespace" and specified using a "prefix"
-of an abbreviation followed by a colon appearing before the name.  If no prefix
-is given, as is the case for all attributes here: `id`, `property`, `datatype`,
-and `content`, then a default prefix specified at the beginning of the document applies,
-in this case, the NeXML namespace.  This allows users to combine different XML
-that have different definitions of terms like `id` or `property`.  
-
-The example element above also uses namespaces on some of the attribute values themselves.
-This is a consequence of RDFa annotation, and not strictly part of XML, though
-it works much the same way.  While we hope the following examples will make these
-concepts clearer, users do not need to understand XML and namespaces to use most
-of the basic annotation features provided by `RNeXML`.   
-
-So much for the structure; we can now briefly explain the meaning of this element. 
-We see the title appears as the value of the `content` attribute of this `meta` element.
-The `id` attribute provides us with a unique way to refer to this meta
-element in this document.  The `datatype` tells us that the content
-is a text string (as opposed to, say, a numerical or boolean value).
-The `property` is the attribute that most interests us here; it tells us
-that the content is a title.  The prefix `dc` indicates the vocabulary
-(here identified as an XML namespace) to which the word `title` belongs.  The prefix
-is defined elsewhere in the NeXML file, as we can see with:
+`RNeXML` includes methods to obtain and manipulate these values. The
+`get_namespaces()` method accepts a `nexml` object and returns a list
+with element names being the namespace abbreviations and element
+values being the corresponding identifies (typically HTTP URIs):
 
 
 ```{r}
