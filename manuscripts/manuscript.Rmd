@@ -380,7 +380,7 @@ annotations. This standard provides a precisely specified,
 machine-readable format that maintains backwards compatibility with
 compliant NeXML parsers (and thus `RNeXML`), because the capacity of a
 tool to _parse_ annotations is not predicated on _understanding_
-annotations it has not seen before.
+the meaning of annotations it has not seen before.
 
 The burden typically involved with documenting and sharing good
 metadata alongside the data remains a significant barrier to increased
@@ -437,24 +437,33 @@ metadata attributes to terms in requisite common vocabularies (such as
 Dublin Core for "title", "creator", etc.) or ontologies. Giving
 metadata properties (and sometimes values) as vocabulary or ontology
 terms rather than simple text strings is crucial for allowing machines
-to not only parse but also interpret their semantics. To achieve this
-benefit for custom metadata extensions, the user necessarily needs to
-handle certain technical details from which the `RNeXML` API shields
-her otherwise, in particular the vocabularies or ontologies of
-metadata terms in the form of globally unique identifiers (normally
-HTTP URIs). To be consistent with XML terminology for more technical
-users, `RNeXML` calls these _namespaces_, and their abbreviations
-_prefixes_. For example, the namespace for the Dublin Core Metadata
-Terms vocabulary, commonly abbreviated with "dc", is
-"http://purl.org/dc/elements/1.1/". Using its abbreviation, a metadata
-property "dc:title" expands to the identifier
-"http://purl.org/dc/elements/1.1/title", the identifier for the term
-"title" in said vocabulary.
+to not only parse but also interpret and potentially reason over their
+semantics. To achieve this benefit for custom metadata extensions, the
+user necessarily needs to handle certain technical details from which
+the `RNeXML` API shields her otherwise, in particular the vocabularies
+or ontologies of metadata terms in the form of globally unique
+identifiers (normally HTTP URIs). To be consistent with XML
+terminology for more technical users, `RNeXML` calls these
+_namespaces_, and their abbreviations _prefixes_. For example, the
+namespace for the Dublin Core Metadata Terms vocabulary, commonly
+abbreviated with "dc", is "http://purl.org/dc/elements/1.1/". Using
+its abbreviation, a metadata property "dc:title" expands to the
+identifier "http://purl.org/dc/elements/1.1/title", the identifier for
+the term "title" in said vocabulary. When resolved as a HTTP URI, the
+identifier resolves to a human and machine-readable
+(depending on how the identifier is resolved) definition of precisely
+what the term `title` in Dublin Core means. In contrast, just using
+the text string "title" could also mean the title of a person, a legal title, the verb title, etc.  Although URI identifiers of metadata
+vocabularies and terms are not required to resolve, for machines to
+derive the maximum benefit from them, they should resolve to RDF
+statements defining their semantics.
 
-`RNeXML` includes methods to obtain and manipulate these values. The
+`RNeXML` includes methods to obtain and manipulate metadata
+properties, values, identifiers, and namespaces. The
 `get_namespaces()` method accepts a `nexml` object and returns a list
 with element names being the namespace abbreviations and element
-values being the corresponding identifies (typically HTTP URIs):
+values being the corresponding identifiers (typically HTTP URIs) for
+all annotations attached to the object or one of the contained data elements:
 
 
 ```{r}
