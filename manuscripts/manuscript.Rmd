@@ -471,62 +471,62 @@ prefixes <- get_namespaces(birds)
 prefixes["dc"]
 ```
 
-This URL links us to a web page providing both a human and machine-readable
-version of precisely what the term `title` means, showing us that it
-refers to `title` in the sense of a creative work, rather than the title
-of a person, a legal title, the verb title, etc.  This precision can allow
-us to perform precise computer reasoning on metadata, without relying on
-heuristics or assumptions, as we illustrate later.  For the moment though,
-the need to refer to an explicit controlled vocabulary (or ontology)
-with a url, saying "dc:title" rather than just saying the property is
-"title", is something of a burden in creating metadata.  The previous
-examples involve functions that already know what kind of metadata is
-being provided (a title, a data creator, etc), and so can provide the
-appropriate vocabulary automatically.  The main advantage of linking to
-an external vocabulary, however, is the ability to express concepts that
-are not already "built in" to the data model.  `RNeXML` provides tools
-to generate arbitrary metadata annotations given an external vocabulary,
-such as we illustrate here.
-
-
-From the list of namespaces in `prefixes`, we can follow links to a handful
-of established vocabularies and find terms that are not included in
-`add_basic_meta()`.  For instance, by resolving the location identified
-by the `prism` prefix,
+The `get_metadata()` method returns, as named list, the metadata
+annotations for a given `nexml` object at a given level, with the
+whole NeXML document being the default:
 
 ```{r}
-prefixes["prism"]
+meta <- get_metadata(birds) 
 ```
 
-we will find that there is a term for `modificationDate` for a file.  We create
-a `meta` element containing this annotation using the `meta` function:
+The `level` parameter can be used to extract the metadata objects for
+the data at specific levels (such as `"otu"` in the following
+example), or by specifying `"all"` to extract all metadata objects:
+
+```{r} 
+otu_meta <- get_metadata(birds, level="otu")
+```
+
+However, because the returned list does not include the data elements
+to which the metadata are attached, using the method in this way is
+only useful for identifying which metadata are present and their
+values. The recommended approach for accessing the metadata attached
+to specific data elements is described below. <!-- or is that in the vignette now? -->
+
+A few select metadata properties for which support is built-in have
+dedicated accessor methods, for example the citation:
+
+```{r get_citation}
+get_citation(birds)
+```
+
+The `meta()` method creates a new metadata object from a poperty name
+and content (value). For example, the following creates a modification
+date metadata object, using the modificationDate property in the PRISM
+vocabulary:
+
 
 ```{r}
 modified <- meta(property = "prism:modificationDate", content = "2013-10-04")
 ```
 
-We can add this annotation to our existing `birds` NeXML file using the
-`add_meta()` function.  Because we do not specify a level, it is added to
-the root node, referring to the NeXML file as a whole.
+The `add_meta()` function adds metadata objects as annotations to a
+`nexml` object at a specified level. The default level is the NeXML document as a whole:
 
 ```{r}
 birds <- add_meta(modified, birds) 
 ```
 
-The built-in vocabularies are just the tip of the iceberg of established
-vocabularies. Here we add an annotation from the `skos` namespace which
-describes the history of where the data comes from:
+If the prefix used by the metadata property is not among the built-in
+ones (which can be obtained using the `get_namespaces()` as described
+above), it has to be provided along with its URI as the `namespaces`
+parameter. For example, the following uses the SKOS vocabulary (which
+currently is not built-in) to add a note to the trees in the `nexml`
+object:
 
 ```{r}
 history <- meta(property = "skos:historyNote",
   content = "Mapped from the bird.orders data in the ape package using RNeXML")
-```
-
-Because `skos` is not in the current namespace list, we add it with a
-url when adding this meta element.  We also specify that this annotation
-be placed at the level of the `trees` sub-node in the NeXML file.
-
-```{r}
 birds <- add_meta(history, 
                 birds, 
                 level = "trees",
@@ -534,90 +534,9 @@ birds <- add_meta(history,
 ```
 
 
-For finer control of the level at which a `meta` element is added,
-we will manipulate the `nexml` R object directly using S4 sub-setting,
-as shown in the supplement.
-
-
-Much richer metadata annotation is possible. Later we illustrate how
-metadata annotation can be used to extend the base NeXML format to
-represent new forms of data while maintaining compatibility with any
-NeXML parser. The `RNeXML` package can be easily extended to support
-helper functions such as `taxize_nexml` to add additional metadata
-without imposing a large burden on the user.
-
-
-## Reading NeXML metadata
-
-A call to the `nexml` object prints some metadata summarizing the data structure: 
-
-```{r }
-birds
-```
-
-We can extract all metadata pertaining to the NeXML document as a whole
-(annotations of the XML root node, `<nexml>`) with the command
-
-```{r}
-meta <- get_metadata(birds) 
-```
-
-This returns a named list of available metadata. We can see the kinds
-of metadata recorded from the names (showing the first 4):
-
-```{r}
-names(meta)[1:4]
-```
-
-and can ask for a particular element using the standard list sub-setting
-mechanism (i.e. either the name of an element or its numeric position),
-
-```{r}
-meta[["dc:title"]]
-```
-
-All metadata terms must belong to an explicit *namespace* or vocabulary
-that allows a computer to interpret the term precisely. The prefix (before
-the `:`) indicates to which vocabulary the term belongs, e.g. `dc` in
-this case.  The `get_namespaces` function tells us the definition of
-the vocabulary using a link:
-
-```{r}
-prefixes <- get_namespaces(birds)
-prefixes["dc"]
-```
-
-
-<!-- the citations run off the page -->
-Common metadata can be accessed with a few dedicated functions:
-
-```{r get_citation}
-get_citation(birds)
-```
-
-
-```{r get_taxa}
-get_taxa(birds)
-```
-
-Which returns text from the otu element labels, typically used to define
-taxonomic names, rather than text from explicit meta elements.
-
-
-
-We can also access metadata at a specific level (or use `level=all`
-to extract all meta elements in a list).  Here we show only the first
-few results:
-
-```{r} 
-otu_meta <- get_metadata(birds, level="otu")
-otu_meta[1:4]
-```
-
-This approach does not preserve the relationship between the metadata element and the 
-`otu` it was annotating, and as such is most useful for quick visual exploration. 
-Metadata values for specific elements or sets of elements can always be accessed using
-the S4 sub-setting mechanisms (see section below).  
+`RNeXML`, by virtue of subsetting the S4 `nexml` object, also offers
+fine control of the level at which a `meta` element is added, for
+which the package vignette contains examples.
 
 
 
