@@ -560,6 +560,16 @@ of the OTU that has taxon rank of "Order").
 
 ## Extending the NeXML standard through metadata annotation.
 
+Much richer metadata annotation is possible. Later we illustrate how
+metadata annotation can be used to extend the base NeXML format to
+represent new forms of data while maintaining compatibility with any
+NeXML parser. The `RNeXML` package can be easily extended to support
+helper functions such as `taxize_nexml` to add additional metadata
+without imposing a large burden on the user.
+
+
+
+
 No data standard can anticipate all the uses and extensions researchers
 may one day need. Researchers have repeatedly adapted the existing NEXUS
 file format to accommodate encoding new kinds of information, but in the
