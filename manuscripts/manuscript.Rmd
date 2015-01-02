@@ -589,6 +589,10 @@ in that element.  (NeXML's convention of referring to everything by id permits a
 definition of each term, making it clear where additional annotation belongs).  For each edge, we 
 need to indicate:
 
+By contrast, the NeXML extension is not only backwards
+compatible but contains a precise and machine-readable description of
+what it is encoding.
+
 <!-- Ugh, do we need to explain that everything in NeXML uses an id so that it can be reused in this way?
      -->
 
