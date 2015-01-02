@@ -417,7 +417,7 @@ the NCBI database, and, provided a unique match is found, annotates
 the respective OTU with the matching NCBI identifier,.
 
 
-## Data annotation with custom metadata extensions
+## Data annotation with custom metadata
 
 The RDFa standard adopted by NeXML (see @Vos_2012) for all metadata
 annotations defines the structure and syntax for such annotations, but
@@ -538,62 +538,35 @@ birds <- add_meta(history,
 fine control of the level at which a `meta` element is added, for
 which the package vignette contains examples.
 
+Because NeXML expresses all metadata using the RDF standard, and
+stores them compliant with RDFa, they can be extracted as an RDF graph
+using off-the-shelf tools, and the RDF graph obtained in this way can
+be queried in SPARQL (see @W3C_2014 or @Hartig_2012), the query
+language for RDF graphs, using general purpose triple stores and
+SPARQL query engines. The `RNeXML` vignette illustrates this with
+examples, and the package also comes with a demonstration that can be
+run from R using the following command: `demo("sparql", "RNeXML")`).
 
+## Using metadata to extend the NeXML standard 
 
-## RDF manipulation and SPARQL queries 
+No data standard can anticipate all the uses and extensions
+researchers may one day need. As the various "flavors" of the NEXUS
+and other data formats show, this often results in extensions to
+widely used exchange formats that almost invariably break
+interoperability between such extensions and tools that were designed
+to read one but not another. NeXML was designed to prevent this by
+means of a highly flexible metadata system, while not sacrificing 
+strict validation of syntax and structure.
 
-The most powerful way to take advantage of the machine-readable nature
-of the metadata involves the construction of SPARQL queries. This
-approach can exploit the reasoning and logical deduction capacity of
-formal vocabularies (ontologies). For a proper introduction to SPARQL
-queries, see @W3C_2014 or @Hartig_2012).  
-
-The real expressiveness of SPARQL is better illustrated through more
-complex examples such as the one shown in the supplementary materials
-(which can also be run from R using the command: `demo("sparql", "RNeXML")`).
-This demonstration constructs a cladogram based on the taxonomic ranks
-provided in the NeXML. SPARQL allows us to make explicit use of ontological
-concepts such as manipulating sub-classes (i.e. that "Genus" is a subclass 
-of "Family"), or joining multiple predicates (i.e. retrieve the NCBI identifier
-of the OTU that has taxon rank of "Order").  
-
-
-## Extending the NeXML standard through metadata annotation.
-
-Much richer metadata annotation is possible. Later we illustrate how
-metadata annotation can be used to extend the base NeXML format to
-represent new forms of data while maintaining compatibility with any
-NeXML parser. The `RNeXML` package can be easily extended to support
-helper functions such as `taxize_nexml` to add additional metadata
-without imposing a large burden on the user.
-
-
-
-
-No data standard can anticipate all the uses and extensions researchers
-may one day need. Researchers have repeatedly adapted the existing NEXUS
-file format to accommodate encoding new kinds of information, but in the
-process break compatibility between different flavors of NEXUS files, with
-few reliable methods to distinguish between these flavors.  NeXML provides
-a solution to this problem through the use of metadata annotation.
-
-Here we illustrate this process using the example of stochastic character
-mapping [@Huelsenbeck_2003]. A stochastic character map is simply
-an annotation of the branches on a phylogeny, assigning each section
-of each branch to a particular "state" (typically of a morphological
-characteristic).
-
-@Bollback_2006 provides a widely used stand-alone software implementation
-of this method in the software `simmap`, which modified the standard
-Newick tree format to express this additional information. This can
-break compatibility with other software [^3], and creates a format that
-cannot be interpreted without additional information describing this
-convention.  By contrast, the NeXML extension is not only backwards
-compatible but contains a precise and machine-readable description of
-what it is encoding.
-
-In this example, we illustrate how the additional information required
-to define a stochastic character mapping (a `simmap` mapping) in NeXML.  
+Here we illustrate how NeXML's metadata system, and `RNeXML`'s API to
+it, can be used to record and share a type of phylogenetic data not
+taken into account when NeXML was designed. Specifically, we use the
+example of stochastic character maps [@Huelsenbeck_2003], which assign
+sections of each branch in a phylogeny to a particular "state"
+(typically of a morphological characteristic). The current de-facto
+format for sharing stochastic character maps is a (non-interoperable)
+modification of the standard Newick tree format created by a software
+tool widely used for creating such maps, `simmap` [@Bollback_2006].
 
 @Revell_2012 describes the `phytools` package for R, which includes
 utilities for reading, manipulating, and writing `simmap` files in R.
