@@ -518,6 +518,11 @@ vocabulary:
 modified <- meta(property = "prism:modificationDate", content = "2013-10-04")
 ```
 
+Metadata annotatuons in `NeXML` can be nested within another
+annotation, which the `meta()` method accommodates by accepting a
+parameter `children`, with the list of nested metadata objects (which
+can themselves be nested) as value.
+
 The `add_meta()` function adds metadata objects as annotations to a
 `nexml` object at a specified level. The default level is the NeXML document as a whole:
 
@@ -541,6 +546,10 @@ birds <- add_meta(history,
                 namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#"))
 ```
 
+Alternatively, additional namespaces can also be added in batch using
+the `add_namespaces()` method, which makes a list of namespaces known
+to a given `nexml` object (or created a new `nexml` object, similar to
+other `add_*` methods).
 
 `RNeXML`, by virtue of subsetting the S4 `nexml` object, also offers
 fine control of the level at which a `meta` element is added, for
