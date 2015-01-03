@@ -198,8 +198,10 @@ defaults.
 
 # The RNeXML package
 
-`RNeXML` is an R package entirely written in R, and the current stable
-version can be installed from the CRAN library[^1]:
+The `RNeXML` package is written entirely in R and available under a
+CC0 public domain waiver. The current development version can be found
+on Github at [https://github.com/ropensci/RNeXML](), and the stable
+version can be installed from the CRAN repository:
 
 ```r
 install.packages("RNeXML", dependencies=TRUE)
@@ -211,6 +213,12 @@ using the library only need to load it:
 ```{r echo=FALSE}
 library(RNeXML)
 ```
+
+`RNeXML` is part of the rOpenSci project. Users of `RNeXML` are
+encouraged to submit bug reports or feature requests in the issues log
+on Github, or to contact `ropensci-discuss@googlegroups.com` or the
+phylogenetics R users group list at `r-sig-phylo@r-project.org` for
+help.
 
 ## Representation of NeXML documents in R
 
