@@ -660,50 +660,31 @@ the various functions from `phytools` designed for `simmap` objects
 
 ## Publishing NeXML files from R
 
-Data archiving is increasingly required by journals in evolutionary biology and 
-biodiversity (e.g. @Rausher_2010).  The burden of preparing and submitting properly
-annotated data to archives continues to be a significant barrier [@Tenopir_2011; @Stodden_2014],
-and many phylogenetic trees upon which studies are based are inaccessible or lost 
-to the research community [@Drew_2013].  `RNeXML` seeks to lower these barriers
-by providing functions to immediately archive NeXML files in scientific repositories.  
+Data archiving is increasingly required by scientific journals,
+including in evolutionary biology, ecology, and biodiversity
+(e.g. @Rausher_2010). The effort involved with preparing and
+submitting properly annotated data to archives remains a notable
+barrier to the broad adoption of data archiving and sharing as a
+normal part of the scholarly publication workflow
+[@Tenopir_2011; @Stodden_2014]. In particular, the majority of
+phylogenetic trees published in the scholarly record are inaccessible
+or lost to the research community [@Drew_2013].
 
-
-
+One of `RNeXML`'s aims is to promote the archival of well-documented
+phylogenetic data in scientific data repositories, in the form of
+NeXML files. To this end, the method `nexml_publish()` provides an API
+directly from within R that allows data archival to become a step programmed
+into data management scripts, rather than a separate manually executed
+act. Initially, the method supports the data repository Figshare (http://figshare.com):
 
 ```{r eval = FALSE}
 doi <- nexml_publish(birds, visibility = "public", repository="figshare")
 ```
 
-Robust data archiving need not involve immediate release of the data. The `figshare` 
-repository supports the option of `visibility = "private"`, allowing secure 
-publication that provides a way to backup and share data with collaborators 
-prior to public release.  
+Figshare also supports "private" visibility, allowing to securely backup
+data to a repository and to share them with collaborators prior to public release.
 
-
-# Software reuse and support
-
-The `RNeXML` package is available through the CRAN repository under
-a CC0 license. At the time of writing, the current version is `r packageDescription("RNeXML", fields="Version")`. 
-The current development
-branch can be found on Github at [https://github.com/ropensci/RNeXML]().
-See the NEWS file for changes in recent versions. Users are encouraged
-to submit bug reports or feature requests in the issues log.  Contact
-`ropensci-discuss@googlegroups.com` or the package maintainer for help,
-or email the phylogenetics R users group list at `r-sig-phylo@r-project.org`.  
-
-
-There are many promising directions for further development of the
-`RNeXML` package.  The project's [Milestones page](https://github.com/ropensci/RNeXML/issues/milestones) page provides a list of
-steps currently planned or under consideration.  In particular, these
-milestones include increased support for interactive mode of entering data
-(wizards), conversions to and from other existing R phylogenetics formats
-such those found in the `phylobase` package [@phylobase],
-and support for integration of semantics defined through the
-Web Ontology language (OWL), as discussed in the Challenges section.
-
-## Future Directions
-
-For convenience, the RNeXML package can parse compressed XML binaries (gzipped XML) directly, facilitating work with very large data files.  As most R functions, especially those in common phylogenetics packages, require in-memory data structures, RNeXML currently loads this data directly into memory. Future work could facilitate manipulation of NeXML data directly from the disk.
+# Future Directions
 
 Emerging formats such as the JSON based NeXSON format provide alternate representations of semantic, machine-readable phylogenetic data. At this time, R users must still rely on other tools that can convert these formats into NeXML.
 Because the NeXML syntax is extensible, semantic, and machine-readable, this can be done without loss, unlike NEXUS formats.  Nevertheless, a possible future direction would be to provide direct support of such formats through RNeXML or a companion R package.
