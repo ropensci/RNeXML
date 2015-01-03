@@ -699,13 +699,14 @@ eventually be needed that avoid the requirement to load an entire
 file's content into memory.
 
 ## Acknowledgements
-<!-- FIXME Rutger, Hilmar, add whatever you'd like to acknowledge here -->. 
 
-This project was supported in part by a grant from the Alfred P Sloan
-Foundation Grant 2013-6-22 (CB and SC), NSF Grant DBI-1306697 (CB), ... 
-We thank F. Michonneau for helpful comments on an earlier version
-of this manuscript.
-`RNeXML` is part of the rOpenSci project, [http://ropensci.org].
+This project was supported in part by the National Evolutionary
+Synthesis Center (NESCent) (NSF #EF-0905606), and grants from the
+Natioal Science Foundation (DBI-1306697) and the Alfred P Sloan
+Foundation (Grant 2013-6-22). `RNeXML` started as a project idea for
+the Google Summer of Code, and we thank Kseniia Shumelchyk for taking
+the first steps to implement it. We are grateful to F. Michonneau for
+helpful comments on an earlier version of this manuscript.
 
 
 
