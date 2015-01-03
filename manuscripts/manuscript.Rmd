@@ -686,8 +686,17 @@ data to a repository and to share them with collaborators prior to public releas
 
 # Future Directions
 
-Emerging formats such as the JSON based NeXSON format provide alternate representations of semantic, machine-readable phylogenetic data. At this time, R users must still rely on other tools that can convert these formats into NeXML.
-Because the NeXML syntax is extensible, semantic, and machine-readable, this can be done without loss, unlike NEXUS formats.  Nevertheless, a possible future direction would be to provide direct support of such formats through RNeXML or a companion R package.
+The goals for continued development of `RNeXML` revolve primarily
+around three directions. One is better interoperability with other
+existing phylogenetic data representations in R, such those found in
+the `phylobase` package [@phylobase]. Another is better integration of
+the rich metadata semantics found in ontologies defined in the Web
+Ontology Language (OWL), including programmatic access to machine
+reasoning with such metadata. Finally, and similar to many other R
+packages, including those for comparative phylogenetics, in light of
+the increasing size of phylogenomic and other datasets mechanisms may
+eventually be needed that avoid the requirement to load an entire
+file's content into memory.
 
 ## Acknowledgements
 <!-- FIXME Rutger, Hilmar, add whatever you'd like to acknowledge here -->. 
