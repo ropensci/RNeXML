@@ -726,16 +726,3 @@ but which are not required for basic functionality.
 
 [^2]: For convenience `nexml_read` is also aliased as `read.nexml`,
 for users familiar with the somewhat analogous `read.nexus` function.
-
-[^3]: By using the commenting mechanism of the Newick format, it is
-possible that other software that doesn't also use the comment mechanism
-for some other such purpose would be able to successfully parse the tree.
-However there is no way to guarantee that this is the case or for the
-data format to describe its use.
-
-
-
-
-
-
-
