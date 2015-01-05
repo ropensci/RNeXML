@@ -607,7 +607,7 @@ This project was supported in part by the National Evolutionary
 Synthesis Center (NESCent) (NSF #EF-0905606), and grants from the
 Natioal Science Foundation (DBI-1306697) and the Alfred P Sloan
 Foundation (Grant 2013-6-22). `RNeXML` started as a project idea for
-the Google Summer of Code, and we thank Kseniia Shumelchyk for taking
+the Google Summer of Code(TM), and we thank Kseniia Shumelchyk for taking
 the first steps to implement it. We are grateful to F. Michonneau for
 helpful comments on an earlier version of this manuscript.
 
@@ -619,13 +619,3 @@ unlink("birds.xml")
 unlink("geospiza.xml")
 unlink("rdf_meta.xml")
 ```
-
-
-<!-- Footnotes -->
-
-[^1]: By providing the optional `dependencies` argument, R will install
-additional packages used in some of the advanced examples shown later
-but which are not required for basic functionality.
-
-[^2]: For convenience `nexml_read` is also aliased as `read.nexml`,
-for users familiar with the somewhat analogous `read.nexus` function.
