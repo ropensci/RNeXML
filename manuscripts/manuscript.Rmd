@@ -136,23 +136,13 @@ a predictable manner, and also enables machine reasoning about the
 data and metadata (see @Parr2011), especially when metadata attributes
 and values are anchored in appropriately axiomatized ontologies.
 
-`RNeXML` not only allows R's ecosystem to read and write data in
-the NeXML format through an interface that is no more involved than
-reading or writing data from other phylogenetic data formats, but also
-carries immediate benefits for its users. For example, comparative
-analysis R packages and users frequently add their own metadata
-annotations to the phylogenies they work with, such as annotations
-of species, stochastic character maps, trait values, model estimates
-and parameter values. `RNeXML` affords R the capability to harness
-machine-readable semantics and an extensible metadata schema to
-capture, preserve, and share these and other kinds of information, all
-through an API instead of having to understand in detail the schema
-underlying the NeXML standard. To assist users in meeting the rising
-bar for best practices in data sharing in phylogenetic research
-[@Cranston_2014], `RNeXML` captures metadata information from the R
-environment to the extent possible, and applies reasonable
-defaults. 
-
+To make the capabilities of NeXML available to R users in
+an easy-to-use form, and to lower the hurdles to adoption of the
+standard, we present RNeXML, an R package that aims to provide easy
+programmatic access to reading and writing NeXML documents, tailored
+for the kinds of use-cases that will be common for users and
+developers of the wealth of evolutionary analysis methods within the R
+ecosystem.
 
 # The RNeXML package
 
@@ -585,19 +575,31 @@ doi <- nexml_publish(birds, visibility = "public", repository="figshare")
 Figshare also supports "private" visibility, allowing to securely backup
 data to a repository and to share them with collaborators prior to public release.
 
-# Future Directions
+# Conclusions and future directions
+
+`RNeXML` allows R's ecosystem to read and write data in the NeXML
+format through an interface that is no more involved than reading or
+writing data from other phylogenetic data formats. It also carries
+immediate benefits for its users compared to other formats. For
+example, comparative analysis R packages and users frequently add
+their own metadata annotations to the phylogenies they work with, such
+as annotations of species, stochastic character maps, trait values,
+model estimates and parameter values. `RNeXML` affords R the
+capability to harness machine-readable semantics and an extensible
+metadata schema to capture, preserve, and share these and other kinds
+of information, all through an API instead of having to understand in
+detail the schema underlying the NeXML standard. To assist users in
+meeting the rising bar for best practices in data sharing in
+phylogenetic research [@Cranston_2014], `RNeXML` captures metadata
+information from the R environment to the extent possible, and applies
+reasonable defaults.
 
 The goals for continued development of `RNeXML` revolve primarily
-around three directions. One is better interoperability with other
-existing phylogenetic data representations in R, such those found in
-the `phylobase` package [@phylobase]. Another is better integration of
-the rich metadata semantics found in ontologies defined in the Web
-Ontology Language (OWL), including programmatic access to machine
-reasoning with such metadata. Finally, and similar to many other R
-packages, including those for comparative phylogenetics, in light of
-the increasing size of phylogenomic and other datasets mechanisms may
-eventually be needed that avoid the requirement to load an entire
-file's content into memory.
+around better interoperability with other existing phylogenetic data
+representations in R, such those found in the `phylobase` package
+[@phylobase]; and better integration of the rich metadata semantics
+found in ontologies defined in the Web Ontology Language (OWL),
+including programmatic access to machine reasoning with such metadata.
 
 ## Acknowledgements
 
