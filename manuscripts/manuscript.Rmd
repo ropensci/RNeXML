@@ -72,40 +72,6 @@ output:
 
 ---
 
-<!------------------------------------------------
-
-Map/Outline:
-------------
-
-- Introduction
-  - Exciting times in phylogenetics!  
-  - Challenges with existing formats 
-  - Overview of NeXML
-  - Challenges with R
-  - Map 
-
-- Tutorial
-  - Reading Phylogenetic trees
-  - Reading Character data
-  - Writing phylogenetic trees & character data
-
-  - Metadata
-    - Adding basic metadata
-    - Adding taxonomic identifiers
-    - Adding Generic metadata
-    - Parsing metadata. XML. RDF.
-    - Extending NeXML with metadata: Example defining simmap stochastic character mappings.  
-
-  - Publishing NeXML 
-
-- Implementation, Quality Control
-- Software reuse and support
-
------------------------------------------------->
-
-
-
-
 
 ```{r compile-settings, include=FALSE}
 library("methods")
