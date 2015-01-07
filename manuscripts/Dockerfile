@@ -1,10 +1,10 @@
 FROM rocker/ropensci:latest
 MAINTAINER Carl Boettiger cboettig@ropensci.org
 
-COPY . /host
-RUN chown -R docker:docker /host
-WORKDIR /host
-USER docker
+COPY . /home/rstudio/rnexml
+RUN chown -R rstudio:rstudio /home/rstudio/rnexml
+WORKDIR /home/rstudio/rnexml
+USER rstudio
 CMD ["R", "-e", "rmarkdown::render('manuscript.Rmd')"]
 
 
