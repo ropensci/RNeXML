@@ -30,35 +30,45 @@ address:
     address: | 
       Naturalis Biodiversity Center, Leiden, the Netherlands
 abstract: | 
-      1. NeXML is a new exchange format for phylogenetic data and
-      metadata that offers substantial improvements in reliability,
-      extensibility, and richness over earlier formats such as
-      NEXUS. In this paper we present the RNeXML package which
-      provides a bridge between this data format and the extensive
-      library of phylogenetic tools already available in the popular
-      data analysis environment and programming language R, with a
-      particular emphasis on comparative methods.
+      1. NeXML is a powerful and forward-compatible exchange standard
+      recently proposed to better meet the expanding needs for
+      machine-proof phylogenetic data and metadata sharing. Here we
+      present the RNeXML package, which aims to provide to users of
+      the popular R programming language easy programmatic access to
+      reading and writing NeXML documents, including rich metadata, in
+      a way that interfaces seamlessly with the extensive library of
+      phylogenetic tools already available in the R ecosystem.
 
-      2. The ability to parse and write NeXML from within R is only a
-      small part of the functionality offered by the package.  We
-      illustrate how RNeXML facilitates adding and manipulating data
-      annotations whose meaning can be defined in a precise and
-      machine-interpretable way by means of formal ontologies and other
-      semantic web technologies.
+      2. Wherever possible, we designed RNeXML to map NeXML document
+      contents, whose arrangement is influenced by the format's
+      normative XML Schema definition, to their most intuitive or
+      useful representation in R. To make NeXML's powerful facility
+      for recording semantically rich machine-readable metadata
+      accessible to R users, we designed a functional programming
+      interface to it that hides the semantic web standards leveraged
+      by NeXML from R users who are unfamiliar with them.
 
-      3. An essential feature of NeXML is to provide both the
-      flexibility to be continually extended to meet the emerging
-      needs of the phylogenetics community without breaking software
-      unaware of such extensions. We illustrate how RNeXML makes
-      it easy to extend NeXML in this manner.
+      3. RNeXML can read any NeXML document that validates, and it
+      generates valid NeXML documentes from phylogeny and character
+      data from various R representations in use. The metadata
+      programming interface at a basic level aids fulfilling data
+      documentation best practices, and at an advanced level preserves
+      NeXML's nearly limitless extensibility, for which we provide a
+      fully working demonstration. Furthermore, to lower the barriers
+      to sharing well-documented phylogenetic data, RNeXML has started
+      to integrate with taxonomic metadata augmentation services on
+      the web, and with online repositories for data archiving.
+
+      4. RNeXML allows R's rich ecosystem to read and write data in
+      the NeXML format through an interface that is no more involved
+      than reading or writing data from other, less powerful data
+      formats. It also provides an interface designed to feel familiar
+      to R programmers and to be consistent with recommended practices
+      for R package development, yet that retains the full power for
+      users to add their own custom data and metadata to the
+      phylogenies they work with, without introducing potentially
+      incompatible changes to the exchange standard.
       
-      4. RNeXML is well suited for users to preserve and maintain
-      their personal archives of phylogenetic and comparative trait
-      data in consistent, query-able, and cross-platform format, to
-      leverage the rapidly growing public community archives of rich
-      NeXML files, and to interact with web services that return data
-      and their metadata packaged together as NeXML.
-
 bibliography: components/references.bib
 csl: components/methods-in-ecology-and-evolution.csl
 documentclass: components/elsarticle
