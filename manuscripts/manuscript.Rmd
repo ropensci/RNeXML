@@ -49,8 +49,8 @@ abstract: |
       by NeXML from R users who are unfamiliar with them.
 
       3. RNeXML can read any NeXML document that validates, and it
-      generates valid NeXML documentes from phylogeny and character
-      data from various R representations in use. The metadata
+      generates valid NeXML documents from phylogeny and character
+      data in various R representations in use. The metadata
       programming interface at a basic level aids fulfilling data
       documentation best practices, and at an advanced level preserves
       NeXML's nearly limitless extensibility, for which we provide a
