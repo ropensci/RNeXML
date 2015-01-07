@@ -22,7 +22,7 @@ address:
       Santa Cruz, CA 95064, USA
   - code: NESCent
     address: | 
-      National Evolutionary Synthesis Center, Durham, NC, USA
+      National Evolutionary Synthesis Center and Duke University, Durham, NC, USA
   - code: ropensci
     address: |
       University of California, Berkeley, CA, USA
