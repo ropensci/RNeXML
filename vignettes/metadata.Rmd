@@ -1,6 +1,6 @@
 ---
 layout: preprint
-title: "An Introduction to the RNeXML Package: Semantically Rich I/O for the NeXML Format"
+title: "Handling Metadata in RNeXML"
 author: 
   - name: Carl Boettiger
     affiliation: cstar
@@ -44,7 +44,7 @@ output:
 
 <!--
 %\VignetteEngine{rmarkdown::render}
-%\VignetteIndexEntry{An Introduction to the RNeXML Package}
+%\VignetteIndexEntry{Handling Metadata in RNeXML}
 -->
 
 
