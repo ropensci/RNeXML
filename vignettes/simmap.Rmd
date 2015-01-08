@@ -29,13 +29,8 @@ address:
     address: | 
       Naturalis Biodiversity Center, Leiden, the Netherlands
 
-bibliography: components/references.bib
-csl: components/methods-in-ecology-and-evolution.csl
-documentclass: components/elsarticle
-
 output: 
   pdf_document:
-    template: components/elsarticle.latex
     keep_tex: true
     fig_caption: true
 
