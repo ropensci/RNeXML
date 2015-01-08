@@ -154,21 +154,20 @@ for the kinds of use-cases that will be common for users and
 developers of the wealth of evolutionary analysis methods within the R
 ecosystem.
 
+```{r echo=FALSE}
+install.packages("RNeXML", dependencies=TRUE)
+library(RNeXML)
+```
+
 # The RNeXML package
 
 The `RNeXML` package is written entirely in R and available under a
 Creative Commons Zero public domain waiver. The current development version can be found
 on Github at [https://github.com/ropensci/RNeXML](), and the stable
 version can be installed from the CRAN repository.
-
-```{r echo=FALSE}
-install.packages("RNeXML", dependencies=TRUE)
-library(RNeXML)
-```
-
 `RNeXML` is part of the rOpenSci project. Users of `RNeXML` are
 encouraged to submit bug reports or feature requests in the issues log
-on Github, or to contact `ropensci-discuss@googlegroups.com` or the
+on Github, or the
 phylogenetics R users group list at `r-sig-phylo@r-project.org` for
 help.
 
@@ -264,7 +263,7 @@ block.
 The method `nexml_write()` generates a NeXML file from its input parameters. In
 its simplest invocation, the method writes a tree to a file:
 
-```{r}
+```{r, results='hide'}
 data(bird.orders)
 nexml_write(bird.orders, file = "birds.xml")
 ```
@@ -278,7 +277,7 @@ In addition to trees, the `nexml_write()` method also allows to specify
 character data as another parameter. The following example uses data
 from the comparative phylogenetics R package `geiger` [@Harmon_2008].
 
-```{r}
+```{r, results='hide'}
 library("geiger")
 data(geospiza)
 nexml_write(trees = geospiza$phy, 
