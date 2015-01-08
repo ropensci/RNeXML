@@ -161,7 +161,7 @@ Creative Commons Zero public domain waiver. The current development version can 
 on Github at [https://github.com/ropensci/RNeXML](), and the stable
 version can be installed from the CRAN repository.
 
-```{r echo=FALSE}
+```{r echo=FALSE, eval=FALSE}
 install.packages("RNeXML", dependencies=TRUE)
 library(RNeXML)
 ```
@@ -229,7 +229,7 @@ NeXML format on the web, such as the content of the
 phylogenetic data repository TreeBASE [@Piel_2002]. For
 example, the following plots a tree in TreeBASE (using ape's plot function):
 
-```{r eval=FALSE fig.show="hide"}
+```{r eval=FALSE, fig.show="hide"}
 tb_nex <- nexml_read(
 "https://raw.github.com/TreeBASE/supertreebase/master/data/treebase/S100.xml")
 tb_phy <- get_trees_list(tb_nex)
@@ -406,6 +406,7 @@ of namespace prefixes and their corresponding identifiers known to the object:
 
 
 ```{r}
+birds <- nexml_read("birds.xml")
 prefixes <- get_namespaces(birds)
 prefixes["dc"]
 ```
