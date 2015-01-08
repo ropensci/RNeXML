@@ -161,7 +161,7 @@ Creative Commons Zero public domain waiver. The current development version can 
 on Github at [https://github.com/ropensci/RNeXML](), and the stable
 version can be installed from the CRAN repository.
 
-```{r echo=FALSE, eval=FALSE}
+```{r echo=FALSE}
 install.packages("RNeXML", dependencies=TRUE)
 library(RNeXML)
 ```
