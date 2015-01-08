@@ -11,7 +11,6 @@ RNeXML: The next-generation phylogenetics format comes to R
 
 An R package for reading, writing, integrating and publishing data using the Ecological Metadata Language (EML) format.   
 
-* **Note:** This package is still in active development and not yet submitted to CRAN.  Functions and documentation may be incomplete and subject to change.  
 * Maintainer: Carl Boettiger
 * Authors: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia Shumelchyk, Rutger Vos
 * License: BSD-3 
