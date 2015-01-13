@@ -1,44 +1,11 @@
 ---
-layout: preprint
 title: "Handling Metadata in RNeXML"
-author: 
-  - name: Carl Boettiger
-    affiliation: cstar
-    email: cboettig(at)gmail.com
-    footnote: Corresponding author
-  - name: Scott Chamberlain
-    affiliation: ropensci
-  - name: Rutger Vos
-    affiliation: NBC
-  - name: Hilmar Lapp
-    affiliation: NESCent
-address: 
-  - code: cstar
-    address: | 
-      Center for Stock Assessment Research, 
-      Department of Applied Math and Statistics, 
-      University of California, Mail Stop SOE-2,
-      Santa Cruz, CA 95064, USA
-  - code: NESCent
-    address: | 
-      National Evolutionary Synthesis Center, Durham, NC, USA
-  - code: ropensci
-    address: |
-      University of California, Berkeley, CA, USA
-  - code: NBC
-    address: | 
-      Naturalis Biodiversity Center, Leiden, the Netherlands
-
-output: 
-  pdf_document:
-    keep_tex: true
-    fig_caption: true
-
-
+author: Carl Boettiger
+output: html_document 
 ---
 
 <!--
-%\VignetteEngine{rmarkdown::render}
+%\VignetteEngine{knitr::rmarkdown}
 %\VignetteIndexEntry{Handling Metadata in RNeXML}
 -->
 
@@ -51,6 +18,7 @@ opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE,
 basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile')) 
 opts_chunk$set(fig.path = paste("figure/", basename, "-", sep=""),
                cache.path = paste("cache/", basename, "/", sep=""))
+
 ```
 
 ## Writing NeXML metadata
@@ -62,8 +30,17 @@ parameters: `title`, `description`, `creator`, `pubdate`, `rights`, `publisher`,
 `citation`.  Other metadata elements and corresponding parameters may
 be added in the future.
 
+Load the packages and data:
+
 ```{r}
+library('RNeXML')
+library('geiger')
 data(bird.orders)
+```
+
+Create an `nexml` object for the phylogeny `bird.orders` and add appropriate metadata:
+
+```{r}
 birds <- add_trees(bird.orders)
 birds <- add_basic_meta(
   title = "Phylogeny of the Orders of Birds From Sibley and Ahlquist",
@@ -91,7 +68,7 @@ Instead of a literal string, citations can also be provided in R's
 `bibentry` type, which is the one in which R package citations are obtained:
 
 ```{r}
-birds <- add_basic_meta(birds, citation = citation("ape"))
+birds <- add_basic_meta(citation = citation("ape"), nexml = birds)
 ```
 
 A citation to a published paper with a Digital
@@ -102,7 +79,7 @@ formatted citation using. As an example, to add the citation information of the 
 
 ```{r}
 library("knitcitations")
-geiger_nex <- add_basic_meta(geiger_nex, citation = bib_metadata("10.2307/2408428"))
+geiger_nex <- add_basic_meta(citation = bib_metadata("10.2307/2408428"))
 ```
 
 ## Taxonomic identifiers

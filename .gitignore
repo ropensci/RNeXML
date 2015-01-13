@@ -6,6 +6,7 @@ vignettes/cache
 vignettes/figure
 vignettes/*.md
 vignettes/*.pdf
+vignettes/*.html
 .Rproj.user
 *.Rproj
 */*.Rhistory

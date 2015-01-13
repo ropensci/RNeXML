@@ -1,23 +1,11 @@
 ---
-layout: review, 11pt
 title: "SPARQL with RNeXML"
-author: 
-  - name: Carl Boettiger
-    email: cboettig(at)gmail.com
-    footnote: Corresponding author
-  - name: Hilmar Lapp
-  - name: Scott Chamberlain
-  - name: Rutger Vos
-output: 
-  pdf_document:
-    keep_tex: false
-    fig_caption: true
-
-
+author: Carl Boettiger
+output: html_document
 ---
 
 <!--
-%\VignetteEngine{rmarkdown::render}
+%\VignetteEngine{knitr::rmarkdown}
 %\VignetteIndexEntry{SPARQL with RNeXML}
 -->
 

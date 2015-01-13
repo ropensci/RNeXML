@@ -1,44 +1,11 @@
 ---
-layout: preprint
 title: "Extending NeXML: an example based on simmap"
-author: 
-  - name: Carl Boettiger
-    affiliation: cstar
-    email: cboettig(at)gmail.com
-    footnote: Corresponding author
-  - name: Scott Chamberlain
-    affiliation: ropensci
-  - name: Rutger Vos
-    affiliation: NBC
-  - name: Hilmar Lapp
-    affiliation: NESCent
-address: 
-  - code: cstar
-    address: | 
-      Center for Stock Assessment Research, 
-      Department of Applied Math and Statistics, 
-      University of California, Mail Stop SOE-2,
-      Santa Cruz, CA 95064, USA
-  - code: NESCent
-    address: | 
-      National Evolutionary Synthesis Center, Durham, NC, USA
-  - code: ropensci
-    address: |
-      University of California, Berkeley, CA, USA
-  - code: NBC
-    address: | 
-      Naturalis Biodiversity Center, Leiden, the Netherlands
-
-output: 
-  pdf_document:
-    keep_tex: true
-    fig_caption: true
-
-
+author: Carl Boettiger
+output:	html_document
 ---
 
 <!--
-%\VignetteEngine{rmarkdown::render}
+%\VignetteEngine{knitr::rmarkdown}
 %\VignetteIndexEntry{Extending NeXML to simmap}
 -->
 
@@ -51,6 +18,7 @@ opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE,
 basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile')) 
 opts_chunk$set(fig.path = paste("figure/", basename, "-", sep=""),
                cache.path = paste("cache/", basename, "/", sep=""))
+library("RNeXML")
 
 ```
 
@@ -191,5 +159,7 @@ not been written explicitly to express `simmap` data, those parsers will
 nonetheless be able to successfully parse this file and expose the `simmap`
 data to the user.
 
-
+```{r cleanup, include=FALSE}
+unlink("simmap.xml")
+```
 

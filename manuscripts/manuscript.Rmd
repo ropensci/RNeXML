@@ -150,7 +150,7 @@ reading and writing NeXML documents, tailored for the kinds of use-cases
 that will be common for users and developers of the wealth of evolutionary
 analysis methods within the R ecosystem.
 
-```{r echo=FALSE}
+```{r echo=FALSE, results='hide'}
 install.packages("RNeXML", dependencies=TRUE)
 library(RNeXML)
 ```
@@ -631,8 +631,6 @@ helpful comments on an earlier version of this manuscript.
 
 
 ```{r cleanup, include=FALSE, cache=FALSE}
-unlink("simmap.xml")
 unlink("birds.xml")
 unlink("geospiza.xml")
-unlink("rdf_meta.xml")
 ```

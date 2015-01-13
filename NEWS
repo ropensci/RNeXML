@@ -27,6 +27,19 @@ And constructed with the following guidelines:
 
 For more information on SemVer, please visit http://semver.org/.
 
+
+v2.0.2
+------
+
+- Add four new vignettes describing the use of various advanced
+  features in the package: the use of SPARQL queries, advanced
+	use of metadata features, an example of how to extend NeXML
+	with simmap data as the use case, and documentation on the 
+	central S4 data structure used in the package.
+- Implements the use of Title Case in the package title, as
+  requested (on several occassions) by the CRAN maintainers.
+
+
 v2.0.1
 -------
 

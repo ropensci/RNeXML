@@ -9,6 +9,10 @@ inst/doc/pubs
 .git
 manuscripts/
 CONTRIBUTING.md
+vignettes/figures
+vignettes/*.html
+vignettes/*.xml
+vignettes/*.pdf
 vignettes/cache/
 .drone.yml
 cran-comments.md
