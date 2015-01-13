@@ -8,9 +8,6 @@
 RNeXML: The next-generation phylogenetics format comes to R
 =====================================================
 
-
-An R package for reading, writing, integrating and publishing data using the Ecological Metadata Language (EML) format.   
-
 * Maintainer: Carl Boettiger
 * Authors: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia Shumelchyk, Rutger Vos
 * License: BSD-3 
@@ -46,7 +43,7 @@ tr <- get_trees(nexml) # or: as(nexml, "phylo")
 plot(tr)
 ```
 
-![plot of chunk unnamed-chunk-4](figure/README-unnamed-chunk-4-1.png) 
+![plot of chunk unnamed-chunk-4](http://i.imgur.com/O3AJS7G.png) 
 
 Write an `ape::phylo` tree into the `nexml` format:
 
@@ -57,7 +54,7 @@ nexml_write(bird.orders, "test.xml")
 ```
 
 ```
-## [1] "test.xml"
+[1] "test.xml"
 ```
 
 A key feature of NeXML is the ability to formally validate the construction of the data file against the standard (the lack of such a feature in nexus files had lead to inconsistencies across different software platforms, and some files that cannot be read at all).  While it is difficult to make an invalid NeXML file from `RNeXML`, it never hurts to validate just to be sure:
@@ -68,7 +65,7 @@ nexml_validate("test.xml")
 ```
 
 ```
-## [1] TRUE
+[1] TRUE
 ```
 
 
@@ -82,14 +79,14 @@ get_taxa(birds)
 ```
 
 ```
-##  [1] "Struthioniformes" "Tinamiformes"     "Craciformes"     
-##  [4] "Galliformes"      "Anseriformes"     "Turniciformes"   
-##  [7] "Piciformes"       "Galbuliformes"    "Bucerotiformes"  
-## [10] "Upupiformes"      "Trogoniformes"    "Coraciiformes"   
-## [13] "Coliiformes"      "Cuculiformes"     "Psittaciformes"  
-## [16] "Apodiformes"      "Trochiliformes"   "Musophagiformes" 
-## [19] "Strigiformes"     "Columbiformes"    "Gruiformes"      
-## [22] "Ciconiiformes"    "Passeriformes"
+ [1] "Struthioniformes" "Tinamiformes"     "Craciformes"     
+ [4] "Galliformes"      "Anseriformes"     "Turniciformes"   
+ [7] "Piciformes"       "Galbuliformes"    "Bucerotiformes"  
+[10] "Upupiformes"      "Trogoniformes"    "Coraciiformes"   
+[13] "Coliiformes"      "Cuculiformes"     "Psittaciformes"  
+[16] "Apodiformes"      "Trochiliformes"   "Musophagiformes" 
+[19] "Strigiformes"     "Columbiformes"    "Gruiformes"      
+[22] "Ciconiiformes"    "Passeriformes"   
 ```
 
 ```r
@@ -97,10 +94,10 @@ get_metadata(birds)
 ```
 
 ```
-##                       dcterms:bibliographicCitation 
-##                                                  NA 
-##                                          cc:license 
-## "http://creativecommons.org/publicdomain/zero/1.0/"
+                      dcterms:bibliographicCitation 
+                                                 NA 
+                                         cc:license 
+"http://creativecommons.org/publicdomain/zero/1.0/" 
 ```
 
 --------------------------------------------
@@ -119,7 +116,7 @@ Add basic additional metadata:
 ```
 
 ```
-## [1] "meta_example.xml"
+[1] "meta_example.xml"
 ```
 By default, `RNeXML` adds certain metadata, including the NCBI taxon id numbers for all named taxa.  This acts a check on the spelling and definitions of the taxa as well as providing a link to additional metadata about each taxonomic unit described in the dataset.  
 
@@ -143,28 +140,28 @@ RNeXML:::nexml_namespaces
 ```
 
 ```
-##                                              nex 
-##                      "http://www.nexml.org/2009" 
-##                                              xsi 
-##      "http://www.w3.org/2001/XMLSchema-instance" 
-##                                              xml 
-##           "http://www.w3.org/XML/1998/namespace" 
-##                                             cdao 
-##        "http://purl.obolibrary.org/obo/cdao.owl" 
-##                                              xsd 
-##              "http://www.w3.org/2001/XMLSchema#" 
-##                                               dc 
-##               "http://purl.org/dc/elements/1.1/" 
-##                                          dcterms 
-##                      "http://purl.org/dc/terms/" 
-##                                            prism 
-## "http://prismstandard.org/namespaces/1.2/basic/" 
-##                                               cc 
-##                 "http://creativecommons.org/ns#" 
-##                                             ncbi 
-##          "http://www.ncbi.nlm.nih.gov/taxonomy#" 
-##                                               tc 
-##  "http://rs.tdwg.org/ontology/voc/TaxonConcept#"
+                                             nex 
+                     "http://www.nexml.org/2009" 
+                                             xsi 
+     "http://www.w3.org/2001/XMLSchema-instance" 
+                                             xml 
+          "http://www.w3.org/XML/1998/namespace" 
+                                            cdao 
+       "http://purl.obolibrary.org/obo/cdao.owl" 
+                                             xsd 
+             "http://www.w3.org/2001/XMLSchema#" 
+                                              dc 
+              "http://purl.org/dc/elements/1.1/" 
+                                         dcterms 
+                     "http://purl.org/dc/terms/" 
+                                           prism 
+"http://prismstandard.org/namespaces/1.2/basic/" 
+                                              cc 
+                "http://creativecommons.org/ns#" 
+                                            ncbi 
+         "http://www.ncbi.nlm.nih.gov/taxonomy#" 
+                                              tc 
+ "http://rs.tdwg.org/ontology/voc/TaxonConcept#" 
 ```
 
 This next block defines a resource (link), described by the `rel` attribute as a homepage, a term in the `foaf` vocabulalry.  Becuase `foaf` is not a default namespace, we will have to provide its URL in the full definition below. 
@@ -200,7 +197,7 @@ elements created above to this object. Finally, we will write the object out as 
 ```
 
 ```
-## [1] "example.xml"
+[1] "example.xml"
 ```
 
 ### Taxonomic identifiers
@@ -243,31 +240,27 @@ fitContinuous(tree, traits[1], ncores=1)
 ```
 
 ```
-## Loading required package: parallel
-```
+GEIGER-fitted comparative model of continuous data
+ fitted 'BM' model parameters:
+	sigsq = 1.166011
+	z0 = 0.255591
 
-```
-## GEIGER-fitted comparative model of continuous data
-##  fitted 'BM' model parameters:
-## 	sigsq = 1.166011
-## 	z0 = 0.255591
-## 
-##  model summary:
-## 	log-likelihood = -20.501183
-## 	AIC = 45.002367
-## 	AICc = 46.716652
-## 	free parameters = 2
-## 
-## Convergence diagnostics:
-## 	optimization iterations = 100
-## 	failed iterations = 0
-## 	frequency of best fit = 1.00
-## 
-##  object summary:
-## 	'lik' -- likelihood function
-## 	'bnd' -- bounds for likelihood search
-## 	'res' -- optimization iteration summary
-## 	'opt' -- maximum likelihood parameter estimates
+ model summary:
+	log-likelihood = -20.501183
+	AIC = 45.002367
+	AICc = 46.716652
+	free parameters = 2
+
+Convergence diagnostics:
+	optimization iterations = 100
+	failed iterations = 0
+	frequency of best fit = 1.00
+
+ object summary:
+	'lik' -- likelihood function
+	'bnd' -- bounds for likelihood search
+	'res' -- optimization iteration summary
+	'opt' -- maximum likelihood parameter estimates
 ```
 
 ```r
@@ -275,28 +268,28 @@ fitDiscrete(tree, traits[2], ncores=1)
 ```
 
 ```
-## GEIGER-fitted comparative model of discrete data
-##  fitted Q matrix:
-##                 0           1
-##     0 -0.07308302  0.07308302
-##     1  0.07308302 -0.07308302
-## 
-##  model summary:
-## 	log-likelihood = -4.574133
-## 	AIC = 11.148266
-## 	AICc = 11.648266
-## 	free parameters = 1
-## 
-## Convergence diagnostics:
-## 	optimization iterations = 100
-## 	failed iterations = 0
-## 	frequency of best fit = 1.00
-## 
-##  object summary:
-## 	'lik' -- likelihood function
-## 	'bnd' -- bounds for likelihood search
-## 	'res' -- optimization iteration summary
-## 	'opt' -- maximum likelihood parameter estimates
+GEIGER-fitted comparative model of discrete data
+ fitted Q matrix:
+                0           1
+    0 -0.07308302  0.07308302
+    1  0.07308302 -0.07308302
+
+ model summary:
+	log-likelihood = -4.574133
+	AIC = 11.148266
+	AICc = 11.648266
+	free parameters = 1
+
+Convergence diagnostics:
+	optimization iterations = 100
+	failed iterations = 0
+	frequency of best fit = 1.00
+
+ object summary:
+	'lik' -- likelihood function
+	'bnd' -- bounds for likelihood search
+	'res' -- optimization iteration summary
+	'opt' -- maximum likelihood parameter estimates
 ```
 
 
