@@ -1,7 +1,12 @@
 ---
 title: "Extending NeXML: an example based on simmap"
-author: Carl Boettiger
+author:
+  - Carl Boettiger
+  - Scott Chamberlain
+  - Rutger Vos
+  - Hilmar Lapp
 output:	html_document
+bibliography: references.bib
 ---
 
 <!--

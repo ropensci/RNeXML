@@ -1,6 +1,10 @@
 ---
 title: "The nexml S4 Object"
-author: Carl Boettiger
+author:
+  - Carl Boettiger
+  - Scott Chamberlain
+  - Rutger Vos
+  - Hilmar Lapp
 output: html_document
 ---
 
