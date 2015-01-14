@@ -164,7 +164,10 @@ and the stable version can be installed from the CRAN repository.
 `RNeXML` is part of the rOpenSci project. Users of `RNeXML` are encouraged
 to submit bug reports or feature requests in the issues log on Github,
 or the phylogenetics R users group list at `r-sig-phylo@r-project.org`
-for help.
+for help. Vignettes with more detailed examples of specific features
+of RNeXML are distributed with the R package and serve as a supplement
+to this manuscript. Each of the vignettes can be found at
+[http://ropensci.github.io/RNeXML/]().
 
 ## Representation of NeXML documents in R
 
@@ -435,7 +438,7 @@ metadata are attached. Therefore, a different approach, documented in
 the metadata vignette, is recommended for accessing the metadata attached
 to data elements.
 
-The `meta()` method creates a new metadata object from a poperty name
+The `meta()` method creates a new metadata object from a property name
 and content (value). For example, the following creates a modification
 date metadata object, using a property in the PRISM vocabulary:
 
@@ -477,7 +480,7 @@ the `add_namespaces()` method.
 
 By virtue of subsetting the S4 `nexml` object, `RNeXML` also offers
 fine control of where a `meta` element is added, for which the package
-vignette contains examples.
+vignette on S4 subsetting of `nexml` contains examples.
 
 Because NeXML expresses all metadata using the RDF standard, and
 stores them compliant with RDFa, they can be extracted as an RDF
@@ -511,13 +514,18 @@ metadata need to describe the character state being assigned, and
 the duration (in terms of branch length) that the edge spends in
 that state. The `NeXML` standard already defines `state` elements for
 discrete character traits, which, as most elements in NeXML, also have
-unique identifiers by which they can be referenced. In the following
+unique identifiers by which they can be referenced.
+
+In the following
 proposal, we term each series of character state assignments for an
 edge a _reconstruction_, and for each state assignment comprising a
 reconstruction, we provide the length, the identifier of the character
 state, and an ordinal property to record the chronological order of
-the assignment (the identifier values in the proposal, "cr1", "s1", and
-"s2", are identifiers local to a  -- fictitious -- NeXML document):
+the assignment. In this manner, a single edge containing one
+state change could be annotated as follows.
+(the identifier values in the proposal, "cr1", "s1", and
+"s2", are identifiers local to a  -- fictitious -- NeXML document,
+based on the example simmap tree illustrated in @Revell_2012):
 
 
 ```{r}
