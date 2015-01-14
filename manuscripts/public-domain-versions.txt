@@ -1,11 +1,24 @@
 # Public Domain Versions of this Submission
 
-The manuscript submission system requires the authors list all versions of the work that are currently visible to the public domain.
+The manuscript submission system requires the authors list all versions
+of the work that are currently visible to the public domain.
 
 Here we provide a description and links to each relevant element.
 
-- The R package source code, manuscript source, and all supplementary material can be found on GitHub: http://github.com/ropensci/RNeXML
-- A Docker image containing the manuscript source files, together with the complete software environment required to execute all code and build the final PDF from the manuscrupt source files, is available from the Docker Hub: https://registry.hub.docker.com/u/cboettig/rnexml/
-- The R package without any manuscript documents can be found on CRAN: cran.r-project.org/web/packages/RNeXML.  The package vignette documents a few simple examples that are also shown in the manuscript.
+- The R package source code, manuscript source, and all supplementary
+material can be found on GitHub: http://github.com/ropensci/RNeXML
+
+- A Docker image containing the manuscript source files, together with
+the complete software environment required to execute all code and build
+the final PDF from the manuscrupt source files, is available from the
+Docker Hub: https://registry.hub.docker.com/u/cboettig/rnexml/
+
+- The R package without any manuscript documents can be found on CRAN:
+cran.r-project.org/web/packages/RNeXML.
+
+- Some of the package vignettes document further examples introduced
+in the manuscript and may serve as a supplement to the manuscript
+itself. These vignettes are part of the R package and are available in
+HTML format from http://ropensci.github.io/RNeXML/
 
 
