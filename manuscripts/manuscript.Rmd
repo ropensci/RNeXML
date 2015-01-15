@@ -1,6 +1,7 @@
 ---
 #layout: preprint
 layout: review, 11pt
+linenumbers: true
 title: "RNeXML: a package for reading and writing richly annotated phylogenetic, character, and trait data in R"
 author: 
   - name: Carl Boettiger
