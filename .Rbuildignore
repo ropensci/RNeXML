@@ -15,4 +15,5 @@ vignettes/*.xml
 vignettes/*.pdf
 vignettes/cache/
 .drone.yml
+_site
 cran-comments.md
