@@ -6,7 +6,7 @@ author:
   - Rutger Vos
   - Hilmar Lapp
 
-output: html_document 
+output: html_vignette
 ---
 
 <!--
