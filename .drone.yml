@@ -1,7 +1,6 @@
 image: rocker/ropensci:latest
 script:
   - Rscript -e 'rmarkdown::render("manuscripts/manuscript.Rmd")'
-  - Rscript -e 'rmarkdown::render("manuscripts/supplement.Rmd")'
 notify:
   email:
     recipients:
