@@ -11,12 +11,12 @@ CMD ["R", "-e", "rmarkdown::render('manuscript.Rmd')"]
 ## Non-interactive use:
 ## 
 ##     docker run --name rnexml cboettig/rnexml
-##     docker cp rnexml:/host/manuscript.pdf .
+##     docker cp rnexml:/home/rstudio/rnexml/manuscript.pdf `pwd`
 
 ## Equivalent to:
 ##  
-##     docker run --name rnexml --volumes $(pwd):/host \
-##       --workdir /host --user docker rocker/ropensci \
+##     docker run --name rnexml --volumes $(pwd):/home/rstudio/rnexml \
+##       --workdir /home/rstudio/rnexml --user docker rocker/ropensci \
 ##       R -e "rmarkdown::render('manuscript.Rmd')"
 ## 
 ##
