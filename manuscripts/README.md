@@ -1,7 +1,7 @@
 Instructions for compiling manuscripts
 ======================================
 
-[![Build Status](http://107.170.225.143:88/api/badge/github.com/ropensci/RNeXML/status.svg?branch=master)](http://107.170.225.143:88/github.com/ropensci/RNeXML)
+[![Build Status](http://server.carlboettiger.info:88/api/badge/github.com/ropensci/RNeXML/status.svg?branch=master)](http://server.carlboettiger.info:88/github.com/ropensci/RNeXML)
 
 
 Install dependencies
