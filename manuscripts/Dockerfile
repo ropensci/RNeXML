@@ -15,7 +15,7 @@ CMD ["R", "-e", "rmarkdown::render('manuscript.Rmd')"]
 
 ## Equivalent to:
 ##  
-##     docker run --name rnexml --volumes $(pwd):/home/rstudio/rnexml \
+##     docker run --name rnexml --volume=$(pwd):/home/rstudio/rnexml \
 ##       --workdir /home/rstudio/rnexml --user docker rocker/ropensci \
 ##       R -e "rmarkdown::render('manuscript.Rmd')"
 ## 
