@@ -50,7 +50,7 @@
 #' @include classes.R
 add_basic_meta <- function(title = NULL, 
                            description = NULL,
-                           creator = NULL,
+                           creator = Sys.getenv("USER"),
                            pubdate = Sys.Date(),
                            rights = "CC0",
                            publisher = NULL,
@@ -62,7 +62,7 @@ add_basic_meta <- function(title = NULL,
 
   if(!is.null(title)) 
     nexml <- add_meta(meta("dc:title", title), nexml)
-  if(!is.null(creator)) 
+  if(!is.null(creator) || creator == "") 
     nexml <- add_meta(meta("dc:creator", format(creator)), nexml)
   if(!is.null(pubdate)) 
     if(is.null(m["dc:pubdate"]) | is.na(m["dc:pubdate"]))
