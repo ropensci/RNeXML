@@ -10,5 +10,6 @@ dependencies:
 test:
   override:
     - ls
-    - docker run --rm -ti -v $(pwd):/data rocker/ropensci Rscript -e "rmarkdown::render('manuscripts/manuscript.Rmd')" 
+    - docker run --rm -ti rocker/ropensci R --version
+    - docker run --rm -ti -v $(pwd):/data -w /data rocker/ropensci Rscript -e "rmarkdown::render('manuscripts/manuscript.Rmd')" 
 
