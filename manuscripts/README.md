@@ -3,6 +3,8 @@ Instructions for compiling manuscripts
 
 [![Build Status](http://server.carlboettiger.info:88/api/badge/github.com/ropensci/RNeXML/status.svg?branch=master)](http://server.carlboettiger.info:88/github.com/ropensci/RNeXML)
 
+[![Circle CI](https://circleci.com/gh/ropensci/RNeXML.svg?style=svg)](https://circleci.com/gh/ropensci/RNeXML)
+
 
 Install dependencies
 --------------------
