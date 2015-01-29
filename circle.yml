@@ -2,6 +2,7 @@ machine:
   services:
     - docker
 dependencies:
+  ## Caching docker container and knitr-cache speeds build times
   cache_directories:
         - "~/docker"
         - "manuscripts/components/cache"
