@@ -4,9 +4,9 @@
 \alias{add_basic_meta}
 \title{Add basic metadata}
 \usage{
-add_basic_meta(title = NULL, description = NULL, creator = NULL,
-  pubdate = Sys.Date(), rights = "CC0", publisher = NULL,
-  citation = NULL, nexml = new("nexml"))
+add_basic_meta(title = NULL, description = NULL,
+  creator = Sys.getenv("USER"), pubdate = Sys.Date(), rights = "CC0",
+  publisher = NULL, citation = NULL, nexml = new("nexml"))
 }
 \arguments{
 \item{title}{A title for the dataset}
