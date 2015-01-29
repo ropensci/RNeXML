@@ -1,6 +1,7 @@
 ^\.travis\.yml$
 RNeXML.Rproj
 .gitignore
+circle.yml
 appveyor.yml
 shippable.yml
 ^.*\.Rproj$
