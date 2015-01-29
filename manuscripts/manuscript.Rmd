@@ -151,8 +151,11 @@ reading and writing NeXML documents, tailored for the kinds of use-cases
 that will be common for users and developers of the wealth of evolutionary
 analysis methods within the R ecosystem.
 
-```{r echo=FALSE, results='hide'}
+```{r echo=FALSE, results='hide', eval=FALSE}
 install.packages("RNeXML", dependencies=TRUE)
+```
+
+```{r echo=FALSE, results='hide'}
 library(RNeXML)
 ```
 
