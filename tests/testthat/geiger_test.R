@@ -1,7 +1,6 @@
 context("Geiger tests (may take 15+ minutes)")
 
 
-library(RNeXML)
 library(geiger)
 
 

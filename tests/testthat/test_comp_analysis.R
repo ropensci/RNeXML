@@ -1,7 +1,6 @@
 context("Comparative analysis")
 
 
-library(RNeXML)
 library(geiger)
 
 

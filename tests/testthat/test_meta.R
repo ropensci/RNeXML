@@ -1,7 +1,6 @@
 context("meta")
 
 
-library(RNeXML)
 data(bird.orders)
 
 test_that("We can add additional metadata", {

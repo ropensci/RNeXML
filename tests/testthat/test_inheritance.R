@@ -1,6 +1,5 @@
 context("inheritance")
 require(XML)
-require(RNeXML)
 
 ## FIXME
 ## Should include expect_that tests, rather than just running without errors.  

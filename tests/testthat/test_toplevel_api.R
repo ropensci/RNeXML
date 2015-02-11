@@ -4,7 +4,6 @@ context("top level API")
 test_that("read.nexml works", {
   ## The short version using an RNeXML API
   library(ape)
-  library(RNeXML)
 
   f <- system.file("examples", "trees.xml", package="RNeXML")
   nex <- read.nexml(f) # check alias
@@ -15,7 +14,6 @@ test_that("read.nexml works", {
 test_that("write.nexml works (from ape::phylo)", {
   ## The short version using an RNeXML API
   library(ape)
-  library(RNeXML)
   library(XML)
 
   data(bird.orders)
@@ -32,7 +30,6 @@ test_that("write.nexml works (from ape::phylo)", {
 
 
 test_that("write.nexml can write multiple trees at once ", {
-  library(RNeXML)
   f <- system.file("examples", "trees.xml", package="RNeXML")
   nex <- nexml_read(f)
   trees <- get_trees(nex)

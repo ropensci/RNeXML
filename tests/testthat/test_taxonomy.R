@@ -1,6 +1,5 @@
 context("taxonomy")
 
-require(RNeXML) # make sure the package is loaded first...
 
 data(bird.orders)
 birdorders_small <- drop.tip(bird.orders, tip = 1:10)

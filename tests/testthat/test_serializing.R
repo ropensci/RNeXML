@@ -1,7 +1,6 @@
 context("serializing")
 
 library(XML)
-library(RNeXML)
 
 ## More tests at lower-level serializing from S4 to XML in inheritance.R
 

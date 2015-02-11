@@ -1,6 +1,5 @@
 context("extract_metadata")
 
-require(RNeXML)
 nex <- add_basic_meta(
             title = "My test title",
             description = "A description of my test",

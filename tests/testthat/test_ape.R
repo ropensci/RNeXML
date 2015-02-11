@@ -2,14 +2,12 @@ context("ape")
 
 
 test_that("From ape::phylo to RNeXML::nexml object", {
-   library(RNeXML)
    library(ape)
    data(bird.orders)
    expect_is(as(bird.orders, "nexml"), class="nexml") 
 })
 
 test_that("We can go from various orderings of ape::phylo to RNeXML::nexml", {
-  library(RNeXML)
   library(ape)
   data(bird.orders)
   nexml <- as(bird.orders, "nexml")
@@ -24,7 +22,6 @@ test_that("We can go from various orderings of ape::phylo to RNeXML::nexml", {
 
 test_that("From nexml to multiPhylo", {
 
-  library(RNeXML)
 
   # part of base testing, could be replaced with higher level, but why 
   library(XML)
@@ -42,7 +39,6 @@ test_that("From nexml to multiPhylo", {
 
 ## This unit test is really not testing ape functions but just the higher-level nexml_write function...
 test_that("We can serialize the various versions of the ape format", {
-  library(RNeXML)
   library(ape)
   data(bird.orders)
   nexml <- as(bird.orders, "nexml")

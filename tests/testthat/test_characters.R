@@ -1,7 +1,6 @@
 context("character matrices")
 
 
-require(RNeXML) # make sure the package is loaded first...
 ## All tests will use this data file
 f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 

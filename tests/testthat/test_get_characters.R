@@ -1,7 +1,6 @@
 context("get_characters")
 
 require(XML)
-require(RNeXML)
 
 f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nex <- read.nexml(f)

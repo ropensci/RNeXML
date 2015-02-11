@@ -9,7 +9,6 @@ load("~/github/ropensci/RNeXML_testfiles/nexml_files.rda")
 
 context("nexml files parse correctly")
 test_that("nexml files parse correctly", {
-  library(RNeXML)
   expect_is(nexml_read(nexml_files[[1]]), "multiPhylo")
   expect_is(nexml_read(nexml_files[[2]]), "phylo")
   expect_is(nexml_read(nexml_files[[3]]), "list")

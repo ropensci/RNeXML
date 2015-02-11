@@ -12,7 +12,6 @@ mtree <- sim.history(tree, Q)
 cols <- c("red", "blue", "green")
 names(cols) <- rownames(Q)
 
-library(RNeXML)
 
 test_that("we can coerce an ape::phylo tree with a 
           phytools:simmap extension into nexml", {
