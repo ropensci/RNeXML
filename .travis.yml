@@ -1,5 +1,6 @@
 language: c
 script: "./travis-tool.sh run_tests"
+
 before_script:
 - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
 - chmod 755 ./travis-tool.sh
@@ -14,9 +15,7 @@ before_script:
   subdir="rrdf", build_vignettes=FALSE)' || Rscript -e 'install.packages("rrdf", repos="http://server.carlboettiger.info:5555/R")' 
 - "./travis-tool.sh install_deps"
 - "./travis-tool.sh install_github cboettig/knitcitations"
-
-install:
-    - ./travis-tool.sh github_package jimhester/covr
+- "./travis-tool.sh github_package jimhester/covr"
 
 after_success:
     - Rscript -e 'library(covr);coveralls()'
