@@ -4,6 +4,7 @@
 -->
 
 [![Build Status](https://api.travis-ci.org/ropensci/RNeXML.png)](https://travis-ci.org/ropensci/RNeXML)
+[![Coverage Status](https://coveralls.io/repos/ropensci/RNeXML/badge.svg)](https://coveralls.io/r/ropensci/RNeXML)
 
 RNeXML: The next-generation phylogenetics format comes to R
 =====================================================
