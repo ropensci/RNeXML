@@ -1,12 +1,12 @@
 machine:
   services:
     - docker
-dependencies:
-  cache_directories:
-        - "~/docker"
-  override:
-    - mkdir -p ~/docker
-    - if [ -e ~/docker/container.tar ]; then docker load -i ~/docker/container.tar; else docker pull rocker/ropensci && docker save -o ~/docker/container.tar rocker/ropensci; fi
+#dependencies:
+#  cache_directories:
+#        - "~/docker"
+#  override:
+#   - mkdir -p ~/docker
+#   - if [ -e ~/docker/container.tar ]; then docker load -i ~/docker/container.tar; else docker pull rocker/ropensci && docker save -o ~/docker/container.tar rocker/ropensci; fi
 
 test:
   override:
