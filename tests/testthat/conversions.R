@@ -1,7 +1,6 @@
 ## Note: these tests do not run in the typical test suite process as the file name
 ## doesn't start with "test-"
 
-# library(httr)
 # nms <- c("S100","S1000","S10000","S10001","S10005","S10006","S10007","S10009","S10014","S10018","S10301","S1044","S10500","S10636","S1064","S1073","S10774","S1207","S13135","S1452","S938","S9981","S999")
 # nexml_files <- lapply(nms, function(x) content(GET(sprintf("https://raw.github.com/rvosa/supertreebase/master/data/treebase/%s.xml",x)), as="text"))
 # save(nexml_files, file="~/github/ropensci/RNeXML_testfiles/nexml_files.rda")
@@ -34,7 +33,6 @@ test_that("nexml files parse correctly", {
   expect_is(nexml_read(nexml_files[[23]]), "multiPhylo")
 })
 
-# library(rtreebase)
 # puma <- search_treebase('"Puma"', by="taxon")
 # save(puma, file="~/github/ropensci/RNeXML_testfiles/puma.rda")
 # ursus <- search_treebase('"Ursus"', by="taxon")

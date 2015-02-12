@@ -1,11 +1,9 @@
 context("serializing")
 
-library(XML)
 
 ## More tests at lower-level serializing from S4 to XML in inheritance.R
 
 test_that("We can serialize ape to S4 RNeXML into valid NeXML",{
-  library(ape)
   data(bird.orders)
 
 

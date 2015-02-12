@@ -49,7 +49,6 @@ test_that("We can write amphibia multiphylo to nexml. Two of these phylogenies e
   data(amphibia)
   class(amphibia) <- "multiPhylo"
   runtime <- system.time(nexml_write(amphibia, file="tmp.xml")) # Slow! about 12 minutes
-  library(XML)
 
   expect_true_or_null(nexml_validate("tmp.xml"))
   unlink("tmp.xml") # cleanup

@@ -94,7 +94,6 @@ test_that("We can directly add additional metadata using concatenation notation"
 
 
 test_that("We can add arbitrary metadata", {
-  require(XML)
   rdfa <- '<xhtml:div typeof="foaf:Person" about="http://carlboettiger.info#me">
              <a rel="foaf:account" href="https://twitter.com/cboettig">twitter</a> 
              <a rel="foaf:account" href="https://github.com/cboettig">github</a>

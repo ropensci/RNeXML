@@ -1,5 +1,4 @@
 context("inheritance")
-require(XML)
 
 ## FIXME
 ## Should include expect_that tests, rather than just running without errors.  
