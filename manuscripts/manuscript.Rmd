@@ -31,18 +31,18 @@ address:
     address: | 
       Naturalis Biodiversity Center, Leiden, the Netherlands
 abstract: | 
-      1. NeXML is a powerful and forward-compatible exchange standard
+      1. NeXML is a powerful and extensible exchange standard
       recently proposed to better meet the expanding needs for
-      machine-proof phylogenetic data and metadata sharing. Here we
-      present the RNeXML package, which aims to provide to users of
-      the popular R programming language easy programmatic access to
+      phylogenetic data and metadata sharing. Here we
+      present the RNeXML package, which provides users of
+      the R programming language with easy-to-use tools for 
       reading and writing NeXML documents, including rich metadata, in
       a way that interfaces seamlessly with the extensive library of
       phylogenetic tools already available in the R ecosystem.
 
       2. Wherever possible, we designed RNeXML to map NeXML document
       contents, whose arrangement is influenced by the format's
-      normative XML Schema definition, to their most intuitive or
+      XML Schema definition, to their most intuitive or
       useful representation in R. To make NeXML's powerful facility
       for recording semantically rich machine-readable metadata
       accessible to R users, we designed a functional programming
@@ -133,16 +133,22 @@ A detailed account of how the NeXML standard addresses these and
 other relevant challenges can be found in @Vos_2012. In brief,
 NeXML was designed with the following important properties. First,
 NeXML is defined by a precise grammar that can be programmatically
-**validated**. This ensures that any NeXML file can be expected to be
-parsed and read without errors by any NeXML-compliant software, provided
-the file passes validation. Second, NeXML is **extensible**: a user
+**validated**: meaning that we can verify that a file has followed this
+precise grammar and thus be sure that it can be read (parsed) 
+without errors by any software that uses the NeXML grammar (e.g. RNeXML). 
+Second, NeXML is **extensible**: a user
 can define representations of new, previously unanticipated information
 (as we will illustrate) without violating its defining grammar. Third
-and most importantly, NeXML is **rich in computable semantics**. The
-formal semantics used in NeXML is machine-readable in a predictable
-manner, and also enables machine reasoning about the data and metadata
-(see @Parr2011), especially when metadata attributes and values are
-anchored in appropriately axiomatized ontologies.
+and most importantly, NeXML is rich in **computable semantics**: patterns
+that permit a machine to reason about concepts. Note that
+these semantics are based on logical deduction such as: "all frogs are vertebrates,
+so a query for vertebrates should return all species that are listed as frogs"), 
+rather than heuristic machine learning algorithms.  Such inference requires a
+computer to understand the 'semantic' meaning of a word like 'frog', which
+in must be specified in a kind of dictionary known in informatics research
+as an vocabulary or ontology (see @Parr2011 for a more detailed introduction
+in the context of evolution and biodiversity research).
+
 
 To make the capabilities of NeXML available to R users in an easy-to-use
 form, and to lower the hurdles to adoption of the standard, we present
@@ -176,7 +182,7 @@ to this manuscript. Each of the vignettes can be found at
 ## Representation of NeXML documents in R
 
 Conceptually, a NeXML document has the following components: (1)
-phylogeny topology data, (2) character or trait data in matrix form,
+phylogeny topology and branch length data, (2) character or trait data in matrix form,
 (3) operational taxonomic units (OTUs), and (4) metadata. To represent
 the contents of a NeXML document (currently in memory), `RNeXML` defines
 the `nexml` object type. This type therefore holds phylogenetic trees as
@@ -275,7 +281,7 @@ would write a list of phylogenies to the file.
 
 In addition to trees, the `nexml_write()` method also allows to specify
 character data as another parameter. The following example uses data
-from the comparative phylogenetics R package `geiger` [@Harmon_2008].
+from the comparative phylogenetics R package `geiger` [@Pennell2014].
 
 ```{r, results='hide'}
 library("geiger")
@@ -285,6 +291,8 @@ nexml_write(trees = geospiza$phy,
             file="geospiza.xml")
 ```
 
+Note that the NeXML format is well-suited for incomplete data: for instance,
+here it does not assume the character matrix has data for every tip in the tree.
 
 ## Validating NeXML
 
@@ -345,7 +353,7 @@ matrix and which methods were used to generate it. Metadata can also be
 attached to very specific elements of the data, such as specific traits,
 individual OTUs, nodes, or even edges of the phylogeny.
 
-As described in @Vos_2012,  to encode metadata annotations NeXML uses the
+As described in @Vos_2012, to encode metadata annotations NeXML uses the
 "Resource Description Framework in Annotations" (RDFa) [@W3C_2014]. This
 standard provides for a strict machine-readable format yet enables future
 backwards compatibility with compliant NeXML parsers (and thus `RNeXML`),
@@ -380,27 +388,15 @@ the matching NCBI identifier.
 
 ## Data annotation with custom metadata
 
-The RDFa standard adopted by NeXML (see @Vos_2012) allows for
-arbitrary custom extensions to meet ongoing scientific needs without
-requiring modifications (or "extensions") of the syntax. Specifically,
-every metadata annotation consists of a metadata property and a value
-of the property; the bearer of the property is determined by where the
-annotation appears in the NeXML document (technically, the containing
-element in the XML document model). This structure corresponds directly
-to Resource Description Framework (RDF) subject-predicate-object triples,
-and therefore the only requirement for custom metadata is that they be
-cast as RDF triples.
-
 The `RNeXML` interface described above for built-in metadata annotations
 perform this cast automatically behind the scenes, including mapping
-metadata attributes to terms in requisite common vocabularies (such
-as Dublin Core for "title", "creator", etc.) or ontologies. Giving
+metadata attributes to terms in requisite common vocabularies or ontologies. Giving
 metadata properties (and where applicable, values) as vocabulary or
 ontology terms rather than simple text strings is crucial for allowing
 machines to not only parse but also interpret and potentially reason
-over their semantics. To achieve this benefit for custom metadata
+over their semantics [@Parr2011]. To achieve this benefit for custom metadata
 extensions, the user necessarily needs to handle certain technical
-details from which the `RNeXML` API shields her otherwise, in particular
+details from which the `RNeXML` interface shields her otherwise, in particular
 the globally unique identifiers (normally HTTP URIs) of metadata terms
 and vocabularies. To be consistent with XML terminology, `RNeXML` calls
 vocabulary URIs _namespaces_, and their abbreviations _prefixes_. For
@@ -467,8 +463,8 @@ birds <- add_meta(modified, birds)
 If the prefix used by the metadata property is not among the built-in
 ones (which can be obtained using `get_namespaces()`), it has to be
 provided along with its URI as the `namespaces` parameter. For example,
-the following uses the SKOS vocabulary (which currently is not built-in)
-to add a note to the trees in the `nexml` object:
+the following uses the "[Simple Knowledge Organization System](http://www.w3.org/TR/skos-reference/)" (SKOS) 
+vocabulary to add a note to the trees in the `nexml` object:
 
 ```{r}
 history <- meta(property = "skos:historyNote",
@@ -486,14 +482,15 @@ By virtue of subsetting the S4 `nexml` object, `RNeXML` also offers
 fine control of where a `meta` element is added, for which the package
 vignette on S4 subsetting of `nexml` contains examples.
 
-Because NeXML expresses all metadata using the RDF standard, and
-stores them compliant with RDFa, they can be extracted as an RDF
-graph, queried, analyzed, and mashed up with other RDF data, local or
-on the web, using a wealth of off-the-shelf tools for working with RDF
-(see @W3C_2014 or @Hartig_2012). Examples for these possibilities are
-included in the `RNeXML` SPARQL vignette, and the package also comes with a
-demonstration that can be run from R using the following command:
-`demo("sparql", "RNeXML")`).
+Because NeXML expresses all metadata using the RDF standard, and stores
+them compliant with RDFa, they can be extracted as an RDF graph, queried,
+analyzed, and mashed up with other RDF data, local or on the web, using
+a wealth of off-the-shelf tools for working with RDF (see @W3C_2014
+or @Hartig_2012). Examples for these possibilities are included in the
+`RNeXML` SPARQL vignette (a recursive acronym for SPARQL Protocol and
+RDF Query Language, see http://www.w3.org/TR/rdf-sparql-query/), and
+the package also comes with a demonstration that can be run from R using
+the following command: `demo("sparql", "RNeXML")`).
 
 ## Using metadata to extend the NeXML standard 
 
@@ -555,7 +552,8 @@ metadata properties in a vocabulary, for which the `add_namespace()`
 method can be used to give a URI as an identifier:
 
 ```{r}
-nex <- add_namespaces(c(simmap = "https://github.com/ropensci/RNeXML/tree/master/inst/simmap.md"))
+nex <- add_namespaces(c(simmap = 
+  "https://github.com/ropensci/RNeXML/tree/master/inst/simmap.md"))
 ```
 
 Here the URI does not resolve to a fully machine-readable definition of
@@ -598,11 +596,13 @@ directly from within R that allows data archival to become a step programmed
 into data management scripts. Initially, the method supports the data repository Figshare (http://figshare.com):
 
 ```{r eval = FALSE}
-doi <- nexml_publish(birds, visibility = "public", repository="figshare")
+doi <- nexml_publish(birds, repository="figshare")
 ```
 
-Figshare also supports "private" visibility, allowing to securely backup
-data to a repository and to share them with collaborators prior to public release.
+This method reserves a permanent identifier (DOI) on the figshare
+repository that can later be made public through the figshare web
+interface.  This also acts as a secure backup of the data to a repository
+and a way to share with collaborators prior to public release.
 
 # Conclusions and future directions
 
