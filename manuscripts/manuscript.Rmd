@@ -368,7 +368,8 @@ First, when writing a NeXML file the package adds certain basic metadata
 automatically if they are absent, using default values consistent with
 recommended best practices [@Cranston_2014]. Currently, this includes
 naming the software generating the NeXML, a time-stamp of when a tree
-was produced, and an open data license.
+was produced, and an open data license. These are merely default arguments
+to `add_basic_meta()` and can be configured.
 
 Second, `RNeXML` provides a simple method, called `add_basic_metadata()`,
 to set metadata attributes commonly recommended for inclusion with data
@@ -388,15 +389,22 @@ the matching NCBI identifier.
 
 ## Data annotation with custom metadata
 
-The `RNeXML` interface described above for built-in metadata annotations
-perform this cast automatically behind the scenes, including mapping
-metadata attributes to terms in requisite common vocabularies or ontologies. Giving
-metadata properties (and where applicable, values) as vocabulary or
-ontology terms rather than simple text strings is crucial for allowing
+The `RNeXML` interface described above for built-in metadata allows
+users to create precise and semantically rich annotations without 
+confronting any of the complexity of namespaces and ontologies.
+Nevertheless, advanced users may desire the explicit control over
+these semantic tools that takes full advantage of the flexibility
+and extensibility of the NeXML specification [@Vos2012; @Parr2011].
+In this section we detail how to accomplish these more complex uses
+in RNeXML.
+
+
+Using a vocabulary or ontology terms rather than simple text strings to 
+describe data is crucial for allowing
 machines to not only parse but also interpret and potentially reason
-over their semantics [@Parr2011]. To achieve this benefit for custom metadata
+over their semantics. To achieve this benefit for custom metadata
 extensions, the user necessarily needs to handle certain technical
-details from which the `RNeXML` interface shields her otherwise, in particular
+details from which the `RNeXML` interface shields her otherwise: in particular
 the globally unique identifiers (normally HTTP URIs) of metadata terms
 and vocabularies. To be consistent with XML terminology, `RNeXML` calls
 vocabulary URIs _namespaces_, and their abbreviations _prefixes_. For
@@ -508,46 +516,26 @@ to time) of each branch in a time-calibrated phylogeny to a particular
 de-facto format for sharing stochastic character maps, created by
 `simmap` [@Bollback_2006], a widely used tool for creating such maps,
 is a non-interoperable modification of the standard Newick tree format.
+This means that computer programs designed to read Newick or NEXUS formats
+may fail when trying to read in a phylogeny that includes `simmap` annotations.
 
-To express these data as a custom metadata extension, we create metadata
-annotations for the `edge` elements in the phylogeny topology. The
-metadata need to describe the character state being assigned, and
-the duration (in terms of branch length) that the edge spends in
-that state. The `NeXML` standard already defines `state` elements for
-discrete character traits, which, as most elements in NeXML, also have
-unique identifiers by which they can be referenced.
+NEXML's extensibility avoids this problem.  In NeXML, it is perfectly
+possible to add very complex annotations while maintaining a format that
+is valid NeXML syntax which can be read by any NeXML parser. To illustrate
+how RNeXML facilitates extending the NeXML standard to accommodate such 
+complex annotations, we have implemented two functions in the package,
+`nexml_to_simmap` and `simmap_to_nexml`.  These functions illustrate
+how simmap data can be represented as `meta` annotations on the branch
+length elements of a NeXML tree, and provide routines to convert between
+this NeXML representation and the extended `ape::phylo` representation
+of a `simmap` tree in R that was introduced by @Revell_2012. We encourage
+readers to consult the example code in `simmap_to_nexml` to see how
+this is implemented.
 
-In the following
-proposal, we term each series of character state assignments for an
-edge a _reconstruction_, and for each state assignment comprising a
-reconstruction, we provide the length, the identifier of the character
-state, and an ordinal property to record the chronological order of
-the assignment. In this manner, a single edge containing one
-state change could be annotated as follows.
-(the identifier values in the proposal, "cr1", "s1", and
-"s2", are identifiers local to a  -- fictitious -- NeXML document,
-based on the example simmap tree illustrated in @Revell_2012):
-
-
-```{r}
- m <- meta("simmap:reconstructions", children = c(
-        meta("simmap:reconstruction", children = c(
-
-          meta("simmap:char", "cr1"),
-          meta("simmap:stateChange", children = c(
-            meta("simmap:order", 1),
-            meta("simmap:length", "0.2030"),
-            meta("simmap:state", "s2"))),
-          
-          meta("simmap:char", "cr1"),
-          meta("simmap:stateChange", children = c(
-            meta("simmap:order", 2),
-            meta("simmap:length", "0.0022"),
-            meta("simmap:state", "s1")))
-          ))))
-```
-
-The example uses a prefix, `simmap`, to group the newly introduced
+Extensions to NeXML must also be defined in the file's namespace 
+in order to valid.  This provides a way to ensure that a URI providing
+documentation of the extension is always included.  Our examples here
+use the prefix, `simmap`, to group the newly introduced
 metadata properties in a vocabulary, for which the `add_namespace()`
 method can be used to give a URI as an identifier:
 
@@ -560,22 +548,6 @@ Here the URI does not resolve to a fully machine-readable definition of
 the terms and their semantics, but it can nonetheless be used to provide
 at least a human-readable informal definition of the terms.
 
-Because the above representation does not modify the NeXML format,
-it should be readable -- even if not necessarily interpretable as
-a stochastic character mapping -- by any compliant NeXML parser. In
-addition, it includes a direct and machine-readable link to metadata
-documentation.
-
-Writing out metadata annotations as in the above proposal may seem
-tedious. However, by virtue of `RNeXML`'s API it is straightforward to
-define functions that encapsulate these details. As a demonstration,
-`RNeXML` comes with functions `simmap_to_nexml()` and `nexml_to_simmap()`
-that map bidirectionally between NeXML files with `simmap` metadata
-according to the above proposal, and the extension of the `ape::phylo`
-class devised by @Revell_2012 in the R package `phytools`. The `RNeXML`
-simmap vignette illustrates how this allows seamlessly generating and
-reading NeXML files containing `simmap` data, and using the various
-functions from `phytools` designed for `simmap` objects [@Revell_2012].
 
 ## Publishing NeXML files from R
 
