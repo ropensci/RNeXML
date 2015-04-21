@@ -231,7 +231,7 @@ invoked is recognized as a URL, the method will automatically download
 the document to the local working directory and read it from there. This
 gives convenient and rapid access to phylogenetic data published in
 NeXML format on the web, such as the content of the phylogenetic data
-repository TreeBASE [@Piel_2002]. For example, the following plots a
+repository TreeBASE [@Piel_2002; @Piel_2009]. For example, the following plots a
 tree in TreeBASE (using ape's plot function):
 
 ```{r eval=FALSE, fig.show="hide"}
