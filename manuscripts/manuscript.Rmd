@@ -147,7 +147,7 @@ designed for expressing metadata such that machines can understand
 their meaning and make inferences from it. For example, OTUs in a tree
 or character matrix for frog species can be linked to concepts in a
 formally defined hierarchy of taxonomic concepts such as the
-Vertebrate Taxonomy Ontology [@Midford_2014], which enables a machine
+Vertebrate Taxonomy Ontology [@Midford2013], which enables a machine
 to infer that a query for amphibia is to include the frog data in what
 is returned. (For a more broader discussion of the value of such
 capabilities for evolutionary and biodiversity science we refer the
