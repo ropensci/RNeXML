@@ -394,7 +394,7 @@ users to create precise and semantically rich annotations without
 confronting any of the complexity of namespaces and ontologies.
 Nevertheless, advanced users may desire the explicit control over
 these semantic tools that takes full advantage of the flexibility
-and extensibility of the NeXML specification [@Vos2012; @Parr2011].
+and extensibility of the NeXML specification [@Vos_2012; @Parr2011].
 In this section we detail how to accomplish these more complex uses
 in RNeXML.
 
@@ -597,7 +597,7 @@ reasonable defaults.
 
 The goals for continued development of `RNeXML` revolve primarily
 around better interoperability with other existing phylogenetic data
-representations in R, such those found in the `phylobase` package
+representations in R, such as those found in the `phylobase` package
 [@phylobase]; and better integration of the rich metadata semantics
 found in ontologies defined in the Web Ontology Language (OWL),
 including programmatic access to machine reasoning with such metadata.
