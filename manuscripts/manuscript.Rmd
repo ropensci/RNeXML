@@ -21,7 +21,7 @@ address:
       Department of Applied Math and Statistics, 
       University of California, Mail Stop SOE-2,
       Santa Cruz, CA 95064, USA
-  - code: NESCent
+  - code: dukeplus
     address: | 
       Center for Genomic and Computational Biology, Duke University, Durham, NC, USA
       and 
