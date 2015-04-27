@@ -13,7 +13,7 @@ author:
   - name: Rutger Vos
     affiliation: NBC
   - name: Hilmar Lapp
-    affiliation: NESCent
+    affiliation: dukeplus
 address: 
   - code: cstar
     address: | 
@@ -23,6 +23,8 @@ address:
       Santa Cruz, CA 95064, USA
   - code: NESCent
     address: | 
+      Center for Genomic and Computational Biology, Duke University, Durham, NC, USA
+      and 
       National Evolutionary Synthesis Center and Duke University, Durham, NC, USA
   - code: ropensci
     address: |
@@ -133,21 +135,23 @@ A detailed account of how the NeXML standard addresses these and
 other relevant challenges can be found in @Vos_2012. In brief,
 NeXML was designed with the following important properties. First,
 NeXML is defined by a precise grammar that can be programmatically
-**validated**: meaning that we can verify that a file has followed this
-precise grammar and thus be sure that it can be read (parsed) 
-without errors by any software that uses the NeXML grammar (e.g. RNeXML). 
+**validated**; i.e., it can be verified whether a file precisely
+follows this grammar, and therefore whether it can be read (parsed) 
+without errors by software that uses the NeXML grammar (e.g. RNeXML)
+is predictable. 
 Second, NeXML is **extensible**: a user
 can define representations of new, previously unanticipated information
 (as we will illustrate) without violating its defining grammar. Third
-and most importantly, NeXML is rich in **computable semantics**: patterns
-that permit a machine to reason about concepts. Note that
-these semantics are based on logical deduction such as: "all frogs are vertebrates,
-so a query for vertebrates should return all species that are listed as frogs"), 
-rather than heuristic machine learning algorithms.  Such inference requires a
-computer to understand the 'semantic' meaning of a word like 'frog', which
-in must be specified in a kind of dictionary known in informatics research
-as an vocabulary or ontology (see @Parr2011 for a more detailed introduction
-in the context of evolution and biodiversity research).
+and most importantly, NeXML is rich in **computable semantics**: it is
+designed for expressing metadata such that machines can understand
+their meaning and make inferences from it. For example, OTUs in a tree
+or character matrix for frog species can be linked to concepts in a
+formally defined hierarchy of taxonomic concepts such as the
+Vertebrate Taxonomy Ontology [@Midford2013], which enables a machine
+to infer that a query for amphibia is to include the frog data in what
+is returned. (For a more broader discussion of the value of such
+capabilities for evolutionary and biodiversity science we refer the
+reader to @Parr2011.)
 
 
 To make the capabilities of NeXML available to R users in an easy-to-use
@@ -231,7 +235,7 @@ invoked is recognized as a URL, the method will automatically download
 the document to the local working directory and read it from there. This
 gives convenient and rapid access to phylogenetic data published in
 NeXML format on the web, such as the content of the phylogenetic data
-repository TreeBASE [@Piel_2002]. For example, the following plots a
+repository TreeBASE [@Piel_2002; @Piel_2009]. For example, the following plots a
 tree in TreeBASE (using ape's plot function):
 
 ```{r eval=FALSE, fig.show="hide"}
@@ -404,7 +408,7 @@ describe data is crucial for allowing
 machines to not only parse but also interpret and potentially reason
 over their semantics. To achieve this benefit for custom metadata
 extensions, the user necessarily needs to handle certain technical
-details from which the `RNeXML` interface shields her otherwise: in particular
+details from which the `RNeXML` interface shields her otherwise, in particular
 the globally unique identifiers (normally HTTP URIs) of metadata terms
 and vocabularies. To be consistent with XML terminology, `RNeXML` calls
 vocabulary URIs _namespaces_, and their abbreviations _prefixes_. For
@@ -519,18 +523,18 @@ is a non-interoperable modification of the standard Newick tree format.
 This means that computer programs designed to read Newick or NEXUS formats
 may fail when trying to read in a phylogeny that includes `simmap` annotations.
 
-NEXML's extensibility avoids this problem.  In NeXML, it is perfectly
-possible to add very complex annotations while maintaining a format that
-is valid NeXML syntax which can be read by any NeXML parser. To illustrate
-how RNeXML facilitates extending the NeXML standard to accommodate such 
-complex annotations, we have implemented two functions in the package,
-`nexml_to_simmap` and `simmap_to_nexml`.  These functions illustrate
+In contrast, by allowing new data types to be added as --- sometimes
+complex --- metadata annotations NeXML can accommodate data extensions
+without compromise to its grammar and thus syntax In NeXML. To illustrate
+how RNeXML facilitates extending the NeXML standard in this way, we
+have implemented two functions in the package, `nexml_to_simmap` and
+`simmap_to_nexml`.  These functions show
 how simmap data can be represented as `meta` annotations on the branch
 length elements of a NeXML tree, and provide routines to convert between
 this NeXML representation and the extended `ape::phylo` representation
 of a `simmap` tree in R that was introduced by @Revell_2012. We encourage
-readers to consult the example code in `simmap_to_nexml` to see how
-this is implemented.
+readers interested in this capability to consult the example code in
+`simmap_to_nexml` to see how this is implemented. 
 
 Extensions to NeXML must also be defined in the file's namespace 
 in order to valid.  This provides a way to ensure that a URI providing
