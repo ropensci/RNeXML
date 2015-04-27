@@ -21,17 +21,17 @@ address:
       Department of Applied Math and Statistics, 
       University of California, Mail Stop SOE-2,
       Santa Cruz, CA 95064, USA
-  - code: dukeplus
-    address: | 
-      Center for Genomic and Computational Biology, Duke University, Durham, NC, USA
-      and 
-      National Evolutionary Synthesis Center and Duke University, Durham, NC, USA
   - code: ropensci
     address: |
       University of California, Berkeley, CA, USA
   - code: NBC
     address: | 
       Naturalis Biodiversity Center, Leiden, the Netherlands
+  - code: dukeplus
+    address: | 
+      Center for Genomic and Computational Biology, Duke University,
+      and 
+      National Evolutionary Synthesis Center, Durham, NC, USA
 abstract: | 
       1. NeXML is a powerful and extensible exchange standard
       recently proposed to better meet the expanding needs for
