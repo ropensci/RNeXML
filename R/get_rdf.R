@@ -23,11 +23,6 @@
 #' }
 get_rdf <- function(file){
 
-  success <- require("Sxslt", , 
-                     character.only = TRUE, 
-                     quietly = TRUE) # Wait until package is available on CRAN to formally depend on it.  
-
-  if(success){
     if(is(file, "nexml")){
       who <- tempfile()
       nexml_write(x=file, file=who)
@@ -35,9 +30,7 @@ get_rdf <- function(file){
     }
     to_rdf <- system.file("examples", "RDFa2RDFXML.xsl", package="RNeXML")
     rdf <- Sxslt::xsltApplyStyleSheet(file, to_rdf)
-  } else {
-    warning("Package Sxslt not available, please install it from www.omegahat.org") 
-  }
+
   rdf  
 }
 

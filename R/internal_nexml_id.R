@@ -8,17 +8,7 @@ nexml_env = new.env(hash=TRUE)
 nexml_id <- function(prefix = "",
                      use_uuid = getOption("uuid", FALSE)){
   if(use_uuid){
-#    success <- require(uuid)
-#    if(success)
       uid <- paste0("uuid-", UUIDgenerate())
-#    else {
-#      install.packages("uuid")
-#      success <- require(uuid)
-#      if(success)
-#        uid <- uuid::UUIDgenerate()
-#      else
-#        stop("Cannot generate uuid, please provide a prefix")
-#    }
   } else {
     if((prefix %in% ls(envir=nexml_env)))
       id_counter <- get(prefix, envir=nexml_env)

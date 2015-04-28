@@ -49,14 +49,14 @@ nexml_figshare <- function(nexml,
 
   visibility = match.arg(visibility)
 
-  success <- require(rfigshare)
-  if(!success){
-    message("rfigshare package not found. Attempting to install")
-    install.packages("rfigshare")
-    success <- require(rfigshare)
-     if(!success)  
-      stop("The rfigshare package must be installed to publish data to figshare")
-  }
+#  success <- require(rfigshare)
+#  if(!success){
+#    message("rfigshare package not found. Attempting to install")
+#    install.packages("rfigshare")
+#    success <- require(rfigshare)
+#     if(!success)  
+#      stop("The rfigshare package must be installed to publish data to figshare")
+#  }
 
 
 
