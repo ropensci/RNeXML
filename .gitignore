@@ -7,7 +7,6 @@ vignettes/figure
 vignettes/*.md
 vignettes/*.pdf
 vignettes/*.html
-inst/doc
 .Rproj.user
 *.Rproj
 */*.Rhistory
