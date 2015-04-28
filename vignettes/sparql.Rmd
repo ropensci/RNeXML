@@ -54,9 +54,10 @@ so we start by loading that package.  We will also make use of functions
 from `phytools` and `RNeXML`.  
 
 ```{r}
-library(rrdf)
-library(phytools)
-library(RNeXML)
+library("rrdf")
+library("XML")
+library("phytools")
+library("RNeXML")
 ```
 
 We read in an example file that contains semantic metadata annotations
