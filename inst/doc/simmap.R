@@ -43,3 +43,6 @@ plotSimmap(phy)
 nex <- simmap_to_nexml(phy) 
 nexml_write(nex, "simmap.xml")
 
+## ----cleanup, include=FALSE----------------------------------------------
+unlink("simmap.xml")
+

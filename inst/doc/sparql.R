@@ -9,6 +9,9 @@ opts_chunk$set(fig.path = paste("figure/", basename, "-", sep=""),
 
 
 
+## ----include=FALSE-------------------------------------------------------
+library("RNeXML")
+
 ## ------------------------------------------------------------------------
 library("rrdf")
 library("XML")
