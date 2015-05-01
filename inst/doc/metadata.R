@@ -2,15 +2,12 @@
 library("methods")
 library("knitr")
 opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE, 
-               cache = 1, comment = NA, verbose = TRUE)
+               cache = FALSE, comment = NA, verbose = TRUE)
 basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile')) 
-opts_chunk$set(fig.path = paste("figure/", basename, "-", sep=""),
-               cache.path = paste("cache/", basename, "/", sep=""))
 
 
 ## ------------------------------------------------------------------------
 library('RNeXML')
-library('geiger')
 data(bird.orders)
 
 ## ------------------------------------------------------------------------
@@ -38,10 +35,6 @@ birds <- add_basic_meta(
 
 ## ------------------------------------------------------------------------
 birds <- add_basic_meta(citation = citation("ape"), nexml = birds)
-
-## ------------------------------------------------------------------------
-library("knitcitations")
-geiger_nex <- add_basic_meta(citation = bib_metadata("10.2307/2408428"))
 
 ## ----message=FALSE, results='hide'---------------------------------------
 birds <- taxize_nexml(birds, "NCBI")

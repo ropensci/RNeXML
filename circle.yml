@@ -1,16 +1,9 @@
 machine:
   services:
     - docker
-#dependencies:
-#  cache_directories:
-#        - "~/docker"
-#  override:
-#   - mkdir -p ~/docker
-#   - if [ -e ~/docker/container.tar ]; then docker load -i ~/docker/container.tar; else docker pull rocker/ropensci && docker save -o ~/docker/container.tar rocker/ropensci; fi
-
 test:
   override:
     - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "devtools::check()"
-      #    - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "rmarkdown::render('manuscripts/manuscript.Rmd')"
-    - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "covr::coveralls(service_name = 'circleci', service_job_id = Sys.getenv('CIRCLE_NODE_INDEX'))"
+    - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "rmarkdown::render('manuscripts/manuscript.Rmd')"
+      # - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "covr::coveralls(service_name = 'circleci', service_job_id = Sys.getenv('CIRCLE_NODE_INDEX'))"
 

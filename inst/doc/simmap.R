@@ -2,10 +2,8 @@
 library("methods")
 library("knitr")
 opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE, 
-               cache = 1, comment = NA, verbose = TRUE)
+               cache = FALSE, comment = NA, verbose = TRUE)
 basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile')) 
-opts_chunk$set(fig.path = paste("figure/", basename, "-", sep=""),
-               cache.path = paste("cache/", basename, "/", sep=""))
 library("RNeXML")
 
 
