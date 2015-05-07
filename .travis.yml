@@ -14,7 +14,7 @@ before_script:
   subdir="rrdflibs", build_vignettes=FALSE); devtools::install_github("egonw/rrdf",
   subdir="rrdf", build_vignettes=FALSE)' || Rscript -e 'install.packages("rrdf", repos="http://server.carlboettiger.info:5555/R")' 
 - "./travis-tool.sh install_deps"
-- "./travis-tool.sh install_github cboettig/knitcitations"
+- "./travis-tool.sh install_github cboettig/knitcitations hadley/testthat"
 - "./travis-tool.sh github_package jimhester/covr"
 
 after_success:
