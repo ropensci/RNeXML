@@ -3,7 +3,9 @@ machine:
     - docker
 test:
   override:
-    - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "devtools::check()"
     - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "rmarkdown::render('manuscripts/manuscript.Rmd')"
-      # - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "covr::coveralls(service_name = 'circleci', service_job_id = Sys.getenv('CIRCLE_NODE_INDEX'))"
+
+## No need to run tests or coverage, these are done by travis
+    # - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "devtools::install_github('hadley/testthat'); devtools::check()"
+    # - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "covr::coveralls(service_name = 'circleci', service_job_id = Sys.getenv('CIRCLE_NODE_INDEX'))"
 
