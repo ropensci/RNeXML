@@ -1,7 +1,7 @@
 Package: RNeXML
 Type: Package
 Title: Semantically Rich I/O for the 'NeXML' Format
-Version: 2.0.2
+Version: 2.0.3
 Authors@R: c(person("Carl", "Boettiger", role = c("cre", "aut"),
     email="cboettig@gmail.com"), person("Scott", "Chamberlain", role =
     "aut"), person("Hilmar", "Lapp", role = "aut"), person("Kseniia",
@@ -23,7 +23,7 @@ Suggests:
     knitr (>= 1.5),
     rfigshare (>= 0.3.0),
     knitcitations (>= 1.0.1),
-    testthat (>= 0.8.1),
+    testthat (>= 0.10.0),
     phylobase (>= 0.6.8),
     rmarkdown (>= 0.3.3),
     Sxslt (>= 0.91)

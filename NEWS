@@ -27,6 +27,10 @@ And constructed with the following guidelines:
 
 For more information on SemVer, please visit http://semver.org/.
 
+v2.0.3
+------
+
+- Upgrade tests to be compatible with newest testthat (0.10.0), bumps testthat dependency version up (#119) thanks @hadley
 
 v2.0.2
 ------
