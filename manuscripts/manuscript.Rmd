@@ -614,8 +614,17 @@ National Science Foundation (DBI-1306697) and the Alfred P Sloan
 Foundation (Grant 2013-6-22). `RNeXML` started as a project idea for
 the Google Summer of Code(TM), and we thank Kseniia Shumelchyk for taking
 the first steps to implement it. We are grateful to F. Michonneau for
-helpful comments on an earlier version of this manuscript.
+helpful comments on an earlier version of this manuscript, and reviews
+by Matthew Pennell, Associate Editor Richard FitzJohn, and an anonymous
+reviewer. At their behest, the reviews of FitzJohn and Pennell can be found in this
+project's GitHub page at [github.com/ropensci/RNeXML/issues/120](https://github.com/ropensci/RNeXML/issues/121) and [github.com/ropensci/RNeXML/issues/120](https://github.com/ropensci/RNeXML/issues/120), together with our replies and a record of our revisions.
 
+## Data Accessibility
+
+All software, scripts and data used in this paper can be found in the permanent 
+data archive Zenodo under the digital object identifier
+ doi:10.5281/zenodo.13131 [@zenodo]. This DOI corresponds to a snapshot of the GitHub repository
+at [github.com/ropensci/RNeXML](https://github.com/ropensci/RNeXML).
 
 
 ```{r cleanup, include=FALSE, cache=FALSE}
