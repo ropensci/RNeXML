@@ -21,13 +21,13 @@ get_characters_list <- function(nexml, rownames_as_col=FALSE){
 
     # Make numeric data class numeric, discrete data class discrete
     type <- slot(characters, 'xsi:type') # check without namespace?
-    if(type == "nex:ContinuousCells"){
+    if (grepl("ContinuousCells", type)) {
       dat <- extract_character_matrix(characters@matrix)
       dat <- otu_to_label(dat, maps[[characters@otus]])
       dat <- character_to_label(dat, characters@format)
       for(i in length(dat)) ## FIXME something more elegant, no?
         dat[[i]] <- as.numeric(dat[[i]])
-    } else if(type == "nex:StandardCells"){
+    } else if (grepl("StandardCells", type)) {
       dat <- extract_character_matrix(characters@matrix)
       dat <- state_to_symbol(dat, characters@format)
       dat <- otu_to_label(dat, maps[[characters@otus]])
@@ -207,10 +207,11 @@ map_states_to_symbols <- function(states){
 #' @import reshape2
 extract_character_matrix <- function(matrix){ 
   otu <- sapply(matrix@row, function(row) row@otu)
-  charnames <- unname(sapply(matrix@row[[1]]@cell, function(cell) cell@char))
+  # charnames <- unname(sapply(matrix@row[[1]]@cell, function(cell) cell@char))
   names(matrix@row) <- otu
-  mat <- lapply(matrix@row, function(row){ 
-    names(row@cell) <- charnames 
+  mat <- lapply(matrix@row, function(row){
+    names(row@cell) <- unname(sapply(row@cell, function(b) b@char))
+    # names(row@cell) <- charnames
     lapply(row@cell, function(cell) cell@state)
   })
   mat <- melt(mat)
