@@ -574,11 +574,13 @@ nexml_namespaces <-
     "cdao"  = "http://purl.obolibrary.org/obo/cdao.owl",
     "xsd"   = "http://www.w3.org/2001/XMLSchema#",
     "dc"    = "http://purl.org/dc/elements/1.1/",
-  "dcterms" = "http://purl.org/dc/terms/",
+    "dcterms" = "http://purl.org/dc/terms/",
+    "ter" = "http://purl.org/dc/terms/",
     "prism" = "http://prismstandard.org/namespaces/1.2/basic/",
     "cc"    = "http://creativecommons.org/ns#",
     "ncbi"  = "http://www.ncbi.nlm.nih.gov/taxonomy#",
-    "tc"    = "http://rs.tdwg.org/ontology/voc/TaxonConcept#")
+    "tc"    = "http://rs.tdwg.org/ontology/voc/TaxonConcept#",
+    "ns"    = "http://www.nexml.org/2009")
 
 
 setClass("nexml", 

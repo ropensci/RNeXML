@@ -21,14 +21,13 @@ get_characters_list <- function(nexml, rownames_as_col=FALSE){
 
     # Make numeric data class numeric, discrete data class discrete
     type <- slot(characters, 'xsi:type') # check without namespace?
-    if(type == "ns:ContinuousCells" || type == "nex:ContinuousCells"){
+    if (grepl("ContinuousCells", type)) {
       dat <- extract_character_matrix(characters@matrix)
       dat <- otu_to_label(dat, maps[[characters@otus]])
       dat <- character_to_label(dat, characters@format)
       for(i in length(dat)) ## FIXME something more elegant, no?
         dat[[i]] <- as.numeric(dat[[i]])
-    } else if(type == "nex:StandardCells" || type == "ns:StandardCells"){
-    # } else if(type == "ns:StandardCells"){
+    } else if (grepl("StandardCells", type)) {
       dat <- extract_character_matrix(characters@matrix)
       dat <- state_to_symbol(dat, characters@format)
       dat <- otu_to_label(dat, maps[[characters@otus]])
