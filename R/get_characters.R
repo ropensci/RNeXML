@@ -182,11 +182,11 @@ map_state_to_symbol <- function(format){
       names(states) <- ids
       # Get the relevant states set matching the current character 
       map_states_to_symbols( states[[char@states]] )
-    }) 
+    })  
     names(map) <- name_by_id(format@char)
     map
 }
-## Subroutine of the map_state_to_symbol function above 
+## Subroutine of the map_state_to_symbol function above  
 map_states_to_symbols <- function(states){
   map <- sapply(states@state,
                 function(state){
