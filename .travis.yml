@@ -10,7 +10,7 @@ before_script:
 - "./travis-tool.sh install_r_binary geiger phytools knitr testthat rfigshare ape
   plyr taxize reshape2 httr rjava"
 - "./travis-tool.sh install_github cboettig/Sxslt"
-  # - Rscript -e 'options("repos"="http://cran.rstudio.com"); devtools::install_github("egonw/rrdf", subdir="rrdflibs", build_vignettes=FALSE); devtools::install_github("egonw/rrdf", subdir="rrdf", build_vignettes=FALSE)' || Rscript -e 'install.packages("rrdf", repos="http://server.carlboettiger.info:5555/R")' 
+   - Rscript -e 'options("repos"="http://cran.rstudio.com"); devtools::install_github("egonw/rrdf", subdir="rrdflibs", build_vignettes=FALSE); devtools::install_github("egonw/rrdf", subdir="rrdf", build_vignettes=FALSE)' || Rscript -e 'install.packages("rrdf", repos="http://server.carlboettiger.info:5555/R")' 
 - "./travis-tool.sh install_deps"
 - "./travis-tool.sh install_github cboettig/knitcitations hadley/testthat"
 - "./travis-tool.sh github_package jimhester/covr"
@@ -26,6 +26,6 @@ notifications:
     secure: Zk8ZqDoTGaT4s2OzKmpT3dc/Wk6Q8guOE+PVSDh1hPndxTViwkw5Tded5czsT1ZRthM0w38Zqebmk+pqtECJWOHnyQXd/Jyc8prwlrjf6bcVXtcwpMUdfHle5s/L5qoej4EAo6UC2Who63sv2vG1Dw+qzZiTAKXcu9Exd8w3kuA=
 env:
   global:
-  - R_BUILD_ARGS="--no-manual"
-  - R_CHECK_ARGS="--as-cran --no-manual"
+    - R_BUILD_ARGS="--no-manual --no-build-vignettes"
+  - R_CHECK_ARGS="--as-cran --no-manual --no-build-vignettes"
   - BOOTSTRAP_LATEX=""
