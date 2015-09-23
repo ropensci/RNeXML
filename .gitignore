@@ -1,5 +1,7 @@
 manuscripts/components/cache
 manuscripts/components/figure
+vignettes/cache
+vignettes/figure
 cran-comments.md
 .Rproj.user
 */*.Rhistory
