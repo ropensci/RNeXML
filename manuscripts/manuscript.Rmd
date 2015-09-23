@@ -5,7 +5,7 @@ linenumbers: true
 title: "RNeXML: a package for reading and writing richly annotated phylogenetic, character, and trait data in R"
 author: 
   - name: Carl Boettiger
-    affiliation: cstar
+    affiliation: ucb
     email: cboettig(at)gmail.com
     footnote: Corresponding author
   - name: Scott Chamberlain
@@ -15,12 +15,11 @@ author:
   - name: Hilmar Lapp
     affiliation: dukeplus
 address: 
-  - code: cstar
-    address: | 
-      Center for Stock Assessment Research, 
-      Department of Applied Math and Statistics, 
-      University of California, Mail Stop SOE-2,
-      Santa Cruz, CA 95064, USA
+  - code: ucb 
+    address: |
+      University of California, Berkeley,
+      130 Mulford Hall \#3114,
+      Berkeley, CA 94720-3114, USA 
   - code: ropensci
     address: |
       University of California, Berkeley, CA, USA
