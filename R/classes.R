@@ -579,8 +579,7 @@ nexml_namespaces <-
     "prism" = "http://prismstandard.org/namespaces/1.2/basic/",
     "cc"    = "http://creativecommons.org/ns#",
     "ncbi"  = "http://www.ncbi.nlm.nih.gov/taxonomy#",
-    "tc"    = "http://rs.tdwg.org/ontology/voc/TaxonConcept#",
-    "ns"    = "http://www.nexml.org/2009")
+    "tc"    = "http://rs.tdwg.org/ontology/voc/TaxonConcept#")
 
 
 setClass("nexml", 
