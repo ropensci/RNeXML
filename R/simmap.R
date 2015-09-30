@@ -25,6 +25,10 @@
 simmap_to_nexml <- function(phy, state_ids = NULL){
 
   
+  ## Hack to deal with S3 class issues when coercing to S4
+  if(class(phy) == c("simmap", "phylo"))
+    class(phy) <- "phylo"
+  
   ## Create the NeXML object
   nexml <- as(phy, "nexml")
 
