@@ -1,6 +1,9 @@
 context("publish")
 
-
+if(0){  # skip publishing tests.  These were all still passing at last check, but rfigshare configuration for testing is not ideal.  
+  
+  
+  
 # This loads the rOpenSci figshare sandbox credentials, so that the example 
 # can run automatically during check and install.  Unlike normal figshare accounts,
 # data loaded to this testing sandbox is periodically purged.  
@@ -58,6 +61,8 @@ if(is(status, "try-error") || (is(status, "response") && status$status_code != 2
   })
 
 
+
+}
 
 }
 
