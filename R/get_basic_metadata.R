@@ -13,7 +13,7 @@
 get_citation <- function(nexml){
   b <- setxpath(as(nexml, "XMLInternalElementNode"))
 ## FIXME should return a citation class nexml! 
-  cat(unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dcterms:bibliographicCitation']/@content", namespaces = nexml_namespaces)))
+  cat(unname(xpathSApply(b, "/nexml/meta[@property='dcterms:bibliographicCitation']/@content", namespaces = nexml_namespaces)))
 }
 
 #' get_license
@@ -25,8 +25,8 @@ get_citation <- function(nexml){
 get_license <- 
   function(nexml){
     b <- setxpath(as(nexml, "XMLInternalElementNode"))
-    dc_rights <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@property='dc:rights']/@content", namespaces = nexml_namespaces))
-    cc_license <- unname(xpathSApply(b, "/nex:nexml/nex:meta[@rel='cc:license']/@href", namespaces = nexml_namespaces))
+    dc_rights <- unname(xpathSApply(b, "/nexml/meta[@property='dc:rights']/@content", namespaces = nexml_namespaces))
+    cc_license <- unname(xpathSApply(b, "/nexml/meta[@rel='cc:license']/@href", namespaces = nexml_namespaces))
   if(length(dc_rights) > 0)
     dc_rights
   else

@@ -21,9 +21,8 @@ setMethod("toNeXML",
           function(object, parent){
             type <- slot(object, "xsi:type")
             if(length(type) > 0){
-## FIXME Don't assume type should be `nex:` namespaced
-              if(is.na(pmatch("nex:", type)))
-                type <- paste0("nex:", type)
+              #if(is.na(pmatch("nex:", type)))  # nex or relevant namespace should come from default anyway
+              #  type <- paste0("nex:", type)
               addAttributes(parent, 
                            "xsi:type" = type,  
                             suppressNamespaceWarning=TRUE) # We always define xsi namespace in the header... 
@@ -152,10 +151,7 @@ setAs("XMLInternalElementNode", "meta", function(from){
 
 setAs("meta", "XMLInternalElementNode", function(from){
       if(length( slot(from, "xsi:type") ) > 0 ){
-        if(slot(from, "xsi:type") %in% c("LiteralMeta", 
-                                         "ResourceMeta",
-                                         "nex:LiteralMeta", 
-                                         "nex:ResourceMeta"))
+        if(grepl("LiteralMeta|ResourceMeta", slot(from, "xsi:type")))
           m <- as(from, slot(from, "xsi:type"))
         }
       else
@@ -658,10 +654,10 @@ setMethod("toNeXML",
             parent
           })
 setAs("nexml", "XMLInternalNode",
-      function(from) suppressWarnings(toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces))))
+      function(from) suppressWarnings(toNeXML(from, newXMLNode("nexml", namespaceDefinitions = from@namespaces))))
 
 setAs("nexml", "XMLInternalElementNode",
-      function(from) suppressWarnings(toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces))))
+      function(from) suppressWarnings(toNeXML(from, newXMLNode("nexml", namespaceDefinitions = from@namespaces))))
 setAs("XMLInternalElementNode", "nexml",
       function(from) fromNeXML(new("nexml"), from))
 

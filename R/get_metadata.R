@@ -17,9 +17,9 @@
 get_metadata <-  function(nexml, level="nexml"){
 # c("nexml", "otus", "otu", "trees", "tree", "characters", "format", "states", "all")
   #  level <- match.arg(level)  # Don't insist a match for more flexibilty.  
-  string <- paste0("//nex:", level, "/nex:meta" )
+  string <- paste0("//", level, "/meta" )
   if(level == "all")
-    string <- paste0("//nex:meta")
+    string <- paste0("//meta")
   b <- setxpath(as(nexml, "XMLInternalElementNode"))
 
   references <- getNodeSet(b, 
