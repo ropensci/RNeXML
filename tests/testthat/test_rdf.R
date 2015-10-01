@@ -10,6 +10,8 @@ test_that("we can extract rdf-xml", {
 })
 
 test_that("we can perform sparql queries with rrdf", {
+  skip_on_travis()
+
   if(require("Sxslt")){
     f <- system.file("examples", "meta_example.xml", package="RNeXML")
     rdf <- get_rdf(f)
