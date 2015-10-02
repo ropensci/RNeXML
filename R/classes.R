@@ -144,7 +144,7 @@ setAs("XMLInternalElementNode", "meta", function(from){
       if(is.na(type)) # if still not defined...
         fromNeXML(new("meta", from))
       else {
-        type <- gsub("nex:", "", type) ## FIXME This is CRUDE
+        type <- gsub(".*:", "", type) ## FIXME This is CRUDE
         fromNeXML(new(type[1]), from)
       }
 })
