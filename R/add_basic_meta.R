@@ -33,6 +33,8 @@
 #'    
 #' @seealso \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_meta}}
 #' @export 
+#' @importFrom stats na.omit
+#' @importFrom utils capture.output head object.size
 #' @examples
 #' nex <- add_basic_meta(title = "My test title",
 #'              description = "A description of my test",
