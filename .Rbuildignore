@@ -12,4 +12,3 @@ CONTRIBUTING.md
 _site
 README.Rmd
 cran-comments.md
-^.*\.xml$
