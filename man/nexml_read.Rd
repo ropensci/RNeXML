@@ -2,21 +2,45 @@
 % Please edit documentation in R/nexml_read.R
 \name{nexml_read}
 \alias{nexml_read}
+\alias{nexml_read.XMLInternalDocument}
+\alias{nexml_read.XMLInternalNode}
+\alias{nexml_read.character}
 \alias{read.nexml}
 \title{Read NeXML files into various R formats}
 \usage{
 nexml_read(x, ...)
+
+\method{nexml_read}{character}(x, ...)
+
+\method{nexml_read}{XMLInternalDocument}(x, ...)
+
+\method{nexml_read}{XMLInternalNode}(x, ...)
 }
 \arguments{
-\item{x}{Path to the file to be read in. Or an XMLInternalDoc or XMLInternalNode}
+\item{x}{Path to the file to be read in. Or an \code{\link[XML]{XMLInternalDocument-class}}
+or \code{\link[XML]{XMLInternalNode-class}}}
 
-\item{...}{Further arguments passed on to XML::xmlParse}
+\item{...}{Further arguments passed on to \code{\link[XML]{xmlParse}}}
 }
 \description{
 Read NeXML files into various R formats
 }
 \examples{
+# file
 f <- system.file("examples", "trees.xml", package="RNeXML")
 nexml_read(f)
+# url
+url <- "https://raw.githubusercontent.com/ropensci/RNeXML/master/inst/examples/trees.xml"
+nexml_read(url)
+# character string of XML
+str <- paste0(readLines(f), collapse = "")
+nexml_read(str)
+# XMLInternalDocument
+library("httr")
+library("XML")
+x <- xmlParse(content(GET(url)))
+nexml_read(x)
+# XMLInternalNode
+nexml_read(xmlRoot(x))
 }
 
