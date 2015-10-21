@@ -112,6 +112,8 @@ setMethod("fromNeXML",
             obj <- callNextMethod()
             attrs <- xmlAttrs(from)
             obj@href <- attrs[["href"]]
+            if(!is.na(attrs["id"]))
+              obj@id <- attrs[["id"]]
             if(!is.na(attrs[["rel"]]))
                  obj@rel <- attrs[["rel"]]
                obj
