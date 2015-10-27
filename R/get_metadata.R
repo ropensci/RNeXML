@@ -24,8 +24,15 @@ get_metadata <- function(nex, level = "nexml"){
 #            "otus/otu", "trees/tree", "characters/format", "characters/matrix",
 #            "characters/format/states")
 #  level <- match.arg(level)
- 
-  ## Append the 
+
+  ## Handle deprecated formats
+  if(level =="otu")
+    level <- "otus/otu"
+  if(level =="tree")
+    level <- "trees/tree"
+
+  
+  
   if(level == "nexml")
     level <- "meta"
   else
@@ -55,7 +62,7 @@ get_level <- function(nex, level){
 
 ## Assumes slot(node, element) is a list
 #' @importFrom lazyeval interp
-#' @importFrom dplyr bind_rows mutate_
+#' @importFrom dplyr bind_rows mutate_ %>%
 nodelist_to_df <- function(node, element, fn){
   dots <- setNames(list(lazyeval::interp(~x, x = node_id(node))), class(node))
   slot(node, element) %>% 

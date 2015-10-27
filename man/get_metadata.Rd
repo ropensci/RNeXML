@@ -4,23 +4,29 @@
 \alias{get_metadata}
 \title{get_metadata}
 \usage{
-get_metadata(nex, level = "nexml", depth = 1)
+get_metadata(nex, level = "nexml")
 }
 \arguments{
-\item{level}{the name of the level of element desired, or
-use "all" to access all meta elements.}
+\item{level}{the name of the level of element desired, see details}
 
 \item{nexml}{a nexml object}
 }
 \value{
-the requested metadata
+the requested metadata as a data.frame. Additional columns
+indicate tha parent element of the return value.
 }
 \description{
 get_metadata
 }
+\details{
+'level' should be either the name of a child element of a NeXML document
+(e.g. "otu", "characters"), or a path to the desired element, e.g. 'trees/tree'
+will return the metadata for all phylogenies in all trees blocks.
+}
 \examples{
-comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+comp_analysis <- system.file("examples", "primates.xml", package="RNeXML")
 nex <- nexml_read(comp_analysis)
 get_metadata(nex)
+get_metadata(nex, "otus/otu")
 }
 

@@ -7,3 +7,4 @@ expect_true_or_null <- function(o){
 }
 
 
+library("XML")

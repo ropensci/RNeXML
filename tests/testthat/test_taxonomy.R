@@ -32,11 +32,9 @@ test_that("taxize_nexml correctly collects ncbi identifiers", {
 })
 
 test_that("we can extract taxonomy data from the object", {
-  expect_is(get_metadata(birds, "otu"), "list")
-  expect_is(get_metadata(birds, "otu")[[1]], "character")
-  
-  expect_is(get_metadata(chir_super_small, 'otu'), "list")
-  expect_is(get_metadata(chir_super_small, "otu")[[1]], "character")
+  expect_is(get_metadata(birds, "otus/otu"), "data.frame")
+
+  expect_is(get_metadata(chir_super_small, 'otus/otu'), "data.frame")
 })
 
 ### TODO: how to deal with missing meta slot elements???
