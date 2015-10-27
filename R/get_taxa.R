@@ -12,9 +12,7 @@
 #' get_taxa(nex)
 #' @seealso  \code{\link{get_item}}
 get_taxa <- function(nexml){
-  dplyr::bind_rows(lapply(nexml@otus, function(otus){
-    nexlist_as_data_frame(otus@otu, append = parent_id(otus))
-  }))
+  get_level(nexml, "otus/otu")
 }
 get_otu <- get_taxa
 
