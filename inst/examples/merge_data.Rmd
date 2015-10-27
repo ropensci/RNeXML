@@ -11,6 +11,7 @@ output:
 library("RNeXML")
 library("dplyr")
 library("geiger")
+knitr::opts_chunk(message = FALSE, comment = NA)
 ```
 
 Let's generate a `NeXML` file using the tree and trait data from the `geiger` package's "primates" data:
