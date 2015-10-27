@@ -1,7 +1,7 @@
-ONLINE_VALIDATOR <- "http://162.13.187.155/nexml/phylows/"
+ONLINE_VALIDATOR <- "http://162.13.187.155/nexml/phylows/validator"
 CANONICAL_SCHEMA <- "http://162.13.187.155/nexml/xsd/nexml.xsd"
-# ONLINE_VALIDATOR <- "http://www.nexml.org/nexml/phylows/validator"
-# CANONICAL_SCHEMA <- "http://www.nexml.org/2009/nexml.xsd"
+#ONLINE_VALIDATOR <- "http://www.nexml.org/nexml/phylows/validator"
+#CANONICAL_SCHEMA <- "http://www.nexml.org/2009/nexml.xsd"
 
 #' validate nexml using the online validator tool
 #' @param file path to the nexml file to validate
@@ -18,7 +18,7 @@ CANONICAL_SCHEMA <- "http://162.13.187.155/nexml/xsd/nexml.xsd"
 #' }
 nexml_validate <- function(file, schema=CANONICAL_SCHEMA){
   a = POST(ONLINE_VALIDATOR, body=list(file = upload_file(file)))
-  if(a$status_code == 201){
+  if(a$status_code %in% c(200,201)){
     TRUE
   } else if(a$status_code == 504){
     warning("Online validator timed out, trying schema-only validation.")

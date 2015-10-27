@@ -655,11 +655,12 @@ setMethod("toNeXML",
             addChildren(parent, kids = object@characters) # a list of "characters" objects
             parent
           })
-setAs("nexml", "XMLInternalNode",
-      function(from) suppressWarnings(toNeXML(from, newXMLNode("nexml", namespaceDefinitions = from@namespaces))))
 
+## NOTE: The root nexml element must have it's namespace
+setAs("nexml", "XMLInternalNode",
+      function(from) suppressWarnings(toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces))))
 setAs("nexml", "XMLInternalElementNode",
-      function(from) suppressWarnings(toNeXML(from, newXMLNode("nexml", namespaceDefinitions = from@namespaces))))
+      function(from) suppressWarnings(toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces))))
 setAs("XMLInternalElementNode", "nexml",
       function(from) fromNeXML(new("nexml"), from))
 
