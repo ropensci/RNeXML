@@ -30,10 +30,10 @@ get_metadata <- function(nex, level = "nexml", depth = 1){
   
   if(is(nodes, "list"))
     out <- dplyr::bind_rows(lapply(nodes, function(x){
-      cbind(nexlist_as_data_frame(slot(x, "meta")), parent_id = parent_id(x))
+      nexlist_as_data_frame(slot(x, "meta"), append = parent_id(x))
     }))
   else
-    out <- cbind(nexlist_as_data_frame(slot(nodes, "meta")), parent_id = parent_id(nodes))
+    out <- nexlist_as_data_frame(slot(nodes, "meta"), append = parent_id(nodes))
   
   out
 }
@@ -42,20 +42,25 @@ parent_id <- function(node){
   if("id" %in% slotNames(node))
     slot(node, "id")[[1]]
   else
-    as.character(class(node))
+    NULL
 }
 
 
 ## Assumes meta elements do not have child meta elements
-nexlist_as_data_frame <- function(nexlist, skip = c("meta", "children")){
-  dplyr::bind_rows(lapply(nexlist, 
-    function(node){
+nexlist_as_data_frame <- function(nexlist, append = NULL, skip = c("meta", "children")){
+  if(length(nexlist) > 0){ 
+    out <- dplyr::bind_rows(lapply(nexlist, function(node){
       who <- slotNames(node)
       who <- who[-which(who %in% skip)]
       tmp <- sapply(who, function(x) slot(node, x))
       tmp[sapply(tmp,length) < 1] <- NA
-      data.frame(as.list(tmp))
-  }))
+      data.frame(as.list(tmp), stringsAsFactors=FALSE)
+    }))
+    if(!is.null(append)) out <- data.frame(out, parent_id = append, stringsAsFactors = FALSE)
+  out
+  } else { 
+    NULL
+  }
 }
 
 

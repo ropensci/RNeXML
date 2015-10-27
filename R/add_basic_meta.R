@@ -60,15 +60,19 @@ add_basic_meta <- function(title = NULL,
                            nexml = new("nexml")
                            ){
 
-  m <- get_metadata(nexml)
-
+  mymeta <- get_metadata(nexml)
+  m <- mymeta$content
+  names(m) <- mymeta$property
+  
+  
   if(!is.null(title)) 
     nexml <- add_meta(meta("dc:title", title), nexml)
   if(!is.null(creator) || creator == "") 
     nexml <- add_meta(meta("dc:creator", format(creator)), nexml)
   if(!is.null(pubdate)) 
-    if(is.null(m["dc:pubdate"]) | is.na(m["dc:pubdate"]))
-    nexml <- add_meta(meta("dc:pubdate", format(pubdate)), nexml)
+    if(!is.null(m)) 
+      if(is.null(m["dc:pubdate"]) | is.na(m["dc:pubdate"]))
+        nexml <- add_meta(meta("dc:pubdate", format(pubdate)), nexml)
   if(!is.null(description)) 
     nexml <- add_meta(meta("dc:description", description), nexml)
   if(!is.null(rights)){

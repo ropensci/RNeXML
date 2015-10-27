@@ -11,12 +11,11 @@
 #' nex <- nexml_read(comp_analysis)
 #' get_taxa(nex)
 #' @seealso  \code{\link{get_item}}
-get_taxa <-  
-          function(nexml){
-            out <- lapply(nexml@otus, function(otus)
-              sapply(otus@otu, function(otu) otu@label))
-            unname(unlist(out, recursive = FALSE))
-          }
+get_taxa <- function(nexml){
+  dplyr::bind_rows(lapply(nexml@otus, function(otus){
+    nexlist_as_data_frame(otus@otu, append = parent_id(otus))
+  }))
+}
 get_otu <- get_taxa
 
 #' get_taxa_list
