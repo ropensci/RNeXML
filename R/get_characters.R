@@ -76,7 +76,7 @@ get_characters_list <- function(nexml, rownames_as_col=FALSE){
 #' nex <- read.nexml(f)
 #' get_characters(nex)
 #' }
-get_characters <- function(input, suffixes=FALSE, rownames_as_col=FALSE){
+get_characters <- function(input, suffixes=FALSE, rownames_as_col=FALSE, otu_id = FALSE){
   
   if(inherits(input, "nexml")){
     list_chars <- get_characters_list(input)
@@ -106,6 +106,9 @@ get_characters <- function(input, suffixes=FALSE, rownames_as_col=FALSE){
       out <- cbind(taxa = rownames(out), out)
       rownames(out) <- NULL
     }
+    names(out)[1] <- "otu"
+    if(!otu_id)
+      out <- out[-1]
     return(out)
   }
 }
@@ -220,7 +223,7 @@ extract_character_matrix <- function(matrix){
 
   # Move otus into rownames and drop the column 
   rownames(mat) <- mat[["otu"]]
-  mat <- mat[-1]
+ # mat <- mat[-1]
   mat 
 }
 
