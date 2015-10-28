@@ -65,10 +65,15 @@ get_level <- function(nex, level){
 #' @importFrom dplyr bind_rows mutate_ %>%
 nodelist_to_df <- function(node, element, fn){
   dots <- setNames(list(lazyeval::interp(~x, x = node_id(node))), class(node))
-  slot(node, element) %>% 
+  nodelist <- slot(node, element) 
+  if(is.list(nodelist)){ ## node has a list of elements
+    nodelist %>% 
     lapply(fn) %>% 
     dplyr::bind_rows() %>%
-    dplyr::mutate_(.dots = dots)
+    dplyr::mutate_(.dots = dots) -> out
+  } else { ## handle case when node has only one element
+    fn(nodelist)
+  }
 }
 
 node_id <- function(node){
@@ -80,7 +85,8 @@ node_id <- function(node){
 
 attributes_to_row <- function(node, skip = c("meta", "children")){
   who <- slotNames(node)
-  who <- who[-which(who %in% skip)]
+  drop <- which(who %in% skip)
+  if(length(drop) > 0) who <- who[-drop]
   tmp <- sapply(who, function(x) slot(node, x))
   tmp[sapply(tmp,length) < 1] <- NA
   data.frame(as.list(tmp), stringsAsFactors=FALSE)
