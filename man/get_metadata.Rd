@@ -4,12 +4,12 @@
 \alias{get_metadata}
 \title{get_metadata}
 \usage{
-get_metadata(nex, level = "nexml")
+get_metadata(nexml, level = "nexml")
 }
 \arguments{
-\item{level}{the name of the level of element desired, see details}
-
 \item{nexml}{a nexml object}
+
+\item{level}{the name of the level of element desired, see details}
 }
 \value{
 the requested metadata as a data.frame. Additional columns

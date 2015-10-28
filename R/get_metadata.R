@@ -18,7 +18,7 @@
 #' get_metadata(nex)
 #' get_metadata(nex, "otus/otu")
 #' @export
-get_metadata <- function(nex, level = "nexml"){
+get_metadata <- function(nexml, level = "nexml"){
   
 #  level = c("nexml", "otus", "trees", "characters", 
 #            "otus/otu", "trees/tree", "characters/format", "characters/matrix",
@@ -38,7 +38,7 @@ get_metadata <- function(nex, level = "nexml"){
   else
     level <- paste(level, "meta", sep="/") 
  
-  get_level(nex, level)
+  get_level(nexml, level)
   
 
 }
@@ -56,7 +56,7 @@ get_level <- function(nex, level){
       closure(level[i], attributes_to_row)
   }
   
-  recursion(1, lvl)(nex) %>% dplyr::select(-nexml)
+  recursion(1, lvl)(nex) %>% dplyr::select_(quote(-nexml))
 }
 
 
