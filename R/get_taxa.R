@@ -11,12 +11,9 @@
 #' nex <- nexml_read(comp_analysis)
 #' get_taxa(nex)
 #' @seealso  \code{\link{get_item}}
-get_taxa <-  
-          function(nexml){
-            out <- lapply(nexml@otus, function(otus)
-              sapply(otus@otu, function(otu) otu@label))
-            unname(unlist(out, recursive = FALSE))
-          }
+get_taxa <- function(nexml){
+  get_level(nexml, "otus/otu")
+}
 get_otu <- get_taxa
 
 #' get_taxa_list

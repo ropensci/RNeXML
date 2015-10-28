@@ -27,6 +27,19 @@ And constructed with the following guidelines:
 
 For more information on SemVer, please visit http://semver.org/.
 
+v2.0.4.999
+-------
+
+- `get_metadata()`, `get_taxa()` now return much richer `data.frames` instead of named vectors. 
+  This is potentially a non-backwards compatible change if scripts use the output of these
+  functions as lists (#129).  See updated metadata vignette.  This introduces new dependencies
+  `dplyr` and `lazyeval`. 
+- more robust `nexml_read()` method for URLs, (#123)
+- Avoid assuming the namespace prefix `nex` for nexml elements (#51, #124, #126). Includes a
+  fix server-side on the NeXML validator as well.
+- `nexml_validate()` points to the new validator. (#126)
+
+
 v2.0.4
 -------
 
@@ -58,9 +71,10 @@ v2.0.0
 ---------
 
 * add URL and BugReports to Description. [#103](https://github.com/ropensci/RNeXML/issues/103)
+
 * for consistency with other `add_` methods, the `nexml` object is now the _last_, not the _first_, 
 argument to `add_basic_meta`.  As this changes the function API, it could break code that does not
-explicitly name the arguments, so we should consider releasing this as 2.0.0
+explicitly name the arguments, so we release this as 2.0.0
 
 
 v1.1.3

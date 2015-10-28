@@ -60,9 +60,9 @@ add_character_nodes <- function(nexml, x){
              id = uid,
              about = paste0("#", uid))
          if(class(x[[i]][[1]]) == "numeric")
-           type <- "nex:ContinuousCells"
+           type <- "ContinuousCells"
          else
-           type <- "nex:StandardCells"
+           type <- "StandardCells"
          slot(characters, "xsi:type") <- type  
          characters
       })

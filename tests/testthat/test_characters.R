@@ -68,7 +68,7 @@ test_that("add_otu can append only unmatched taxa to an existing otus block", {
   nex2 <- RNeXML:::add_otu(nex, new_taxa, append=TRUE) # add them back 
 ## should have same contents as orig... 
   get_taxa(nex2)
-  expect_identical(sort(orig), sort(get_taxa(nex2)))
+  expect_identical(sort(orig$label), sort(get_taxa(nex2)$label))
 
 ## Note that otu ids are not unique when we chop them off ...
 })

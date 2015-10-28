@@ -133,7 +133,7 @@ fromPhylo <- function(phy, otu_map){
   tree <- new("tree", 
       node = nodes, 
       edge = edges,
-      'xsi:type' = 'nex:FloatTree',
+      'xsi:type' = 'FloatTree',
       id = tree_id,
       about = paste0("#", tree_id))  
 }

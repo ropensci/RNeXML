@@ -1,3 +1,8 @@
+ONLINE_VALIDATOR <- "http://162.13.187.155/nexml/phylows/validator"
+CANONICAL_SCHEMA <- "http://162.13.187.155/nexml/xsd/nexml.xsd"
+#ONLINE_VALIDATOR <- "http://www.nexml.org/nexml/phylows/validator"
+#CANONICAL_SCHEMA <- "http://www.nexml.org/2009/nexml.xsd"
+
 #' validate nexml using the online validator tool
 #' @param file path to the nexml file to validate
 #' @param schema URL of schema (for fallback method only, set by default).  
@@ -11,12 +16,9 @@
 #' nexml_validate("bird_orders.xml")
 #' unlink("bird_orders.xml") # delete file to clean up
 #' }
-nexml_validate <- function(file, schema="http://www.nexml.org/2009/nexml.xsd"){
-#   xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", file)  
-  # Consider providing a copy of the schema so this works offline?
-  # xmlSchemaValidate potentially provides more useful debugging output...
-  a = POST("http://www.nexml.org/nexml/phylows/validator", body=list(file = upload_file(file)))
-  if(a$status_code == 201){
+nexml_validate <- function(file, schema=CANONICAL_SCHEMA){
+  a = POST(ONLINE_VALIDATOR, body=list(file = upload_file(file)))
+  if(a$status_code %in% c(200,201)){
     TRUE
   } else if(a$status_code == 504){
     warning("Online validator timed out, trying schema-only validation.")
@@ -34,14 +36,17 @@ nexml_validate <- function(file, schema="http://www.nexml.org/2009/nexml.xsd"){
   }
 }
 
-nexml_schema_validate <- function(file, schema="http://www.nexml.org/2009/nexml.xsd"){
-  a = GET("http://www.nexml.org/2009/nexml.xsd")
+
+
+
+nexml_schema_validate <- function(file, schema=CANONICAL_SCHEMA){
+  a = GET(schema)
   if(a$status_code == 200){
     if(is.null(xmlSchemaParse(schema))){
         warning(paste("Schema not accessible at", schema))
         NULL
     } else {
-      result <- xmlSchemaValidate("http://www.nexml.org/2009/nexml.xsd", file) 
+      result <- xmlSchemaValidate(schema, file) 
       if(length(result$errors) == 0){
         TRUE
       } else {

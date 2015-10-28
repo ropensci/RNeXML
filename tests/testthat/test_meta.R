@@ -70,8 +70,11 @@ test_that("We can directly add additional metadata at arbitrary level", {
                   content = "2013-10-04")
 
   nex@trees[[1]]@meta <- new("ListOfmeta", list(modified))
-
-  expect_identical(get_metadata(nex, "trees")[[modified@property]], modified@content)
+  get_metadata(nex, "trees") %>%
+    dplyr::filter(property == "prism:modificationDate") %>% 
+    dplyr::select(content) -> 
+    tmp
+  expect_identical(tmp[[1]], modified@content)
 })
 
 
@@ -86,7 +89,12 @@ test_that("We can directly add additional metadata using concatenation notation"
   nex@trees[[1]]@meta <- c(modified)         # we can add just one element 
   nex@trees[[1]]@meta <- c(modified,website) # or more than one element
 
-  expect_identical(get_metadata(nex, "trees")[[modified@property]], modified@content)
+  get_metadata(nex, "trees") %>%
+    dplyr::filter(property == "prism:modificationDate") %>% 
+    dplyr::select(content) -> 
+    tmp
+  
+  expect_identical(tmp[[1]], modified@content)
 })
 
 
@@ -121,19 +129,3 @@ test_that("we can write numeric types of meta elements and get correct datatype"
           expect_is(m@content, "character")
           expect_match(m@datatype, ".*:decimal")
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
