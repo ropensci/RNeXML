@@ -86,3 +86,14 @@ attributes_to_row <- function(node, skip = c("meta", "children")){
   data.frame(as.list(tmp), stringsAsFactors=FALSE)
 }
 
+
+## Depricated method, still in use in some other functions
+
+setxpath <- function(object){
+  tmp <- tempfile()
+  suppressWarnings(saveXML(object, tmp))
+  doc <- xmlParse(tmp)
+  unlink(tmp)
+  doc
+}
+
