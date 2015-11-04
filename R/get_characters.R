@@ -49,17 +49,18 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
   if(dim(uncertain)[1] > 0)
     states <- dplyr::bind_rows(states, uncertain)
   states <- select_(states, quote(-about), quote(-xsi.type), quote(-format))
+ 
   
-  ## FIXME what about missing labels?
   cells %>% 
     dplyr::left_join(states, by = c("state" = "id")) %>% 
-    dplyr::select_(.dots = c("char", "symbol", "otu")) %>% 
+    dplyr::select_(.dots = c("char", "symbol", "otu", "state")) %>% 
     dplyr::left_join(char, by = c("char" = "id")) %>% 
-    dplyr::select_(.dots = c("label", "symbol", "otu")) %>% 
+    dplyr::select_(.dots = c("label", "symbol", "otu", "state")) %>% 
     dplyr::rename_(.dots = c("trait" = "label")) %>% 
     dplyr::left_join(otus, by = c("otu" = "id")) %>%
     dplyr::rename_(.dots = c("taxa" = "label")) %>%
-    dplyr::select_(.dots = c("taxa", "symbol", "trait", "otu", "otus")) %>%
+    na_symbol_to_state() %>% 
+    dplyr::select_(.dots = c("taxa", "symbol", "trait", "otu", "otus")) %>% 
     tidyr::spread("trait", "symbol") ->
     out
   
@@ -80,9 +81,17 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
 }
 
 ## If 'label' column is missing, create it from 'id' column
+## if label exists but has missing or non-unique values, also use ids instead
 optional_labels <- function(df){
   who <- names(df)
-  if(! "labels" %in% who)
-    df$labels <- df$id
+  if(! "label" %in% who)
+    df$label <- df$id
+  if(length(unique(df$label)) < length(df$label))
+    df$label <- df$id
   df
 }
+
+na_symbol_to_state <- function(df){
+  df$symbol[is.na(df$symbol)] <- df$state[is.na(df$symbol)]
+  df
+  }

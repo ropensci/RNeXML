@@ -1,7 +1,7 @@
 
 ## Should be all element names, since we only want attribute names 
 ## (alternately we should define to only grab possible attribute names..)
-SKIP = c("meta", "children", "member", "row", "cell")
+SKIP = c("meta", "children", "member", "row", "cell", "seq")
 
 
 #' @importFrom dplyr select
