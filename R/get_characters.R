@@ -25,7 +25,12 @@
 get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id = FALSE){
   
   otus <- get_level(nex, "otus/otu") %>% 
-    select_(quote(-about), quote(-xsi.type))
+    select_(quote(-about), quote(-xsi.type)) %>%
+    optional_labels()
+  
+  char <- get_level(nex, "characters/format/char") %>% 
+    select_(quote(-about), quote(-xsi.type)) %>%
+    optional_labels()
   
   rows <- get_level(nex, "characters/matrix/row") %>% 
     dplyr::select_(.dots = c("otu", "id"))
@@ -74,4 +79,10 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
   out
 }
 
-
+## If 'label' column is missing, create it from 'id' column
+optional_labels <- function(df){
+  who <- names(df)
+  if(! "labels" %in% who)
+    df$labels <- df$id
+  df
+}
