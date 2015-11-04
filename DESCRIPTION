@@ -49,8 +49,10 @@ Collate:
     'add_trees.R'
     'character_classes.R'
     'concatenate_nexml.R'
+    'deprecated.R'
     'get_basic_metadata.R'
     'get_characters.R'
+    'get_level.R'
     'get_metadata.R'
     'get_namespaces.R'
     'get_rdf.R'
@@ -72,3 +74,4 @@ Collate:
     'nexml_write.R'
     'simmap.R'
     'taxize_nexml.R'
+RoxygenNote: 5.0.0
