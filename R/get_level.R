@@ -4,6 +4,33 @@
 SKIP = c("meta", "children", "member", "row", "cell", "seq")
 
 
+#' get_level
+#' 
+#' get a data.frame of attribute values of a given node
+#' 
+#' @param nex a nexml object
+#' @param level a character vector indicating the class of node, see details
+#' 
+#' @return Returns the attributes of specified class of nodes as a data.frame
+#' 
+#' @details level should be a character vector giving the path to the specified node
+#' group.  For instance, `otus`, `characters`, and `trees` are top-level blocks (e.g.
+#' child nodes of the root nexml block), and can be specified directly.  To get metadata
+#' for all "char" elements from all characters blocks, you must specify that `char` nodes
+#' are child nodes to `character` nodes: e.g. `get_level(nex, "characters/char")`,
+#' or similarly for states: `get_level(nex, characters/states)`.  
+#' 
+#' The return object is a data frame whose columns are the attribute names of the elements
+#' specified.  Thus the `id` column refers to the id of the focal node.  Additional columns are
+#' added for each parent element in the path; e.g. get_level(nex, "otus/otu") would include a column
+#' named "otus" with the id of each otus block.  Even though the method always returns the data frame 
+#' for all matching nodes in all blocks, these ids let you see which otu values came from which 
+#' otus block.  This is identical to the function call `get_taxa()`.  
+#' Similarly, `get_level(nex, "otus/otu/meta")` would return additional columns 'otus' and 
+#' also a column, 'otu', with the otu parent ids of each metadata block.  (This is identical to a 
+#' function call to `get_metadata`).
+#' 
+#' @export
 #' @importFrom dplyr select
 get_level <- function(nex, level){
   lvl <- strsplit(level, "/")[[1]]
