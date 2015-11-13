@@ -152,14 +152,15 @@ setAs("XMLInternalElementNode", "states",
 
 
 ####################################################### 
+## technically symbol is positive integer http://nexml.org/doc/schema-1/characters/standard/#StandardToken
 setClass("state",
-         slots = c(symbol = "character"), 
+         slots = c(symbol = "numeric"), 
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("state", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
-            obj@symbol <- xmlAttrs(from)["symbol"]
+            obj@symbol <- as.numeric(xmlAttrs(from)["symbol"])
             obj
           })
 setMethod("toNeXML", 

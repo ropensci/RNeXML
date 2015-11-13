@@ -34,9 +34,9 @@ setMethod("fromNeXML",
           function(obj, from){
             if(!is.null(xmlAttrs(from))){
               if(!is.na(xmlAttrs(from)["type"]))  ## FIXME use [["type"]] or ["type"]
-                slot(obj, "xsi:type") <- xmlAttrs(from)["type"]
+                slot(obj, "xsi:type") <- as.character(xmlAttrs(from)["type"])
               if(!is.na(xmlAttrs(from)["xsi:type"])) ## Shouldn't be necessary but seems to be for first test in test_inheritance.R...
-                slot(obj, "xsi:type") <- xmlAttrs(from)["xsi:type"]
+                slot(obj, "xsi:type") <- as.character(xmlAttrs(from)["xsi:type"])
             }
             obj
           }
@@ -236,7 +236,7 @@ setMethod("fromNeXML",
           function(obj, from){
             obj <- callNextMethod()
             if(!is.na(xmlAttrs(from)["id"]))
-                 obj@id <- xmlAttrs(from)["id"]
+                 obj@id <- as.character(xmlAttrs(from)["id"])
                obj
           }
 )
@@ -261,7 +261,7 @@ setMethod("fromNeXML",
           function(obj, from){
             obj <- callNextMethod()
              if(!is.na(xmlAttrs(from)["otu"]))
-               obj@otu <- xmlAttrs(from)["otu"]       
+               obj@otu <- as.character(xmlAttrs(from)["otu"])
              obj
           }
 )
@@ -285,7 +285,7 @@ setMethod("fromNeXML",
           function(obj, from){
             obj <- callNextMethod()
              if(!is.na(xmlAttrs(from)["otus"]))
-               obj@otus <- xmlAttrs(from)["otus"]       
+               obj@otus <- as.character(xmlAttrs(from)["otus"])
              obj
           }
 )
