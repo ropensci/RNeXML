@@ -26,44 +26,47 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
   
   otus <- get_level(nex, "otus/otu") %>% 
     select_(quote(-about), quote(-xsi.type)) %>%
-    optional_labels()
+    optional_labels(id = "otu")
   
   char <- get_level(nex, "characters/format/char") %>% 
     select_(quote(-about), quote(-xsi.type)) %>%
-    optional_labels()
+    optional_labels(id = "char")
   
   rows <- get_level(nex, "characters/matrix/row") %>% 
-    dplyr::select_(.dots = c("otu", "id"))
+    dplyr::select_(.dots = c("otu", "row"))
   
   cells <- get_level(nex, "characters/matrix/row/cell") %>% 
     dplyr::select_(.dots = c("char", "state", "row")) %>% 
-    dplyr::left_join(rows, by = c("row" = "id"))
+    dplyr::left_join(rows, by = "row")
   
   ## States, including polymorphic states (or uncertain states)
   states <- get_level(nex, "characters/format/states/state") 
   
+  ## Include polymorphic and uncertain states
   polymorph <- get_level(nex, "characters/format/states/polymorphic_state_set") 
   uncertain <- get_level(nex, "characters/format/states/uncertain_state_set") 
   if(dim(polymorph)[1] > 0)
     states <- dplyr::bind_rows(states, polymorph)
   if(dim(uncertain)[1] > 0)
     states <- dplyr::bind_rows(states, uncertain)
-  states <- select_(states, quote(-about), quote(-xsi.type), quote(-format))
+  states <- dplyr::select_(states, quote(-about), quote(-xsi.type), quote(-format))
  
-  
+  ## Join the matrices.  Note that we select unique column names after each join to avoid collisions
   cells %>% 
-    dplyr::left_join(states, by = c("state" = "id")) %>% 
+    dplyr::left_join(states, by = c("state")) %>% 
     dplyr::select_(.dots = c("char", "symbol", "otu", "state")) %>% 
-    dplyr::left_join(char, by = c("char" = "id")) %>% 
-    dplyr::select_(.dots = c("label", "symbol", "otu", "state")) %>% 
+    dplyr::left_join(char, by = c("char")) %>% 
     dplyr::rename_(.dots = c("trait" = "label")) %>% 
-    dplyr::left_join(otus, by = c("otu" = "id")) %>%
+    dplyr::left_join(otus, by = c("otu")) %>%
     dplyr::rename_(.dots = c("taxa" = "label")) %>%
     na_symbol_to_state() %>% 
     dplyr::select_(.dots = c("taxa", "symbol", "trait", "otu", "otus")) %>% 
     tidyr::spread("trait", "symbol") ->
     out
   
+  
+  
+  ## drop unwanted columns if requested (default)
   if(!otu_id){
     out <- dplyr::select_(out, quote(-otu))
   }
@@ -82,16 +85,18 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
 
 ## If 'label' column is missing, create it from 'id' column
 ## if label exists but has missing or non-unique values, also use ids instead
-optional_labels <- function(df){
+optional_labels <- function(df, id_col = "id"){
   who <- names(df)
   if(! "label" %in% who)
-    df$label <- df$id
+    df$label <- df[[id_col]]
   if(length(unique(df$label)) < length(df$label))
-    df$label <- df$id
+    df$label <- df[[id_col]]
   df
 }
 
+## Continuous traits have the values in "state" column, whereas 
+## for discrete states we return the value of the "symbol" column 
 na_symbol_to_state <- function(df){
-  df$symbol[is.na(df$symbol)] <- df$state[is.na(df$symbol)]
+  df$symbol[is.na(df$symbol)] <- as.numeric(df$state[is.na(df$symbol)])
   df
   }

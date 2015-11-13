@@ -1,7 +1,7 @@
 
-## Should be all element names, since we only want attribute names 
+## Should be all element names (unless they are also attribute names!), since we only want attribute names 
 ## (alternately we should define to only grab possible attribute names..)
-SKIP = c("meta", "children", "member", "row", "cell", "seq")
+SKIP = c("meta", "children", "member", "row", "cell", "seq", "matrix", "format", "names")
 
 
 #' get_level
@@ -21,20 +21,28 @@ SKIP = c("meta", "children", "member", "row", "cell", "seq")
 #' or similarly for states: `get_level(nex, characters/states)`.  
 #' 
 #' The return object is a data frame whose columns are the attribute names of the elements
-#' specified.  Thus the `id` column refers to the id of the focal node.  Additional columns are
+#' specified. The column names match the attribute names except for "id" attribute, for which the column
+#' is renamed using the node itself. (Thus <otus id="os2"> would be rendered in a data.frame with column
+#' called "otus" instead of "id"). Additional columns are
 #' added for each parent element in the path; e.g. get_level(nex, "otus/otu") would include a column
 #' named "otus" with the id of each otus block.  Even though the method always returns the data frame 
 #' for all matching nodes in all blocks, these ids let you see which otu values came from which 
 #' otus block.  This is identical to the function call `get_taxa()`.  
 #' Similarly, `get_level(nex, "otus/otu/meta")` would return additional columns 'otus' and 
 #' also a column, 'otu', with the otu parent ids of each metadata block.  (This is identical to a 
-#' function call to `get_metadata`).
+#' function call to `get_metadata`).  This makes it easier to join data.frames as well, see examples
 #' 
 #' @export
 #' @importFrom dplyr select
 get_level <- function(nex, level){
   lvl <- strsplit(level, "/")[[1]]
-  recursion(1, lvl)(nex) %>% dplyr::select_(quote(-nexml))
+  out <- recursion(1, lvl)(nex) %>% 
+    dplyr::select_(quote(-nexml))
+
+  ## drop columns that are all-na?
+#  all_na <- sapply(out, function(x) all(is.na(x)))
+#  out <- out[!all_na]  
+  out
 }
 
 
@@ -75,13 +83,25 @@ node_id <- function(node){
 }
 
 
-attributes_to_row <- function(node, skip = SKIP){
+attributes_to_row <- function(node){
   who <- slotNames(node)
-  drop <- which(who %in% skip)
-  if(length(drop) > 0) who <- who[-drop]
+  
+  ## Avoid things that are not attributes:
+  types <- sapply(who, function(x) class(slot(node,x)))
+  who <- who[ types %in% c("character", "integer", "numeric", "logical") ]
+  if("names" %in% who) 
+    who <- who[!(who %in% "names")]
+  
+  ## Extract attributes, use NAs for numeric(0) / character(0) values
   tmp <- sapply(who, function(x) slot(node, x))
   tmp[sapply(tmp,length) < 1] <- NA
-  data.frame(as.list(tmp), stringsAsFactors=FALSE)
+  
+  ## Coerce into a row of a data.frame & rename id column to match class
+  out <- data.frame(as.list(tmp), stringsAsFactors=FALSE) 
+  if("id" %in% who)
+    out <- dplyr::rename_(out, .dots = setNames("id", class(node)))
+  
+  out
 }
 
 
