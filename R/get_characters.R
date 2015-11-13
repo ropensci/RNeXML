@@ -4,7 +4,7 @@
 #' @param rownames_as_col option to return character matrix rownames (with taxon ids) as it's own column in the data.frame. Default is FALSE for compatibility with geiger and similar packages.
 #' @param otu_id logical, default FALSE. return a column with the 
 #'  otu id (for joining with otu metadata, etc)
-#' @param otu_id logical, default FALSE. return a column with the 
+#' @param otus_id logical, default FALSE. return a column with the 
 #'  otus block id (for joining with otu metadata, etc)
 #'  @return the character matrix as a data frame
 #' @importFrom tidyr spread

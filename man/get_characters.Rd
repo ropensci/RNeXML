@@ -15,7 +15,7 @@ get_characters(nex, rownames_as_col = FALSE, otu_id = FALSE,
 \item{otu_id}{logical, default FALSE. return a column with the 
 otu id (for joining with otu metadata, etc)}
 
-\item{otu_id}{logical, default FALSE. return a column with the 
+\item{otus_id}{logical, default FALSE. return a column with the 
 otus block id (for joining with otu metadata, etc)
 @return the character matrix as a data frame}
 }

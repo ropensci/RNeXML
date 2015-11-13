@@ -105,7 +105,7 @@ test_that("we can add characters to a nexml file", {
 test_that("we can add characters to a nexml file using a data.frame", {
   nex <- read.nexml(f)
   x <- get_characters(nex)
-  nexml <- add_characters(x, new("nexml"))
+  nexml <- add_characters(x)
 
   ##  Can we write it out and read it back? 
   nexml_write(nexml, file = "chartest.xml")
