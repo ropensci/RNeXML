@@ -235,7 +235,7 @@ Now that we have nice `data.frame` objects for all our data, it's easy to join t
 ```{r}
 taxa %>% 
   left_join(char, by = c("label" = "taxa")) %>% 
-  left_join(otu_meta, by = c("id" = "otu")) %>%
+  left_join(otu_meta, by = "otu") %>%
   select(id, label, x, href)
 ```
 
