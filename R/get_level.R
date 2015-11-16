@@ -71,7 +71,8 @@ nodelist_to_df <- function(node, element, fn){
       dplyr::bind_rows() %>%
       dplyr::mutate_(.dots = dots) -> out
   } else { ## handle case when node has only one element
-    fn(nodelist)
+    fn(nodelist) %>%
+      dplyr::mutate_(.dots = dots)
   }
 }
 
