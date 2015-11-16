@@ -59,9 +59,9 @@ add_character_nodes <- function(nexml, x){
          characters <- new("characters", 
              id = uid,
              about = paste0("#", uid))
-         if(class(x[[i]][[1]]) == "numeric")
+         if(class(x[[i]][[1]]) == "numeric")  ## Should be numeric but not integer!
            type <- "ContinuousCells"
-         else
+         else ## Should be integer!
            type <- "StandardCells"
          slot(characters, "xsi:type") <- type  
          characters
@@ -164,7 +164,7 @@ add_states <- function(nexml, x, i = 1, J = 0){
           lapply(lvls, function(lvl){
             new("state", 
                 id=nexml_id("s"),
-                symbol = lvl)
+                symbol = as.integer(as.factor(lvl)))
           }))
       )
     })

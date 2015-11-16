@@ -24,20 +24,24 @@
 #' }
 get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id = FALSE){
   
+  drop = lazyeval::interp(~-matches(x), x="about|xsi.type|format")
+  
   otus <- get_level(nex, "otus/otu") %>% 
-    select_(quote(-about), quote(-xsi.type)) %>%
+    select_(drop) %>%
     optional_labels(id = "otu")
   
   char <- get_level(nex, "characters/format/char") %>% 
-    select_(quote(-about), quote(-xsi.type)) %>%
+    select_(drop) %>%
     optional_labels(id = "char")
   
+  ## Rows have otu information
   rows <- get_level(nex, "characters/matrix/row") %>% 
     dplyr::select_(.dots = c("otu", "row"))
-  
   cells <- get_level(nex, "characters/matrix/row/cell") %>% 
     dplyr::select_(.dots = c("char", "state", "row")) %>% 
     dplyr::left_join(rows, by = "row")
+    
+  characters <- get_level(nex, "characters")
   
   ## States, including polymorphic states (or uncertain states)
   states <- get_level(nex, "characters/format/states/state") 
@@ -49,12 +53,16 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
     states <- dplyr::bind_rows(states, polymorph)
   if(dim(uncertain)[1] > 0)
     states <- dplyr::bind_rows(states, uncertain)
-  states <- dplyr::select_(states, quote(-about), quote(-xsi.type), quote(-format))
- 
+  states <- dplyr::select_(states, drop)
+
+
+  if(dim(states)[1] > 0) 
+    cells <- cells %>% 
+    dplyr::left_join(states, by = c("state"))  %>% 
+    dplyr::select_(.dots = c("char", "symbol", "otu", "state"))
+  
   ## Join the matrices.  Note that we select unique column names after each join to avoid collisions
   cells %>% 
-    dplyr::left_join(states, by = c("state")) %>% 
-    dplyr::select_(.dots = c("char", "symbol", "otu", "state")) %>% 
     dplyr::left_join(char, by = c("char")) %>% 
     dplyr::rename_(.dots = c("trait" = "label")) %>% 
     dplyr::left_join(otus, by = c("otu")) %>%
@@ -64,6 +72,24 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
     tidyr::spread("trait", "symbol") ->
     out
   
+
+  ## Identify the class of each column and reset it appropriately
+  cellclass <- function(x){
+    x %>%
+    stringr::str_replace(".*ContinuousCells", "numeric") %>%
+    stringr::str_replace(".*StandardCells", "integer")
+  }
+  get_level(nex, "characters/matrix/row/cell")  %>% 
+    dplyr::select_(drop) %>%
+    dplyr::left_join(characters, by = "characters") %>%
+    dplyr::select_(.dots = c( "xsi.type", "char", "characters")) %>%
+    dplyr::left_join(char, by = c("char")) %>%
+    dplyr::select_(.dots = c("label", "xsi.type")) %>% 
+    dplyr::distinct() %>%
+    dplyr::mutate(class=cellclass(xsi.type)) -> type
+  
+  for(i in dim(type)[1])
+    class(out[[type$label[i]]]) <- type$class[i]
   
   
   ## drop unwanted columns if requested (default)
@@ -80,6 +106,7 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
     rownames(out) <- taxa
     out
   }
+  
   out
 }
 
@@ -97,6 +124,8 @@ optional_labels <- function(df, id_col = "id"){
 ## Continuous traits have the values in "state" column, whereas 
 ## for discrete states we return the value of the "symbol" column 
 na_symbol_to_state <- function(df){
+  if(is.null(df$symbol))
+    df$symbol <- NA
   df$symbol[is.na(df$symbol)] <- as.numeric(df$state[is.na(df$symbol)])
   df
   }

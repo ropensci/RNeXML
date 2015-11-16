@@ -10,7 +10,11 @@ test_that("We can extract tree and trait data to run fitContinuous and fitDiscre
   tree <- get_trees(nexml)
   expect_is(tree, "phylo")
   cts <- fitContinuous(tree, traits[1], ncores=1)
+  ## Incredibly, fitDiscrete cannot take discrete characters
+  # dte <- fitDiscrete(tree, traits[2], ncores=1)
+  traits[[2]] <- as.numeric(traits[[2]])
   dte <- fitDiscrete(tree, traits[2], ncores=1)
+  
 })
 
 
