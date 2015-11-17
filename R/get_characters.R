@@ -9,6 +9,7 @@
 #'  @return the character matrix as a data frame
 #' @importFrom tidyr spread
 #' @importFrom dplyr left_join select_
+#' @importFrom stringr str_replace
 #' @export
 #' @examples
 #' \dontrun{
