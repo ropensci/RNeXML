@@ -1,42 +1,6 @@
+## Some of these methods are still in use by simmap and various add_ functions.
+## Ideally all would be replaced by the equivalent get_level() version
 
-
-
-old_get_characters <- function(input, suffixes=FALSE, rownames_as_col=FALSE, otu_id = FALSE){
-  
-  if(inherits(input, "nexml")){
-    list_chars <- get_characters_list(input)
-  } else { list_chars <- input }
-  if(inherits(input, "data.frame")){
-    return( input )
-  } else {
-    if(suffixes){
-      out <- list_chars
-      for(i in seq_along(list_chars)){
-        colnames(out[[i]]) <- paste(names(out)[i], "_", 
-                                    colnames(out[[i]]), sep="")
-        out[[i]] <- out[[i]]
-      }
-      names(out) <- names(list_chars)
-      list_chars <- out
-    }
-    mrecurse <- function(dfs, ...){
-      tt <- merge(dfs, ..., by='row.names',  all = TRUE, sort = FALSE)
-      row.names(tt) <- tt[,"Row.names"]
-      tt[,!names(tt) %in% "Row.names"]
-    }
-    
-    out <- Reduce(mrecurse, list_chars)
-    
-    if(rownames_as_col){
-      out <- cbind(taxa = rownames(out), out)
-      rownames(out) <- NULL
-    }
-    names(out)[1] <- "otu"
-    if(!otu_id)
-      out <- out[-1]
-    return(out)
-  }
-}
 
 
 ## Conversions between matrix and characters node

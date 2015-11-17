@@ -33,7 +33,9 @@ simmap_to_nexml <- function(phy, state_ids = NULL){
   nexml <- as(phy, "nexml")
 
   if(!is.null(phy$states)){
-    nexml <- add_characters(as.data.frame(phy$states, stringsAsFactors=TRUE), nexml)
+    nexml <- add_characters(data.frame(states = as.integer(as.factor(phy$states))), nexml)
+    
+    ## FIXME doesn't have states
     chars_ids <- get_state_maps(nexml)[[1]]
     char_id <- names(chars_ids)
     state_ids <-  reverse_map(chars_ids[[1]]) 
