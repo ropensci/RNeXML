@@ -1,63 +1,15 @@
-
-## Conversions between matrix and characters node
-
-#' Extract the character matrix
-#'
-#' @param nexml nexml object (e.g. from read.nexml)
-#' @param rownames_as_col option to return character matrix rownames
-#'  (with taxon ids) as it's own column in the data.frame. Default is FALSE
-#'  for compatibility with geiger and similar packages.
-#' @return the list of taxa
-#' @examples
-#' comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
-#' nex <- nexml_read(comp_analysis)
-#' get_characters_list(nex)
-#' @export
-get_characters_list <- function(nexml, rownames_as_col=FALSE){
-# extract mapping between otus and taxon ids 
-  maps <- get_otu_maps(nexml)
-# loop over all character matrices 
-  out <- lapply(nexml@characters, function(characters){
-
-    # Make numeric data class numeric, discrete data class discrete
-    type <- slot(characters, 'xsi:type') # check without namespace?
-    if (grepl("ContinuousCells", type)) {
-      dat <- extract_character_matrix(characters@matrix)
-      dat <- otu_to_label(dat, maps[[characters@otus]])
-      dat <- character_to_label(dat, characters@format)
-      for(i in length(dat)) ## FIXME something more elegant, no?
-        dat[[i]] <- as.numeric(dat[[i]])
-    } else if (grepl("StandardCells", type)) {
-      dat <- extract_character_matrix(characters@matrix)
-      dat <- state_to_symbol(dat, characters@format)
-      dat <- otu_to_label(dat, maps[[characters@otus]])
-      dat <- character_to_label(dat, characters@format)
-      for(i in length(dat))
-        dat[[i]] <- factor(dat[[i]])
-    } else {
-      dat <- NULL 
-    }
-    if(rownames_as_col){
-      dat <- cbind(taxa = rownames(dat), dat)
-      rownames(dat) <- NULL
-    }
-    dat
-  })
-  # name the character matrices by their labels,
-  # if available, otherwise, by id.    
-  names(out) <- name_by_id_or_label(nexml@characters) 
-  out
-} 
-
-#' Get character data.frame, accepts either nexml object, or a list of data.frames
+#' Get character data.frame from nexml
 #' 
-#' @param input A nexml object (e.g., as output from \code{\link{read.nexml}}), or 
-#' a list of data.frame's (e.g., as output from \code{\link{get_characters_list}})
-#' @param suffixes Add list element names as suffixes to output data.frame column 
-#' names. 
-#' @param rownames_as_col option to return character matrix rownames
-#'  (with taxon ids) as it's own column in the data.frame. Default is FALSE
-#'  for compatibility with geiger and similar packages.
+#' @param nex a nexml object 
+#' @param rownames_as_col option to return character matrix rownames (with taxon ids) as it's own column in the data.frame. Default is FALSE for compatibility with geiger and similar packages.
+#' @param otu_id logical, default FALSE. return a column with the 
+#'  otu id (for joining with otu metadata, etc)
+#' @param otus_id logical, default FALSE. return a column with the 
+#'  otus block id (for joining with otu metadata, etc)
+#'  @return the character matrix as a data frame
+#' @importFrom tidyr spread
+#' @importFrom dplyr left_join select_
+#' @importFrom stringr str_replace
 #' @export
 #' @examples
 #' \dontrun{
@@ -66,171 +18,115 @@ get_characters_list <- function(nexml, rownames_as_col=FALSE){
 #' nex <- read.nexml(f)
 #' get_characters(nex)
 #' 
-#' # with different row.names
-#' char_list <- get_characters_list(nex)
-#' row.names(char_list[[1]])[1:3] <- c("taxon_18","taxon_20","taxon_30")
-#' get_characters(char_list)
-#' 
 #' # A more complex example -- currently ignores sequence-type characters
 #' f <- system.file("examples", "characters.xml", package="RNeXML")
 #' nex <- read.nexml(f)
 #' get_characters(nex)
 #' }
-get_characters <- function(input, suffixes=FALSE, rownames_as_col=FALSE, otu_id = FALSE){
+get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id = FALSE){
   
-  if(inherits(input, "nexml")){
-    list_chars <- get_characters_list(input)
-  } else { list_chars <- input }
-  if(inherits(input, "data.frame")){
-    return( input )
-  } else {
-    if(suffixes){
-      out <- list_chars
-      for(i in seq_along(list_chars)){
-        colnames(out[[i]]) <- paste(names(out)[i], "_", 
-                                           colnames(out[[i]]), sep="")
-        out[[i]] <- out[[i]]
-      }
-      names(out) <- names(list_chars)
-      list_chars <- out
-    }
-    mrecurse <- function(dfs, ...){
-      tt <- merge(dfs, ..., by='row.names',  all = TRUE, sort = FALSE)
-      row.names(tt) <- tt[,"Row.names"]
-      tt[,!names(tt) %in% "Row.names"]
-    }
+  drop = lazyeval::interp(~-matches(x), x="about|xsi.type|format")
+  
+  otus <- get_level(nex, "otus/otu") %>% 
+    select_(drop) %>%
+    optional_labels(id = "otu")
+  
+  char <- get_level(nex, "characters/format/char") %>% 
+    select_(drop) %>%
+    optional_labels(id = "char")
+  
+  ## Rows have otu information
+  rows <- get_level(nex, "characters/matrix/row") %>% 
+    dplyr::select_(.dots = c("otu", "row"))
+  cells <- get_level(nex, "characters/matrix/row/cell") %>% 
+    dplyr::select_(.dots = c("char", "state", "row")) %>% 
+    dplyr::left_join(rows, by = "row")
+    
+  characters <- get_level(nex, "characters")
+  
+  ## States, including polymorphic states (or uncertain states)
+  states <- get_level(nex, "characters/format/states/state") 
+  
+  ## Include polymorphic and uncertain states
+  polymorph <- get_level(nex, "characters/format/states/polymorphic_state_set") 
+  uncertain <- get_level(nex, "characters/format/states/uncertain_state_set") 
+  if(dim(polymorph)[1] > 0)
+    states <- dplyr::bind_rows(states, polymorph)
+  if(dim(uncertain)[1] > 0)
+    states <- dplyr::bind_rows(states, uncertain)
+  states <- dplyr::select_(states, drop)
 
-    out <- Reduce(mrecurse, list_chars)
 
-    if(rownames_as_col){
-      out <- cbind(taxa = rownames(out), out)
-      rownames(out) <- NULL
-    }
-    names(out)[1] <- "otu"
-    if(!otu_id)
-      out <- out[-1]
-    return(out)
+  if(dim(states)[1] > 0) 
+    cells <- cells %>% 
+    dplyr::left_join(states, by = c("state"))  %>% 
+    dplyr::select_(.dots = c("char", "symbol", "otu", "state"))
+  
+  ## Join the matrices.  Note that we select unique column names after each join to avoid collisions
+  cells %>% 
+    dplyr::left_join(char, by = c("char")) %>% 
+    dplyr::rename_(.dots = c("trait" = "label")) %>% 
+    dplyr::left_join(otus, by = c("otu")) %>%
+    dplyr::rename_(.dots = c("taxa" = "label")) %>%
+    na_symbol_to_state() %>% 
+    dplyr::select_(.dots = c("taxa", "symbol", "trait", "otu", "otus")) %>% 
+    tidyr::spread("trait", "symbol") ->
+    out
+  
+
+  ## Identify the class of each column and reset it appropriately
+  cellclass <- function(x){
+    x %>%
+    stringr::str_replace(".*ContinuousCells", "numeric") %>%
+    stringr::str_replace(".*StandardCells", "integer")
   }
-}
-
-# for lists only 
-# identical_rownames <- function(x) all(sapply(lapply(x, rownames), identical, rownames(x[[1]])))
-
-
-####  Subroutines (not exported)  ########### 
-
-
-### The subroutines of "get_characters_list# function
-## Fixme these could be adapted to use the get_*_maps functions
-
-
-otu_to_label <- function(dat, otu_map){
-  rownames(dat) <- otu_map[rownames(dat)]
-  dat
-}
-
-character_to_label <- function(dat, format){ 
-  ## Compute the mapping
-  map <- map_chars_to_label(format)
-  ## replace colnames with matching labels
-  colnames(dat) <- map[colnames(dat)]
-  dat
-}
-
-state_to_symbol <- function(dat, format){
-  if(!isEmpty(format@states)){
-    map_by_char <- map_state_to_symbol(format)
-    for(n in names(dat)){
-      symbol <- map_by_char[[n]] 
-      dat[[n]] <- symbol[dat[[n]]]
-    }
-    dat 
-  } else {
-    dat ## Nothing to do if we don't have a states list
+  get_level(nex, "characters/matrix/row/cell")  %>% 
+    dplyr::select_(drop) %>%
+    dplyr::left_join(characters, by = "characters") %>%
+    dplyr::select_(.dots = c( "xsi.type", "char", "characters")) %>%
+    dplyr::left_join(char, by = c("char")) %>%
+    dplyr::select_(.dots = c("label", "xsi.type")) %>% 
+    dplyr::distinct() %>%
+    dplyr::mutate(class=cellclass(xsi.type)) -> type
+  
+  for(i in dim(type)[1])
+    class(out[[type$label[i]]]) <- type$class[i]
+  
+  
+  ## drop unwanted columns if requested (default)
+  if(!otu_id){
+    out <- dplyr::select_(out, quote(-otu))
   }
-}
-
-
-
-### Subroutine for characters_to_label, 
-###  Also subroutine for get_char_map . 
-
-map_chars_to_label <- function(format){
-  map <- sapply(format@char, function(char){
-    if(length(char@label) > 0)
-      label <- char@label
-    else
-      label <- char@id
-    c(char@id, label)
-  })
-  out <- map[2,]
-  names(out) <- map[1,]
+  if(!otus_id){
+    out <- dplyr::select_(out, quote(-otus))
+  }
+  if(!rownames_as_col){
+    taxa <- out$taxa
+    out <- dplyr::select_(out, quote(-taxa))
+    out <- as.data.frame(out)  
+    rownames(out) <- taxa
+    out
+  }
+  
   out
 }
 
-
-
-
-# Subroutine of the get_state_maps and state_to_symbol functions
-#
-# For each character, find the matching `states` set.
-# For that set, map each state id to the state symbol 
-map_state_to_symbol <- function(format){
-  # loop over characters
-  map <- lapply(format@char, function(char){ 
-      # name the list with elements as `states` sets by their ids 
-      states <- format@states 
-      ids <- sapply(states, function(states) states@id)
-      names(states) <- ids
-      # Get the relevant states set matching the current character 
-      map_states_to_symbols( states[[char@states]] )
-    })  
-    names(map) <- name_by_id(format@char)
-    map
-}
-## Subroutine of the map_state_to_symbol function above  
-map_states_to_symbols <- function(states){
-  map <- sapply(states@state,
-                function(state){
-    if(length(state@symbol) > 0)
-      symbol <- state@symbol
-    else
-      symbol <- state@id
-    c(state@id, symbol)
-  })
-  out <- map[2, ]
-  names(out) <- map[1, ]
-  out
+## If 'label' column is missing, create it from 'id' column
+## if label exists but has missing or non-unique values, also use ids instead
+optional_labels <- function(df, id_col = "id"){
+  who <- names(df)
+  if(! "label" %in% who)
+    df$label <- df[[id_col]]
+  if(length(unique(df$label)) < length(df$label))
+    df$label <- df[[id_col]]
+  df
 }
 
-
-
-
-
-#' @import reshape2
-extract_character_matrix <- function(matrix){ 
-  otu <- sapply(matrix@row, function(row) row@otu)
-  # charnames <- unname(sapply(matrix@row[[1]]@cell, function(cell) cell@char))
-  names(matrix@row) <- otu
-  mat <- lapply(matrix@row, function(row){
-    names(row@cell) <- unname(sapply(row@cell, function(b) b@char))
-    # names(row@cell) <- charnames
-    lapply(row@cell, function(cell) cell@state)
-  })
-  mat <- melt(mat)
-  colnames(mat) <- c("state", "character", "otu")
-  mat <- dcast(mat, otu ~ character, value.var = "state")
-
-  # Move otus into rownames and drop the column 
-  rownames(mat) <- mat[["otu"]]
- # mat <- mat[-1]
-  mat 
-}
-
-## Map state value to symbol for discrete traits?  
-
-
-
-
-
-
+## Continuous traits have the values in "state" column, whereas 
+## for discrete states we return the value of the "symbol" column 
+na_symbol_to_state <- function(df){
+  if(is.null(df$symbol))
+    df$symbol <- NA
+  df$symbol[is.na(df$symbol)] <- as.numeric(df$state[is.na(df$symbol)])
+  df
+  }

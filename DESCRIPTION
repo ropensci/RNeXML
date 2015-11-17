@@ -39,7 +39,9 @@ Imports:
     httr (>= 0.3),
     uuid (>= 0.1-1),
     dplyr (>= 0.4.0),
-    lazyeval (>= 0.1.0)
+    lazyeval (>= 0.1.0),
+    tidyr (>= 0.3.1),
+    stringr (>= 1.0)
 Collate:
     'classes.R'
     'add_basic_meta.R'
@@ -49,8 +51,10 @@ Collate:
     'add_trees.R'
     'character_classes.R'
     'concatenate_nexml.R'
+    'deprecated.R'
     'get_basic_metadata.R'
     'get_characters.R'
+    'get_level.R'
     'get_metadata.R'
     'get_namespaces.R'
     'get_rdf.R'
@@ -72,3 +76,4 @@ Collate:
     'nexml_write.R'
     'simmap.R'
     'taxize_nexml.R'
+RoxygenNote: 5.0.0

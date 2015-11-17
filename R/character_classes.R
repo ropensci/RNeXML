@@ -108,19 +108,30 @@ setAs("XMLInternalElementNode", "row",
 
 #######################################################
 setClass("ListOfstate", slots = c(names="character"), contains="list")
+setClass("ListOfpolymorphic_state_set", slots = c(names="character"), contains="list")
+setClass("ListOfuncertain_state_set", slots = c(names="character"), contains="list")
 
 setClass("states",
-         slots = c(state="ListOfstate"),
+         slots = c(state="ListOfstate", 
+                   polymorphic_state_set="ListOfpolymorphic_state_set",
+                   uncertain_state_set="ListOfuncertain_state_set"),
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("states", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             kids <- xmlChildren(from)
-            if(length(kids) > 0)
+            if(length(kids) > 0){
               obj@state <- new("ListOfstate", 
                               lapply(kids[names(kids) == "state"], 
                                      as, "state"))
+              obj@polymorphic_state_set <- new("ListOfpolymorphic_state_set", 
+                             lapply(kids[names(kids) == "polymorphic_state_set"], 
+                                    as, "polymorphic_state_set"))
+              obj@uncertain_state_set <- new("ListOfuncertain_state_set", 
+                                               lapply(kids[names(kids) == "uncertain_state_set"], 
+                                                      as, "uncertain_state_set"))
+            }
             obj
           })
 setMethod("toNeXML", 
@@ -141,14 +152,15 @@ setAs("XMLInternalElementNode", "states",
 
 
 ####################################################### 
+## technically symbol is positive integer http://nexml.org/doc/schema-1/characters/standard/#StandardToken
 setClass("state",
-         slots = c(symbol = "character"), 
+         slots = c(symbol = "integer"), 
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("state", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
-            obj@symbol <- xmlAttrs(from)["symbol"]
+            obj@symbol <- as.integer(xmlAttrs(from)["symbol"])
             obj
           })
 setMethod("toNeXML", 
