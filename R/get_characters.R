@@ -127,6 +127,6 @@ optional_labels <- function(df, id_col = "id"){
 na_symbol_to_state <- function(df){
   if(is.null(df$symbol))
     df$symbol <- NA
-  df$symbol[is.na(df$symbol)] <- as.numeric(df$state[is.na(df$symbol)])
+  df$symbol[is.na(df$symbol)] <- suppressWarnings(as.numeric(df$state[is.na(df$symbol)]))
   df
   }
