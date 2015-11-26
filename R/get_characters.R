@@ -1,12 +1,16 @@
 #' Get character data.frame from nexml
 #' 
 #' @param nex a nexml object 
-#' @param rownames_as_col option to return character matrix rownames (with taxon ids) as it's own column in the data.frame. Default is FALSE for compatibility with geiger and similar packages.
+#' @param rownames_as_col option to return character matrix rownames (with taxon ids) as it's own column in the 
+#' data.frame. Default is FALSE for compatibility with geiger and similar packages.
 #' @param otu_id logical, default FALSE. return a column with the 
 #'  otu id (for joining with otu metadata, etc)
 #' @param otus_id logical, default FALSE. return a column with the 
 #'  otus block id (for joining with otu metadata, etc)
-#'  @return the character matrix as a data frame
+#' @return the character matrix as a data.frame
+#' @details RNeXML will attempt to return the matrix using the NeXML taxon (otu) labels to name the rows
+#'  and the NeXML char labels to name the traits (columns).  If these are unavailable or not unique, the NeXML
+#'  id values for the otus or traits will be used instead.
 #' @importFrom tidyr spread
 #' @importFrom dplyr left_join select_
 #' @importFrom stringr str_replace
