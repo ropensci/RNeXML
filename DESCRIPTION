@@ -76,4 +76,4 @@ Collate:
     'nexml_write.R'
     'simmap.R'
     'taxize_nexml.R'
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1

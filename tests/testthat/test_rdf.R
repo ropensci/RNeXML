@@ -24,5 +24,6 @@ test_that("we can perform sparql queries with rrdf", {
 ## Perform a SPARQL query:
       out <- sparql.rdf(lib, "SELECT ?title WHERE { ?x <http://purl.org/dc/elements/1.1/title> ?title}")
     }
+    unlink("rdf_meta.xml")
   }
 })

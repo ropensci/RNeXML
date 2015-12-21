@@ -10,17 +10,25 @@ get_characters(nex, rownames_as_col = FALSE, otu_id = FALSE,
 \arguments{
 \item{nex}{a nexml object}
 
-\item{rownames_as_col}{option to return character matrix rownames (with taxon ids) as it's own column in the data.frame. Default is FALSE for compatibility with geiger and similar packages.}
+\item{rownames_as_col}{option to return character matrix rownames (with taxon ids) as it's own column in the 
+data.frame. Default is FALSE for compatibility with geiger and similar packages.}
 
 \item{otu_id}{logical, default FALSE. return a column with the 
 otu id (for joining with otu metadata, etc)}
 
 \item{otus_id}{logical, default FALSE. return a column with the 
-otus block id (for joining with otu metadata, etc)
-@return the character matrix as a data frame}
+otus block id (for joining with otu metadata, etc)}
+}
+\value{
+the character matrix as a data.frame
 }
 \description{
 Get character data.frame from nexml
+}
+\details{
+RNeXML will attempt to return the matrix using the NeXML taxon (otu) labels to name the rows
+ and the NeXML char labels to name the traits (columns).  If these are unavailable or not unique, the NeXML
+ id values for the otus or traits will be used instead.
 }
 \examples{
 \dontrun{
