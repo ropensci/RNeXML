@@ -33,11 +33,11 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
   
   otus <- get_level(nex, "otus/otu") %>% 
     select_(drop) %>%
-    optional_labels(id = "otu")
+    optional_labels(id_col = "otu")
   
   char <- get_level(nex, "characters/format/char") %>% 
     select_(drop) %>%
-    optional_labels(id = "char")
+    optional_labels(id_col = "char")
   
   ## Rows have otu information
   rows <- get_level(nex, "characters/matrix/row") %>% 
@@ -84,14 +84,16 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
     stringr::str_replace(".*ContinuousCells", "numeric") %>%
     stringr::str_replace(".*StandardCells", "integer")
   }
-  get_level(nex, "characters/matrix/row/cell")  %>% 
+  
+  type <-
+    get_level(nex, "characters/matrix/row/cell")  %>% 
     dplyr::select_(drop) %>%
     dplyr::left_join(characters, by = "characters") %>%
     dplyr::select_(.dots = c( "xsi.type", "char", "characters")) %>%
     dplyr::left_join(char, by = c("char")) %>%
     dplyr::select_(.dots = c("label", "xsi.type")) %>% 
     dplyr::distinct() %>%
-    dplyr::mutate(class=cellclass(xsi.type)) -> type
+    dplyr::mutate_(.dots = setNames(list(~cellclass(xsi.type)), "class"))
   
   for(i in dim(type)[1])
     class(out[[type$label[i]]]) <- type$class[i]
