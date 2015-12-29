@@ -236,7 +236,7 @@ Now that we have nice `data.frame` objects for all our data, it's easy to join t
 taxa %>% 
   left_join(char, by = c("label" = "taxa")) %>% 
   left_join(otu_meta, by = "otu") %>%
-  select(id, label, x, href)
+  select(otu, label, x, href)
 ```
 
 Because these are all from the same otus block anyway, we haven't selected that column, but were it of interest it is also available in the taxa table.
