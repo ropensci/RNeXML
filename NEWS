@@ -27,7 +27,7 @@ And constructed with the following guidelines:
 
 For more information on SemVer, please visit http://semver.org/.
 
-v2.0.4.999
+v2.0.5
 -------
 
 - `get_metadata()`, `get_taxa()` now return much richer `data.frames` instead of named vectors. 
