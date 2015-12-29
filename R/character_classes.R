@@ -175,7 +175,7 @@ setAs("state", "XMLInternalNode",
 setAs("state", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("state")))
 setAs("XMLInternalElementNode", "state",
-      function(from) fromNeXML(new("state"), from))
+      function(from) suppressWarnings(fromNeXML(new("state"), from)))
 
 ################################################
 
