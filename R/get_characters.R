@@ -14,6 +14,7 @@
 #' @importFrom tidyr spread
 #' @importFrom dplyr left_join select_
 #' @importFrom stringr str_replace
+#' @importFrom stats setNames
 #' @export
 #' @examples
 #' \dontrun{

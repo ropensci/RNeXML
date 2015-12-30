@@ -24,9 +24,11 @@ get_metadata
 will return the metadata for all phylogenies in all trees blocks.
 }
 \examples{
+\dontrun{
 comp_analysis <- system.file("examples", "primates.xml", package="RNeXML")
 nex <- nexml_read(comp_analysis)
 get_metadata(nex)
 get_metadata(nex, "otus/otu")
+}
 }
 
