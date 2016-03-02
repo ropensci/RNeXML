@@ -9,7 +9,7 @@ before_script:
   - sudo apt-get install libxslt1-dev pandoc pandoc-citeproc
   - "./travis-tool.sh install_r_binary geiger phytools knitr testthat rfigshare ape plyr taxize reshape2 httr rjava"
   - "./travis-tool.sh install_github cboettig/Sxslt"
-  - Rscript -e 'options("repos"="http://cran.rstudio.com"); devtools::install_github("egonw/rrdf", subdir="rrdflibs", build_vignettes=FALSE); devtools::install_github("egonw/rrdf", subdir="rrdf", build_vignettes=FALSE)' || Rscript -e 'install.packages("rrdf", repos="http://server.carlboettiger.info:5555/R")' 
+  - Rscript -e 'options("repos"="http://cran.rstudio.com"); devtools::install_github("egonw/rrdf", subdir="rrdflibs", build_vignettes=FALSE); devtools::install_github("egonw/rrdf", subdir="rrdf", build_vignettes=FALSE)' || Rscript -e 'install.packages("rrdf", repos="http://packages.ropensci.org")' 
   - "./travis-tool.sh install_deps"
   - "./travis-tool.sh install_github cboettig/knitcitations hadley/testthat"
   - "./travis-tool.sh github_package jimhester/covr"
