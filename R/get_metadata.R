@@ -12,11 +12,12 @@
 #' (e.g. "otu", "characters"), or a path to the desired element, e.g. 'trees/tree'
 #' will return the metadata for all phylogenies in all trees blocks.
 #' @import XML
-#' @examples
+#' @examples \dontrun{
 #' comp_analysis <- system.file("examples", "primates.xml", package="RNeXML")
 #' nex <- nexml_read(comp_analysis)
 #' get_metadata(nex)
 #' get_metadata(nex, "otus/otu")
+#' }
 #' @export
 get_metadata <- function(nexml, level = "nexml"){
   
