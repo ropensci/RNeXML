@@ -1,6 +1,6 @@
 Dear CRAN maintainers,
 
-This update extends functionality and removes a minor bug as described in NEWS.  
+As requested, this update sets the new address for OmegaHat in additional repositories.
 
 Cheers,
 

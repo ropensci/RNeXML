@@ -27,6 +27,11 @@ And constructed with the following guidelines:
 
 For more information on SemVer, please visit http://semver.org/.
 
+v2.0.6
+------
+
+- Migrate Additional_repositories to new address for OmegaHat project.
+
 v2.0.5
 -------
 
