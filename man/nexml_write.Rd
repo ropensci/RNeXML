@@ -35,6 +35,7 @@ Write nexml files
  library(ape); data(bird.orders)
  write.nexml(bird.orders, file="example.xml")
 
+\dontrun{ # takes > 5s
  ## Assemble a nexml section by section and then write to file:
  library(geiger)
  data(geospiza)
@@ -43,7 +44,6 @@ Write nexml files
  nexml <- add_basic_meta(title="my title", creator = "Carl Boettiger", nexml = nexml)
  nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())), nexml = nexml)
 
-\dontrun{ # takes > 5s
  write.nexml(nexml, file="example.xml")
 
  ## As above, but in one call (except for add_meta() call).  

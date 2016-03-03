@@ -29,6 +29,7 @@ Read NeXML files into various R formats
 # file
 f <- system.file("examples", "trees.xml", package="RNeXML")
 nexml_read(f)
+\dontrun{ # may take > 5 s
 # url
 url <- "https://raw.githubusercontent.com/ropensci/RNeXML/master/inst/examples/trees.xml"
 nexml_read(url)
@@ -42,5 +43,6 @@ x <- xmlParse(content(GET(url)))
 nexml_read(x)
 # XMLInternalNode
 nexml_read(xmlRoot(x))
+}
 }
 
