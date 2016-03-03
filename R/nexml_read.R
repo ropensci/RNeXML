@@ -11,6 +11,7 @@
 #' # file
 #' f <- system.file("examples", "trees.xml", package="RNeXML")
 #' nexml_read(f)
+#' \dontrun{ # may take > 5 s
 #' # url
 #' url <- "https://raw.githubusercontent.com/ropensci/RNeXML/master/inst/examples/trees.xml"
 #' nexml_read(url)
@@ -24,6 +25,7 @@
 #' nexml_read(x)
 #' # XMLInternalNode
 #' nexml_read(xmlRoot(x))
+#' }
 nexml_read <- function(x, ...) {
   UseMethod("nexml_read")    
 }
