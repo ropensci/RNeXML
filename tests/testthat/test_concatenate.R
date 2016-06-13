@@ -98,6 +98,6 @@ test_that("we can read in a file with existing meta and append without overwriti
             g <- tempfile()
             nexml_write(nex, g)
             nex2 <- nexml_read(g)
-            expect_more_than(length(get_metadata(nex2)), length(get_metadata(nex)))
+            expect_gt(length(get_metadata(nex2)), length(get_metadata(nex)))
           })
 

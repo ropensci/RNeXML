@@ -12,5 +12,5 @@ test_that("Getting characters", {
 test_that("get_characters throws appropriate warnings", {
   f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
   nex <- read.nexml(f)
-  expect_that(get_characters(nex), not(gives_warning()))
+  expect_is(get_characters(nex), "data.frame")
 })

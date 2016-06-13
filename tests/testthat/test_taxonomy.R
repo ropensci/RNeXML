@@ -47,5 +47,9 @@ test_that("taxize_nexml throws appropriate warnings", {
   
   chiroptera_super_small <- drop.tip(chiroptera, tip = 1:912)
   chir_super_small <- add_trees(chiroptera_super_small)
-  expect_that(taxize_nexml(chir_super_small, "NCBI"), not(gives_warning()))
+  expect_is(taxize_nexml(chir_super_small, "NCBI"), "nexml")
+  # note from Scott: above test used to test that a warning 
+  # was not thrown, but not() is no longer exported from testthat
+  # so instead testing that the object returned is of 
+  # class nexml
 })

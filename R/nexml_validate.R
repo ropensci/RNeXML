@@ -13,8 +13,8 @@ CANONICAL_SCHEMA <- "http://162.13.187.155/nexml/xsd/nexml.xsd"
 #' @examples \dontrun{
 #' data(bird.orders)
 #' birds <- nexml_write(bird.orders, "birds_orders.xml")
-#' nexml_validate("bird_orders.xml")
-#' unlink("bird_orders.xml") # delete file to clean up
+#' nexml_validate("birds_orders.xml")
+#' unlink("birds_orders.xml") # delete file to clean up
 #' }
 nexml_validate <- function(file, schema=CANONICAL_SCHEMA){
   a = POST(ONLINE_VALIDATOR, body=list(file = upload_file(file)))

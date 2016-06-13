@@ -24,7 +24,7 @@ test_that("We preserve existing namespace", {
   nex2 <- nexml_read(g)
 
   ## check the namespaces are added 
-  expect_more_than(length(get_namespaces(nex2)), length(get_metadata(nex)))
+  expect_gt(length(get_namespaces(nex2)), length(get_metadata(nex)))
 
   ## Check that the new abbreviations are added 
 
