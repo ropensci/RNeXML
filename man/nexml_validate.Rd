@@ -24,8 +24,8 @@ Requires an internet connection.  see http://www.nexml.org/nexml/phylows/validat
 \dontrun{
 data(bird.orders)
 birds <- nexml_write(bird.orders, "birds_orders.xml")
-nexml_validate("bird_orders.xml")
-unlink("bird_orders.xml") # delete file to clean up
+nexml_validate("birds_orders.xml")
+unlink("birds_orders.xml") # delete file to clean up
 }
 }
 

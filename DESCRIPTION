@@ -76,4 +76,5 @@ Collate:
     'nexml_write.R'
     'simmap.R'
     'taxize_nexml.R'
+    'tbl_df.R'
 RoxygenNote: 5.0.1
