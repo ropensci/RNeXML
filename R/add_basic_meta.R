@@ -47,7 +47,7 @@
 #' \dontrun{
 #'  ## Use knitcitations package to add a citation by DOI:
 #'  library(knitcitations)
-#'  nexml <- add_basic_meta(citation=cite("10.2307/2408428"))
+#'  nexml <- add_basic_meta(citation = bib_metadata("10.2307/2408428"))
 #'  }
 #' @include classes.R
 add_basic_meta <- function(title = NULL, 
