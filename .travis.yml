@@ -1,30 +1,5 @@
-language: c
-script: "./travis-tool.sh run_tests"
+# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
-before_script:
-  - curl -OL http://raw.github.com/craigcitro/r-travis/master/scripts/travis-tool.sh
-  - chmod 755 ./travis-tool.sh
-  - "./travis-tool.sh bootstrap"
-  - sudo apt-get update -qq
-  - sudo apt-get install libxslt1-dev pandoc pandoc-citeproc
-  - "./travis-tool.sh install_r_binary geiger phytools knitr testthat rfigshare ape plyr taxize reshape2 httr rjava"
-  - "./travis-tool.sh install_github cboettig/Sxslt"
-  - Rscript -e 'options("repos"="http://cran.rstudio.com"); devtools::install_github("egonw/rrdf", subdir="rrdflibs", build_vignettes=FALSE); devtools::install_github("egonw/rrdf", subdir="rrdf", build_vignettes=FALSE)' || Rscript -e 'install.packages("rrdf", repos="http://packages.ropensci.org")' 
-  - "./travis-tool.sh install_deps"
-  - "./travis-tool.sh install_github cboettig/knitcitations hadley/testthat hadley/xml2 hadley/dplyr"
-  - "./travis-tool.sh github_package jimhester/covr"
-
-after_success:
-  - Rscript -e 'library(covr);coveralls()'
-
-notifications:
-  hipchat:
-    rooms:
-      secure: aeV2r8L8WTt1/FcRZgl0UHyZSxiQJgXyNAPuqEkmUGKV6bhGuQ5I36d7xOnlI8v8MAPUqH9co5t0uupY+81Etp+NE3hk+1J5bTqXfY6l/Bz2l6B51HAWnS6Wo25Bz0BPJdSfGqKYmlM4k+2khR15CSXlbxNimgFrvQ4WNndXPp0=
-  slack:
-    secure: Zk8ZqDoTGaT4s2OzKmpT3dc/Wk6Q8guOE+PVSDh1hPndxTViwkw5Tded5czsT1ZRthM0w38Zqebmk+pqtECJWOHnyQXd/Jyc8prwlrjf6bcVXtcwpMUdfHle5s/L5qoej4EAo6UC2Who63sv2vG1Dw+qzZiTAKXcu9Exd8w3kuA=
-env:
-  global:
-  - R_BUILD_ARGS="--no-manual --no-build-vignettes"
-  - R_CHECK_ARGS="--as-cran --no-manual --no-build-vignettes"
-  - BOOTSTRAP_LATEX=""
+language: R
+sudo: false
+cache: packages
