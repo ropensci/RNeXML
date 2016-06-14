@@ -13,8 +13,10 @@ Description: Provides access to phyloinformatic data in 'NeXML' format.  The
 URL: https://github.com/ropensci/RNeXML
 BugReports: https://github.com/ropensci/RNeXML/issues
 License: BSD_3_clause + file LICENSE
-Additional_repositories: http://www.omegahat.net/R,
-    http://packages.ropensci.org
+Additional_repositories:
+    http://www.omegahat.net/R,
+    http://packages.ropensci.org,
+    http://carlboettiger.info/drat
 VignetteBuilder: knitr
 Suggests:
     rrdf (>= 2.0.2),
@@ -78,7 +80,3 @@ Collate:
     'taxize_nexml.R'
     'tbl_df.R'
 RoxygenNote: 5.0.1
-Remotes:
-  hadley/devtools
-  hadley/dplyr
-  hadley/xml2
