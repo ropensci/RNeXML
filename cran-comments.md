@@ -1,6 +1,6 @@
 Dear CRAN maintainers,
 
-As requested, this update sets the new address for OmegaHat in additional repositories.
+This update fixes issues introduced by the recent release of tidyr and dplyr packages.
 
 Cheers,
 
