@@ -79,4 +79,6 @@ Collate:
     'tbl_df.R'
 RoxygenNote: 5.0.1
 Remotes:
+  hadley/devtools
+  hadley/dplyr
   hadley/xml2
