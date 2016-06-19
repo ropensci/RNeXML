@@ -42,7 +42,7 @@ nexml_read.character <- function(x, ...) {
   if (grepl("^https?://", x)) {
     tmp <- GET(x)
     stop_for_status(tmp)
-    x <- content(tmp)
+    x <- content(tmp, as = "text")
   }
   doc <- xmlParse(x, ...)
   output <- as(xmlRoot(doc), "nexml")
