@@ -58,9 +58,9 @@ In a Mac or Windows machine, this will aslo install boot2docker
 (easy point & click install, ~24 MB). On Linux, this installs
 natively and we can run everything in the terminal instead of in
 the boot2docker window.
-([[Mac](https://docs.docker.com/installation/mac/)],
-[[Windows](https://docs.docker.com/installation/windows/),
-[[Linux](https://docs.docker.com/installation)]).
+([Mac](https://docs.docker.com/installation/mac/),
+[Windows](https://docs.docker.com/installation/windows/),
+[Linux](https://docs.docker.com/installation)).
 
 ### R console
 
