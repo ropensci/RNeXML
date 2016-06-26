@@ -3,6 +3,9 @@
 %\VignetteIndexEntry{An Introduction to the RNeXML package}
 -->
 
+
+
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.13131.svg)](http://dx.doi.org/10.5281/zenodo.13131)
 [![Build Status](https://api.travis-ci.org/ropensci/RNeXML.png)](https://travis-ci.org/ropensci/RNeXML)
 
 RNeXML: The next-generation phylogenetics format comes to R
@@ -43,7 +46,7 @@ tr <- get_trees(nexml) # or: as(nexml, "phylo")
 plot(tr)
 ```
 
-![plot of chunk unnamed-chunk-4](figure/README-unnamed-chunk-4-1.png) 
+![](figure/README-unnamed-chunk-4-1.png)<!-- -->
 
 Write an `ape::phylo` tree into the `nexml` format:
 
