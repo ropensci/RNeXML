@@ -3,7 +3,7 @@ machine:
     - docker
 test:
   override:
-    - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "rmarkdown::render('manuscripts/manuscript.Rmd')"
+    - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "devtools::install(); rmarkdown::render('manuscripts/manuscript.Rmd')"
 
 ## No need to run tests or coverage, these are done by travis
     # - docker run -ti -v $(pwd):/data -w /data rocker/ropensci r -e "devtools::install_github('hadley/testthat'); devtools::check()"
