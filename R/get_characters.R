@@ -12,7 +12,7 @@
 #'  and the NeXML char labels to name the traits (columns).  If these are unavailable or not unique, the NeXML
 #'  id values for the otus or traits will be used instead.
 #' @importFrom tidyr spread
-#' @importFrom dplyr left_join select_
+#' @importFrom dplyr left_join select_ matches
 #' @importFrom stringr str_replace
 #' @importFrom stats setNames
 #' @export

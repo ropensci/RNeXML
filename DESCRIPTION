@@ -15,8 +15,7 @@ BugReports: https://github.com/ropensci/RNeXML/issues
 License: BSD_3_clause + file LICENSE
 Additional_repositories:
     http://www.omegahat.net/R,
-    http://packages.ropensci.org,
-    http://carlboettiger.info/drat
+    http://packages.ropensci.org
 VignetteBuilder: knitr
 Suggests:
     rrdf (>= 2.0.2),
