@@ -80,3 +80,6 @@ Collate:
     'taxize_nexml.R'
     'tbl_df.R'
 RoxygenNote: 5.0.1
+Remotes:
+  egonw/rrdf/rrdflibs
+  egonw/rrdf/rrdf
