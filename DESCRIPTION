@@ -80,5 +80,5 @@ Collate:
     'tbl_df.R'
 RoxygenNote: 5.0.1
 Remotes:
-  egonw/rrdf/rrdflibs
+  egonw/rrdf/rrdflibs,
   egonw/rrdf/rrdf
