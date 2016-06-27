@@ -25,7 +25,8 @@ Suggests:
     testthat (>= 0.10.0),
     phylobase (>= 0.6.8),
     rmarkdown (>= 0.3.3),
-    Sxslt (>= 0.91)
+    Sxslt (>= 0.91),
+    rrdflibs
 Depends:
     R (>= 3.0.0),
     ape (>= 3.1),
