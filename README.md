@@ -3,6 +3,9 @@
 %\VignetteIndexEntry{An Introduction to the RNeXML package}
 -->
 
+
+
+[![DOI](https://zenodo.org/badge/doi/10.5281/zenodo.13131.svg)](http://dx.doi.org/10.5281/zenodo.13131)
 [![Build Status](https://api.travis-ci.org/ropensci/RNeXML.png)](https://travis-ci.org/ropensci/RNeXML)
 
 RNeXML: The next-generation phylogenetics format comes to R
@@ -52,7 +55,7 @@ tr <- get_trees(nexml) # or: as(nexml, "phylo")
 plot(tr)
 ```
 
-![plot of chunk unnamed-chunk-4](figure/README-unnamed-chunk-4-1.png) 
+![](figure/README-unnamed-chunk-4-1.png)<!-- -->
 
 Write an `ape::phylo` tree into the `nexml` format:
 
@@ -88,14 +91,21 @@ get_taxa(birds)
 ```
 
 ```
-##  [1] "Struthioniformes" "Tinamiformes"     "Craciformes"     
-##  [4] "Galliformes"      "Anseriformes"     "Turniciformes"   
-##  [7] "Piciformes"       "Galbuliformes"    "Bucerotiformes"  
-## [10] "Upupiformes"      "Trogoniformes"    "Coraciiformes"   
-## [13] "Coliiformes"      "Cuculiformes"     "Psittaciformes"  
-## [16] "Apodiformes"      "Trochiliformes"   "Musophagiformes" 
-## [19] "Strigiformes"     "Columbiformes"    "Gruiformes"      
-## [22] "Ciconiiformes"    "Passeriformes"
+## Source: local data frame [23 x 5]
+## 
+##      otu            label about xsi.type  otus
+##    <chr>            <chr> <chr>    <lgl> <chr>
+## 1    ou1 Struthioniformes  #ou1       NA   os1
+## 2    ou2     Tinamiformes  #ou2       NA   os1
+## 3    ou3      Craciformes  #ou3       NA   os1
+## 4    ou4      Galliformes  #ou4       NA   os1
+## 5    ou5     Anseriformes  #ou5       NA   os1
+## 6    ou6    Turniciformes  #ou6       NA   os1
+## 7    ou7       Piciformes  #ou7       NA   os1
+## 8    ou8    Galbuliformes  #ou8       NA   os1
+## 9    ou9   Bucerotiformes  #ou9       NA   os1
+## 10  ou10      Upupiformes #ou10       NA   os1
+## ..   ...              ...   ...      ...   ...
 ```
 
 ```r
@@ -103,12 +113,15 @@ get_metadata(birds)
 ```
 
 ```
-##                                          dc:creator 
-##                                                  "" 
-##                       dcterms:bibliographicCitation 
-##                                                  NA 
-##                                          cc:license 
-## "http://creativecommons.org/publicdomain/zero/1.0/"
+## Source: local data frame [3 x 8]
+## 
+##   LiteralMeta                      property   datatype content
+##         <chr>                         <chr>      <chr>   <chr>
+## 1          m1                    dc:creator xsd:string    lapp
+## 2          NA                            NA         NA      NA
+## 3          m3 dcterms:bibliographicCitation xsd:string      NA
+## Variables not shown: xsi.type <chr>, ResourceMeta <chr>, rel <chr>, href
+##   <chr>.
 ```
 
 --------------------------------------------
@@ -164,6 +177,8 @@ RNeXML:::nexml_namespaces
 ##                                               dc 
 ##               "http://purl.org/dc/elements/1.1/" 
 ##                                          dcterms 
+##                      "http://purl.org/dc/terms/" 
+##                                              ter 
 ##                      "http://purl.org/dc/terms/" 
 ##                                            prism 
 ## "http://prismstandard.org/namespaces/1.2/basic/" 
@@ -248,10 +263,6 @@ We can then fire up `geiger` and fit, say, a Brownian motion model the continuou
 ```r
 library(geiger)
 fitContinuous(tree, traits[1], ncores=1)
-```
-
-```
-## Loading required package: parallel
 ```
 
 ```
