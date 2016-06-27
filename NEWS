@@ -27,6 +27,12 @@ And constructed with the following guidelines:
 
 For more information on SemVer, please visit http://semver.org/.
 
+
+v2.0.7
+------
+
+- Bugfixes following release of new dplyr and new tidyr dependencies
+
 v2.0.6
 ------
 
