@@ -616,7 +616,7 @@ the first steps to implement it. We are grateful to F. Michonneau for
 helpful comments on an earlier version of this manuscript, and reviews
 by Matthew Pennell, Associate Editor Richard FitzJohn, and an anonymous
 reviewer. At their behest, the reviews of FitzJohn and Pennell can be found in this
-project's GitHub page at [github.com/ropensci/RNeXML/issues/120](https://github.com/ropensci/RNeXML/issues/121) and [github.com/ropensci/RNeXML/issues/120](https://github.com/ropensci/RNeXML/issues/120), together with our replies and a record of our revisions.
+project's GitHub page at [github.com/ropensci/RNeXML/issues/121](https://github.com/ropensci/RNeXML/issues/121) and [github.com/ropensci/RNeXML/issues/120](https://github.com/ropensci/RNeXML/issues/120), together with our replies and a record of our revisions.
 
 ## Data Accessibility
 
