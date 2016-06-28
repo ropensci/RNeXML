@@ -10,5 +10,5 @@ cache: packages
 
 before_install:
   #  - sudo apt-get install r-cran-rjava
-  - R -e "install.packages('RNeXML', deps=TRUE, repo=c('https://cran.rstudio.com', 'http://packages.ropensci.org'))"
+  - R -e "install.packages('rrdf', repo=c('https://cran.rstudio.com', 'http://packages.ropensci.org'))"
 
