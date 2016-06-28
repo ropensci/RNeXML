@@ -1,6 +1,14 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
+#r:
+#  - oldrel
+#  - release
+#  - devel
 sudo: false
 cache: packages
-r-github-packages: egonw/rrdf/rrdflibs
+
+before_install:
+  #  - sudo apt-get install r-cran-rjava
+  - R -e "install.packages('RNeXML', deps=TRUE, repo=c('https://cran.rstudio.com', 'http://packages.ropensci.org'))"
+
