@@ -1,7 +1,18 @@
-<!--
-%\VignetteEngine{knitr::knitr}
-%\VignetteIndexEntry{An Introduction to the RNeXML package}
--->
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "README-"
+)
+```
 
 
 
@@ -32,29 +43,23 @@ Although the published version of the article is paywalled, the source of the ma
 
 
 ```{r compile-settings, include=FALSE}
-## Set the paths for cache and figure
 library(methods)
-library(knitr)
-opts_chunk$set(cache = 1)
-basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile')) 
-opts_chunk$set(fig.path = paste("figure/", basename, "-", sep=""),
-               cache.path = paste("cache/", basename, "/", sep=""))
-
-
-```{r echo=FALSE}
-library(knitr)
-opts_knit$set(upload.fun = imgur_upload)
-opts_chunk$set(tidy=FALSE, warning=FALSE, message=FALSE, comment = NA, verbose = TRUE)
 ```
 
 Getting Started
 ---------------
 
-The development version of RNeXML is [available on Github](https://github.com/ropensci/RNeXML).  With the `devtools` package installed on your system, RNeXML can be installed using:
+The latest stable release of RNeXML is on CRAN, and can be installed with the usual `install.packages("RNeXML")` command.  Some of the more specialized functionality described in the Vignettes (such as RDF manipulation) requires additional packages which can be installed using:
+
+```{r eval=FALSE}
+install.packages("RNeXML", deps=TRUE, repos=c("https://cran.rstudio.com", "http://packages.ropensci.org"))
+```
+
+which will also install the development version of the RNeXML package.  For most common tasks such as shown here, those additional packages are not required.  The development version of RNeXML is also [available on Github](https://github.com/ropensci/RNeXML).  With the `devtools` package installed on your system, RNeXML can be installed using:
 
 ```{r eval=FALSE}
 library(devtools)
-install_github("RNeXML", "ropensci")
+install_github("ropensci/RNeXML")
 library(RNeXML)
 ```
 
