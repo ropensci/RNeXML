@@ -12,3 +12,5 @@ before_install:
   #  - sudo apt-get install r-cran-rjava
   - R -e "install.packages('rrdf', repo=c('https://cran.rstudio.com', 'http://packages.ropensci.org'))"
 
+after_success:
+  - Rscript -e 'covr::codecov()'
