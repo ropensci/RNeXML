@@ -179,11 +179,39 @@ setAs("XMLInternalElementNode", "state",
 
 ################################################
 
+##  a symbol for an uncertain stat is a character string
+setClass("uncertain_state",
+         slots = c(symbol = "character"), 
+         contains = "IDTagged")
+setMethod("fromNeXML", 
+          signature("uncertain_state", "XMLInternalElementNode"),
+          function(obj, from){
+            obj <- callNextMethod()
+            obj@symbol <- xmlAttrs(from)["symbol"]
+            obj
+          })
+setMethod("toNeXML", 
+          signature("uncertain_state", "XMLInternalElementNode"),
+          function(object, parent){
+            parent <- callNextMethod()
+            addAttributes(parent, "symbol" = object@symbol)
+            parent
+          })
+setAs("uncertain_state", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode("uncertain_state")))
+setAs("uncertain_state", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode("uncertain_state")))
+setAs("XMLInternalElementNode", "uncertain_state",
+      function(from) suppressWarnings(fromNeXML(new("uncertain_state"), from)))
+
+################################################
+
+
 setClass("ListOfmember", slots = c(names="character"), contains="list")
 
 setClass("uncertain_state_set", 
          slots = c(member = "ListOfmember"),
-         contains="state")
+         contains="uncertain_state")
 setMethod("fromNeXML", 
           signature("uncertain_state_set", "XMLInternalElementNode"),
           function(obj, from){
