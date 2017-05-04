@@ -24,4 +24,3 @@ c(meta(content="example", property="dc:title"),
   meta(content="Carl", property="dc:creator"))
 
 }
-

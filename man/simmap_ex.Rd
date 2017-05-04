@@ -21,4 +21,3 @@ A nexml object with simmap stochastic character mapping
 \author{
 Carl Boettiger
 }
-

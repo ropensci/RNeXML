@@ -31,4 +31,3 @@ nex2 <- read.nexml(f2)
 nex <- c(nex1, nex2)
 }
 }
-

@@ -49,4 +49,3 @@ nex <- add_meta(history,
 \seealso{
 \code{\link{meta}} \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_basic_meta}}
 }
-

@@ -15,4 +15,3 @@ the list of taxa
 \description{
 get_license
 }
-

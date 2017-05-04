@@ -29,4 +29,3 @@ library("geiger")
 data(geospiza)
 geiger_nex <- add_characters(geospiza$dat)
 }
-

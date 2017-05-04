@@ -45,4 +45,3 @@ meta(content="example", property="dc:title")
 \seealso{
 \code{\link{nexml_write}}
 }
-

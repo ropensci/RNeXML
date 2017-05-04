@@ -25,4 +25,3 @@ birds <- add_trees(bird.orders)
 birds <- taxize_nexml(birds, "NCBI")
 }
 }
-

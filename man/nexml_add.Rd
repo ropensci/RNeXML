@@ -31,4 +31,3 @@ geiger_nex <- nexml_add(geospiza$dat, nexml = geiger_nex, type="characters")
 \seealso{
 \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_meta}} \code{\link{add_namespaces}}
 }
-

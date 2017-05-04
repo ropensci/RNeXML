@@ -43,4 +43,3 @@ nex <- read.nexml(f)
 get_characters(nex)
 }
 }
-

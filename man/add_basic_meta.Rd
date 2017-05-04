@@ -69,4 +69,3 @@ nex <- add_basic_meta(title = "My test title",
 \seealso{
 \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_meta}}
 }
-

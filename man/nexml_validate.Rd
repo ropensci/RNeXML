@@ -28,4 +28,3 @@ nexml_validate("birds_orders.xml")
 unlink("birds_orders.xml") # delete file to clean up
 }
 }
-

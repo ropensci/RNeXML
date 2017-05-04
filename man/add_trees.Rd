@@ -27,4 +27,3 @@ library("geiger")
 data(geospiza)
 geiger_nex <- add_trees(geospiza$phy)
 }
-

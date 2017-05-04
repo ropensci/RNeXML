@@ -32,4 +32,3 @@ lib <- load.rdf(tmp)
 sparql.rdf(lib, "SELECT ?title WHERE { ?x <http://purl.org/dc/elements/1.1/title> ?title}")
 }
 }
-

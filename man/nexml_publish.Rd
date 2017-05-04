@@ -26,4 +26,3 @@ birds <- add_trees(bird.orders)
 doi <- nexml_publish(birds, visibility = "public", repository="figshare")
 }
 }
-

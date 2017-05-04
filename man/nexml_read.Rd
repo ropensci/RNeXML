@@ -2,10 +2,10 @@
 % Please edit documentation in R/nexml_read.R
 \name{nexml_read}
 \alias{nexml_read}
+\alias{read.nexml}
+\alias{nexml_read.character}
 \alias{nexml_read.XMLInternalDocument}
 \alias{nexml_read.XMLInternalNode}
-\alias{nexml_read.character}
-\alias{read.nexml}
 \title{Read NeXML files into various R formats}
 \usage{
 nexml_read(x, ...)
@@ -45,4 +45,3 @@ nexml_read(x)
 nexml_read(xmlRoot(x))
 }
 }
-

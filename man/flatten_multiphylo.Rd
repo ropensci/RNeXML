@@ -19,4 +19,3 @@ this heirarchy conveys important structural information, so it is not discarded 
 Occassionally it is useful to flatten the structure though, hence this function.  Note that this
 discards the original structure, and the nexml file must be parsed again to recover it.
 }
-

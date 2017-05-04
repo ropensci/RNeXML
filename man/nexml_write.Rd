@@ -67,4 +67,3 @@ Write nexml files
 \seealso{
 \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_meta}} \code{\link{nexml_read}}
 }
-

@@ -32,4 +32,3 @@ RNeXML:::get_taxa_meta_list(birds, 'xsi:type')
 \code{\link{get_item}}
 }
 \keyword{internal}
-

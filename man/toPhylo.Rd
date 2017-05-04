@@ -19,4 +19,3 @@ edges, return simmap maps slot as well.
 \description{
 nexml to phylo coercion
 }
-

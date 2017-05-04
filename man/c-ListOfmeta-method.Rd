@@ -25,4 +25,3 @@ metalist <- c(meta(content="example", property="dc:title"),
 out <- c(metalist, metalist) 
 out <- c(metalist, meta(content="a", property="b")) 
 }
-

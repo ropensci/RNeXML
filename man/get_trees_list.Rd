@@ -23,4 +23,3 @@ get_trees_list(nex)
 \seealso{
 \code{\link{get_trees}} \code{\link{get_flat_trees}} \code{\link{get_item}}
 }
-

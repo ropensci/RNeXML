@@ -31,4 +31,3 @@ get_metadata(nex)
 get_metadata(nex, "otus/otu")
 }
 }
-

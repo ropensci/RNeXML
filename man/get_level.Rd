@@ -37,4 +37,3 @@ Similarly, `get_level(nex, "otus/otu/meta")` would return additional columns 'ot
 also a column, 'otu', with the otu parent ids of each metadata block.  (This is identical to a 
 function call to `get_metadata`).  This makes it easier to join data.frames as well, see examples
 }
-
