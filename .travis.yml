@@ -1,16 +1,17 @@
 # R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 
 language: R
-#r:
-#  - oldrel
-#  - release
-#  - devel
+r:
+  - oldrel
+  - release
+  - devel
 sudo: false
 cache: packages
 
 before_install:
   #  - sudo apt-get install r-cran-rjava
   - R -e "install.packages('rrdf', repo=c('https://cran.rstudio.com', 'http://packages.ropensci.org'))"
-
+  - R -e "install.packages('Sxslt', repo=c('https://cran.rstudio.com', 'http://www.omegahat.net/R'))"
+  
 after_success:
   - Rscript -e 'covr::codecov()'
