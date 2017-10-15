@@ -13,4 +13,3 @@ _site
 README.Rmd
 cran-comments.md
 ^README\.Rmd$
-^README-.*\.png$
