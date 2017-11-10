@@ -1,13 +1,17 @@
 {
-  "@context": ["https://doi.org/doi:10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@context": [
+    "https://doi.org/doi:10.5063/schema/codemeta-2.0",
+    "http://schema.org"
+  ],
   "@type": "SoftwareSourceCode",
+  "@id": "https://doi.org/10.5281/zenodo.606631",
   "identifier": "RNeXML",
   "description": "Provides access to phyloinformatic data in 'NeXML' format.  The\n    package should add new functionality to R such as the possibility to\n    manipulate 'NeXML' objects in more various and refined way and compatibility\n    with 'ape' objects.",
   "name": "RNeXML: Semantically Rich I/O for the 'NeXML' Format",
   "codeRepository": "https://github.com/ropensci/RNeXML",
   "issueTracker": "https://github.com/ropensci/RNeXML/issues",
   "license": "https://spdx.org/licenses/BSD-3-Clause",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
@@ -317,7 +321,7 @@
   "contIntegration": "https://travis-ci.org/ropensci/RNeXML",
   "releaseNotes": "https://github.com/ropensci/RNeXML/blob/master/NEWS",
   "readme": "https://github.com/ropensci/RNeXML/blob/master/README.md",
-  "fileSize": "244.796KB",
+  "fileSize": "244.921KB",
   "citation": [
     {
       "@type": "ScholarlyArticle",
