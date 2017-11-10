@@ -1,0 +1,363 @@
+{
+  "@context": ["https://doi.org/doi:10.5063/schema/codemeta-2.0", "http://schema.org"],
+  "@type": "SoftwareSourceCode",
+  "identifier": "RNeXML",
+  "description": "Provides access to phyloinformatic data in 'NeXML' format.  The\n    package should add new functionality to R such as the possibility to\n    manipulate 'NeXML' objects in more various and refined way and compatibility\n    with 'ape' objects.",
+  "name": "RNeXML: Semantically Rich I/O for the 'NeXML' Format",
+  "codeRepository": "https://github.com/ropensci/RNeXML",
+  "issueTracker": "https://github.com/ropensci/RNeXML/issues",
+  "license": "https://spdx.org/licenses/BSD-3-Clause",
+  "version": "2.0.7",
+  "programmingLanguage": {
+    "@type": "ComputerLanguage",
+    "name": "R",
+    "version": "3.4.2",
+    "url": "https://r-project.org"
+  },
+  "runtimePlatform": "R version 3.4.2 (2017-09-28)",
+  "provider": {
+    "@id": "https://cran.r-project.org",
+    "@type": "Organization",
+    "name": "Central R Archive Network (CRAN)",
+    "url": "https://cran.r-project.org"
+  },
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Carl",
+      "familyName": "Boettiger",
+      "email": "cboettig@gmail.com"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Scott",
+      "familyName": "Chamberlain"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Hilmar",
+      "familyName": "Lapp"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Kseniia",
+      "familyName": "Shumelchyk"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Rutger",
+      "familyName": "Vos"
+    }
+  ],
+  "maintainer": {
+    "@type": "Person",
+    "givenName": "Carl",
+    "familyName": "Boettiger",
+    "email": "cboettig@gmail.com"
+  },
+  "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rrdf",
+      "name": "rrdf",
+      "version": "2.0.2"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "geiger",
+      "name": "geiger",
+      "version": "2.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "phytools",
+      "name": "phytools",
+      "version": "0.3.93",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitr",
+      "name": "knitr",
+      "version": "1.5",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rfigshare",
+      "name": "rfigshare",
+      "version": "0.3.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "knitcitations",
+      "name": "knitcitations",
+      "version": "1.0.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "testthat",
+      "name": "testthat",
+      "version": "0.10.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "phylobase",
+      "name": "phylobase",
+      "version": "0.6.8",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rmarkdown",
+      "name": "rmarkdown",
+      "version": "0.3.3",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "Sxslt",
+      "name": "Sxslt",
+      "version": "0.91"
+    }
+  ],
+  "softwareRequirements": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "XML",
+      "name": "XML",
+      "version": "3.95",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "plyr",
+      "name": "plyr",
+      "version": "1.8",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "taxize",
+      "name": "taxize",
+      "version": "0.2.2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "reshape2",
+      "name": "reshape2",
+      "version": "1.2.2",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "httr",
+      "name": "httr",
+      "version": "0.3",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "uuid",
+      "name": "uuid",
+      "version": "0.1-1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "dplyr",
+      "name": "dplyr",
+      "version": "0.5.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "lazyeval",
+      "name": "lazyeval",
+      "version": "0.1.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "tidyr",
+      "name": "tidyr",
+      "version": "0.3.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "stringr",
+      "name": "stringr",
+      "version": "1.0",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "R",
+      "name": "R",
+      "version": "3.0.0"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "ape",
+      "name": "ape",
+      "version": "3.1",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Central R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "methods",
+      "name": "methods",
+      "version": "3.0.0"
+    }
+  ],
+  "applicationCategory": "DataPublication",
+  "isPartOf": "https://ropensci.org",
+  "keywords": ["metadata", "nexml", "phylogenetics", "linked-data"],
+  "contIntegration": "https://travis-ci.org/ropensci/RNeXML",
+  "releaseNotes": "https://github.com/ropensci/RNeXML/blob/master/NEWS",
+  "readme": "https://github.com/ropensci/RNeXML/blob/master/README.md",
+  "fileSize": "244.796KB",
+  "citation": [
+    {
+      "@type": "ScholarlyArticle",
+      "datePublished": "2016",
+      "author": [
+        {
+          "@type": "Person",
+          "givenName": "Carl",
+          "familyName": "Boettiger"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Scott",
+          "familyName": "Chamberlain"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Rutger",
+          "familyName": "Vos"
+        },
+        {
+          "@type": "Person",
+          "givenName": "Hilmar",
+          "familyName": "Lapp"
+        }
+      ],
+      "name": "{RNeXML}: {A} Package for Reading and Writing Richly Annotated Phylogenetic, Character, and Trait Data in {R}",
+      "identifier": "10.1111/2041-210X.12469",
+      "paginiation": "352--357",
+      "@id": "https://doi.org/10.1111/2041-210X.12469",
+      "sameAs": "https://doi.org/10.1111/2041-210X.12469",
+      "isPartOf": {
+        "@type": "PublicationIssue",
+        "datePublished": "2016",
+        "isPartOf": {
+          "@type": ["PublicationVolume", "Periodical"],
+          "volumeNumber": "7",
+          "name": "Methods in Ecology and Evolution"
+        }
+      }
+    }
+  ]
+}
