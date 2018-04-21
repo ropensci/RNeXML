@@ -14,3 +14,4 @@ README.Rmd
 cran-comments.md
 ^README\.Rmd$
 ^codemeta\.json$
+^codecov\.yml$
