@@ -8,20 +8,6 @@
 #' @export
 #' @import httr XML
 #' @importFrom xml2 read_xml
-# @import Sxslt # not yet
-#' @examples \dontrun{
-#' f <- system.file("examples", "meta_example.xml", package="RNeXML")
-#' rdf <- get_rdf(f)
-#'
-#' ## Write to a file and read in with rrdf
-#' tmp <- tempfile()
-#' saveXML(rdf, tmp)
-#' library(rrdf)
-#' lib <- load.rdf(tmp)
-#' 
-#' ## Perform a SPARQL query:
-#' sparql.rdf(lib, "SELECT ?title WHERE { ?x <http://purl.org/dc/elements/1.1/title> ?title}")
-#' }
 get_rdf <- function(file){
 
   

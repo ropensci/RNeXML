@@ -18,10 +18,7 @@ output: html_vignette
 library("methods")
 library("knitr")
 opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE, 
-               cache = FALSE, comment = NA, verbose = TRUE, 
-               eval = all(c(require("Sxslt"), require("rrdf"))))
-basename <- 'sparql' 
-
+               cache = FALSE, comment = NA, verbose = TRUE)
 
 ```
 
@@ -53,9 +50,8 @@ so we start by loading that package.  We will also make use of functions
 from `phytools` and `RNeXML`.  
 
 ```{r}
-#library("rrdf")
 library("rdflib")
-library("XML")
+library("xml2")
 library("phytools")
 library("RNeXML")
 ```
