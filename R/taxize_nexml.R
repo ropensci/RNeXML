@@ -7,14 +7,23 @@
 #' @param nexml a nexml object
 #' @param type the name of the identifier to use
 #' @param ... additional arguments (not implemented yet)
-#' @import taxize
 #' @export 
 #' @examples \dontrun{
 #' data(bird.orders)
 #' birds <- add_trees(bird.orders)
 #' birds <- taxize_nexml(birds, "NCBI")
 #' }
+# @importFrom taxize get_uid
 taxize_nexml <- function(nexml, type = c("NCBI"), ...){
+  
+  ## Soft dependency on taxize
+  if (!requireNamespace("taxize", quietly = TRUE)) {
+    stop("taxize package required to convert look up taxonomic ids",
+         call. = FALSE)
+  }
+  get_uid <- getExportedValue("taxize", "get_uid")
+  
+  
           type <- match.arg(type)
           if(type == "NCBI"){
             for(j in 1:length(nexml@otus)){

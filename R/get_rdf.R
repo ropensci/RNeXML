@@ -7,6 +7,7 @@
 #'   SPARQL queries from the rrdf R package.  
 #' @export
 #' @import httr XML
+#' @importFrom xml2 read_xml
 # @import Sxslt # not yet
 #' @examples \dontrun{
 #' f <- system.file("examples", "meta_example.xml", package="RNeXML")
@@ -23,13 +24,22 @@
 #' }
 get_rdf <- function(file){
 
+  
+  ## Soft dependency on xslt
+  if (!requireNamespace("xslt", quietly = TRUE)) {
+    stop("xslt package required to convert to rdf",
+         call. = FALSE)
+  }
+  xml_xslt <- getExportedValue("xslt", "xml_xslt")
+  
     if(is(file, "nexml")){
       who <- tempfile()
       nexml_write(x=file, file=who)
       file <- who
     }
     to_rdf <- system.file("examples", "RDFa2RDFXML.xsl", package="RNeXML")
-    rdf <- Sxslt::xsltApplyStyleSheet(file, to_rdf)
+    rdf <- 
+    rdf <- xml_xslt(xml2::read_xml(file), xml2::read_xml(to_rdf))
 
   rdf  
 }
