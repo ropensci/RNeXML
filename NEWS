@@ -27,6 +27,13 @@ And constructed with the following guidelines:
 
 For more information on SemVer, please visit http://semver.org/.
 
+v2.1.0
+------
+
+- `taxize` as Suggests only
+- drop `rrdf` in favor of `rdflib`
+- drop `Sxslt` in favor of `xslt`
+
 
 v2.0.8
 ------

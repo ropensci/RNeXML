@@ -15,10 +15,9 @@ Description: Provides access to phyloinformatic data in 'NeXML' format.  The
 URL: https://github.com/ropensci/RNeXML
 BugReports: https://github.com/ropensci/RNeXML/issues
 License: BSD_3_clause + file LICENSE
-Additional_repositories: http://packages.ropensci.org, http://www.omegahat.net/R
 VignetteBuilder: knitr
 Suggests:
-    rrdf (>= 2.0.2),
+    rdflib,
     geiger (>= 2.0),
     phytools (>= 0.3.93),
     knitr (>= 1.5),
@@ -27,7 +26,9 @@ Suggests:
     testthat (>= 0.10.0),
     phylobase (>= 0.6.8),
     rmarkdown (>= 0.3.3),
-    Sxslt (>= 0.91)
+    xslt,
+    taxize (>= 0.2.2),
+    covr
 Depends:
     R (>= 3.0.0),
     ape (>= 3.1),
@@ -35,14 +36,14 @@ Depends:
 Imports:
     XML (>= 3.95),
     plyr (>= 1.8),
-    taxize (>= 0.2.2),
     reshape2 (>= 1.2.2),
     httr (>= 0.3),
     uuid (>= 0.1-1),
     dplyr (>= 0.5.0),
     lazyeval (>= 0.1.0),
     tidyr (>= 0.3.1),
-    stringr (>= 1.0)
+    stringr (>= 1.0),
+    xml2
 Collate:
     'classes.R'
     'add_basic_meta.R'

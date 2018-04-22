@@ -1,29 +1,39 @@
 context("rdf")
 
+library(rdflib)
+
 test_that("we can extract rdf-xml", {
 
-  if(require("Sxslt")){
-    f <- system.file("examples", "meta_example.xml", package="RNeXML")
-    rdf <- get_rdf(f)
-    expect_is(rdf, "XMLInternalXSLTDocument")
-  }
+  rdf <- get_rdf(system.file("examples/primates.xml", package="RNeXML"))
+  tmp <- tempfile()  # so we must write the XML out first
+  xml2::write_xml(rdf, tmp) 
+  
+  graph <- rdf_parse(tmp)
+  
+
+  expect_is(graph, "rdf")
+  
+  rdf_free(graph)
 })
 
 test_that("we can perform sparql queries with rrdf", {
   skip_on_travis()
 
-  if(require("Sxslt")){
-    f <- system.file("examples", "meta_example.xml", package="RNeXML")
-    rdf <- get_rdf(f)
-
-## Write to a file and read in with rrdf
-    saveXML(rdf, "rdf_meta.xml")
-    success <- require(rrdf)
-    if(success){
-      lib <- load.rdf("rdf_meta.xml")
-## Perform a SPARQL query:
-      out <- sparql.rdf(lib, "SELECT ?title WHERE { ?x <http://purl.org/dc/elements/1.1/title> ?title}")
-    }
-    unlink("rdf_meta.xml")
-  }
+  rdf <- get_rdf(system.file("examples/primates.xml", package="RNeXML"))
+  tmp <- tempfile()  # so we must write the XML out first
+  xml2::write_xml(rdf, tmp) 
+  
+  graph <- rdf_parse(tmp)
+  
+  
+  root <- rdf_query(graph, 
+                    "SELECT ?uri WHERE { 
+    ?id <http://rs.tdwg.org/ontology/voc/TaxonConcept#rank> <http://rs.tdwg.org/ontology/voc/TaxonRank#Order> . 
+    ?id <http://rs.tdwg.org/ontology/voc/TaxonConcept#toTaxon> ?uri    
+}")
+  
+  expect_is(root, "data.frame")
+  
+  rdf_free(graph)
+  
 })

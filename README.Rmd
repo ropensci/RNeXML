@@ -19,6 +19,7 @@ knitr::opts_chunk$set(
 [![DOI](https://zenodo.org/badge/11856817.svg)](https://zenodo.org/badge/latestdoi/11856817)
 [![codecov.io](https://codecov.io/github/ropensci/RNeXML/coverage.svg?branch=master)](https://codecov.io/github/ropensci/RNeXML?branch=master)
 [![Build Status](https://api.travis-ci.org/ropensci/RNeXML.png)](https://travis-ci.org/ropensci/RNeXML)
+[![Coverage Status](https://img.shields.io/codecov/c/github/ropensci/RNeXML/master.svg)](https://codecov.io/github/ropensci/RNeXML?branch=master)
 
 RNeXML: The next-generation phylogenetics format comes to R
 =====================================================
