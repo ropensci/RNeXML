@@ -1,7 +1,0 @@
-image: rocker/ropensci:latest
-script:
-  - Rscript -e 'rmarkdown::render("manuscripts/manuscript.Rmd")'
-notify:
-  email:
-    recipients:
-      - cboettig@ropensci.org
