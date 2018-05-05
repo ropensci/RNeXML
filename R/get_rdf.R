@@ -4,7 +4,7 @@
 #' @param file the name of a nexml file, or otherwise a nexml object. 
 #' @return an RDF-XML object (XMLInternalDocument).  This can be manipulated with
 #'   tools from the XML R package, or converted into a triplestore for use with 
-#'   SPARQL queries from the rrdf R package.  
+#'   SPARQL queries from the rdflib R package.  
 #' @export
 #' @import httr XML
 #' @importFrom xml2 read_xml

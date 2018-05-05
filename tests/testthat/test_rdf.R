@@ -19,7 +19,7 @@ test_that("we can extract rdf-xml", {
   rdf_free(graph)
 })
 
-test_that("we can perform sparql queries with rrdf", {
+test_that("we can perform sparql queries with rdf", {
   skip_on_travis()
   skip_on_os("solaris")
   
