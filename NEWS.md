@@ -6,6 +6,12 @@ For more fine-grained list of changes or to report a bug, consult
 * [The issues log](https://github.com/ropensci/RNeXML/issues)
 * [The commit log](https://github.com/ropensci/RNeXML/commits/master)
 
+
+v2.1.2
+------
+
+- Fix failing checks on CRAN that require a network connection
+
 v2.1.1
 ------
 

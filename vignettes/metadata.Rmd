@@ -20,8 +20,7 @@ library("methods")
 library("knitr")
 opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE, 
                cache = FALSE, comment = NA, verbose = TRUE)
-basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile')) 
-
+basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile'))
 ```
 
 ## Writing NeXML metadata
@@ -81,7 +80,7 @@ If a unique match is found, a metadata annotation is added to the taxon
 providing the NCBI identification number to the taxonomic unit.
 
 
-```{r message=FALSE, results='hide'}
+```{r message=FALSE, results='hide', eval=FALSE}
 birds <- taxize_nexml(birds, "NCBI")
 ```
 
@@ -198,7 +197,6 @@ We often want to combine metadata from multiple tables.  For instance, in this e
 library("RNeXML")
 library("dplyr")
 library("geiger")
-knitr::opts_chunk$set(message = FALSE, warning=FALSE, comment = NA)
 ```
 
 To begin, let's generate a `NeXML` file using the tree and trait data from the `geiger` package's "primates" data:
