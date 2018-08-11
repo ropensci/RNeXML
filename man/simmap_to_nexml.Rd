@@ -8,7 +8,7 @@ simmap_to_nexml(phy, state_ids = NULL)
 }
 \arguments{
 \item{phy}{a phy object containing simmap phy$maps element,
-from the phytools pacakge}
+from the phytools package}
 
 \item{state_ids}{a named character vector giving the state 
 names corresponding to the ids used to refer to each state

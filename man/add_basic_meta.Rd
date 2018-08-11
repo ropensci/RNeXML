@@ -19,7 +19,7 @@ add_basic_meta(title = NULL, description = NULL,
 
 \item{rights}{the intellectual property rights associated with the data.
 The default is Creative Commons Zero (CC0) public domain declaration, 
-compatiable with all other licenses and appropriate for deposition 
+compatible with all other licenses and appropriate for deposition 
 into the Dryad or figshare repositories.  CC0 is also recommended by the Panton Principles.
 Alternatively, any other plain text string can be added and will be provided as the content
 attribute to the dc:rights property.}
@@ -27,7 +27,7 @@ attribute to the dc:rights property.}
 \item{publisher}{the publisher of the dataset. Usually where a user may go to find the canonical
 copy of the dataset: could be a repository, journal, or academic institution.}
 
-\item{citation}{a citation associated with the data.  Usually an acompanying academic journal 
+\item{citation}{a citation associated with the data.  Usually an academic journal 
 article that indicates how the data should be cited in an academic context.  Multiple citations
 can be included here.  
 citation can be a plain text object, but is preferably an R `citation` or `bibentry` object (which

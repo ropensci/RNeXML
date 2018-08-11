@@ -42,7 +42,7 @@ with the S3 class mechanism (such as in the `ape` package phylo objects)
 rather than the S4 class mechanism used in phylogenetics packages such as 
 `ouch` and `phylobase`. The `phylobase` vignette provides an excellent introduction
 to these data structures.  Users already familiar with subsetting lists and other
-S3 objects in R are likely familar with the use of the `$` operator, such as
+S3 objects in R are likely familiar with the use of the `$` operator, such as
 `phy$edge`. S4 objects simply use an `@` operator instead (but cannot be subset
 using numeric arguments such as `phy[[1]]` or named arguments such as phy[["edge"]]).  
 

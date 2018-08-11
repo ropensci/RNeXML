@@ -13,7 +13,7 @@ get_metadata(nexml, level = "nexml")
 }
 \value{
 the requested metadata as a data.frame. Additional columns
-indicate tha parent element of the return value.
+indicate the parent element of the return value.
 }
 \description{
 get_metadata

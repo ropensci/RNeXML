@@ -1,7 +1,7 @@
 
 #' taxize nexml
 #'
-#' Check taxanomic names against the specified service and 
+#' Check taxonomic names against the specified service and 
 #' add appropriate semantic metadata to the nexml OTU unit 
 #' containing the corresponding identifier. 
 #' @param nexml a nexml object

@@ -17,6 +17,7 @@ BugReports: https://github.com/ropensci/RNeXML/issues
 License: BSD_3_clause + file LICENSE
 VignetteBuilder: knitr
 Suggests:
+    spelling,
     rdflib,
     geiger (>= 2.0),
     phytools (>= 0.3.93),
@@ -83,3 +84,4 @@ RoxygenNote: 6.0.1.9000
 X-schema.org-applicationCategory: Data Publication
 X-schema.org-keywords: metadata, nexml, phylogenetics, linked-data
 X-schema.org-isPartOf: https://ropensci.org
+Language: en-US

@@ -10,7 +10,7 @@
 #' 
 #' simmap_to_nexml
 #' @param phy a phy object containing simmap phy$maps element,
-#'  from the phytools pacakge
+#'  from the phytools package
 #' @param state_ids a named character vector giving the state 
 #'  names corresponding to the ids used to refer to each state
 #'  in nexml.  If null ids will be generated and states taken from 

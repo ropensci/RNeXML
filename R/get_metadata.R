@@ -7,7 +7,7 @@
 #' @param nexml a nexml object
 #' @param level the name of the level of element desired, see details
 #' @return the requested metadata as a data.frame. Additional columns
-#' indicate tha parent element of the return value.
+#' indicate the parent element of the return value.
 #' @details 'level' should be either the name of a child element of a NeXML document 
 #' (e.g. "otu", "characters"), or a path to the desired element, e.g. 'trees/tree'
 #' will return the metadata for all phylogenies in all trees blocks.

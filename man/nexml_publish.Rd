@@ -11,7 +11,7 @@ nexml_publish(nexml, ..., repository = "figshare")
 
 \item{...}{additional arguments, depending on repository. See examples.}
 
-\item{repository}{desitination respository}
+\item{repository}{destination repository}
 }
 \value{
 a digital object identifier to the published data

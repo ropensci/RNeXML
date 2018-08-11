@@ -4,7 +4,7 @@
 #' publish nexml files to the web and receive a DOI
 #' @param nexml a nexml object (or file path)
 #' @param ... additional arguments, depending on repository. See examples.
-#' @param repository desitination respository
+#' @param repository destination repository
 #' @return a digital object identifier to the published data
 #' @export 
 #' @examples \dontrun{

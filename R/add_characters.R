@@ -7,7 +7,7 @@
 #'        and taxon labels are row names.  x can be in matrix or data.frame
 #'        format. 
 #' @param nexml a nexml object, if appending character table to an existing
-#'        nexml object.  If ommitted will initiate a new nexml object.  
+#'        nexml object.  If omitted will initiate a new nexml object.  
 #' @param append_to_existing_otus logical. If TRUE, will add any new taxa
 #' (taxa not matching any existing otus block) to the existing (first)
 #' otus block.  Otherwise (default), a new otus block is created, even
