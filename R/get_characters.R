@@ -96,7 +96,7 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
     dplyr::distinct() %>%
     dplyr::mutate_(.dots = setNames(list(~cellclass(xsi.type)), "class"))
   
-  for(i in dim(type)[1])
+  for(i in seq_along(seq(1,dim(type)[1])))
     class(out[[type$label[i]]]) <- type$class[i]
   
   
