@@ -7,7 +7,7 @@ library(geiger)
 test_that("We can extract tree and trait data to run fitContinuous and fitDiscrete", {
   nexml <- read.nexml(system.file("examples", "comp_analysis.xml", package="RNeXML"))
   traits <- get_characters(nexml)
-  tree <- get_trees(nexml)
+  tree <- get_trees(nexml) 
   expect_is(tree, "phylo")
   cts <- fitContinuous(tree, traits[1], ncores=1)
   ## Incredibly, fitDiscrete cannot take discrete characters

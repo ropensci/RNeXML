@@ -4,8 +4,8 @@
 \alias{add_meta}
 \title{Add metadata to a nexml file}
 \usage{
-add_meta(meta, nexml = new("nexml"), level = c("nexml", "otus", "trees",
-  "characters"), namespaces = NULL, i = 1, at_id = NULL)
+add_meta(meta, nexml = new("nexml"), level = c("nexml", "otus",
+  "trees", "characters"), namespaces = NULL, i = 1, at_id = NULL)
 }
 \arguments{
 \item{meta}{a meta S4 object, e.g. ouput of the function \code{\link{meta}}, or a list of these meta objects}

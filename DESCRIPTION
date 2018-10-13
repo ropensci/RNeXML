@@ -80,7 +80,7 @@ Collate:
     'simmap.R'
     'taxize_nexml.R'
     'tbl_df.R'
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.0
 X-schema.org-applicationCategory: Data Publication
 X-schema.org-keywords: metadata, nexml, phylogenetics, linked-data
 X-schema.org-isPartOf: https://ropensci.org
