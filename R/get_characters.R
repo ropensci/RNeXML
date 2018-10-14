@@ -52,13 +52,25 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
   ## States, including polymorphic states (or uncertain states)
   states <- get_level(nex, "characters/format/states/state") 
   
-  ## Include polymorphic and uncertain states
-  polymorph <- get_level(nex, "characters/format/states/polymorphic_state_set") 
-  uncertain <- get_level(nex, "characters/format/states/uncertain_state_set") 
-  if(dim(polymorph)[1] > 0)
-    states <- dplyr::bind_rows(states, polymorph)
-  if(dim(uncertain)[1] > 0)
-    states <- dplyr::bind_rows(states, uncertain)
+  ## Include polymorphic and uncertain states.
+  polymorph <- get_level(nex, "characters/format/states/polymorphic_state_set")
+  uncertain <- get_level(nex, "characters/format/states/uncertain_state_set")
+  if(dim(polymorph)[1] > 0) {
+    ## For the result to work correctly for joining, the ID column needs to
+    ## be uniformly named "state".
+    polymorph <- dplyr::rename(polymorph, state = "polymorphic_state_set")
+    # StandardStates have integer symbols, but polymorphic state sets typically
+    # do not. If states are DNA, then states will already be character type, and
+    # then changing to character should presumably have no effect.
+    states <- states %>% dplyr::mutate_at(c("symbol"), as.character) %>%
+                         dplyr::bind_rows(polymorph)
+  }
+  if(dim(uncertain)[1] > 0) {
+    ## Same issue for uncertain states.
+    uncertain <- dplyr::rename(uncertain, state = "uncertain_state_set")
+    states <- states %>% dplyr::mutate_at(c("symbol"), as.character) %>%
+                         dplyr::bind_rows(uncertain)
+  }
   states <- dplyr::select_(states, drop)
 
 
