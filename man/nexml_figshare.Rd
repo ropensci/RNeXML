@@ -5,8 +5,9 @@
 \title{publish nexml to figshare}
 \usage{
 nexml_figshare(nexml, file = "nexml.xml",
-  categories = "Evolutionary Biology", tags = list("phylogeny", "NeXML"),
-  visibility = c("public", "private", "draft"), id = NULL, ...)
+  categories = "Evolutionary Biology", tags = list("phylogeny",
+  "NeXML"), visibility = c("public", "private", "draft"), id = NULL,
+  ...)
 }
 \arguments{
 \item{nexml}{a nexml object (or file path to a nexml file)}
