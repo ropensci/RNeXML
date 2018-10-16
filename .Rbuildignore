@@ -15,3 +15,5 @@ cran-comments.md
 ^README\.Rmd$
 ^codemeta\.json$
 ^codecov\.yml$
+^RNeXML_.*\.tar\.gz$
+cache
