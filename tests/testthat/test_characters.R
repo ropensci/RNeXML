@@ -36,18 +36,17 @@ test_that("we can actually parse NeXML files containing character data", {
   expect_is(nex, "nexml")
 })
 
-
-## Now that we tested this, store the result so we can use it in later tests 
+## Now that we tested this, store the result so we can use it in later tests
 nex <- read.nexml(f)
+
+### BEGIN *DO NOT MODIFY nex OBJECT* ###
+###                                  ###
 
 test_that("we can extract character matrix with get_characters", {
   x <- get_characters(nex)
   expect_is(x, "data.frame")
 ## FIXME add additional and more precise expect_ checks 
 })
-
-
-
 
 test_that("we can extract a list of character matrices with get_characters_list", {
   x <- get_characters_list(nex)
@@ -57,34 +56,10 @@ test_that("we can extract a list of character matrices with get_characters_list"
 
 })
 
-
-## 
-test_that("add_otu can append only unmatched taxa to an existing otus block", {
-  orig <- get_taxa(nex)
-  x <- get_characters_list(nex)
-  nex@otus[[1]]@otu <- new("ListOfotu", nex@otus[[1]]@otu[1:5]) # chop off some of the otu values
-
-  new_taxa <- rownames(x[[1]]) 
-  nex2 <- RNeXML:::add_otu(nex, new_taxa, append=TRUE) # add them back 
-## should have same contents as orig... 
-  get_taxa(nex2)
-  expect_identical(sort(orig$label), sort(get_taxa(nex2)$label))
-
-## Note that otu ids are not unique when we chop them off ...
-})
-
-
-
-
-
 ## FIXME add_characters needs a method to add character names of states
 ## and then we need a test for that method
 
-
 test_that("we can add characters to a nexml file using a data.frame", {
-  f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
-  
-  nex <- read.nexml(f)
   x <- get_characters(nex)
   nexml <- add_characters(x)
 
@@ -98,16 +73,33 @@ test_that("we can add characters to a nexml file using a data.frame", {
   unlink("chartest.xml")
 })
 
-
-
-
 ## based on bug on 2014-03-12 65ae459523c529452adb699c3d5d118c0a207402 
 test_that("we can add multiple character matrices to a nexml file", {
           skip_if_not(require(geiger))
           data(geospiza)
           data(primates)
-          nex <- add_characters(geospiza$dat)
-          nex <- add_characters(primates$dat, nex)
-          expect_is(nex, "nexml")
+          nexml <- add_characters(geospiza$dat)
+          nexml <- add_characters(primates$dat, nexml)
+          expect_is(nexml, "nexml")
 })
 
+###                                  ###
+### END *DO NOT MODIFY nex OBJECT*   ###
+###                                  ###
+### Re-read nex object before using  ###
+###                                  ###
+
+test_that("add_otu can append only unmatched taxa to an existing otus block", {
+  nex <- read.nexml(f)
+  orig <- get_taxa(nex)
+  x <- get_characters_list(nex)
+  nex@otus[[1]]@otu <- new("ListOfotu", nex@otus[[1]]@otu[1:5]) # chop off some of the otu values
+
+  new_taxa <- rownames(x[[1]])
+  nex2 <- RNeXML:::add_otu(nex, new_taxa, append=TRUE) # add them back
+  ## should have same contents as orig...
+  get_taxa(nex2)
+  expect_identical(sort(orig$label), sort(get_taxa(nex2)$label))
+
+  ## Note that otu ids are not unique when we chop them off ...
+})
