@@ -25,7 +25,6 @@ Suggests:
     rfigshare (>= 0.3.0),
     knitcitations (>= 1.0.1),
     testthat (>= 0.10.0),
-    phylobase (>= 0.6.8),
     rmarkdown (>= 0.3.3),
     xslt,
     taxize (>= 0.2.2),
