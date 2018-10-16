@@ -6,3 +6,10 @@ vignettes/figure
 */*.Rhistory
 .Rhistory
 _site
+RNeXML.RCheck
+RNeXML*.tar.gz
+cache
+tests/testthat/Rplots.pdf
+tests/testthat/tmp.xml
+tests/testthat/ex.tre
+tests/testthat/ex.xml
