@@ -1,10 +1,9 @@
 context("rdf")
 
-has_rdf <- require(rdflib)
-
 test_that("we can extract rdf-xml", {
 
-  skip_if_not(has_rdf)
+  skip_if_not(require(rdflib))
+  skip_if_not_installed("xslt")
   skip_on_os("solaris")
   
   rdf <- get_rdf(system.file("examples/primates.xml", package="RNeXML"))
@@ -20,7 +19,9 @@ test_that("we can extract rdf-xml", {
 })
 
 test_that("we can perform sparql queries with rdf", {
-  skip_on_travis()
+  skip_if_not(require(rdflib))
+  skip_if_not_installed("xslt")
+  # skip_on_travis()
   skip_on_os("solaris")
   
   rdf <- get_rdf(system.file("examples/primates.xml", package="RNeXML"))

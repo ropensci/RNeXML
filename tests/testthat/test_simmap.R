@@ -8,7 +8,7 @@ context("simmap")
 test_that("we can coerce an ape::phylo tree with a 
           phytools:simmap extension into nexml", {
   skip_if_not_installed("phytools")
-  library("phytools")
+  require("phytools")
   set.seed(10) 
   tree <- rbdtree(b = log(50), d = 0, Tmax = .5)
   Q <- matrix(c(-2, 1, 1, 1, -2 ,1 ,1, 1, -2), 3, 3) 
@@ -35,6 +35,3 @@ test_that("we can coerce an ape::phylo tree with a
   # checks that we got the states slot correct 
   expect_equal(converted, orig)
 })
-
-
-
