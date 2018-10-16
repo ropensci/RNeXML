@@ -1,10 +1,9 @@
 context("Comparative analysis")
 
-
-library(geiger)
-
+has_geiger <- require(geiger)
 
 test_that("We can extract tree and trait data to run fitContinuous and fitDiscrete", {
+  skip_if_not(has_geiger)
   nexml <- read.nexml(system.file("examples", "comp_analysis.xml", package="RNeXML"))
   traits <- get_characters(nexml)
   tree <- get_trees(nexml)
@@ -19,6 +18,7 @@ test_that("We can extract tree and trait data to run fitContinuous and fitDiscre
 
 
 test_that("We can serialize tree and trait data for a comparative analysis", {
+  skip_if_not(has_geiger)
   data(geospiza)
   add_trees(geospiza$phy)
   nexml <- add_characters(geospiza$dat)

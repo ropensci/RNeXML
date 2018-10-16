@@ -26,21 +26,19 @@ test_that("we can read nexml from a character string of xml", {
 })
 
 test_that("we can read nexml from a XMLInternalDocument object", {
-  library("httr")
   library("XML")
-  x <- xmlParse(content(GET(url)))
+  x <- xmlParse(f)
   nex <- nexml_read(x)
-  
+
   expect_is(nex, "nexml")
   expect_equal(nex@trees@names, "trees")
 })
 
 test_that("we can read nexml from a XMLInternalNode object", {
-  library("httr")
   library("XML")
-  x <- xmlParse(content(GET(url)))
+  x <- xmlParse(f)
   nex <- nexml_read(xmlRoot(x))
-  
+
   expect_is(nex, "nexml")
   expect_equal(nex@trees@names, "trees")
 })
