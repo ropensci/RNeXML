@@ -2,9 +2,9 @@ version: 2
 jobs:
   build:
     docker:
-      - image: rocker/tidyverse:3.4.3
+      - image: rocker/verse:3.3.1
     steps:
       - checkout
-      - run: R -e "devtools::install(); rmarkdown::render('manuscripts/manuscript.Rmd')"
+      - run: R -e "devtools::install(dep=T); rmarkdown::render('manuscripts/manuscript.Rmd')"
 
 
