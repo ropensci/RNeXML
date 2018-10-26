@@ -5,7 +5,7 @@
 \title{Get character data.frame from nexml}
 \usage{
 get_characters(nex, rownames_as_col = FALSE, otu_id = FALSE,
-  otus_id = FALSE)
+  otus_id = FALSE, include_state_types = FALSE)
 }
 \arguments{
 \item{nex}{a nexml object}
@@ -18,9 +18,15 @@ otu id (for joining with otu metadata, etc)}
 
 \item{otus_id}{logical, default FALSE. return a column with the 
 otus block id (for joining with otu metadata, etc)}
+
+\item{include_state_types}{logical, default FALSE. whether to also return a 
+matrix of state types (with values standard, polymorphic, and uncertain)}
 }
 \value{
-the character matrix as a data.frame
+the character matrix as a data.frame, or if `include_state_types is
+ TRUE a list of two elements, `characters` as the character matrix, and
+ state_types as a matrix of state types. Both matrices will be in the same
+ ordering of rows and columns.
 }
 \description{
 Get character data.frame from nexml
