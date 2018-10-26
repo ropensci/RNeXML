@@ -11,8 +11,8 @@ get_rdf(file)
 }
 \value{
 an RDF-XML object (XMLInternalDocument).  This can be manipulated with
-  tools from the XML R package, or converted into a triplestore for use with 
-  SPARQL queries from the rdflib R package.
+tools from the XML R package, or converted into a triplestore for use with
+SPARQL queries from the rdflib R package.
 }
 \description{
 Extract rdf-xml from a NeXML file

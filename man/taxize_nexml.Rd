@@ -14,8 +14,8 @@ taxize_nexml(nexml, type = c("NCBI"), ...)
 \item{...}{additional arguments (not implemented yet)}
 }
 \description{
-Check taxonomic names against the specified service and 
-add appropriate semantic metadata to the nexml OTU unit 
+Check taxonomic names against the specified service and
+add appropriate semantic metadata to the nexml OTU unit
 containing the corresponding identifier.
 }
 \examples{

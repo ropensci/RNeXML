@@ -24,15 +24,15 @@ Get the desired element from the nexml object
 }
 \details{
 \itemize{
- \item{"tree"}{ an ape::phylo tree, if only one tree is represented.  Otherwise returns a list of lists of multiphylo trees.  To consistently receive the list of lists format (preserving the hierarchical nature of the nexml), use \code{trees} instead.}
- \item{"trees"}{ returns a list of lists of multiphylo trees, even if all trees are in the same `trees` node (and hence the outer list will be of length 1) or if there is only a single tree (and hence the inner list will also be of length 1.  This ensures a consistent return type regardless of the number of trees present in the nexml file, and also preserves any hierarchy/grouping of trees.  }
- \item{"flat_trees"}{ a multiPhylo object (list of ape::phylo objects) Note that this method collapses any hierarchical structure that may have been present as multiple `trees` nodes in the original nexml (though such a feature is rarely used).  To preserve that structure, use `trees` instead.}
- \item{"metadata"}{Get metadata from the specified level (default is top/nexml level) }
- \item{"otu"}{ returns a named character vector containing all available metadata.  names indicate \code{property} (or \code{rel} in the case of links/resourceMeta), while values indicate the \code{content} (or \code{href} for links). }
- \item{"taxa"}{ alias for otu }
+\item{"tree"}{ an ape::phylo tree, if only one tree is represented.  Otherwise returns a list of lists of multiphylo trees.  To consistently receive the list of lists format (preserving the hierarchical nature of the nexml), use \code{trees} instead.}
+\item{"trees"}{ returns a list of lists of multiphylo trees, even if all trees are in the same \code{trees} node (and hence the outer list will be of length 1) or if there is only a single tree (and hence the inner list will also be of length 1.  This ensures a consistent return type regardless of the number of trees present in the nexml file, and also preserves any hierarchy/grouping of trees.  }
+\item{"flat_trees"}{ a multiPhylo object (list of ape::phylo objects) Note that this method collapses any hierarchical structure that may have been present as multiple \code{trees} nodes in the original nexml (though such a feature is rarely used).  To preserve that structure, use \code{trees} instead.}
+\item{"metadata"}{Get metadata from the specified level (default is top/nexml level) }
+\item{"otu"}{ returns a named character vector containing all available metadata.  names indicate \code{property} (or \code{rel} in the case of links/resourceMeta), while values indicate the \code{content} (or \code{href} for links). }
+\item{"taxa"}{ alias for otu }
 }
 For a slightly cleaner interface, each of these elements is also defined as an S4 method
-for a nexml object.  So in place of `get_item(nexml, "tree")`, one could use `get_tree(nexml)`,
+for a nexml object.  So in place of \code{get_item(nexml, "tree")}, one could use \code{get_tree(nexml)},
 and so forth for each element type.
 }
 \examples{

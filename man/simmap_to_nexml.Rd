@@ -10,9 +10,9 @@ simmap_to_nexml(phy, state_ids = NULL)
 \item{phy}{a phy object containing simmap phy$maps element,
 from the phytools package}
 
-\item{state_ids}{a named character vector giving the state 
+\item{state_ids}{a named character vector giving the state
 names corresponding to the ids used to refer to each state
-in nexml.  If null ids will be generated and states taken from 
+in nexml.  If null ids will be generated and states taken from
 the phy$states names.}
 }
 \value{

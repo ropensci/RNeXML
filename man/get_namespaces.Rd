@@ -11,7 +11,7 @@ get_namespaces(nexml)
 }
 \value{
 a named character vector providing the URLs defining each
-of the namespaces used in the nexml file.  Names correspond to 
+of the namespaces used in the nexml file.  Names correspond to
 the prefix abbreviations of the namespaces.
 }
 \description{

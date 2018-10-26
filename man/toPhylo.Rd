@@ -13,7 +13,7 @@ toPhylo(tree, otus)
 e.g. (from get_otu_maps for the otus set matching the relevant trees node.}
 }
 \value{
-phylo object.  If a "reconstructions" annotation is found on the 
+phylo object.  If a "reconstructions" annotation is found on the
 edges, return simmap maps slot as well.
 }
 \description{

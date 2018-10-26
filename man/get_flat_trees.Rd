@@ -16,7 +16,7 @@ a multiPhylo object (list of ape::phylo objects).  See details.
 extract a single multiPhylo object containing all trees in the nexml
 }
 \details{
-Note that this method collapses any hierarchical structure that may have been present as multiple `trees` nodes in the original nexml (though such a feature is rarely used).  To preserve that structure, use \code{\link{get_trees}} instead.
+Note that this method collapses any hierarchical structure that may have been present as multiple \code{trees} nodes in the original nexml (though such a feature is rarely used).  To preserve that structure, use \code{\link{get_trees}} instead.
 }
 \examples{
 comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
