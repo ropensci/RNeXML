@@ -7,7 +7,12 @@
 #'  otu id (for joining with otu metadata, etc)
 #' @param otus_id logical, default FALSE. return a column with the 
 #'  otus block id (for joining with otu metadata, etc)
-#' @return the character matrix as a data.frame
+#' @param include_state_types logical, default FALSE. whether to also return a 
+#'  matrix of state types (with values standard, polymorphic, and uncertain)
+#' @return the character matrix as a data.frame, or if `include_state_types` is
+#'  TRUE a list of two elements, `characters` as the character matrix, and
+#'  `state_types` as a matrix of state types. Both matrices will be in the same
+#'  ordering of rows and columns.
 #' @details RNeXML will attempt to return the matrix using the NeXML taxon (otu) labels to name the rows
 #'  and the NeXML char labels to name the traits (columns).  If these are unavailable or not unique, the NeXML
 #'  id values for the otus or traits will be used instead.
@@ -27,8 +32,27 @@
 #' f <- system.file("examples", "characters.xml", package="RNeXML")
 #' nex <- read.nexml(f)
 #' get_characters(nex)
+#' 
+#' # if polymorphic or uncertain states need special treatment, request state
+#' # types to be returned as well:
+#' f <- system.file("examples", "ontotrace-result.xml", package="RNeXML")
+#' nex <- read.nexml(f)
+#' res <- get_characters(nex, include_state_types = TRUE)
+#' row.has.p <- apply(res$state_types, 1, 
+#'                    function(x) any(x == "polymorphic", na.rm = TRUE))
+#' col.has.p <- apply(res$state_types, 2, 
+#'                    function(x) any(x == "polymorphic", na.rm = TRUE))
+#' res$characters[row.has.p, col.has.p, drop=FALSE] # polymorphic rows and cols
+#' res$characters[!row.has.p, drop=FALSE] # drop taxa with polymorphic states
+#' # replace polymorphic state symbols in matrix with '?'
+#' m1 <- mapply(function(s, s.t) ifelse(s.t == "standard", s, "?"), 
+#'              res$characters, res$state_types)
+#' row.names(m1) <- row.names(res$characters)
+#' m1
 #' }
-get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id = FALSE){
+get_characters <- function(nex, 
+                           rownames_as_col=FALSE, otu_id=FALSE, otus_id=FALSE,
+                           include_state_types=FALSE) {
   
   drop = lazyeval::interp(~-dplyr::matches(x), x = "about|xsi.type|format")
   
@@ -43,14 +67,17 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
   ## Rows have otu information
   rows <- get_level(nex, "characters/matrix/row") %>% 
     dplyr::select_(.dots = c("otu", "row"))
-  cells <- get_level(nex, "characters/matrix/row/cell") %>% 
+
+  cellLevel <- get_level(nex, "characters/matrix/row/cell")
+  cells <- cellLevel %>% 
     dplyr::select_(.dots = c("char", "state", "row")) %>% 
     dplyr::left_join(rows, by = "row")
     
   characters <- get_level(nex, "characters")
   
-  ## States, including polymorphic states (or uncertain states)
-  states <- get_level(nex, "characters/format/states/state") 
+  ## States, not including polymorphic or uncertain states
+  states <- get_level(nex, "characters/format/states/state") %>%
+    dplyr::mutate(state.type = "standard")
   
   ## Include polymorphic and uncertain states.
   polymorph <- get_level(nex, "characters/format/states/polymorphic_state_set")
@@ -58,7 +85,9 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
   if(dim(polymorph)[1] > 0) {
     ## For the result to work correctly for joining, the ID column needs to
     ## be uniformly named "state".
-    polymorph <- dplyr::rename(polymorph, state = "polymorphic_state_set")
+    polymorph <- polymorph %>%
+      dplyr::mutate(state.type = "polymorphic") %>%
+      dplyr::rename(state = "polymorphic_state_set")
     # StandardStates have integer symbols, but polymorphic state sets typically
     # do not. If states are DNA, then states will already be character type, and
     # then changing to character should presumably have no effect.
@@ -67,7 +96,9 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
   }
   if(dim(uncertain)[1] > 0) {
     ## Same issue for uncertain states.
-    uncertain <- dplyr::rename(uncertain, state = "uncertain_state_set")
+    uncertain <- uncertain %>%
+      dplyr::mutate(state.type = "uncertain") %>%
+      dplyr::rename(state = "uncertain_state_set")
     states <- states %>% dplyr::mutate_at(c("symbol"), as.character) %>%
                          dplyr::bind_rows(uncertain)
   }
@@ -77,19 +108,30 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
   if(dim(states)[1] > 0) 
     cells <- cells %>% 
     dplyr::left_join(states, by = c("state"))  %>% 
-    dplyr::select_(.dots = c("char", "symbol", "otu", "state"))
+    dplyr::select_(.dots = c("char", "symbol", "otu", "state", "state.type"))
   
   ## Join the matrices.  Note that we select unique column names after each join to avoid collisions
-  cells %>% 
+  cells <- cells %>% 
     dplyr::left_join(char, by = c("char")) %>% 
     dplyr::rename_(.dots = c("trait" = "label")) %>% 
     dplyr::left_join(otus, by = c("otu")) %>%
-    dplyr::rename_(.dots = c("taxa" = "label")) %>%
+    dplyr::rename_(.dots = c("taxa" = "label"))
+  # character state matrix with symbols:
+  cells %>%
     na_symbol_to_state() %>% 
     dplyr::select_(.dots = c("taxa", "symbol", "trait", "otu", "otus")) %>% 
     tidyr::spread("trait", "symbol") ->
     out
-  
+  # state type matrix
+  if(dim(states)[1] == 0) {
+    # this can be the case for example for continuous states
+    cells <- dplyr::mutate(cells, state.type = "standard")
+  }
+  cells %>%
+      dplyr::select_(.dots = c("taxa", "state.type", "trait", "otu", "otus")) %>%
+      dplyr::mutate_at("state.type", as.factor) %>%
+      tidyr::spread("trait", "state.type") ->
+      state_types
 
   ## Identify the class of each column and reset it appropriately
   cellclass <- function(x){
@@ -99,7 +141,7 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
   }
   
   type <-
-    get_level(nex, "characters/matrix/row/cell")  %>% 
+    cellLevel  %>% 
     dplyr::select_(drop) %>%
     dplyr::left_join(characters, by = "characters") %>%
     dplyr::select_(.dots = c( "xsi.type", "char", "characters")) %>%
@@ -108,23 +150,34 @@ get_characters <- function(nex, rownames_as_col=FALSE, otu_id = FALSE, otus_id =
     dplyr::distinct() %>%
     dplyr::mutate_(.dots = setNames(list(~cellclass(xsi.type)), "class"))
   
-  for(i in dim(type)[1])
-    class(out[[type$label[i]]]) <- type$class[i]
-  
+  for(i in 1:dim(type)[1]) {
+    if (all(state_types[[type$label[i]]] == "standard", na.rm = TRUE)) {
+      class(out[[type$label[i]]]) <- type$class[i]
+    }
+  }
   
   ## drop unwanted columns if requested (default)
   if(!otu_id){
     out <- dplyr::select_(out, quote(-otu))
+    if (include_state_types)
+      state_types <- dplyr::select_(state_types, quote(-otu))
   }
   if(!otus_id){
     out <- dplyr::select_(out, quote(-otus))
+    if (include_state_types)
+      state_types <- dplyr::select_(state_types, quote(-otus))
   }
   if(!rownames_as_col){
     taxa <- out$taxa
-    out <- dplyr::select_(out, quote(-taxa))
-    out <- as.data.frame(out)  
+    out <- as.data.frame(dplyr::select_(out, quote(-taxa)))
     rownames(out) <- taxa
-    out
+    if (include_state_types) {
+      state_types <- as.data.frame(dplyr::select_(state_types, quote(-taxa)))
+      rownames(state_types) <- taxa
+    }
+  }
+  if (include_state_types) {
+    out <- list(characters = out, state_types = state_types)
   }
   
   out

@@ -25,3 +25,16 @@ test_that("get_characters can deal with polymorphic character states", {
   expect_false(any(is.na(m[, ncol(m)])))
   expect_gt(max(nchar(m[, ncol(m)])), 1)
 })
+
+test_that("get_characters can return state type matrix", {
+  f <- system.file("examples", "ontotrace-result.xml", package="RNeXML")
+  nex <- read.nexml(f)
+  ret <- get_characters(nex, include_state_types = TRUE)
+  expect_is(ret, "list")
+  expect_is(ret$characters, "data.frame")
+  expect_is(ret$state_types, "data.frame")
+  expect_equal(dim(ret$characters), dim(ret$state_types))
+  expect_true(all(sapply(ret$state_types, is.factor)))
+  expect_gt(sum(ret$state_types == "polymorphic", na.rm = TRUE), 1)
+  expect_true(all(is.na(ret$characters) == is.na(ret$state_types)))
+})
