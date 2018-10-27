@@ -137,8 +137,12 @@ setMethod("fromNeXML",
 setMethod("toNeXML", 
           signature("states", "XMLInternalElementNode"),
           function(object, parent){
+            suppressWarnings({ # avoid arcane XML warning message
             parent <- callNextMethod()
             addChildren(parent, kids = object@state)
+            addChildren(parent, kids = object@uncertain_state_set)
+            addChildren(parent, kids = object@polymorphic_state_set)
+            })
             parent
           })
 setAs("states", "XMLInternalNode",

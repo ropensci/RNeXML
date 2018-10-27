@@ -103,3 +103,16 @@ test_that("add_otu can append only unmatched taxa to an existing otus block", {
 
   ## Note that otu ids are not unique when we chop them off ...
 })
+
+
+test_that("we can serialize polymorphic states", {
+  
+  f <- system.file("examples", "ontotrace-result.xml", package="RNeXML")
+  nex <- read.nexml(f)
+  states <- nex@characters[[1]]@format@states[[1]]
+  out <- as(states, "XMLInternalNode")
+  testthat::expect_true("polymorphic_state_set" %in% names(out))
+  
+})
+
+
