@@ -12,9 +12,9 @@ which the data is to be retrieved}
 }
 \value{
 an ape::phylo tree, if only one tree is represented.
- Otherwise returns a list of lists of multiphylo trees.
- To consistently receive the list of lists format (preserving 
- the hierarchical nature of the nexml), use \code{\link{get_trees_list}} instead.
+Otherwise returns a list of lists of multiphylo trees.
+To consistently receive the list of lists format (preserving
+the hierarchical nature of the nexml), use \code{\link{get_trees_list}} instead.
 }
 \description{
 extract a phylogenetic tree from the nexml

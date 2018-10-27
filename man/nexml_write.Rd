@@ -9,8 +9,8 @@ nexml_write(x = new("nexml"), file = NULL, trees = NULL,
   characters = NULL, meta = NULL, ...)
 }
 \arguments{
-\item{x}{a nexml object, or any phylogeny object (e.g. phylo, phylo4) 
-that can be coerced into one. Can also be omitted, in which case a new 
+\item{x}{a nexml object, or any phylogeny object (e.g. phylo, phylo4)
+that can be coerced into one. Can also be omitted, in which case a new
 nexml object will be constructed with the additional parameters specified.}
 
 \item{file}{the name of the file to write out}

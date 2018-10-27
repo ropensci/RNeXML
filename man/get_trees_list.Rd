@@ -12,11 +12,13 @@ which the data is to be retrieved}
 }
 \value{
 returns a list of lists of multiphylo trees, even if all trees
- are in the same `trees` node (and hence the outer list will be of length
-  1) or if there is only a single tree (and hence the inner list will also 
-  be of length 1.  This ensures a consistent return type regardless of
-   the number of trees present in the nexml file, and also preserves any 
-   grouping of trees.
+are in the same \code{trees} node (and hence the outer list will be of length
+\enumerate{
+\item or if there is only a single tree (and hence the inner list will also
+be of length 1.  This ensures a consistent return type regardless of
+the number of trees present in the nexml file, and also preserves any
+grouping of trees.
+}
 }
 \description{
 extract all phylogenetic trees in ape format

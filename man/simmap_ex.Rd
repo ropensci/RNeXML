@@ -6,7 +6,7 @@
 \title{A nexml class R object that includes simmap annotations}
 \format{a \code{nexml} instance}
 \source{
-Simulated tree and stochastic character mapping based on 
+Simulated tree and stochastic character mapping based on
 Revell 2011 (doi:10.1111/j.2041-210X.2011.00169.x)
 }
 \usage{
@@ -14,9 +14,9 @@ simmap_ex
 }
 \description{
 A nexml object with simmap stochastic character mapping
- annotations added to the edges, for use with the RNeXML package
- parsing and serializing NeXML into formats that work with the ape and
- phytools packages.
+annotations added to the edges, for use with the RNeXML package
+parsing and serializing NeXML into formats that work with the ape and
+phytools packages.
 }
 \author{
 Carl Boettiger

@@ -8,8 +8,8 @@
 \S4method{c}{nexml}(x, ..., recursive = FALSE)
 }
 \arguments{
-\item{x, ...}{nexml objects to be concatenated, e.g. from 
-\code{\link{write.nexml}} or \code{\link{read.nexml}}. 
+\item{x, ...}{nexml objects to be concatenated, e.g. from
+\code{\link{write.nexml}} or \code{\link{read.nexml}}.
 Must have unique ids on all elements}
 
 \item{recursive}{logical.  If 'recursive = TRUE', the function recursively

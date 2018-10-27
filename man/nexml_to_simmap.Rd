@@ -10,8 +10,8 @@ nexml_to_simmap(nexml)
 \item{nexml}{a nexml object}
 }
 \value{
-a simmap object (phylo object with a $maps element 
- for use in phytools functions).
+a simmap object (phylo object with a $maps element
+for use in phytools functions).
 }
 \description{
 nexml_to_simmap

@@ -19,7 +19,7 @@ indicate the parent element of the return value.
 get_metadata
 }
 \details{
-'level' should be either the name of a child element of a NeXML document 
+'level' should be either the name of a child element of a NeXML document
 (e.g. "otu", "characters"), or a path to the desired element, e.g. 'trees/tree'
 will return the metadata for all phylogenies in all trees blocks.
 }

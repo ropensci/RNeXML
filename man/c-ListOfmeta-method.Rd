@@ -10,7 +10,7 @@
 \arguments{
 \item{x, ...}{meta or ListOfmeta elements to be concatenated, e.g. see \code{\link{meta}}}
 
-\item{recursive}{logical, if 'recursive=TRUE', the function 
+\item{recursive}{logical, if 'recursive=TRUE', the function
 descends through lists and combines their elements into a vector.}
 }
 \value{
