@@ -72,6 +72,9 @@ setMethod("fromNeXML",
           signature("LiteralMeta", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
+            literalContent <- xmlValue(from)
+            if (literalContent != "")
+              obj@content <- literalContent
             attrs <- xmlAttrs(from)
             obj@property <- attrs[["property"]]
             if(!is.na(attrs["datatype"]))
