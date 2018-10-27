@@ -26,3 +26,13 @@ test_that("we can extract all available metadata at a specified level of the DOM
 })
 
 
+test_that("we can parse literal meta nodes with literal node content", {
+  
+  f <- system.file("examples", "ontotrace-result.xml", package="RNeXML")
+  nex <- read.nexml(f)
+  out <- get_metadata(nex, level = "nexml")
+  matches <- sum(grepl("Phenoscape Knowledgebase", out$content))
+  testthat::expect_true(matches > 0)
+  
+})
+
