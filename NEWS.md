@@ -6,7 +6,7 @@ For more fine-grained list of changes or to report a bug, consult
 * [The issues log](https://github.com/ropensci/RNeXML/issues)
 * [The commit log](https://github.com/ropensci/RNeXML/commits/master)
 
-v2.1.3
+v2.2.0
 ------
 
 - Fixes various (previously broken) aspects of handling polymorphic
