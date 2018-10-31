@@ -6,6 +6,20 @@ For more fine-grained list of changes or to report a bug, consult
 * [The issues log](https://github.com/ropensci/RNeXML/issues)
 * [The commit log](https://github.com/ropensci/RNeXML/commits/master)
 
+v2.2.0
+------
+
+- Fixes various (previously broken) aspects of handling polymorphic
+  and uncertain states for discrete (non-molecular) and continuous
+  characters, including obtaining a character matrix (#174), ensuring
+  proper column types (#188), and serializing to NeXML (#192).
+- Adds the optional ability to, in addition to the character matrix,
+  obtain a concordantly formatted matrix of state types (standard,
+  polymorphic, uncertain).
+- Fixes loss of certain literal-valued metadata when serializing to
+  NeXML. #193
+- Drops package phylobase as dependency. (Also removes circular
+  dependency chain, because phylobase depends on RNeXML.)
 
 v2.1.2
 ------
