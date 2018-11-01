@@ -4,7 +4,6 @@ context("taxonomy")
 data(bird.orders)
 birdorders_small <- drop.tip(bird.orders, tip = 1:10)
 birds <- add_trees(birdorders_small)
-birds <- taxize_nexml(birds, "NCBI")
 
 data(chiroptera)
 chiroptera_small <- drop.tip(chiroptera, tip = 1:906)
@@ -20,6 +19,7 @@ test_that("taxize_nexml correctly collects ncbi identifiers", {
   
   testthat::skip_on_cran()
   
+  birds <- taxize_nexml(birds, "NCBI")
   
   chir <- taxize_nexml(chir, "NCBI")
   chir_super_small <- taxize_nexml(chir_super_small, "NCBI")
@@ -43,8 +43,8 @@ test_that("taxize_nexml correctly collects ncbi identifiers", {
 })
 
 test_that("we can extract taxonomy data from the object", {
+  
   expect_is(get_metadata(birds, "otus/otu"), "data.frame")
-
   expect_is(get_metadata(chir_super_small, 'otus/otu'), "data.frame")
 })
 
