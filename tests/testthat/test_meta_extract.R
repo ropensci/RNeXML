@@ -35,4 +35,19 @@ test_that("we can parse literal meta nodes with literal node content", {
   testthat::expect_true(matches > 0)
   
 })
+test_that("we can parse nested meta with blank nodes", {
+  
+  f <- system.file("examples", "meta_example.xml", package="RNeXML")
+  nex <- read.nexml(f)
+  tmp <- tempfile()
+  xml2::write_xml(RNeXML::get_rdf(f), tmp)
+  triples <- rdflib::rdf_parse(tmp)
+  ## Check the blank node
+  df <- rdflib::rdf_query(triples, 
+  "SELECT ?s ?p ?o WHERE 
+   { ?s <http://purl.org/dc/elements/1.1/source> ?source .
+     ?source ?p ?o
+   }")
+  testthat::expect_equal(dim(df), c(3,3))
+})
 
