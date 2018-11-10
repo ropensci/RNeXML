@@ -45,7 +45,11 @@ test_that("we can correctly parse ResourceMeta annotations", {
 })
 
 test_that("we can parse nested meta with blank nodes", {
-  
+
+  skip_if_not(require(rdflib))
+  skip_if_not_installed("xslt")
+  skip_on_os("solaris")
+
   f <- system.file("examples", "meta_example.xml", package="RNeXML")
   nex <- read.nexml(f)
   tmp <- tempfile()
