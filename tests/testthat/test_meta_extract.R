@@ -35,6 +35,15 @@ test_that("we can parse literal meta nodes with literal node content", {
   testthat::expect_true(matches > 0)
   
 })
+
+test_that("we can correctly parse ResourceMeta annotations", {
+  f <- system.file("examples", "meta_example.xml", package="RNeXML")
+  nex <- read.nexml(f)
+  meta <- get_metadata(nex)
+  lic <- dplyr::filter(meta, (rel == "cc:license") | (property == "cc:license"))$href
+  testthat::expect_equal(lic, "http://creativecommons.org/publicdomain/zero/1.0/")
+})
+
 test_that("we can parse nested meta with blank nodes", {
   
   f <- system.file("examples", "meta_example.xml", package="RNeXML")
