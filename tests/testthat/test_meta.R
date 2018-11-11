@@ -129,3 +129,16 @@ test_that("we can write numeric types of meta elements and get correct datatype"
           expect_is(m@content, "character")
           expect_match(m@datatype, ".*:decimal")
 })
+
+test_that("we can serialize nested meta elements", {
+
+  f <- system.file("examples", "meta_example.xml", package="RNeXML")
+  nex <- read.nexml(f)
+  s <- nex@meta[sapply(nex@meta,
+                       function(x)
+                         ("rel" %in% slotNames(x)) &&
+                         (x@rel == "dc:source"))]
+  out <- as(s$meta, "XMLInternalNode")
+  out_m <- sapply(xmlChildren(out), xmlAttrs)
+  testthat::expect_equal(dim(out_m), c(3, 3))
+})

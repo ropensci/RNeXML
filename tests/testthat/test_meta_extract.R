@@ -42,6 +42,10 @@ test_that("we can correctly parse ResourceMeta annotations", {
   meta <- get_metadata(nex)
   lic <- dplyr::filter(meta, (rel == "cc:license") | (property == "cc:license"))$href
   testthat::expect_equal(lic, "http://creativecommons.org/publicdomain/zero/1.0/")
+  meta <- cbind(meta, nkids = sapply(nex@meta, function(x) length(x@children)))
+  rmeta <- dplyr::filter(meta, xsi.type == "ResourceMeta")
+  testthat::expect_true(all(xor(is.na(rmeta[,"href"]), rmeta[,"nkids"] == 0)))
+  testthat::expect_gt(max(rmeta[,"nkids"]), 0)
 })
 
 test_that("we can parse nested meta with blank nodes", {
