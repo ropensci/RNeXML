@@ -114,12 +114,16 @@ setMethod("fromNeXML",
           function(obj, from){
             obj <- callNextMethod()
             attrs <- xmlAttrs(from)
-            obj@href <- attrs[["href"]]
+            if(!is.na(attrs["href"]))
+              obj@href <- attrs[["href"]]
             if(!is.na(attrs["id"]))
               obj@id <- attrs[["id"]]
             if(!is.na(attrs[["rel"]]))
                  obj@rel <- attrs[["rel"]]
-               obj
+            kids <- xmlChildren(from)
+            if(length(kids) > 0)
+              obj@children <- lapply(kids[names(kids) == "meta"], as, "meta")
+            obj
           }
 )
 setMethod("toNeXML", 
@@ -131,6 +135,9 @@ setMethod("toNeXML",
                        rel = unname(object@rel))  
             attrs <- plyr::compact(attrs)
             addAttributes(parent, .attrs = attrs)
+            if (length(object@children) > 0)
+              addChildren(parent, kids = object@children)
+            parent
 })
 setAs("XMLInternalElementNode", "ResourceMeta", function(from) fromNeXML(new("ResourceMeta"), from)) 
 setAs("ResourceMeta", "XMLInternalElementNode", function(from) toNeXML(from, newXMLNode("meta")))

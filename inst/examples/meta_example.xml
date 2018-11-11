@@ -5,6 +5,11 @@
   <meta xsi:type="LiteralMeta" property="dc:date" datatype="xsd:string" content="2012-04-01"/>
   <meta xsi:type="ResourceMeta" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="cc:license"/>
   <meta xsi:type="LiteralMeta" property="dc:publisher" datatype="xsd:string" content="unpublished data"/>
+  <meta xsi:type="ResourceMeta" rel="dc:source">
+    <meta xsi:type="LiteralMeta" property="dc:identifier">https://doi.org/10.1643/CI-08-076</meta>
+    <meta xsi:type="LiteralMeta" property="dc:bibliographicCitation">Lucinda, P. H. F. and R. P. Vari. 2009. New Steindachnerina species (Teleostei: Characiformes: Curimatidae) from the Rio Tocantins basin. Copeia, 2009(1):142-147</meta>
+    <meta xsi:type="LiteralMeta" property="dc:title">Lucinda and Vari (2009)</meta>
+  </meta> 
   <otus id="tax1">
     <otu label="Struthioniformes" id="t1"/>
     <otu label="Tinamiformes" id="t2"/>

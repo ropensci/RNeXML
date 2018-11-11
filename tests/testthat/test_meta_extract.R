@@ -36,3 +36,35 @@ test_that("we can parse literal meta nodes with literal node content", {
   
 })
 
+test_that("we can correctly parse ResourceMeta annotations", {
+  f <- system.file("examples", "meta_example.xml", package="RNeXML")
+  nex <- read.nexml(f)
+  meta <- get_metadata(nex)
+  lic <- dplyr::filter(meta, (rel == "cc:license") | (property == "cc:license"))$href
+  testthat::expect_equal(lic, "http://creativecommons.org/publicdomain/zero/1.0/")
+  meta <- cbind(meta, nkids = sapply(nex@meta, function(x) length(x@children)))
+  rmeta <- dplyr::filter(meta, xsi.type == "ResourceMeta")
+  testthat::expect_true(all(xor(is.na(rmeta[,"href"]), rmeta[,"nkids"] == 0)))
+  testthat::expect_gt(max(rmeta[,"nkids"]), 0)
+})
+
+test_that("we can parse nested meta with blank nodes", {
+
+  skip_if_not(require(rdflib))
+  skip_if_not_installed("xslt")
+  skip_on_os("solaris")
+
+  f <- system.file("examples", "meta_example.xml", package="RNeXML")
+  nex <- read.nexml(f)
+  tmp <- tempfile()
+  xml2::write_xml(RNeXML::get_rdf(f), tmp)
+  triples <- rdflib::rdf_parse(tmp)
+  ## Check the blank node
+  df <- rdflib::rdf_query(triples, 
+  "SELECT ?s ?p ?o WHERE 
+   { ?s <http://purl.org/dc/elements/1.1/source> ?source .
+     ?source ?p ?o
+   }")
+  testthat::expect_equal(dim(df), c(3,3))
+})
+
