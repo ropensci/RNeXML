@@ -4,12 +4,14 @@
 \alias{get_metadata}
 \title{get_metadata}
 \usage{
-get_metadata(nexml, level = "nexml")
+get_metadata(nexml, level = "nexml", simplify = FALSE)
 }
 \arguments{
 \item{nexml}{a nexml object}
 
 \item{level}{the name of the level of element desired, see details}
+
+\item{simplify}{logical, see Details}
 }
 \value{
 the requested metadata as a data.frame. Additional columns
@@ -30,6 +32,11 @@ columns, and IDs are generated for meta elements that have nested elements
 but do not have an ID ("blank nodes"). A column "meta" contains the
 IDs of the parent meta elements for nested ones. This means that the
 resulting table can be self-joined on those columns.
+
+If \code{simplify} is \code{TRUE}, the type-specific "LiteralMeta" and "ResourceMeta"
+columns will be removed if a consolidated "Meta" column is present. The
+values for "property" (LiteralMeta) and "rel" (ResourceMeta) will be
+consolidated to "property", and "rel" will be removed.
 }
 \examples{
 \dontrun{

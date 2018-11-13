@@ -63,6 +63,19 @@ test_that("we can correctly parse nested ResourceMeta annotations", {
                          nrow(meta) - nrow(topMeta))
 })
 
+test_that("metadata tables can be requested in simplified form", {
+  f <- system.file("examples", "meta_example.xml", package="RNeXML")
+  nex <- read.nexml(f)
+  meta1 <- get_metadata(nex)
+  meta2 <- get_metadata(nex, simplify = TRUE)
+  
+  testthat::expect_equal(dplyr::filter(meta1, rel == "cc:license")$href,
+                         dplyr::filter(meta2, property == "cc:license")$href)
+  removedCols <- c("ResourceMeta", "LiteralMeta", "rel")
+  testthat::expect_true(all(removedCols %in% colnames(meta1)))
+  testthat::expect_false(any(removedCols %in% colnames(meta2)))
+})
+
 test_that("we can parse LiteralMeta annotations with XML literals as values", {
   f <- system.file("examples", "phenex.xml", package="RNeXML")
   nex <- read.nexml(f)

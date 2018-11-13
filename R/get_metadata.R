@@ -6,6 +6,7 @@
 #' get_metadata 
 #' @param nexml a nexml object
 #' @param level the name of the level of element desired, see details
+#' @param simplify logical, see Details
 #' @return the requested metadata as a data.frame. Additional columns
 #' indicate the parent element of the return value.
 #' @details 'level' should be either the name of a child element of a NeXML document 
@@ -20,6 +21,11 @@
 #' IDs of the parent meta elements for nested ones. This means that the
 #' resulting table can be self-joined on those columns.
 #' 
+#' If `simplify` is `TRUE`, the type-specific "LiteralMeta" and "ResourceMeta"
+#' columns will be removed if a consolidated "Meta" column is present. The
+#' values for "property" (LiteralMeta) and "rel" (ResourceMeta) will be
+#' consolidated to "property", and "rel" will be removed.
+#' 
 #' @import XML
 #' @examples \dontrun{
 #' comp_analysis <- system.file("examples", "primates.xml", package="RNeXML")
@@ -28,7 +34,7 @@
 #' get_metadata(nex, "otus/otu")
 #' }
 #' @export
-get_metadata <- function(nexml, level = "nexml"){
+get_metadata <- function(nexml, level = "nexml", simplify = FALSE){
   
 #  level = c("nexml", "otus", "trees", "characters", 
 #            "otus/otu", "trees/tree", "characters/format", "characters/matrix",
@@ -48,7 +54,20 @@ get_metadata <- function(nexml, level = "nexml"){
   else
     level <- paste(level, "meta", sep="/") 
  
-  get_level(nexml, level)
-  
+  out <- get_level(nexml, level)
+  if (simplify) {
+    cnames = colnames(out)
+    if ("Meta" %in% cnames)
+      out <- dplyr::select_(out, quote(-LiteralMeta), quote(-ResourceMeta))
+    if (all(c("rel","property") %in% cnames))
+      out <- dplyr::mutate(out,
+                           property = dplyr::if_else(is.na(out$property),
+                                                     out$rel,
+                                                     out$property),
+                           rel = NULL)
+    else if ("rel" %in% cnames)
+      out <- dplyr::rename(out, property = "rel")
+  }
 
+  out
 }
