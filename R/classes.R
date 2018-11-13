@@ -79,21 +79,42 @@ setMethod("fromNeXML",
             obj@property <- attrs[["property"]]
             if(!is.na(attrs["datatype"]))
                  obj@datatype <- attrs[["datatype"]]
-            if(!is.na(attrs["content"]))
+            if(is.na(attrs["content"])) {
+                 kids <- xmlChildren(from)
+                 if (length(kids) == 1 && names(kids) != "text") {
+                   cnt <- saveXML(kids[[1]], indent = FALSE)
+                   # need to capture the XML namespaces for later serialization
+                   nsList <- xmlNamespace(kids[[1]])
+                   attr(cnt, "namespaces") <- nsList
+                   if (length(nsList) > 0)
+                     # now that namespaces are captured, their declarations
+                     # are redundant and can get in the way at the string level
+                     cnt <- gsub(" xmlns:[A-Za-z0-9=]*\"[^\"]+\"", "", cnt)
+                   obj@content <- xml(cnt)
+                 }
+            } else
                  obj@content <- attrs[["content"]]
             if(!is.na(attrs["id"]))
                  obj@id <- attrs[["id"]]
-               obj
+            obj
           }
 )
 setMethod("toNeXML", 
           signature("LiteralMeta", "XMLInternalElementNode"), 
           function(object, parent){
             parent <- callNextMethod()
+            cnt <- object@content
+            if (length(cnt) > 0 && class(cnt) == "XMLString") {
+              # need to add back in the namespace definitions used by the
+              # XML value to avoid a stream of warnings, even if this will
+              # probably be redundant with the doc root
+              parseXMLAndAdd(cnt, parent = parent, nsDefs = attr(cnt, "namespaces"))
+              cnt <- character(0)
+            }
             attrs <- c(id = unname(object@id),
                        property = unname(object@property),  # required
                        datatype = unname(object@datatype),  # optional
-                       content = unname(object@content))   # required
+                       content = unname(cnt))               # required
             attrs <- plyr::compact(attrs)
             addAttributes(parent, .attrs = attrs)
 })
