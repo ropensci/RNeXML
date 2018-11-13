@@ -36,7 +36,7 @@ test_that("we can parse literal meta nodes with literal node content", {
   
 })
 
-test_that("we can correctly parse ResourceMeta annotations", {
+test_that("we can correctly parse nested ResourceMeta annotations", {
   f <- system.file("examples", "meta_example.xml", package="RNeXML")
   nex <- read.nexml(f)
   meta <- get_metadata(nex)
@@ -47,6 +47,12 @@ test_that("we can correctly parse ResourceMeta annotations", {
   testthat::expect_true("meta" %in% colnames(meta))
   topMeta <- meta[is.na(meta[,"meta"]),]
   testthat::expect_lt(nrow(topMeta), nrow(meta))
+  # there should be one dc:title at top level, and two if we include nested
+  testthat::expect_gt(nrow(dplyr::filter(meta, property == "dc:title")),
+                      nrow(dplyr::filter(topMeta, property == "dc:title")))
+  # test that the ID referencing for self-joining is correct
+  testthat::expect_true(all(meta[! is.na(meta[, "meta"]), "meta"] %in%
+                              meta[! is.na(meta[, "Meta"]), "Meta"]))
   # ResourceMetas should _either_ have an href _or_ have nested meta elements
   topMeta <- cbind(topMeta, nkids = sapply(nex@meta, function(x) length(x@children)))
   rmeta <- dplyr::filter(topMeta, xsi.type == "ResourceMeta")
