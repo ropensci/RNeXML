@@ -28,9 +28,9 @@ test_that("taxize_nexml correctly collects ncbi identifiers", {
   expect_is(birds@otus, "ListOfotus")
   
   expect_is(birds@otus@.Data[[1]]@otu, "ListOfotu")
-  expect_is(birds@otus@.Data[[1]]@otu[[1]], "otu")
+  expect_is(birds@otus@.Data[[1]]@otu[[1]], "nexml:otu")
   expect_is(birds@otus@.Data[[1]]@otu[[1]]@meta, "ListOfmeta")
-  expect_is(birds@otus@.Data[[1]]@otu[[1]]@meta[[1]], "meta")
+  expect_is(birds@otus@.Data[[1]]@otu[[1]]@meta[[1]], "nexml:meta")
   
   expect_equal(slot(birds@otus@.Data[[1]]@otu[[1]]@meta[[1]], "href"), 
                "http://ncbi.nlm.nih.gov/taxonomy/56308")
@@ -39,7 +39,7 @@ test_that("taxize_nexml correctly collects ncbi identifiers", {
   
   expect_is(chir@otus, "ListOfotus")
   expect_is(chir@otus@.Data[[1]]@otu, "ListOfotu")
-  expect_is(chir@otus@.Data[[1]]@otu[[1]], "otu")
+  expect_is(chir@otus@.Data[[1]]@otu[[1]], "nexml:otu")
 })
 
 test_that("we can extract taxonomy data from the object", {

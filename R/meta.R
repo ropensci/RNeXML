@@ -62,18 +62,18 @@ meta <- function(property = character(0),
     if(is.null(content) && length(children) == 0) ## Avoid writing when content is missing, e.g. prism:endingpage is blank
       NULL
     else
-      new("meta", content = content, datatype = datatype, 
+      new("nexml:meta", content = content, datatype = datatype, 
           property = property, id = id, 'xsi:type' = "LiteralMeta",
           children = children)
   } else if(length(rel) > 0){
     if(is.null(href))
       NULL
     else
-      new("meta", rel = rel, href = href, 
+      new("nexml:meta", rel = rel, href = href, 
           id = id, 'xsi:type' = "ResourceMeta",
           children = children)
   } else {
-    new("meta", content = content, datatype = datatype, 
+    new("nexml:meta", content = content, datatype = datatype, 
         rel = rel, href = href, id = id, 'xsi:type' = type,
         children = children)
   }
@@ -136,13 +136,13 @@ nexml_citation <- function(obj){
 #' @param x,... meta elements to be concatenated, e.g. see \code{\link{meta}}
 #' @param recursive  logical, if 'recursive=TRUE', the function 
 #' descends through lists and combines their elements into a vector.
-#' @return a listOfmeta object containing multiple meta elements. 
+#' @return a ListOfmeta object containing multiple meta elements. 
 #' @examples 
 #' c(meta(content="example", property="dc:title"),
 #'   meta(content="Carl", property="dc:creator"))
 #' 
 setMethod("c", 
-          signature("meta"),
+          signature("nexml:meta"),
           function(x, ..., recursive = FALSE){
             elements <- list(x, ...)
 #            if(recursive)
@@ -182,7 +182,7 @@ meta_recursion <- function(elements){
   out <- vector("list")
   for(e in elements){
     if(length(e) > 0){
-      if(is(e, "meta")){
+      if(is(e, "nexml:meta")){
         out[[i]] <- e
         i <- i + 1
       } else if(is.list(e)){

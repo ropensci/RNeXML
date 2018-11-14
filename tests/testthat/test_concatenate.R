@@ -24,7 +24,7 @@ test_that("we can concatenate meta elements", {
   out <-  c(meta(content="example", property="dc:title"),
             meta(content="Carl", property="dc:creator"))
   expect_is(out, "ListOfmeta")
-  expect_is(out[[1]], "meta")
+  expect_is(out[[1]], "nexml:meta")
 
 })
 
@@ -37,7 +37,7 @@ test_that("we can conatenate meta elements with empty ListOfmeta elements", {
            meta(content="Carl", property="dc:creator"))
 
   expect_is(out, "ListOfmeta")
-  expect_is(out[[1]], "meta")
+  expect_is(out[[1]], "nexml:meta")
   
 ## in any order 
   out <-  c(meta(content="example", property="dc:title"),
@@ -45,7 +45,7 @@ test_that("we can conatenate meta elements with empty ListOfmeta elements", {
             new("ListOfmeta"))
 
   expect_is(out, "ListOfmeta")
-  expect_is(out[[1]], "meta")
+  expect_is(out[[1]], "nexml:meta")
   
 })
 
@@ -57,13 +57,13 @@ out <- c(meta(content="example", property="dc:title"),
   out <- c(out, meta("skos:note", "an editorial note"))
 
   expect_is(out, "ListOfmeta")
-  expect_is(out[[1]], "meta")
+  expect_is(out[[1]], "nexml:meta")
   
   
   out <- c(meta("skos:note", "another editorial note"), out)
 
   expect_is(out, "ListOfmeta")
-  expect_is(out[[1]], "meta")
+  expect_is(out[[1]], "nexml:meta")
   
 })
 
@@ -74,7 +74,7 @@ test_that("we can concatenate two ListOfmeta elements", {
                 meta(content="Carl", property="dc:creator"))
   out <- c(metalist, metalist) 
   expect_is(out, "ListOfmeta")
-  expect_is(out[[1]], "meta")
+  expect_is(out[[1]], "nexml:meta")
   expect_equal(length(out), 4)
 })
 
@@ -85,7 +85,7 @@ test_that("we can concatenate a ListOfmeta and a meta", {
 
   out <- c(metalist, meta(content="a", property="b")) 
   expect_is(out, "ListOfmeta")
-  expect_is(out[[1]], "meta")
+  expect_is(out[[1]], "nexml:meta")
   expect_equal(length(out), 3)
 
 })

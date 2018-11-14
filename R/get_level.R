@@ -71,7 +71,8 @@ nodelist_to_df <- function(node, element, fn, nodeId=NA){
   if(is.list(nodelist)){ ## node has a list of elements
     out <- suppressWarnings(lapply(nodelist, fn)) %>%
       dplyr::bind_rows() %>%
-      dplyr::mutate_(.dots = dots)
+      dplyr::mutate_(.dots = dots) %>%
+      dplyr::select(-dplyr::starts_with("nexml."))
     if (any(colnames(out) %in% c("ResourceMeta", "LiteralMeta")) &&
         all(sapply(nodelist, .hasSlot, "children"))) {
       # meta elements may have nested meta elements, retrieve these here too
@@ -108,7 +109,7 @@ coalesce_ <- function(...) {
 }
 
 node_id <- function(node){
-  if("id" %in% slotNames(node))
+  if(.hasSlot(node, "id") && length(node@id) > 0)
     slot(node, "id")
   else
     "root"
@@ -118,8 +119,10 @@ idRefColName <- function(node){
   clname <- class(node)
   super <- names(getClass(clname)@contains)
   # meta elements can be nested, avoid clobbering the ID column with the IDREF
-  if (length(super) > 0 && (super[1] == "Meta"))
-    tolower(super[1])
+  if (length(super) > 0 && (super[1] == "nexml:Meta"))
+    "meta"
+  else if (.hasSlot(node, "nexml:idrefName"))
+    slot(node, "nexml:idrefName")
   else
     clname
 }
@@ -140,7 +143,7 @@ attributes_to_row <- function(node){
   ## Coerce into a row of a data.frame & rename id column to match class
   out <- data.frame(as.list(tmp), stringsAsFactors=FALSE) 
   if("id" %in% who)
-    out <- dplyr::rename_(out, .dots = setNames("id", class(node)))
+    out <- dplyr::rename_(out, .dots = setNames("id", slot(node, "nexml:idrefName")))
   
   out
 }

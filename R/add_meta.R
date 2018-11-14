@@ -37,10 +37,10 @@ add_meta <- function(meta,
                      i = 1, 
                      at_id = NULL){
   level <- match.arg(level)
-  if(is(meta, "meta"))
+  if(is(meta, "nexml:meta"))
     meta <- list(meta)
-  if(!all(sapply(meta, is, "meta")))
-    stop("All elements in list must be of class 'meta'")
+  if(!all(sapply(meta, is, "nexml:meta")))
+    stop("All elements in list must be of class 'nexml:meta'")
  
   if(!is.null(at_id)){
     stop("function does not yet handle at_id assignments")

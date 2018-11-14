@@ -70,9 +70,9 @@ test_that("we can parse LiteralMeta annotations with XML literals as values", {
   # the XML annotations for state elements should have been parsed
   states <- nex@characters[[1]]@format@states[[1]]@state # list of state objects
   testthat::expect_true(all(sapply(states, function(s) length(s@meta) >= 1)))
-  testthat::expect_setequal(sapply(states, function(s) class(s@meta[[1]])),
+  testthat::expect_setequal(sapply(states, function(s) slot(s@meta[[1]], "xsi:type")),
                             "LiteralMeta")
-  testthat::expect_true(all(sapply(states, 
+  testthat::expect_true(all(sapply(states,
                                    function(s) length(s@meta[[1]]@content)) > 0))
   testthat::expect_setequal(sapply(states, function(s) class(s@meta[[1]]@content)),
                             "XMLString")

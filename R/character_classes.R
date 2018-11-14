@@ -3,11 +3,11 @@
 ####################################################
 
 
-setClass("char",
+setClass("nexml:char",
          slots = c(states = "character"),
-         contains = "IDTagged")
+         contains = "nexml:IDTagged")
 setMethod("fromNeXML", 
-          signature("char", "XMLInternalElementNode"),
+          signature("nexml:char", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             if(!is.na(xmlAttrs(from)["states"]))
@@ -15,19 +15,19 @@ setMethod("fromNeXML",
             obj
           })
 setMethod("toNeXML", 
-          signature("char", "XMLInternalElementNode"),
+          signature("nexml:char", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             if(length(object@states) > 0)
               addAttributes(parent, "states" = object@states)
             parent
           })
-setAs("char", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("char")))
-setAs("char", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("char")))
-setAs("XMLInternalElementNode", "char",
-      function(from) fromNeXML(new("char"), from))
+setAs("nexml:char", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:char", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:char",
+      function(from) fromNeXML(new("nexml:char"), from))
 
 
 
@@ -35,33 +35,33 @@ setAs("XMLInternalElementNode", "char",
 ###############################################
 
 setClass("ListOfrow", slots = c(names="character"), contains="list")
-setClass("obsmatrix",
+setClass("nexml:matrix",
          slots = c(row="ListOfrow"),
-         contains = "Annotated")
+         contains = "nexml:Annotated")
 setMethod("fromNeXML", 
-          signature("obsmatrix", "XMLInternalElementNode"),
+          signature("nexml:matrix", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             kids <- xmlChildren(from)
             if(length(kids) > 0)
               obj@row <- new("ListOfrow", 
                               lapply(kids[names(kids) == "row"], 
-                                     as, "row"))
+                                     as, "nexml:row"))
             obj
           })
 setMethod("toNeXML", 
-          signature("obsmatrix", "XMLInternalElementNode"),
+          signature("nexml:matrix", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             addChildren(parent, kids = object@row)
             parent
           })
-setAs("obsmatrix", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("matrix")))
-setAs("obsmatrix", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("matrix")))
-setAs("XMLInternalElementNode", "obsmatrix",
-      function(from) fromNeXML(new("obsmatrix"), from))
+setAs("nexml:matrix", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:matrix", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:matrix",
+      function(from) fromNeXML(new("nexml:matrix"), from))
 
 
 
@@ -72,70 +72,70 @@ setAs("XMLInternalElementNode", "obsmatrix",
 setClass("ListOfcell", slots = c(names="character"), contains="list")
 setClass("ListOfseq", slots = c(names="character"), contains="list")
 
-setClass("row",
+setClass("nexml:row",
          slots = c(cell = "ListOfcell",
                         seq = "ListOfseq"),
-         contains = "OptionalTaxonLinked")
+         contains = "nexml:OptionalTaxonLinked")
 setMethod("fromNeXML", 
-          signature("row", "XMLInternalElementNode"),
+          signature("nexml:row", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             kids <- xmlChildren(from)
             if(length(kids) > 0){
               if("cell" %in% names(kids))
               obj@cell <- new("ListOfcell", 
-                lapply(kids[names(kids) == "cell"], as, "cell"))
+                lapply(kids[names(kids) == "cell"], as, "nexml:cell"))
               if("seq" %in% names(kids))
               obj@seq <- new("ListOfseq", 
-                lapply(kids[names(kids) == "seq"], as, "seq"))
+                lapply(kids[names(kids) == "seq"], as, "nexml:seq"))
             }
             obj
           })
 setMethod("toNeXML", 
-          signature("row", "XMLInternalElementNode"),
+          signature("nexml:row", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             addChildren(parent, kids = object@cell)
             addChildren(parent, kids = object@seq)
             parent
           })
-setAs("row", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("row")))
-setAs("row", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("row")))
-setAs("XMLInternalElementNode", "row",
-      function(from) fromNeXML(new("row"), from))
+setAs("nexml:row", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:row", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:row",
+      function(from) fromNeXML(new("nexml:row"), from))
 
 #######################################################
 setClass("ListOfstate", slots = c(names="character"), contains="list")
 setClass("ListOfpolymorphic_state_set", slots = c(names="character"), contains="list")
 setClass("ListOfuncertain_state_set", slots = c(names="character"), contains="list")
 
-setClass("states",
+setClass("nexml:states",
          slots = c(state="ListOfstate", 
                    polymorphic_state_set="ListOfpolymorphic_state_set",
                    uncertain_state_set="ListOfuncertain_state_set"),
-         contains = "IDTagged")
+         contains = "nexml:IDTagged")
 setMethod("fromNeXML", 
-          signature("states", "XMLInternalElementNode"),
+          signature("nexml:states", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             kids <- xmlChildren(from)
             if(length(kids) > 0){
               obj@state <- new("ListOfstate", 
                               lapply(kids[names(kids) == "state"], 
-                                     as, "state"))
+                                     as, "nexml:state"))
               obj@polymorphic_state_set <- new("ListOfpolymorphic_state_set", 
                              lapply(kids[names(kids) == "polymorphic_state_set"], 
-                                    as, "polymorphic_state_set"))
+                                    as, "nexml:polymorphic_state_set"))
               obj@uncertain_state_set <- new("ListOfuncertain_state_set", 
                                                lapply(kids[names(kids) == "uncertain_state_set"], 
-                                                      as, "uncertain_state_set"))
+                                                      as, "nexml:uncertain_state_set"))
             }
             obj
           })
 setMethod("toNeXML", 
-          signature("states", "XMLInternalElementNode"),
+          signature("nexml:states", "XMLInternalElementNode"),
           function(object, parent){
             suppressWarnings({ # avoid arcane XML warning message
             parent <- callNextMethod()
@@ -145,139 +145,139 @@ setMethod("toNeXML",
             })
             parent
           })
-setAs("states", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("states")))
-setAs("states", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("states")))
-setAs("XMLInternalElementNode", "states",
-      function(from) fromNeXML(new("states"), from))
+setAs("nexml:states", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:states", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:states",
+      function(from) fromNeXML(new("nexml:states"), from))
 
 
 
 
 ####################################################### 
 ## technically symbol is positive integer http://nexml.org/doc/schema-1/characters/standard/#StandardToken
-setClass("state",
+setClass("nexml:state",
          slots = c(symbol = "integer"), 
-         contains = "IDTagged")
+         contains = "nexml:IDTagged")
 setMethod("fromNeXML", 
-          signature("state", "XMLInternalElementNode"),
+          signature("nexml:state", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             obj@symbol <- as.integer(xmlAttrs(from)["symbol"])
             obj
           })
 setMethod("toNeXML", 
-          signature("state", "XMLInternalElementNode"),
+          signature("nexml:state", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             addAttributes(parent, "symbol" = object@symbol)
             parent
           })
-setAs("state", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("state")))
-setAs("state", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("state")))
-setAs("XMLInternalElementNode", "state",
-      function(from) suppressWarnings(fromNeXML(new("state"), from)))
+setAs("nexml:state", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:state", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:state",
+      function(from) suppressWarnings(fromNeXML(new("nexml:state"), from)))
 
 ################################################
 
 ##  a symbol for an uncertain stat is a character string
-setClass("uncertain_state",
+setClass("nexml:uncertain_state",
          slots = c(symbol = "character"), 
-         contains = "IDTagged")
+         contains = "nexml:IDTagged")
 setMethod("fromNeXML", 
-          signature("uncertain_state", "XMLInternalElementNode"),
+          signature("nexml:uncertain_state", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             obj@symbol <- xmlAttrs(from)["symbol"]
             obj
           })
 setMethod("toNeXML", 
-          signature("uncertain_state", "XMLInternalElementNode"),
+          signature("nexml:uncertain_state", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             addAttributes(parent, "symbol" = object@symbol)
             parent
           })
-setAs("uncertain_state", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("uncertain_state")))
-setAs("uncertain_state", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("uncertain_state")))
-setAs("XMLInternalElementNode", "uncertain_state",
-      function(from) suppressWarnings(fromNeXML(new("uncertain_state"), from)))
+setAs("nexml:uncertain_state", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:uncertain_state", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:uncertain_state",
+      function(from) suppressWarnings(fromNeXML(new("nexml:uncertain_state"), from)))
 
 ################################################
 
 
 setClass("ListOfmember", slots = c(names="character"), contains="list")
 
-setClass("uncertain_state_set", 
+setClass("nexml:uncertain_state_set", 
          slots = c(member = "ListOfmember"),
-         contains="uncertain_state")
+         contains="nexml:uncertain_state")
 setMethod("fromNeXML", 
-          signature("uncertain_state_set", "XMLInternalElementNode"),
+          signature("nexml:uncertain_state_set", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             kids <- xmlChildren(from)
             if(length(kids) > 0)
               obj@member <- new("ListOfmember", 
                               lapply(kids[names(kids) == "member"], 
-                                     as, "member"))
+                                     as, "nexml:member"))
             obj
           })
 setMethod("toNeXML", 
-          signature("uncertain_state_set", "XMLInternalElementNode"),
+          signature("nexml:uncertain_state_set", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             addChildren(parent, kids = object@member)
             parent
           })
-setAs("uncertain_state_set", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("uncertain_state_set")))
-setAs("uncertain_state_set", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("uncertain_state_set")))
-setAs("XMLInternalElementNode", "uncertain_state_set",
-      function(from) fromNeXML(new("uncertain_state_set"), from))
+setAs("nexml:uncertain_state_set", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:uncertain_state_set", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:uncertain_state_set",
+      function(from) fromNeXML(new("nexml:uncertain_state_set"), from))
 
 ################################################
 
-setClass("polymorphic_state_set", contains="uncertain_state_set")
+setClass("nexml:polymorphic_state_set", contains="nexml:uncertain_state_set")
 setMethod("fromNeXML", 
-          signature("polymorphic_state_set", "XMLInternalElementNode"),
+          signature("nexml:polymorphic_state_set", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             kids <- xmlChildren(from)
             if(length(kids) > 0)
               obj@member <- new("ListOfmember", 
                               lapply(kids[names(kids) == "member"], 
-                                     as, "member"))
+                                     as, "nexml:member"))
             obj
           })
 setMethod("toNeXML", 
-          signature("polymorphic_state_set", "XMLInternalElementNode"),
+          signature("nexml:polymorphic_state_set", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             addChildren(parent, kids = object@member)
             parent
           })
-setAs("polymorphic_state_set", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("polymorphic_state_set")))
-setAs("polymorphic_state_set", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("polymorphic_state_set")))
-setAs("XMLInternalElementNode", "polymorphic_state_set",
-      function(from) fromNeXML(new("polymorphic_state_set"), from))
+setAs("nexml:polymorphic_state_set", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:polymorphic_state_set", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:polymorphic_state_set",
+      function(from) fromNeXML(new("nexml:polymorphic_state_set"), from))
 
 
 #####################
 
-setClass("cell",
+setClass("nexml:cell",
          slots = c(char="character", 
                         state= "character"),
-         contains="Base")
+         contains="nexml:Labelled")
 setMethod("fromNeXML", 
-          signature("cell", "XMLInternalElementNode"),
+          signature("nexml:cell", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             obj@char <- xmlAttrs(from)["char"]
@@ -285,54 +285,54 @@ setMethod("fromNeXML",
             obj
           })
 setMethod("toNeXML", 
-          signature("cell", "XMLInternalElementNode"),
+          signature("nexml:cell", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             addAttributes(parent, "char" = object@char)
             addAttributes(parent, "state" = object@state)
             parent
           })
-setAs("cell", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("cell")))
-setAs("cell", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("cell")))
-setAs("XMLInternalElementNode", "cell",
-      function(from) fromNeXML(new("cell"), from))
+setAs("nexml:cell", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:cell", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:cell",
+      function(from) fromNeXML(new("nexml:cell"), from))
 
 #########################
 
-setClass("member", 
+setClass("nexml:member", 
          slots = c(state="character"),
-         contains="Base")
+         contains="nexml:Base")
 setMethod("fromNeXML", 
-          signature("member", "XMLInternalElementNode"),
+          signature("nexml:member", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             obj@state <- xmlAttrs(from)["state"]
             obj
           })
 setMethod("toNeXML", 
-          signature("member", "XMLInternalElementNode"),
+          signature("nexml:member", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             addAttributes(parent, "state" = object@state)
             parent
           })
-setAs("member", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("member")))
-setAs("member", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("member")))
-setAs("XMLInternalElementNode", "member",
-      function(from) fromNeXML(new("member"), from))
+setAs("nexml:member", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:member", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:member",
+      function(from) fromNeXML(new("nexml:member"), from))
 
 
 ########################
 
-setClass("seq", 
+setClass("nexml:seq", 
          slots = c(seq = "character"),
-         contains="Base")
+         contains="nexml:Base")
 setMethod("fromNeXML", 
-          signature("seq", "XMLInternalElementNode"),
+          signature("nexml:seq", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             obj@seq <- xmlValue(from)
@@ -340,30 +340,30 @@ setMethod("fromNeXML",
           }
 )
 setMethod("toNeXML", 
-          signature("seq", "XMLInternalElementNode"),
+          signature("nexml:seq", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             addChildren(parent, object@seq)
             parent
           })
-setAs("seq", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("seq")))
-setAs("seq", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("seq")))
-setAs("XMLInternalElementNode", "seq",
-      function(from) fromNeXML(new("seq"), from))
+setAs("nexml:seq", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:seq", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:seq",
+      function(from) fromNeXML(new("nexml:seq"), from))
 
 #########################################
 
 setClass("ListOfchar", slots = c(names="character"), contains="list")
 setClass("ListOfstates", slots = c(names="character"), contains="list")
 
-setClass("format", 
+setClass("nexml:format", 
          slots = c(states = "ListOfstates", ## FIXME Should be ListOfstates
                         char = "ListOfchar"),
-         contains = "Annotated")
+         contains = "nexml:Annotated")
 setMethod("fromNeXML", 
-          signature("format", "XMLInternalElementNode"),
+          signature("nexml:format", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
             kids <- xmlChildren(from)
@@ -371,16 +371,16 @@ setMethod("fromNeXML",
               if("char" %in% names(kids))
                 obj@char <- new("ListOfchar", 
                                 lapply(kids[names(kids) == "char"], 
-                                       as, "char"))
+                                       as, "nexml:char"))
               if("states" %in% names(kids))
                 obj@states <- new("ListOfstates", 
                                 lapply(kids[names(kids) == "states"], 
-                                       as, "states"))
+                                       as, "nexml:states"))
             }
             obj
           })
 setMethod("toNeXML", 
-          signature("format", "XMLInternalElementNode"),
+          signature("nexml:format", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             if(!isEmpty(object@char))
@@ -389,43 +389,43 @@ setMethod("toNeXML",
               addChildren(parent, kids = object@states)
             parent
           })
-setAs("format", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("format")))
-setAs("format", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("format")))
-setAs("XMLInternalElementNode", "format",
-      function(from) fromNeXML(new("format"), from))
+setAs("nexml:format", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:format", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:format",
+      function(from) fromNeXML(new("nexml:format"), from))
 
 
 
 
 
 ####################################################
-setClass("characters",
-         slots = c(format = "format",
-                        matrix = "obsmatrix"),
-        contains = "TaxaLinked")
+setClass("nexml:characters",
+         slots = c(format = "nexml:format",
+                        matrix = "nexml:matrix"),
+        contains = "nexml:TaxaLinked")
 setMethod("fromNeXML", 
-          signature("characters", "XMLInternalElementNode"),
+          signature("nexml:characters", "XMLInternalElementNode"),
           function(obj, from){
             obj <- callNextMethod()
-            obj@format <- as(from[["format"]], "format")
-            obj@matrix <- as(from[["matrix"]], "obsmatrix")
+            obj@format <- as(from[["format"]], "nexml:format")
+            obj@matrix <- as(from[["matrix"]], "nexml:matrix")
             obj
           })
 setMethod("toNeXML", 
-          signature("characters", "XMLInternalElementNode"),
+          signature("nexml:characters", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
             parent <- addChildren(parent, format = object@format)
             parent <- addChildren(parent, matrix = object@matrix)
             parent
           })
-setAs("characters", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("characters")))
-setAs("characters", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("characters")))
-setAs("XMLInternalElementNode", "characters",
-      function(from) fromNeXML(new("characters"), from))
+setAs("nexml:characters", "XMLInternalNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("nexml:characters", "XMLInternalElementNode",
+      function(from) toNeXML(from, newXMLNode(slot(from, "nexml:xmlName"))))
+setAs("XMLInternalElementNode", "nexml:characters",
+      function(from) fromNeXML(new("nexml:characters"), from))
 
 

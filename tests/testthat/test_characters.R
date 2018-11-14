@@ -9,25 +9,25 @@ test_that("we can parse XML to S4 and serialize S4 to XML for the basic characte
   doc <- xmlParse(f)
   root <- xmlRoot(doc)
 
-  char <- as(root[["characters"]][["format"]][["char"]], "char")
+  char <- as(root[["characters"]][["format"]][["char"]], "nexml:char")
   out <- as(char, "XMLInternalElementNode")
-  expect_is(char, "char") # not as dumb as it looks, at least we're checking our own method here 
+  expect_is(char, "nexml:char") # not as dumb as it looks, at least we're checking our own method here
   expect_is(out, "XMLInternalElementNode") # dumb check, but provides a dot to show the code above executed successfully 
 
-  format <- as(root[["characters"]][["format"]], "format")
+  format <- as(root[["characters"]][["format"]], "nexml:format")
   out <- as(format, "XMLInternalElementNode")
-  expect_is(format, "format") 
+  expect_is(format, "nexml:format")
   expect_is(out, "XMLInternalElementNode") 
 
-  matrix <- as(root[["characters"]][["matrix"]], "obsmatrix")
+  matrix <- as(root[["characters"]][["matrix"]], "nexml:matrix")
   out <- as(matrix, "XMLInternalElementNode")
-  expect_is(matrix, "obsmatrix") 
+  expect_is(matrix, "nexml:matrix")
   expect_is(out, "XMLInternalElementNode") 
 
-  characters <- as(root[["characters"]], "characters")
+  characters <- as(root[["characters"]], "nexml:characters")
   out <- as(characters, "XMLInternalElementNode")
-  expect_is(characters, "characters") 
-  expect_is(out, "XMLInternalElementNode") 
+  expect_is(characters, "nexml:characters")
+  expect_is(out, "XMLInternalElementNode")
 
 })
 

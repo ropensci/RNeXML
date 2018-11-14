@@ -68,7 +68,7 @@ add_trees_block <- function(nexml, phy, otus_id){
 
   trees <- lapply(phy, function(trs){
          tree_id <- nexml_id("ts")
-         new("trees", 
+         new("nexml:trees",
              id = tree_id,
              about = paste0("#", tree_id),
              otus = otus_id,
@@ -98,7 +98,7 @@ fromPhylo <- function(phy, otu_map){
             edge_id <- nexml_id("e")
             source <- node_ids[as.character(phy$edge[i,1])]
             target <- node_ids[as.character(phy$edge[i,2])]
-            e <- new("edge", 
+            e <- new("nexml:edge",
                      source = source, 
                      target = target, 
                      id = edge_id,
@@ -114,10 +114,10 @@ fromPhylo <- function(phy, otu_map){
   nodes <- lapply(unique(as.numeric(phy$edge)), function(i){
     node_id <- node_ids[as.character(i)] 
     if(is.na(phy$tip.label[i]))
-      new("node", id = node_id, about = paste0("#", node_id))
+      new("nexml:node", id = node_id, about = paste0("#", node_id))
     else if(is.character(phy$tip.label[i])){
       otu_id <- otu_map[phy$tip.label[i]]
-      new("node", 
+      new("nexml:node",
           id = node_id, 
           about = paste0("#", node_id), 
           otu = otu_id)  
@@ -130,7 +130,7 @@ fromPhylo <- function(phy, otu_map){
 
   ## Create the "tree" S4 object
   tree_id <- nexml_id("tree") 
-  tree <- new("tree", 
+  tree <- new("nexml:tree",
       node = nodes, 
       edge = edges,
       'xsi:type' = 'FloatTree',

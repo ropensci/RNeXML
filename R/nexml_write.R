@@ -83,9 +83,9 @@ write.nexml <- nexml_write
 #           signature("tree", "character"),
 #           function(object, target_type)
 
-setAs("tree", "nexml", function(from){
-  trees = as(from, "trees")
-  otus = as(from, "otus")
+setAs("nexml:tree", "nexml", function(from){
+  trees = as(from, "nexml:trees")
+  otus = as(from, "nexml:otus")
   otus@id = "tax1" #UUIDgenerate()
   trees@id = "Trees" #UUIDgenerate()
   trees@otus = otus@id
@@ -95,10 +95,10 @@ setAs("tree", "nexml", function(from){
 })
 
 
-setAs("ListOfnode", "otus", function(from)
-  new("otus", otu = from))
+setAs("ListOfnode", "nexml:otus", function(from)
+  new("nexml:otus", otu = from))
 
-setAs("tree", "trees", function(from)
-  new("trees", tree = new("ListOftree", list(from))))
+setAs("nexml:tree", "nexml:trees", function(from)
+  new("nexml:trees", tree = new("ListOftree", list(from))))
 
 
