@@ -10,7 +10,6 @@
 #'    the number of trees present in the nexml file, and also preserves any 
 #'    grouping of trees.  
 #' @export
-#' @import plyr 
 #' @examples
 #' comp_analysis <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 #' nex <- nexml_read(comp_analysis)
@@ -124,6 +123,7 @@ setAs("nexml", "phylo", function(from){
 #' e.g. (from get_otu_maps for the otus set matching the relevant trees node. 
 #' @return phylo object.  If a "reconstructions" annotation is found on the 
 #' edges, return simmap maps slot as well.  
+#' @importFrom plyr arrange
 toPhylo <- function(tree, otus){
   otu <- NULL # Avoid CRAN NOTE as per http://stackoverflow.com/questions/8096313/no-visible-binding-for-global-variable-note-in-r-cmd-check
   ## Extract the nodes list

@@ -22,6 +22,14 @@ get_metadata
 'level' should be either the name of a child element of a NeXML document
 (e.g. "otu", "characters"), or a path to the desired element, e.g. 'trees/tree'
 will return the metadata for all phylogenies in all trees blocks.
+
+If a metadata element has other metadata elements nested within it, the
+nested metadata are returned as well. A column "Meta" will contain the
+IDs consolidated from the type-specific LiteralMeta and ResourceMeta
+columns, and IDs are generated for meta elements that have nested elements
+but do not have an ID ("blank nodes"). A column "meta" contains the
+IDs of the parent meta elements for nested ones. This means that the
+resulting table can be self-joined on those columns.
 }
 \examples{
 \dontrun{

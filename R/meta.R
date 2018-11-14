@@ -82,7 +82,7 @@ meta <- function(property = character(0),
 
 ## Common helper functions 
 
-
+#' @importFrom plyr compact
 nexml_citation <- function(obj){
   if(is(obj, "BibEntry"))
     class(obj) <- "bibentry"

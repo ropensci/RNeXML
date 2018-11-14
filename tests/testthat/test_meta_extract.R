@@ -36,16 +36,31 @@ test_that("we can parse literal meta nodes with literal node content", {
   
 })
 
-test_that("we can correctly parse ResourceMeta annotations", {
+test_that("we can correctly parse nested ResourceMeta annotations", {
   f <- system.file("examples", "meta_example.xml", package="RNeXML")
   nex <- read.nexml(f)
   meta <- get_metadata(nex)
-  lic <- dplyr::filter(meta, (rel == "cc:license") | (property == "cc:license"))$href
+  lic <- dplyr::filter(meta, rel == "cc:license")$href
   testthat::expect_equal(lic, "http://creativecommons.org/publicdomain/zero/1.0/")
-  meta <- cbind(meta, nkids = sapply(nex@meta, function(x) length(x@children)))
-  rmeta <- dplyr::filter(meta, xsi.type == "ResourceMeta")
-  testthat::expect_true(all(xor(is.na(rmeta[,"href"]), rmeta[,"nkids"] == 0)))
+
+  # remove rows from nested meta elements (which there should be!)
+  testthat::expect_true("meta" %in% colnames(meta))
+  topMeta <- meta[is.na(meta[,"meta"]),]
+  testthat::expect_lt(nrow(topMeta), nrow(meta))
+  # there should be one dc:title at top level, and two if we include nested
+  testthat::expect_gt(nrow(dplyr::filter(meta, property == "dc:title")),
+                      nrow(dplyr::filter(topMeta, property == "dc:title")))
+  # test that the ID referencing for self-joining is correct
+  testthat::expect_true(all(meta[! is.na(meta[, "meta"]), "meta"] %in%
+                              meta[! is.na(meta[, "Meta"]), "Meta"]))
+  # ResourceMetas should _either_ have an href _or_ have nested meta elements
+  topMeta <- cbind(topMeta, nkids = sapply(nex@meta, function(x) length(x@children)))
+  rmeta <- dplyr::filter(topMeta, xsi.type == "ResourceMeta")
+  testthat::expect_true(all(xor(is.na(rmeta[, "href"]), rmeta[, "nkids"] == 0)))
   testthat::expect_gt(max(rmeta[,"nkids"]), 0)
+  # the sum of the children should equal the number of nested meta elements
+  testthat::expect_equal(sum(rmeta[, "nkids"]),
+                         nrow(meta) - nrow(topMeta))
 })
 
 test_that("we can parse nested meta with blank nodes", {

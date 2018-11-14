@@ -61,19 +61,51 @@ recursion <- function(i, level){
 
 ## Assumes slot(node, element) is a list
 #' @importFrom lazyeval interp
-#' @importFrom dplyr bind_rows mutate_ %>%
-nodelist_to_df <- function(node, element, fn){
-  dots <- setNames(list(lazyeval::interp(~x, x = node_id(node))), class(node))
-  nodelist <- slot(node, element) 
+#' @importFrom dplyr bind_rows coalesce mutate mutate_ %>%
+#' @importFrom uuid UUIDgenerate
+nodelist_to_df <- function(node, element, fn, nodeId=NA){
+  dots <- setNames(
+    list(lazyeval::interp(~x, x = if (is.na(nodeId)) node_id(node) else nodeId)),
+    idRefColName(node))
+  nodelist <- slot(node, element)
   if(is.list(nodelist)){ ## node has a list of elements
     nodelist %>% 
       lapply(fn) %>% 
       dplyr::bind_rows() %>%
       dplyr::mutate_(.dots = dots) -> out
+    if (any(colnames(out) %in% c("ResourceMeta", "LiteralMeta")) &&
+        all(sapply(nodelist, .hasSlot, "children"))) {
+      # meta elements may have nested meta elements, retrieve these here too
+      ids <- sapply(nodelist,
+                    function(n) if (length(n@children) > 0) uuid::UUIDgenerate() else NA)
+      if (length(ids) > 0 && any(!is.na(ids))) {
+        mout <- dplyr::mutate(out, "Meta" = coalesce_(out$LiteralMeta,
+                                                      out$ResourceMeta,
+                                                      ids))
+        nested <- mapply(function(n, id) nodelist_to_df(n, "children", fn, id),
+                         n = nodelist,
+                         id = mout[,"Meta"])
+        out <- dplyr::bind_rows(mout, nested)
+      }
+    }
+    out
   } else { ## handle case when node has only one element
     fn(nodelist) %>%
       dplyr::mutate_(.dots = dots)
   }
+}
+
+coalesce_ <- function(...) {
+  idvecs <- list(...)
+  idvecs <- lapply(idvecs,
+                   function(v, template) {
+                     if (is.null(v))
+                       as(rep(NA, times=length(template)), typeof(template))
+                     else
+                       as(v, typeof(template))
+                   },
+                   template = idvecs[[length(idvecs)]])
+  dplyr::coalesce(!!!idvecs)
 }
 
 node_id <- function(node){
@@ -83,6 +115,15 @@ node_id <- function(node){
     "root"
 }
 
+idRefColName <- function(node){
+  clname <- class(node)
+  super <- names(getClass(clname)@contains)
+  # meta elements can be nested, avoid clobbering the ID column with the IDREF
+  if (length(super) > 0 && (super[1] == "Meta"))
+    tolower(super[1])
+  else
+    clname
+}
 
 attributes_to_row <- function(node){
   who <- slotNames(node)
