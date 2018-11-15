@@ -232,7 +232,7 @@ NULL
 #setClass("simmap:reconstructions",
 #         slots = c(reconstruction = "ListOfreconstruction"))
 #setClass("ListOfreconstruction", contains = "list")
-#setClass("simmap:stateChange", contains = "IDTagged") 
+#setClass("simmap:stateChange", contains = "nexml:IDTagged")
 #
 
 

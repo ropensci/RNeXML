@@ -140,7 +140,7 @@ nexml_citation <- function(obj){
 #' @examples 
 #' c(meta(content="example", property="dc:title"),
 #'   meta(content="Carl", property="dc:creator"))
-#' 
+#' @aliases c,meta-method
 setMethod("c", 
           signature("nexml:meta"),
           function(x, ..., recursive = FALSE){
