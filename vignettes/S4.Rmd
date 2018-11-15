@@ -50,6 +50,15 @@ using numeric arguments such as `phy[[1]]` or named arguments such as phy[["edge
 The `nexml` object is an S4 object, as are all of its components (slots).  Its 
 hierarchical structure corresponds exactly with the XML tree of a NeXML file, with 
 the single exception that both XML attributes and children are represented as slots.  
+For each element in the XML tree of a NeXML file, there is an S4 class that is
+named correspondingly, but prefixed with `nexml:` to prevent unintended name
+clashes with classes defined in other packages. (Many NeXML elements have
+short and rather generic names, such as `format`, `matrix`, `tree`, `char`,
+`seq`, etc.) In the following we refer to these classes in their non-prefixed
+form, to show the correspondence to the NeXML schema. The "root"-level `nexml`
+class is _not_ prefixed, and should in general be the only class that
+programmers may need to use directly.
+
 S4 objects have constructor functions to initialize them.  We create a new `nexml` 
 object with the command:
 
@@ -94,7 +103,7 @@ of the slot.  We can create a new element of any given class with the
 `new` function,
 
 ```{r}
-nex@characters <- new("ListOfcharacters", list(new("characters")))
+nex@characters <- new("ListOfcharacters", list(new("nexml:characters")))
 ```
 
 and now we have a length-1 list of character matrices,
