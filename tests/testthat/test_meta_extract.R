@@ -63,6 +63,45 @@ test_that("we can correctly parse nested ResourceMeta annotations", {
                          nrow(meta) - nrow(topMeta))
 })
 
+test_that("we can parse LiteralMeta annotations with XML literals as values", {
+  f <- system.file("examples", "phenex.xml", package="RNeXML")
+  nex <- read.nexml(f)
+
+  # the XML annotations for state elements should have been parsed
+  states <- nex@characters[[1]]@format@states[[1]]@state # list of state objects
+  testthat::expect_true(all(sapply(states, function(s) length(s@meta) >= 1)))
+  testthat::expect_setequal(sapply(states, function(s) class(s@meta[[1]])),
+                            "LiteralMeta")
+  testthat::expect_true(all(sapply(states, 
+                                   function(s) length(s@meta[[1]]@content)) > 0))
+  testthat::expect_setequal(sapply(states, function(s) class(s@meta[[1]]@content)),
+                            "XMLString")
+  # the correct namespace definition should have been retained
+  testthat::expect_false(any(sapply(states, 
+                                   function(s) is.null(attr(s@meta[[1]]@content,
+                                                            "namespaces")))))
+  nsPrefix <- names(attr(states[[1]]@meta[[1]]@content, "namespaces"))
+  testthat::expect_setequal(sapply(states,
+                                   function(s) attr(s@meta[[1]]@content, "namespaces")),
+                            get_namespaces(nex)[nsPrefix])
+
+  # the XML literals are returned as meta content
+  m <- get_metadata(nex, "characters/format/states/state")
+  m_xml <- dplyr::filter(m, property == "ps:describesPhenotype")
+  # should have one row for each state
+  n_states <- sum(sapply(nex@characters[[1]]@format@states,
+                         function(x) length(x@state)))
+  testthat::expect_gte(n_states, 6) # 3 characters, at least 2 states each
+  testthat::expect_length(m_xml[,1], n_states)
+  # they are of type LiteralMeta
+  testthat::expect_setequal(m_xml[,"xsi.type"], "LiteralMeta")
+  # their content is non-empty, and a string that is valid XML
+  testthat::expect_false(any(sapply(m_xml[,"content"], is.na)))
+  testthat::expect_true(all(sapply(m_xml[,"content"], is.character)))
+  testthat::expect_true(all(sapply(m_xml[,"content"], nchar) > 0))
+  testthat::expect_true(all(sapply(m_xml[,"content"], XML::isXMLString)))
+})
+
 test_that("we can parse nested meta with blank nodes", {
 
   skip_if_not(require(rdflib))

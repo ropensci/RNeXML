@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nexml xmlns="http://www.nexml.org/2009" xmlns:dc="http://purl.org/dc/terms/" xmlns:dwc="http://rs.tdwg.org/dwc/terms/" xmlns:obo="http://purl.obolibrary.org/obo/" xmlns:phen="http://www.bioontologies.org/obd/schema/pheno" xmlns:ps="http://vocab.phenoscape.org/" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" generator="Phenex null" version="0.9" xsi:schemaLocation="http://www.nexml.org/2009 http://www.nexml.org/2009/nexml.xsd http://www.bioontologies.org/obd/schema/pheno http://purl.org/phenoscape/phenoxml.xsd">
+  <meta xsi:type="LiteralMeta" property="dc:description">Excerpt of Phenex-annotated character matrix, created for software testing purposes</meta>
+  <meta xsi:type="LiteralMeta" property="dc:creator">Hilmar Lapp</meta>
+  <meta xsi:type="ResourceMeta" rel="dc:references" href="https://raw.githubusercontent.com/phenoscape/phenoscape-data/master/curation-files/teleost-incomplete-files/Dillman_Supermatrix_Files/Lucinda_Vari_2009.xml"/>
+  <otus id="t5350085f-b175-4ec2-8dd1-4fcf765282a7">
+    <otu id="t7b9ea147-90dd-48ce-bcd7-956117035356" label="Steindachnerina amazonica" about="#t7b9ea147-90dd-48ce-bcd7-956117035356">
+      <meta xsi:type="ResourceMeta" rel="dwc:taxonID" href="http://purl.obolibrary.org/obo/VTO_0065939" />
+      <meta xsi:type="ResourceMeta" rel="dwc:individualID">
+        <meta xsi:type="LiteralMeta" property="dwc:catalogNumber">298161</meta>
+        <meta xsi:type="ResourceMeta" rel="dwc:collectionID" href="http://purl.obolibrary.org/obo/COLLECTION_0000417" />
+      </meta>
+    </otu>
+    <otu id="t5d5becca-83d0-4848-ba2a-15bc69e07bd8" label="Steindachnerina argentea" about="#t5d5becca-83d0-4848-ba2a-15bc69e07bd8">
+      <meta xsi:type="ResourceMeta" rel="dwc:taxonID" href="http://purl.obolibrary.org/obo/VTO_0065938" />
+      <meta xsi:type="ResourceMeta" rel="dwc:individualID">
+        <meta xsi:type="LiteralMeta" property="dwc:catalogNumber">285663</meta>
+        <meta xsi:type="ResourceMeta" rel="dwc:collectionID" href="http://purl.obolibrary.org/obo/COLLECTION_0000417" />
+      </meta>
+    </otu>
+    <otu id="t1e5d7314-0582-4942-a9de-b7c5fc6e6089" label="Steindachnerina atratoensis" about="#t1e5d7314-0582-4942-a9de-b7c5fc6e6089">
+      <meta xsi:type="ResourceMeta" rel="dwc:taxonID" href="http://purl.obolibrary.org/obo/VTO_0065950" />
+      <meta xsi:type="ResourceMeta" rel="dwc:individualID">
+        <meta xsi:type="LiteralMeta" property="dwc:catalogNumber">220199</meta>
+        <meta xsi:type="ResourceMeta" rel="dwc:collectionID" href="http://purl.obolibrary.org/obo/COLLECTION_0000417" />
+      </meta>
+    </otu>
+    <otu id="tcee43669-ce2d-4748-889f-f2508b5c6a7b" label="Steindachnerina bimaculata" about="#tcee43669-ce2d-4748-889f-f2508b5c6a7b">
+      <meta xsi:type="ResourceMeta" rel="dwc:taxonID" href="http://purl.obolibrary.org/obo/VTO_0065936" />
+      <meta xsi:type="ResourceMeta" rel="dwc:individualID">
+        <meta xsi:type="LiteralMeta" property="dwc:catalogNumber">251450</meta>
+        <meta xsi:type="ResourceMeta" rel="dwc:collectionID" href="http://purl.obolibrary.org/obo/COLLECTION_0000417" />
+      </meta>
+    </otu>
+    <otu id="t85e3d842-a62e-4b14-aeba-9f11c5f1b040" label="Steindachnerina binotata" about="#t85e3d842-a62e-4b14-aeba-9f11c5f1b040">
+      <meta xsi:type="ResourceMeta" rel="dwc:taxonID" href="http://purl.obolibrary.org/obo/VTO_0065942" />
+      <meta xsi:type="ResourceMeta" rel="dwc:individualID">
+        <meta xsi:type="LiteralMeta" property="dwc:catalogNumber">301960</meta>
+        <meta xsi:type="ResourceMeta" rel="dwc:collectionID" href="http://purl.obolibrary.org/obo/COLLECTION_0000417" />
+      </meta>
+    </otu>
+  </otus>
+  <characters id="u029e5906-4bfa-4124-88fa-ee4c0818cd90" xsi:type="StandardCells" otus="t5350085f-b175-4ec2-8dd1-4fcf765282a7">
+    <format>
+      <states id="saf6e9708-4b50-4529-b001-ea2b02ee600f">
+        <state id="s1a9eb78d-c04b-48c9-a034-0eb13efb7d1d" label="three thin flaps" symbol="0" about="#s1a9eb78d-c04b-48c9-a034-0eb13efb7d1d">
+          <meta xsi:type="LiteralMeta" property="ps:describesPhenotype">
+            <phen:phenotype>
+              <phen:phenotype_character>
+                <phen:bearer>
+                  <phen:typeref about="UBERON:2001951">
+                    <phen:qualifier relation="BFO:0000050">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="UBERON:4300187" />
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:bearer>
+                <phen:quality count="3">
+                  <phen:typeref about="PATO:0000070" />
+                </phen:quality>
+              </phen:phenotype_character>
+              <phen:phenotype_character>
+                <phen:bearer>
+                  <phen:typeref about="UBERON:2001951">
+                    <phen:qualifier relation="BFO:0000050">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="UBERON:4300187" />
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:bearer>
+                <phen:quality>
+                  <phen:typeref about="PATO:0000592" />
+                </phen:quality>
+              </phen:phenotype_character>
+            </phen:phenotype>
+          </meta>
+        </state>
+        <state id="s12cf3a86-d789-43b0-b4d0-cb0eda3687a3" label="thickened flaps, with or without lobulate bodies" symbol="1" about="#s12cf3a86-d789-43b0-b4d0-cb0eda3687a3">
+          <meta xsi:type="LiteralMeta" property="ps:describesPhenotype">
+            <phen:phenotype>
+              <phen:phenotype_character>
+                <phen:bearer>
+                  <phen:typeref about="UBERON:2001951">
+                    <phen:qualifier relation="BFO:0000050">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="UBERON:4300187" />
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:bearer>
+                <phen:quality>
+                  <phen:typeref about="PATO:0000591" />
+                </phen:quality>
+              </phen:phenotype_character>
+              <phen:phenotype_character>
+                <phen:bearer>
+                  <phen:typeref about="UBERON:2001951">
+                    <phen:qualifier relation="BFO:0000050">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="UBERON:4300187" />
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:bearer>
+                <phen:quality>
+                  <phen:typeref about="PATO:0001979" />
+                </phen:quality>
+              </phen:phenotype_character>
+              <phen:phenotype_character>
+                <phen:bearer>
+                  <phen:typeref about="UBERON:2001951">
+                    <phen:qualifier relation="BFO:0000050">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="UBERON:4300187" />
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:bearer>
+                <phen:quality>
+                  <phen:typeref about="PATO:0000052">
+                    <phen:qualifier relation="PHENOSCAPE:complement_of">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="PATO:0001979" />
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:quality>
+              </phen:phenotype_character>
+            </phen:phenotype>
+          </meta>
+        </state>
+        <state id="s1eeacd5e-9234-4948-923b-287464289df0" label="one or more series of lobulate bodies" symbol="2" about="#s1eeacd5e-9234-4948-923b-287464289df0">
+          <meta xsi:type="LiteralMeta" property="ps:describesPhenotype">
+            <phen:phenotype>
+              <phen:phenotype_character>
+                <phen:bearer>
+                  <phen:typeref about="UBERON:2001951">
+                    <phen:qualifier relation="BFO:0000050">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="UBERON:4300187" />
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:bearer>
+                <phen:quality>
+                  <phen:typeref about="PATO:0001979" />
+                </phen:quality>
+              </phen:phenotype_character>
+            </phen:phenotype>
+          </meta>
+        </state>
+        <state id="sa29316ee-92e5-46a5-bffe-228522841abf" label="multiple series of lobulate bodies" symbol="3" about="#sa29316ee-92e5-46a5-bffe-228522841abf">
+          <meta xsi:type="LiteralMeta" property="ps:describesPhenotype">
+            <phen:phenotype>
+              <phen:phenotype_character>
+                <phen:bearer>
+                  <phen:typeref about="UBERON:2001951">
+                    <phen:qualifier relation="BFO:0000050">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="UBERON:4300187" />
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:bearer>
+                <phen:quality>
+                  <phen:typeref about="PATO:0001979" />
+                </phen:quality>
+              </phen:phenotype_character>
+            </phen:phenotype>
+          </meta>
+        </state>
+      </states>
+      <states id="s955664b9-aba0-4a72-a9a3-3acf1eb985c5">
+        <state id="sbd25e6a5-08a5-46bd-a66d-0da73cff258c" label="moderately developed" symbol="0" about="#sbd25e6a5-08a5-46bd-a66d-0da73cff258c">
+          <meta xsi:type="LiteralMeta" property="ps:describesPhenotype">
+            <phen:phenotype>
+              <phen:phenotype_character>
+                <phen:bearer>
+                  <phen:typeref about="UBERON:2001951">
+                    <phen:qualifier relation="BFO:0000050">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="BSPO:0000072">
+                          <phen:qualifier relation="BFO:0000050">
+                            <phen:holds_in_relation_to>
+                              <phen:typeref about="UBERON:4300187" />
+                            </phen:holds_in_relation_to>
+                          </phen:qualifier>
+                        </phen:typeref>
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:bearer>
+                <phen:quality>
+                  <phen:typeref about="PATO:0000117" />
+                </phen:quality>
+              </phen:phenotype_character>
+            </phen:phenotype>
+          </meta>
+        </state>
+        <state id="sc386a5fd-d5c7-4286-bb00-f1a0e15c5cc8" label="well developed" symbol="1" about="#sc386a5fd-d5c7-4286-bb00-f1a0e15c5cc8">
+          <meta xsi:type="LiteralMeta" property="ps:describesPhenotype">
+            <phen:phenotype>
+              <phen:phenotype_character>
+                <phen:bearer>
+                  <phen:typeref about="UBERON:2001951">
+                    <phen:qualifier relation="BFO:0000050">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="BSPO:0000072">
+                          <phen:qualifier relation="BFO:0000050">
+                            <phen:holds_in_relation_to>
+                              <phen:typeref about="UBERON:4300187" />
+                            </phen:holds_in_relation_to>
+                          </phen:qualifier>
+                        </phen:typeref>
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:bearer>
+                <phen:quality>
+                  <phen:typeref about="PATO:0000586" />
+                </phen:quality>
+              </phen:phenotype_character>
+            </phen:phenotype>
+          </meta>
+        </state>
+      </states>
+      <states id="se972459b-3474-4623-b814-36d3458be51a">
+        <state id="s25e67f22-0156-419c-9737-1ecb3db5bc24" label="simple" symbol="0" about="#s25e67f22-0156-419c-9737-1ecb3db5bc24">
+          <meta xsi:type="LiteralMeta" property="ps:describesPhenotype">
+            <phen:phenotype>
+              <phen:phenotype_character>
+                <phen:bearer>
+                  <phen:typeref about="UBERON:2001951">
+                    <phen:qualifier relation="BFO:0000050">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="BSPO:0000071">
+                          <phen:qualifier relation="BFO:0000050">
+                            <phen:holds_in_relation_to>
+                              <phen:typeref about="UBERON:4300187" />
+                            </phen:holds_in_relation_to>
+                          </phen:qualifier>
+                        </phen:typeref>
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:bearer>
+                <phen:quality>
+                  <phen:typeref about="PATO:0001503" />
+                </phen:quality>
+              </phen:phenotype_character>
+            </phen:phenotype>
+          </meta>
+        </state>
+        <state id="sc0948915-14da-4614-92b3-b45bb9ca389a" label="fringed" symbol="1" about="#sc0948915-14da-4614-92b3-b45bb9ca389a">
+          <meta xsi:type="LiteralMeta" property="ps:describesPhenotype">
+            <phen:phenotype>
+              <phen:phenotype_character>
+                <phen:bearer>
+                  <phen:typeref about="UBERON:2001951">
+                    <phen:qualifier relation="BFO:0000050">
+                      <phen:holds_in_relation_to>
+                        <phen:typeref about="BSPO:0000071">
+                          <phen:qualifier relation="BFO:0000050">
+                            <phen:holds_in_relation_to>
+                              <phen:typeref about="UBERON:4300187" />
+                            </phen:holds_in_relation_to>
+                          </phen:qualifier>
+                        </phen:typeref>
+                      </phen:holds_in_relation_to>
+                    </phen:qualifier>
+                  </phen:typeref>
+                </phen:bearer>
+                <phen:quality>
+                  <phen:typeref about="http://data.bioontology.org/provisional_classes/d51ce4c0-b911-0135-3695-005056010074" />
+                </phen:quality>
+              </phen:phenotype_character>
+            </phen:phenotype>
+          </meta>
+        </state>
+      </states>
+      <char id="c2301a5a9-96b7-41bf-8ee6-953699f20dc9" label="Portion of buccopharyngeal complex on roof of oral cavity" about="#c2301a5a9-96b7-41bf-8ee6-953699f20dc9" states="saf6e9708-4b50-4529-b001-ea2b02ee600f" />
+      <char id="c3bfbef3b-22f4-498b-b5d5-9da630f9c652" label="Posterior lobulate bodies of buccopharyngeal complex" about="#c3bfbef3b-22f4-498b-b5d5-9da630f9c652" states="s955664b9-aba0-4a72-a9a3-3acf1eb985c5" />
+      <char id="c9cc73ad0-3a69-4ddf-92ea-338420843d25" label="Anterior posteromedian flaps of buccopharyngeal complex" states="se972459b-3474-4623-b814-36d3458be51a" />
+    </format>
+    <matrix>
+      <row id="r3fbac1c9-b898-41e7-8519-0ea5a88d1c86" otu="t7b9ea147-90dd-48ce-bcd7-956117035356">
+        <cell char="c2301a5a9-96b7-41bf-8ee6-953699f20dc9" state="sa29316ee-92e5-46a5-bffe-228522841abf" />
+        <cell char="c3bfbef3b-22f4-498b-b5d5-9da630f9c652" state="sc386a5fd-d5c7-4286-bb00-f1a0e15c5cc8" />
+        <cell char="c9cc73ad0-3a69-4ddf-92ea-338420843d25" state="s25e67f22-0156-419c-9737-1ecb3db5bc24" />
+      </row>
+      <row id="r3e8d25a1-ec84-44fa-a4a3-d759fa9d0e13" otu="t5d5becca-83d0-4848-ba2a-15bc69e07bd8">
+        <cell char="c2301a5a9-96b7-41bf-8ee6-953699f20dc9" state="s1a9eb78d-c04b-48c9-a034-0eb13efb7d1d" />
+        <cell char="c3bfbef3b-22f4-498b-b5d5-9da630f9c652" state="sbd25e6a5-08a5-46bd-a66d-0da73cff258c" />
+        <cell char="c9cc73ad0-3a69-4ddf-92ea-338420843d25" state="sc0948915-14da-4614-92b3-b45bb9ca389a" />
+      </row>
+      <row id="r8e1e3c75-109e-4441-82f2-09b1085c2807" otu="t1e5d7314-0582-4942-a9de-b7c5fc6e6089">
+        <cell char="c2301a5a9-96b7-41bf-8ee6-953699f20dc9" state="s1eeacd5e-9234-4948-923b-287464289df0" />
+        <cell char="c3bfbef3b-22f4-498b-b5d5-9da630f9c652" state="sc386a5fd-d5c7-4286-bb00-f1a0e15c5cc8" />
+        <cell char="c9cc73ad0-3a69-4ddf-92ea-338420843d25" state="s25e67f22-0156-419c-9737-1ecb3db5bc24" />
+      </row>
+      <row id="rd4617d2b-50bd-4bd7-85f8-38a5cce72394" otu="tcee43669-ce2d-4748-889f-f2508b5c6a7b">
+        <cell char="c2301a5a9-96b7-41bf-8ee6-953699f20dc9" state="s1a9eb78d-c04b-48c9-a034-0eb13efb7d1d" />
+        <cell char="c3bfbef3b-22f4-498b-b5d5-9da630f9c652" state="sbd25e6a5-08a5-46bd-a66d-0da73cff258c" />
+        <cell char="c9cc73ad0-3a69-4ddf-92ea-338420843d25" state="sc0948915-14da-4614-92b3-b45bb9ca389a" />
+      </row>
+      <row id="r7329e0a8-f9ab-4138-8b35-3b6cbe3e5a3e" otu="t85e3d842-a62e-4b14-aeba-9f11c5f1b040">
+        <cell char="c2301a5a9-96b7-41bf-8ee6-953699f20dc9" state="s1a9eb78d-c04b-48c9-a034-0eb13efb7d1d" />
+        <cell char="c3bfbef3b-22f4-498b-b5d5-9da630f9c652" state="sbd25e6a5-08a5-46bd-a66d-0da73cff258c" />
+        <cell char="c9cc73ad0-3a69-4ddf-92ea-338420843d25" state="sc0948915-14da-4614-92b3-b45bb9ca389a" />
+      </row>
+    </matrix>
+  </characters>
+  <trees id="tce47ade5-1491-4242-a49b-218c1bff77f8" otus="t5350085f-b175-4ec2-8dd1-4fcf765282a7" />
+</nexml>

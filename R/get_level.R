@@ -69,10 +69,9 @@ nodelist_to_df <- function(node, element, fn, nodeId=NA){
     idRefColName(node))
   nodelist <- slot(node, element)
   if(is.list(nodelist)){ ## node has a list of elements
-    nodelist %>% 
-      lapply(fn) %>% 
+    out <- suppressWarnings(lapply(nodelist, fn)) %>%
       dplyr::bind_rows() %>%
-      dplyr::mutate_(.dots = dots) -> out
+      dplyr::mutate_(.dots = dots)
     if (any(colnames(out) %in% c("ResourceMeta", "LiteralMeta")) &&
         all(sapply(nodelist, .hasSlot, "children"))) {
       # meta elements may have nested meta elements, retrieve these here too
@@ -129,10 +128,10 @@ attributes_to_row <- function(node){
   who <- slotNames(node)
   
   ## Avoid things that are not attributes:
-  types <- sapply(who, function(x) class(slot(node,x)))
+  types <- getSlots(class(node)) # actual slot values may be derived types
   who <- who[ types %in% c("character", "integer", "numeric", "logical") ]
-  if("names" %in% who) 
-    who <- who[!(who %in% "names")]
+  # the "about" attribute is only needed for RDF extraction
+  who <- who[!(who %in% c("names","about"))]
   
   ## Extract attributes, use NAs for numeric(0) / character(0) values
   tmp <- sapply(who, function(x) slot(node, x))
