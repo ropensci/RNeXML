@@ -2,7 +2,7 @@
 % Please edit documentation in R/simmap.R
 \name{nexml_to_simmap}
 \alias{nexml_to_simmap}
-\title{nexml_to_simmap}
+\title{Convert nexml object with simmap to phylo}
 \usage{
 nexml_to_simmap(nexml)
 }
@@ -10,14 +10,9 @@ nexml_to_simmap(nexml)
 \item{nexml}{a nexml object}
 }
 \value{
-a simmap object (phylo object with a $maps element
+a simmap object (phylo object with a \code{$maps} element
 for use in phytools functions).
 }
 \description{
-nexml_to_simmap
-}
-\examples{
-data(simmap_ex)
-phy <- nexml_to_simmap(simmap_ex)
-nex <- simmap_to_nexml(phy) 
+Convert nexml object with simmap to phylo
 }

@@ -2,12 +2,12 @@
 % Please edit documentation in R/simmap.R
 \name{simmap_to_nexml}
 \alias{simmap_to_nexml}
-\title{simmap_to_nexml}
+\title{Convert phylo with attached simmap to nexml object}
 \usage{
 simmap_to_nexml(phy, state_ids = NULL)
 }
 \arguments{
-\item{phy}{a phy object containing simmap phy$maps element,
+\item{phy}{a phylo object containing simmap `phy$maps`` element,
 from the phytools package}
 
 \item{state_ids}{a named character vector giving the state
@@ -19,10 +19,10 @@ the phy$states names.}
 a nexml representation of the simmap
 }
 \description{
-simmap_to_nexml
+Convert phylo with attached simmap to nexml object
 }
 \examples{
-data(simmap_ex)
+simmap_ex <- read.nexml(system.file("examples","simmap_ex.xml", package="RNeXML"))
 phy <- nexml_to_simmap(simmap_ex)
 nex <- simmap_to_nexml(phy) 
 }
