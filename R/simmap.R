@@ -8,7 +8,7 @@
 
 #' Convert phylo with attached simmap to nexml object
 #' 
-#' @param phy a phylo object containing simmap `phy$maps`` element,
+#' @param phy a phylo object containing simmap `phy$maps` element,
 #'  from the phytools package
 #' @param state_ids a named character vector giving the state 
 #'  names corresponding to the ids used to refer to each state
@@ -74,7 +74,7 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
     ## Generate the list of XML "stateChange" nodes 
     mapping <- lapply(1:length(edge_map), function(j){
       ##  A node has an id, a length and a state 
-      meta(property = "simmap:stateChange", 
+      meta(rel = "simmap:stateChange",
            children = list(meta(property = "simmap:order",
                                 content = j),
                            meta(property = "simmap:length", 
@@ -85,15 +85,15 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
            )
     })
 
-    reconstruction <-meta(property = "simmap:reconstruction", 
+    reconstruction <-meta(rel = "simmap:reconstruction",
                           children =c(list(meta(property="simmap:char", 
                                               content = char_id)),
                                            mapping))
   
   ## Insert the reconstructions into a <meta> element in each nexml edge
     nexml@trees[[1]]@tree[[1]]@edge[[i]]@meta <- 
-      c(meta(type = "LiteralMeta",
-             property = "simmap:reconstructions",
+      c(meta(type = "ResourceMeta",
+             rel = "simmap:reconstructions",
              children = list(reconstruction)))
   }
 
@@ -159,7 +159,8 @@ characters_to_simmap <- function(phy, characters){
 tree_to_simmap <- function(tree, otus, state_maps = NULL){
   maps <- lapply(tree@edge, function(edge){
 
-    reconstructions <- sapply(edge@meta, function(x) x@property == "simmap:reconstructions")
+    reconstructions <- sapply(edge@meta,
+                              function(x) .hasSlot(x, "rel") && x@rel == "simmap:reconstructions")
     if(any(reconstructions))
       reconstruction <- edge@meta[[which(reconstructions)]]@children 
 
@@ -170,7 +171,8 @@ tree_to_simmap <- function(tree, otus, state_maps = NULL){
 
 
 #    lapply(reconstruction, function(reconstruction){ # for each reconstruction
-          stateChange <- sapply(reconstruction[[1]]@children, function(x) x@property == "simmap:stateChange")
+          stateChange <- sapply(reconstruction[[1]]@children,
+                                function(x) .hasSlot(x, "rel") && x@rel == "simmap:stateChange")
 
           values <- sapply(reconstruction[[1]]@children[which(stateChange)], function(stateChange){ 
                            # phytools only supports one reconstruction of one character per phy object
