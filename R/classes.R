@@ -44,19 +44,18 @@ setMethod("fromNeXML",
 
 #########################
 
-setClass("Meta",
+setClass("meta",
          slots = c(children = "list"), 
          contains = "Base")
-setMethod("fromNeXML", 
-          signature("Meta", "XMLInternalElementNode"),
-          function(obj, from){
-            obj <- callNextMethod()
-          }
-)
-setMethod("toNeXML", 
-          signature("Meta", "XMLInternalElementNode"), 
-          function(object, parent){
-            parent <- callNextMethod()
+setAs("XMLInternalNode", "meta", function(from){
+  type <- xmlAttrs(from)["type"]
+  if(is.na(type)) ## FIXME This is CRUDE
+    type <- xmlAttrs(from)["xsi:type"]
+  if(is.na(type)) # if still not defined...
+    type = "meta"
+  else
+    type <- sub(".*:", "", type)[1] ## FIXME This is CRUDE
+  fromNeXML(new(type), from)
 })
 
 
@@ -67,7 +66,7 @@ setClass("LiteralMeta",
                         property = "character", 
                         datatype = "character",
                         content = "character"),
-         contains="Meta")
+         contains="meta")
 setMethod("fromNeXML", 
           signature("LiteralMeta", "XMLInternalElementNode"),
           function(obj, from){
@@ -129,7 +128,7 @@ setClass("ResourceMeta",
          slots = c(id = "character",
                         rel = "character", 
                         href = "character"),
-         contains="Meta")
+         contains="meta")
 setMethod("fromNeXML", 
           signature("ResourceMeta", "XMLInternalElementNode"),
           function(obj, from){
@@ -161,43 +160,12 @@ setMethod("toNeXML",
             parent
 })
 setAs("XMLInternalElementNode", "ResourceMeta", function(from) fromNeXML(new("ResourceMeta"), from)) 
-setAs("ResourceMeta", "XMLInternalElementNode", function(from) toNeXML(from, newXMLNode("meta")))
 setAs("ResourceMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode("meta")))
 
 
 
 ##############################################
 
-setClass("meta", 
-         contains=c("LiteralMeta", "ResourceMeta"))
-setAs("XMLInternalElementNode", "meta", function(from){ 
-      type <- xmlAttrs(from)["type"]
-      if(is.na(type)) ## FIXME This is CRUDE
-        type <- xmlAttrs(from)["xsi:type"]
-      if(is.na(type)) # if still not defined...
-        fromNeXML(new("meta", from))
-      else {
-        type <- gsub(".*:", "", type) ## FIXME This is CRUDE
-        fromNeXML(new(type[1]), from)
-      }
-})
-
-setAs("meta", "XMLInternalElementNode", function(from){
-      if(length( slot(from, "xsi:type") ) > 0 ){
-        if(grepl("LiteralMeta|ResourceMeta", slot(from, "xsi:type")))
-          m <- as(from, slot(from, "xsi:type"))
-        }
-      else
-        m <- from
-      toNeXML(m, newXMLNode("meta"))
-})
-setAs("meta", "XMLInternalNode", function(from) 
-      as(from, "XMLInternalElementNode"))
-# Methods inherited automatically?
-
-
-
-###############################################
 
 setClass("ListOfmeta", slots = c(names="character"), contains = "list")
       
