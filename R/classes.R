@@ -189,7 +189,7 @@ setAs("meta", "XMLInternalElementNode", function(from){
         }
       else
         m <- from
-      toNeXML(m, newXMLNode("meta", .children = from@children))
+      toNeXML(m, newXMLNode("meta"))
 })
 setAs("meta", "XMLInternalNode", function(from) 
       as(from, "XMLInternalElementNode"))
