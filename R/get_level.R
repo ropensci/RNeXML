@@ -84,6 +84,7 @@ nodelist_to_df <- function(node, element, fn, nodeId=NA){
         nested <- mapply(function(n, id) nodelist_to_df(n, "children", fn, id),
                          n = nodelist,
                          id = mout[,"Meta"])
+        if (is.null(names(nested))) nested <- as.data.frame(nested[,1])
         out <- dplyr::bind_rows(mout, nested)
       }
     }
