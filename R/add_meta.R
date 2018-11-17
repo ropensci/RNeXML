@@ -37,10 +37,12 @@ add_meta <- function(meta,
                      i = 1, 
                      at_id = NULL){
   level <- match.arg(level)
-  if(is(meta, "meta"))
+  if (is.null(meta))
+    stop("meta object to add is null, with no default")
+  if(!is.list(meta))
     meta <- list(meta)
   if(!all(sapply(meta, is, "meta")))
-    stop("All elements in list must be of class 'meta'")
+    stop("All elements in list must be of class 'meta' or a subclass")
  
   if(!is.null(at_id)){
     stop("function does not yet handle at_id assignments")

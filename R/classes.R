@@ -157,7 +157,7 @@ setMethod("toNeXML",
             attrs <- plyr::compact(attrs)
             addAttributes(parent, .attrs = attrs)
             if (length(object@children) > 0)
-              addChildren(parent, kids = object@children)
+              addChildren(parent, kids = lapply(object@children, as, "XMLInternalNode"))
             parent
 })
 setAs("XMLInternalElementNode", "ResourceMeta", function(from) fromNeXML(new("ResourceMeta"), from)) 
@@ -189,7 +189,7 @@ setAs("meta", "XMLInternalElementNode", function(from){
         }
       else
         m <- from
-      toNeXML(m, newXMLNode("meta", .children = from@children))
+      toNeXML(m, newXMLNode("meta"))
 })
 setAs("meta", "XMLInternalNode", function(from) 
       as(from, "XMLInternalElementNode"))
