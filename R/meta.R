@@ -116,13 +116,15 @@ nexml_citation <- function(obj){
         meta(content=obj$title,
             property="dc:title")),
         lapply(obj$author, function(x){
-        meta(content = format(x, c("given", "family")),
-             property="dc:contributor") 
-        })))
-        citation_elements = new("ListOfmeta", list_of_metadata_nodes)
+          meta(content = format(x, c("given", "family")),
+               property="dc:contributor")
+          }),
         meta(content=format(obj, "text"), 
-            property="dcterms:bibliographicCitation",
-            children = lapply(citation_elements, as, "XMLInternalElementNode"))
+             property="dcterms:bibliographicCitation")
+      ))
+      citation_elements = new("ListOfmeta", list_of_metadata_nodes)
+      meta(rel = "dcterms:references",
+           children = citation_elements)
     })
     out 
   }
