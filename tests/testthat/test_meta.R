@@ -34,7 +34,29 @@ test_that("We can add R bibentry type metadata", {
 
 })
 
+test_that("Adding meta data has some basic error checking", {
+  testthat::expect_error(add_meta(NULL, level = "nexml"))
+  m <- meta("foo-rel", "a test")
+  testthat::expect_error(add_meta(list(m, "not a meta")))
+  testthat::expect_error(add_meta(m, level = "foo"))
+})
 
+test_that("Citation BibEntry objects are transformed to structured metadata", {
+  nexml_cit <- nexml_citation(citation("RNeXML"))
+  testthat::expect_is(nexml_cit, "list")
+  testthat::expect_length(nexml_cit, 1)
+  citrec <- nexml_cit[[1]]
+  testthat::expect_is(citrec, "meta")
+  testthat::expect_true(.hasSlot(citrec, "children"))
+  testthat::expect_gt(length(citrec@children), 10)
+  citxml <- as(citrec, "XMLInternalNode")
+  testthat::expect_length(XML::xmlChildren(citxml), length(citrec@children))
+  testthat::expect_equal(slot(citrec, "xsi:type"), "ResourceMeta")
+  testthat::expect_false(grepl("bibliographicCitation", slot(citrec, "rel")))
+  propvals <- sapply(citrec@children, 
+                     function(x) if (.hasSlot(x, "property")) x@property else NULL)
+  testthat::expect_true(any(grepl("bibliographicCitation", propvals)))
+})
 
 test_that("We can add additional metadata", {
   ## The short version using an RNeXML API
