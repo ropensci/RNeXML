@@ -156,7 +156,7 @@ setMethod("toNeXML",
             attrs <- plyr::compact(attrs)
             addAttributes(parent, .attrs = attrs)
             if (length(object@children) > 0)
-              addChildren(parent, kids = lapply(object@children, as, "XMLInternalNode"))
+              addChildren(parent, kids = lcapply(object@children, as, "XMLInternalNode"))
             parent
 })
 setAs("XMLInternalElementNode", "ResourceMeta", function(from) fromNeXML(new("ResourceMeta"), from)) 
@@ -195,7 +195,7 @@ setMethod("toNeXML",
           signature("Annotated", "XMLInternalElementNode"), 
            function(object, parent){
              parent <- callNextMethod()
-             addChildren(parent, kids = object@meta)
+             addChildren(parent, kids = lcapply(object@meta, as, "XMLInternalNode"))
              if(length(object@about) > 0)
                addAttributes(parent, "about" = object@about)
              parent
@@ -453,7 +453,7 @@ setMethod("toNeXML",
           signature("otus", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            addChildren(parent, kids = object@otu)
+            addChildren(parent, kids = lcapply(object@otu, as, "XMLInternalNode"))
             parent
           })
 setAs("otus", "XMLInternalNode",
@@ -508,8 +508,8 @@ setMethod("toNeXML",
           signature("tree", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            addChildren(parent, kids = object@node)
-            addChildren(parent, kids = object@edge)
+            addChildren(parent, kids = lcapply(object@node, as, "XMLInternalNode"))
+            addChildren(parent, kids = lcapply(object@edge, as, "XMLInternalNode"))
             parent
           })
 setAs("tree", "XMLInternalNode",
@@ -542,7 +542,7 @@ setMethod("toNeXML",
           signature("trees", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            addChildren(parent, kids = object@tree)
+            addChildren(parent, kids = lapply(object@tree, as, "XMLInternalNode"))
 #            addChildren(parent, kids = object@network)
             parent
           })
