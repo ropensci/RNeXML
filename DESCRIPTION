@@ -26,6 +26,7 @@ Suggests:
     knitcitations (>= 1.0.1),
     testthat (>= 0.10.0),
     rmarkdown (>= 0.3.3),
+    rlang,
     xslt,
     taxize (>= 0.2.2),
     covr
