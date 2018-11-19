@@ -46,6 +46,7 @@ Imports:
     stringr (>= 1.0),
     xml2
 Collate:
+    'S4-utils.R'
     'classes.R'
     'add_basic_meta.R'
     'add_characters.R'
@@ -54,6 +55,7 @@ Collate:
     'add_trees.R'
     'character_classes.R'
     'concatenate_nexml.R'
+    'constructors.R'
     'deprecated.R'
     'get_basic_metadata.R'
     'get_characters.R'

@@ -494,6 +494,7 @@ setClass("tree",
 setMethod("fromNeXML", 
           signature("tree", "XMLInternalElementNode"),
           function(obj, from){
+            .cacheNextMethod()
             obj <- callNextMethod()
             kids <- xmlChildren(from)
             obj@node <- new("ListOfnode", 
@@ -507,17 +508,18 @@ setMethod("fromNeXML",
 setMethod("toNeXML", 
           signature("tree", "XMLInternalElementNode"),
           function(object, parent){
+            .cacheNextMethod()
             parent <- callNextMethod()
             addChildren(parent, kids = lcapply(object@node, as, "XMLInternalNode"))
             addChildren(parent, kids = lcapply(object@edge, as, "XMLInternalNode"))
             parent
           })
 setAs("tree", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("tree")))
+      function(from) .callGeneric("toNeXML", from, newXMLNode("tree")))
 setAs("tree", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("tree")))
+      function(from) .callGeneric("toNeXML", from, newXMLNode("tree")))
 setAs("XMLInternalElementNode", "tree",
-      function(from) fromNeXML(new("tree"), from))
+      function(from) .callGeneric("fromNeXML", nexml.tree(), from))
 
 
 
