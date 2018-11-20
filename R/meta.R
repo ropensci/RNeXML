@@ -26,31 +26,30 @@
 #' @export 
 #' @seealso \code{\link{nexml_write}}
 #' @include classes.R
-meta <- function(property = character(0), 
-                 content = character(0), 
-                 rel = character(0), 
-                 href = character(0), 
-                 datatype = character(0), 
-                 id = character(0),
-                 type = character(0),
+meta <- function(property = NULL,
+                 content = NULL,
+                 rel = NULL,
+                 href = NULL,
+                 datatype = NULL,
+                 id = NULL,
+                 type = NULL,
                  children = list()){
-  if(is.logical(content))
-    datatype <- "xsd:boolean"
-  else if(is(content, "Date"))
-    datatype <- "xsd:date"
-  else if(is.numeric(content))
-    datatype <- "xsd:decimal"
-  else if(is.character(content))
-    datatype <- "xsd:string"
-  else if(is.integer(content))
-    datatype <- "xsd:integer"
-  else 
-    datatype <- "xsd:string"
-
-  # Having assigned the datatype, 
+  # if datatype isn't provided, try to infer it from content
+  if (is.null(datatype) && !is.null(content)) {
+    if(is.logical(content))
+      datatype <- "xsd:boolean"
+    else if(is(content, "Date"))
+      datatype <- "xsd:date"
+    else if(is.numeric(content))
+      datatype <- "xsd:decimal"
+    else if(is.character(content) && length(content) > 0)
+      datatype <- "xsd:string"
+    else if(is.integer(content))
+      "xsd:integer"
+  }
   # the content text must be written as a string
-  content <- as.character(content)
-
+  if (length(content) > 0)
+    content <- as.character(content)
 
   if(length(id) == 0)
     id <- nexml_id("m")
@@ -58,24 +57,41 @@ meta <- function(property = character(0),
   if(is(children, "XMLAbstractNode") || is(children, "XMLInternalNode"))
     children <- list(children)
 
-  if(length(property) > 0){ ## avoid 
-    if(is.null(content) && length(children) == 0) ## Avoid writing when content is missing, e.g. prism:endingpage is blank
-      NULL
-    else
-      new("meta", content = content, datatype = datatype, 
-          property = property, id = id, 'xsi:type' = "LiteralMeta",
-          children = children)
-  } else if(length(rel) > 0){
-    if(is.null(href))
-      NULL
-    else
-      new("meta", rel = rel, href = href, 
-          id = id, 'xsi:type' = "ResourceMeta",
-          children = children)
-  } else {
-    new("meta", content = content, datatype = datatype, 
-        rel = rel, href = href, id = id, 'xsi:type' = type,
-        children = children)
+  # if type is not provided, try to determine it from the parameters
+  if (is.null(type)) {
+    if (length(rel) > 0)
+      type <- "ResourceMeta"
+    else if (length(href) > 0 ||
+             (length(children) > 0 && all(sapply(children, is, "meta")))) {
+      type <- "ResourceMeta"
+      rel <- property
+      property <- NULL
+    } else if (length(property) > 0)
+      type <- "LiteralMeta"
+  }
+  # if null is provided for value, don't create any object
+  if (length(children) == 0 &&
+      ((is.null(content) && type == "LiteralMeta") ||
+       (is.null(href) && type == "ResourceMeta")))
+    NULL
+  else {
+    # determine the meta class to instantiate
+    clname <- type
+    if (is.null(type)) {
+      clname <- "meta"
+      # we have to default to some xsi:type that makes sense
+      type <- "LiteralMeta"
+    }
+    # create the meta instance
+    args <- plyr::compact(list(property = property,
+                               content = content,
+                               datatype = datatype,
+                               rel = rel,
+                               href = href,
+                               id = id,
+                               'xsi:type' = type,
+                               children = children))
+    do.call(new, c(clname, args))
   }
 }
 

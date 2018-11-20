@@ -6,10 +6,9 @@
 ## FIXME support writing multiphylos, list of multiphylos to nexml 
 
 
-#' simmap_to_nexml
+#' Convert phylo with attached simmap to nexml object
 #' 
-#' simmap_to_nexml
-#' @param phy a phy object containing simmap phy$maps element,
+#' @param phy a phylo object containing simmap `phy$maps` element,
 #'  from the phytools package
 #' @param state_ids a named character vector giving the state 
 #'  names corresponding to the ids used to refer to each state
@@ -19,7 +18,7 @@
 #' @export 
 #' @import XML
 #' @examples
-#' data(simmap_ex)
+#' simmap_ex <- read.nexml(system.file("examples","simmap_ex.xml", package="RNeXML"))
 #' phy <- nexml_to_simmap(simmap_ex)
 #' nex <- simmap_to_nexml(phy) 
 simmap_to_nexml <- function(phy, state_ids = NULL){
@@ -75,7 +74,7 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
     ## Generate the list of XML "stateChange" nodes 
     mapping <- lapply(1:length(edge_map), function(j){
       ##  A node has an id, a length and a state 
-      meta(property = "simmap:stateChange", 
+      meta(rel = "simmap:stateChange",
            children = list(meta(property = "simmap:order",
                                 content = j),
                            meta(property = "simmap:length", 
@@ -86,15 +85,15 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
            )
     })
 
-    reconstruction <-meta(property = "simmap:reconstruction", 
+    reconstruction <-meta(rel = "simmap:reconstruction",
                           children =c(list(meta(property="simmap:char", 
                                               content = char_id)),
                                            mapping))
   
   ## Insert the reconstructions into a <meta> element in each nexml edge
     nexml@trees[[1]]@tree[[1]]@edge[[i]]@meta <- 
-      c(meta(type = "LiteralMeta",
-             property = "simmap:reconstructions",
+      c(meta(type = "ResourceMeta",
+             rel = "simmap:reconstructions",
              children = list(reconstruction)))
   }
 
@@ -110,17 +109,13 @@ simmap_edge_annotations <- function(maps, nexml, state_ids = NULL, char_id = "si
 
 ## Returns list of multiPhylo ...
 
-#' nexml_to_simmap
+#' Convert nexml object with simmap to phylo
 #'
-#' nexml_to_simmap
 #' @param nexml a nexml object
-#' @return a simmap object (phylo object with a $maps element 
+#' @return a simmap object (phylo object with a `$maps` element
 #'  for use in phytools functions).
 #' @export 
-#' @examples
-#' data(simmap_ex)
-#' phy <- nexml_to_simmap(simmap_ex)
-#' nex <- simmap_to_nexml(phy) 
+#' @describeIn simmap_to_nexml Convert nexml object with simmap to phylo
 nexml_to_simmap <- function(nexml){
 
   ## Get the statemap, if available
@@ -164,7 +159,8 @@ characters_to_simmap <- function(phy, characters){
 tree_to_simmap <- function(tree, otus, state_maps = NULL){
   maps <- lapply(tree@edge, function(edge){
 
-    reconstructions <- sapply(edge@meta, function(x) x@property == "simmap:reconstructions")
+    reconstructions <- sapply(edge@meta,
+                              function(x) .hasSlot(x, "rel") && x@rel == "simmap:reconstructions")
     if(any(reconstructions))
       reconstruction <- edge@meta[[which(reconstructions)]]@children 
 
@@ -175,7 +171,8 @@ tree_to_simmap <- function(tree, otus, state_maps = NULL){
 
 
 #    lapply(reconstruction, function(reconstruction){ # for each reconstruction
-          stateChange <- sapply(reconstruction[[1]]@children, function(x) x@property == "simmap:stateChange")
+          stateChange <- sapply(reconstruction[[1]]@children,
+                                function(x) .hasSlot(x, "rel") && x@rel == "simmap:stateChange")
 
           values <- sapply(reconstruction[[1]]@children[which(stateChange)], function(stateChange){ 
                            # phytools only supports one reconstruction of one character per phy object
@@ -208,22 +205,6 @@ tree_to_simmap <- function(tree, otus, state_maps = NULL){
   ## Return phylo object
   phy
 }
-
-
-
-#' @name simmap_ex 
-#' @title A nexml class R object that includes simmap annotations
-#' @description A nexml object with simmap stochastic character mapping
-#'  annotations added to the edges, for use with the RNeXML package
-#'  parsing and serializing NeXML into formats that work with the ape and
-#'  phytools packages. 
-#' @docType data
-#' @usage simmap_ex
-#' @format a \code{nexml} instance
-#' @source Simulated tree and stochastic character mapping based on 
-#' Revell 2011 (doi:10.1111/j.2041-210X.2011.00169.x)
-#' @author Carl Boettiger 
-NULL
 
 
 

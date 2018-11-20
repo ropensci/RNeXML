@@ -2,27 +2,42 @@
 % Please edit documentation in R/simmap.R
 \name{simmap_to_nexml}
 \alias{simmap_to_nexml}
-\title{simmap_to_nexml}
+\alias{nexml_to_simmap}
+\title{Convert phylo with attached simmap to nexml object}
 \usage{
 simmap_to_nexml(phy, state_ids = NULL)
+
+nexml_to_simmap(nexml)
 }
 \arguments{
-\item{phy}{a phy object containing simmap phy$maps element,
+\item{phy}{a phylo object containing simmap \code{phy$maps} element,
 from the phytools package}
 
 \item{state_ids}{a named character vector giving the state
 names corresponding to the ids used to refer to each state
 in nexml.  If null ids will be generated and states taken from
 the phy$states names.}
+
+\item{nexml}{a nexml object}
 }
 \value{
 a nexml representation of the simmap
+
+a simmap object (phylo object with a \code{$maps} element
+for use in phytools functions).
 }
 \description{
-simmap_to_nexml
+Convert phylo with attached simmap to nexml object
+
+Convert nexml object with simmap to phylo
 }
+\section{Functions}{
+\itemize{
+\item \code{nexml_to_simmap}: Convert nexml object with simmap to phylo
+}}
+
 \examples{
-data(simmap_ex)
+simmap_ex <- read.nexml(system.file("examples","simmap_ex.xml", package="RNeXML"))
 phy <- nexml_to_simmap(simmap_ex)
 nex <- simmap_to_nexml(phy) 
 }

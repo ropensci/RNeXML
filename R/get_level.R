@@ -119,8 +119,8 @@ idRefColName <- function(node){
   clname <- class(node)
   super <- names(getClass(clname)@contains)
   # meta elements can be nested, avoid clobbering the ID column with the IDREF
-  if (length(super) > 0 && (super[1] == "Meta"))
-    tolower(super[1])
+  if (length(super) > 0 && (super[1] == "meta"))
+    super[1]
   else
     clname
 }

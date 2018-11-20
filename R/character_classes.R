@@ -53,7 +53,7 @@ setMethod("toNeXML",
           signature("obsmatrix", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            addChildren(parent, kids = object@row)
+            addChildren(parent, kids = lcapply(object@row, as, "XMLInternalNode"))
             parent
           })
 setAs("obsmatrix", "XMLInternalNode",
@@ -95,8 +95,8 @@ setMethod("toNeXML",
           signature("row", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            addChildren(parent, kids = object@cell)
-            addChildren(parent, kids = object@seq)
+            addChildren(parent, kids = lcapply(object@cell, as, "XMLInternalNode"))
+            addChildren(parent, kids = lcapply(object@seq, as, "XMLInternalNode"))
             parent
           })
 setAs("row", "XMLInternalNode",
@@ -139,9 +139,11 @@ setMethod("toNeXML",
           function(object, parent){
             suppressWarnings({ # avoid arcane XML warning message
             parent <- callNextMethod()
-            addChildren(parent, kids = object@state)
-            addChildren(parent, kids = object@uncertain_state_set)
-            addChildren(parent, kids = object@polymorphic_state_set)
+            addChildren(parent, kids = lcapply(object@state, as, "XMLInternalNode"))
+            addChildren(parent, kids = lcapply(object@uncertain_state_set,
+                                              as, "XMLInternalNode"))
+            addChildren(parent, kids = lcapply(object@polymorphic_state_set,
+                                              as, "XMLInternalNode"))
             })
             parent
           })
@@ -231,7 +233,7 @@ setMethod("toNeXML",
           signature("uncertain_state_set", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            addChildren(parent, kids = object@member)
+            addChildren(parent, kids = lcapply(object@member, as, "XMLInternalNode"))
             parent
           })
 setAs("uncertain_state_set", "XMLInternalNode",
@@ -259,7 +261,7 @@ setMethod("toNeXML",
           signature("polymorphic_state_set", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            addChildren(parent, kids = object@member)
+            addChildren(parent, kids = lcapply(object@member, as, "XMLInternalNode"))
             parent
           })
 setAs("polymorphic_state_set", "XMLInternalNode",
@@ -384,9 +386,9 @@ setMethod("toNeXML",
           function(object, parent){
             parent <- callNextMethod()
             if(!isEmpty(object@char))
-              addChildren(parent, kids = object@char)
+              addChildren(parent, kids = lcapply(object@char, as, "XMLInternalNode"))
             if(length(object@states) > 0)
-              addChildren(parent, kids = object@states)
+              addChildren(parent, kids = lcapply(object@states, as, "XMLInternalNode"))
             parent
           })
 setAs("format", "XMLInternalNode",
@@ -417,8 +419,8 @@ setMethod("toNeXML",
           signature("characters", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            parent <- addChildren(parent, format = object@format)
-            parent <- addChildren(parent, matrix = object@matrix)
+            parent <- addChildren(parent, as(object@format, "XMLInternalNode"))
+            parent <- addChildren(parent, as(object@matrix, "XMLInternalNode"))
             parent
           })
 setAs("characters", "XMLInternalNode",

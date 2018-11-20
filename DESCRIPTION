@@ -26,6 +26,7 @@ Suggests:
     knitcitations (>= 1.0.1),
     testthat (>= 0.10.0),
     rmarkdown (>= 0.3.3),
+    rlang,
     xslt,
     taxize (>= 0.2.2),
     covr
@@ -79,6 +80,7 @@ Collate:
     'simmap.R'
     'taxize_nexml.R'
     'tbl_df.R'
+    'utils.R'
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.1.0
 X-schema.org-applicationCategory: Data Publication
