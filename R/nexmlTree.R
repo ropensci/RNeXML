@@ -4,9 +4,6 @@ setClass("phyloS4",
                         tip.label = "character",
                         edge.length = "numeric"))
 setOldClass("phylo", S4Class="phyloS4")
-# FIXME repeat selectMethod for all ape, geiger, etc methods(??)
-selectMethod("show", "phylo")
-#removeClass("phyloS4")
 
 ## multiPhylo and multiPhyloList are used in other files, but perhaps it is
 ## best to keep the definitions all here
