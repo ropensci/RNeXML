@@ -10,7 +10,7 @@
 \item{f}{the generic, as a character string or a \link[methods:standardGeneric-class]{standardGeneric}
 object}
 
-\item{...}{the arguments (named and/or unnamed) whith which to call the
+\item{...}{the arguments (named and/or unnamed) with which to call the
 matching method}
 
 \item{.package}{the package name for finding the generic (if \code{f} is a character

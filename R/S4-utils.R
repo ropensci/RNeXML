@@ -92,7 +92,7 @@ findNextMethod <- function(method, f = NULL, envir = topenv()) {
   methodWithNext <- new("MethodWithNext",
                         method,
                         nextMethod = nextMethod,
-                        excluded = list(methods:::.sigLabel(method@defined)))
+                        excluded = list(.sigLabel(method@defined)))
   if (.cache) {
     cacheMethod(method@generic,
                 method@target,
@@ -101,6 +101,20 @@ findNextMethod <- function(method, f = NULL, envir = topenv()) {
                 inherited = TRUE)
   }
   methodWithNext
+}
+
+#' Create a label for a method signature
+#'
+#' Creates a label for a signature mirroring the result of `.sigLabel()`
+#' in the `methods` package, which unfortunately does not export the function.
+#' This is needed, for example, for the `excluded` slot in the
+#' [MethodWithNext][methods::MethodWithNext-class] class.
+#' @param signature the signature for which to create a label, as a vector
+#'   or list of strings, or as an instance of [signature][methods::signature-class].
+#' @return a character string
+.sigLabel <- function(signature) {
+  if (is(signature, "signature")) signature <- signature@.Data
+  paste(signature, collapse = "#")
 }
 
 #' Caches next method in the calling environment
@@ -158,7 +172,7 @@ findNextMethod <- function(method, f = NULL, envir = topenv()) {
 #' depending on the order in which packages are loaded.
 #' @param f the generic, as a character string or a [standardGeneric][methods::standardGeneric-class]
 #'   object
-#' @param ... the arguments (named and/or unnamed) whith which to call the
+#' @param ... the arguments (named and/or unnamed) with which to call the
 #'   matching method
 #' @param .package the package name for finding the generic (if `f` is a character
 #'   string); by default the package is determined from the calling environment
