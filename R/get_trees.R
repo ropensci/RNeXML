@@ -1,3 +1,6 @@
+#' @include nexmlTree.R
+NULL
+
 #' extract all phylogenetic trees in ape format
 #' 
 #' extract all phylogenetic trees in ape format
