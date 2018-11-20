@@ -40,3 +40,75 @@ test_that("findNextMethod() works correctly", {
   testthat::expect_equivalent(mwn1@nextMethod@target, mwn2@nextMethod@target)
   testthat::expect_equivalent(mwn1@nextMethod@defined, mwn2@nextMethod@defined)
 })
+
+test_that(".classForSig() works correctly", {
+  f1 <- getGeneric("toNeXML", package = "RNeXML")
+  f2 <- getGeneric("fromNeXML", package = "RNeXML")
+  obj <- nexml.tree()
+  testthat::expect_equal(.classForSig(obj, f1), class(obj)[1])
+  testthat::expect_equal(.classForSig(obj, f2), class(obj)[1])
+  obj <- XML::newXMLNode("foo")
+  testthat::expect_equal(.classForSig(obj, f1), "XMLInternalElementNode")
+  testthat::expect_equal(.classForSig(obj, f2), "XMLInternalElementNode")
+  class(obj) <- c("bogus", class(obj))
+  testthat::expect_equal(.classForSig(obj, f1), class(obj)[2])
+  testthat::expect_equal(.classForSig(obj, f2), class(obj)[1])
+})
+
+test_that(".callGeneric works correctly", {
+  tr1 <- nexml.tree(id = "tr1",
+                    node = New("ListOfnode", list(New("node", id = "n1"))))
+  trblock <- New("trees", id = "trees1", tree = New("ListOftree", list(tr1)))
+  xml1 <- as(trblock, "XMLInternalNode")
+  xml2 <- .callGeneric("toNeXML", trblock, XML::newXMLNode("trees"), .package = "RNeXML")
+  xml3 <- toNeXML(trblock, XML::newXMLNode("trees"))
+  testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
+                         XML::saveXML(xml2, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
+                         XML::saveXML(xml3, indent = FALSE))
+  nexml1 <- as(xml1, "trees")
+  nexml2 <- .callGeneric("fromNeXML", New("trees"), xml1, .package = "RNeXML")
+  nexml3 <- fromNeXML(New("trees"), xml1)
+  # roundtrip back to XML, using "as"
+  xml1.1 <- as(nexml1, "XMLInternalNode")
+  xml1.2 <- as(nexml2, "XMLInternalNode")
+  xml1.3 <- as(nexml3, "XMLInternalNode")
+  testthat::expect_equal(XML::saveXML(xml1.1, indent = FALSE),
+                         XML::saveXML(xml1.2, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1.1, indent = FALSE),
+                         XML::saveXML(xml1.3, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
+                         XML::saveXML(xml1.1, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
+                         XML::saveXML(xml1.2, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
+                         XML::saveXML(xml1.3, indent = FALSE))
+  # roundtrip back to XML, using .callGeneric
+  xml1.1 <- .callGeneric("toNeXML", nexml1, XML::newXMLNode("trees"), .package = "RNeXML")
+  xml1.2 <- .callGeneric("toNeXML", nexml2, XML::newXMLNode("trees"), .package = "RNeXML")
+  xml1.3 <- .callGeneric("toNeXML", nexml3, XML::newXMLNode("trees"), .package = "RNeXML")
+  testthat::expect_equal(XML::saveXML(xml1.1, indent = FALSE),
+                         XML::saveXML(xml1.2, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1.1, indent = FALSE),
+                         XML::saveXML(xml1.3, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
+                         XML::saveXML(xml1.1, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
+                         XML::saveXML(xml1.2, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
+                         XML::saveXML(xml1.3, indent = FALSE))
+  # roundtrip back to XML, using toNeXML generic dispatch
+  xml1.1 <- toNeXML(nexml1, XML::newXMLNode("trees"))
+  xml1.2 <- toNeXML(nexml2, XML::newXMLNode("trees"))
+  xml1.3 <- toNeXML(nexml3, XML::newXMLNode("trees"))
+  testthat::expect_equal(XML::saveXML(xml1.1, indent = FALSE),
+                         XML::saveXML(xml1.2, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1.1, indent = FALSE),
+                         XML::saveXML(xml1.3, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
+                         XML::saveXML(xml1.1, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
+                         XML::saveXML(xml1.2, indent = FALSE))
+  testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
+                         XML::saveXML(xml1.3, indent = FALSE))
+})
