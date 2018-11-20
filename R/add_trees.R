@@ -130,7 +130,7 @@ fromPhylo <- function(phy, otu_map){
 
   ## Create the "tree" S4 object
   tree_id <- nexml_id("tree") 
-  tree <- new("tree", 
+  tree <- nexml.tree(
       node = nodes, 
       edge = edges,
       'xsi:type' = 'FloatTree',
