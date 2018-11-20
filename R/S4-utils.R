@@ -191,17 +191,21 @@ findNextMethod <- function(method, f = NULL, envir = topenv()) {
   if (!is(f, "standardGeneric")) f <- getGeneric(f, where = where)
   .Args <- list(...)
   sigArgs <- .Args[seq_along(f@signature)]
-  sigClasses <- sapply(sigArgs, 
-                       function(arg) {
-                         clname <- class(arg)
-                         if (length(clname) > 0) {
-                           if (is.null(f@valueClass))
-                             clname[clname == f@valueClass]
-                           else
-                             clname[1]
-                         } else
-                           clname
-                       })
+  sigClasses <- sapply(sigArgs, .classForSig, f)
   method <- selectMethod(f, sigClasses)
   method(...)
+}
+
+.classForSig <- function(sigArg, f = NULL) {
+  clname <- class(sigArg)
+  # multiple classes?
+  if (length(clname) > 1) {
+    # if the generic has a value class, try and match it
+    if ((! is.null(f)) && length(f@valueClass) > 0) {
+      isValueClass <- clname == f@valueClass
+      if (any(isValueClass)) clname <- clname[isValueClass]
+    }
+    # if none match, or if there's no value class, take the first one
+  }
+  clname[1]
 }
