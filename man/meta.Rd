@@ -2,6 +2,7 @@
 % Please edit documentation in R/meta.R
 \name{meta}
 \alias{meta}
+\alias{nexml.meta}
 \title{Constructor function for metadata nodes}
 \usage{
 meta(property = NULL, content = NULL, rel = NULL, href = NULL,

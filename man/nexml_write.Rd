@@ -5,7 +5,7 @@
 \alias{write.nexml}
 \title{Write nexml files}
 \usage{
-nexml_write(x = new("nexml"), file = NULL, trees = NULL,
+nexml_write(x = nexml(), file = NULL, trees = NULL,
   characters = NULL, meta = NULL, ...)
 }
 \arguments{

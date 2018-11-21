@@ -55,7 +55,7 @@ setAs("XMLInternalNode", "meta", function(from){
     type = "meta"
   else
     type <- sub(".*:", "", type)[1] ## FIXME This is CRUDE
-  fromNeXML(new(type), from)
+  fromNeXML(New(type), from)
 })
 
 
@@ -117,7 +117,7 @@ setMethod("toNeXML",
             attrs <- plyr::compact(attrs)
             addAttributes(parent, .attrs = attrs)
 })
-setAs("XMLInternalElementNode", "LiteralMeta", function(from) fromNeXML(new("LiteralMeta"), from)) 
+setAs("XMLInternalElementNode", "LiteralMeta", function(from) fromNeXML(New("LiteralMeta"), from))
 setAs("LiteralMeta", "XMLInternalElementNode", function(from) toNeXML(from, newXMLNode("meta")))
 setAs("LiteralMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode("meta")))
 
@@ -159,7 +159,7 @@ setMethod("toNeXML",
               addChildren(parent, kids = lcapply(object@children, as, "XMLInternalNode"))
             parent
 })
-setAs("XMLInternalElementNode", "ResourceMeta", function(from) fromNeXML(new("ResourceMeta"), from)) 
+setAs("XMLInternalElementNode", "ResourceMeta", function(from) fromNeXML(New("ResourceMeta"), from))
 setAs("ResourceMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode("meta")))
 
 
@@ -172,7 +172,11 @@ setClass("ListOfmeta", slots = c(names="character"), contains = "list")
 
 ###############################################
 
-
+#' Class of objects that have metadata as lists of meta elements
+#'
+#' @slot meta list of `meta` objects
+#' @slot about for RDF extraction, the identifier for the resource that this
+#'   object is about
 setClass("Annotated",
          slots = c(meta = "ListOfmeta",
                         about = "character"),
@@ -183,7 +187,7 @@ setMethod("fromNeXML",
             obj <- callNextMethod()
             kids <- xmlChildren(from)
             if(length(kids) > 0)
-              obj@meta <- new("ListOfmeta", 
+              obj@meta <- New("ListOfmeta",
                               lapply(kids[names(kids) == "meta"], 
                                      as, "meta"))
             if(!is.null(xmlAttrs(from)))
@@ -324,7 +328,7 @@ setAs("node", "XMLInternalNode",
 setAs("node", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("node")))
 setAs("XMLInternalElementNode", "node",
-      function(from) fromNeXML(new("node"), from))
+      function(from) fromNeXML(nexml.node(), from))
 
 
 
@@ -362,7 +366,7 @@ setAs("edge", "XMLInternalNode",
 setAs("edge", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("edge")))
 setAs("XMLInternalElementNode", "edge",
-      function(from) fromNeXML(new("edge"), from))
+      function(from) fromNeXML(nexml.edge(), from))
 
 
 ##################################################
@@ -397,7 +401,7 @@ setAs("rootEdge", "XMLInternalNode",
 setAs("rootEdge", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("rootedge"))) 
 setAs("XMLInternalElementNode", "rootEdge",
-      function(from) fromNeXML(new("rootEdge"), from))
+      function(from) fromNeXML(New("rootEdge"), from))
 
 
 ################################ alternatively called "Taxon" by the schema
@@ -421,7 +425,7 @@ setAs("otu", "XMLInternalNode",
 setAs("otu", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("otu")))
 setAs("XMLInternalElementNode", "otu",
-      function(from) fromNeXML(new("otu"), from))
+      function(from) fromNeXML(nexml.otu(), from))
 
 ################################ alternatively called Taxa by the schema
 
@@ -444,7 +448,7 @@ setMethod("fromNeXML",
             obj <- callNextMethod()
             kids <- xmlChildren(from)
             if(length(kids) > 0)
-              obj@otu <- new("ListOfotu", 
+              obj@otu <- New("ListOfotu",
                               lapply(kids[names(kids) == "otu"], 
                                      as, "otu"))
             obj
@@ -461,7 +465,7 @@ setAs("otus", "XMLInternalNode",
 setAs("otus", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("otus")))
 setAs("XMLInternalElementNode", "otus",
-      function(from) fromNeXML(new("otus"), from))
+      function(from) fromNeXML(nexml.otus(), from))
 
 ################################
 
@@ -497,10 +501,10 @@ setMethod("fromNeXML",
             .cacheNextMethod()
             obj <- callNextMethod()
             kids <- xmlChildren(from)
-            obj@node <- new("ListOfnode", 
+            obj@node <- New("ListOfnode",
                             lapply(kids[names(kids) == "node"], 
                                    as, "node"))
-            obj@edge <- new("ListOfedge", 
+            obj@edge <- New("ListOfedge",
                             lapply(kids[names(kids) == "edge"], 
                                    as, "edge"))
             obj
@@ -535,7 +539,7 @@ setMethod("fromNeXML",
           function(obj, from){
             obj <- callNextMethod()
             kids <- xmlChildren(from)
-            obj@tree <- new("ListOftree", 
+            obj@tree <- New("ListOftree",
                             lapply(kids[names(kids) == "tree"], 
                                    as, "tree"))
             obj
@@ -553,7 +557,7 @@ setAs("trees", "XMLInternalNode",
 setAs("trees", "XMLInternalElementNode",
       function(from) toNeXML(from, newXMLNode("trees")))
 setAs("XMLInternalElementNode", "trees",
-      function(from) fromNeXML(new("trees"), from))
+      function(from) fromNeXML(nexml.trees(), from))
 
 
 ####################################################
@@ -580,8 +584,44 @@ nexml_namespaces <-
     "ncbi"  = "http://www.ncbi.nlm.nih.gov/taxonomy#",
     "tc"    = "http://rs.tdwg.org/ontology/voc/TaxonConcept#")
 
-
-setClass("nexml", 
+#' Class representing a NeXML document
+#'
+#' The `nexml` class represents a NeXML document, and is the top of the
+#' class hierarchy defined in this package, corresponding to the root node
+#' of the corresponding XML document.
+#'
+#' Normally objects of this type are created by the package as a result of
+#' reading a NeXML file, or of converting from another type, such as
+#' `ape::phylo`. Also, interacting directly with the slots of the class is
+#' normally not necessary. Instead, use the `get_XXX()` and `add_XXX()`
+#' functions in the API. 
+#' @slot trees list, corresponding to the list of `<trees/>` elements in
+#'   NeXML. Elements will be of class `trees`.
+#' @slot characters list, corresponding to the list of `<characters/>`
+#'   elements in NeXML. Elements will be of class `characters`.
+#' @slot otus list, corresponding to the list of `<otus/>` elements in NeXML.
+#'   Elements will be of class `otus`.
+#' @slot about inherited, see [Annotated][Annotated-class]
+#' @slot meta inherited, see [Annotated][Annotated-class]
+#' @slot xsi:type for internal use
+#' @slot version NeXML schema version, do not change
+#' @slot generator name of software generating the XML
+#' @slot xsi:schemaLocation for internal use, do not change
+#' @slot namespaces named character vector giving the XML namespaces
+#' @seealso [read.nexml()]
+#' @examples
+#' nex <- nexml() # a nexml object with no further content
+#' nex <- new("nexml") # accomplishes the same thing
+#' nex@generator
+#' length(nex@trees)
+#'
+#' data(bird.orders)
+#' nex <- as(bird.orders, "nexml")
+#' summary(nex)
+#' length(nex@trees)
+#' @export nexml
+#' @exportClass nexml
+nexml <- setClass("nexml",
          slots = c(version = "character",
                         generator = "character",
                         "xsi:schemaLocation" = "character", # part of base?
@@ -628,15 +668,15 @@ setMethod("fromNeXML",
             # Handle children
             kids <- xmlChildren(from)
             # at least 1 OTU block is required 
-            obj@otus <- new("ListOfotus", 
+            obj@otus <- New("ListOfotus",
                             lapply(kids[names(kids) == "otus"], 
                                    as, "otus"))
             if("characters" %in% names(kids))
-              obj@characters <- new("ListOfcharacters", 
+              obj@characters <- New("ListOfcharacters",
                             lapply(kids[names(kids) == "characters"], 
                                    as, "characters"))
             if("trees" %in% names(kids))
-              obj@trees <- new("ListOftrees", 
+              obj@trees <- New("ListOftrees",
                             lapply(kids[names(kids) == "trees"], 
                                    as, "trees"))
             obj
@@ -663,7 +703,7 @@ setAs("nexml", "XMLInternalNode",
 setAs("nexml", "XMLInternalElementNode",
       function(from) suppressWarnings(toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces))))
 setAs("XMLInternalElementNode", "nexml",
-      function(from) fromNeXML(new("nexml"), from))
+      function(from) fromNeXML(nexml(), from))
 
 
 
