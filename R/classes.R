@@ -161,6 +161,7 @@ setMethod("toNeXML",
 })
 setAs("XMLInternalElementNode", "ResourceMeta", function(from) fromNeXML(New("ResourceMeta"), from))
 setAs("ResourceMeta", "XMLInternalNode", function(from) toNeXML(from, newXMLNode("meta")))
+setAs("ResourceMeta", "XMLInternalElementNode", function(from) toNeXML(from, newXMLNode("meta")))
 
 
 
