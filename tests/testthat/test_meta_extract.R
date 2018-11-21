@@ -40,7 +40,7 @@ test_that("we can correctly parse nested ResourceMeta annotations", {
   f <- system.file("examples", "meta_example.xml", package="RNeXML")
   nex <- read.nexml(f)
   meta <- get_metadata(nex)
-  lic <- dplyr::filter(meta, rel == "cc:license")$href
+  lic <- dplyr::filter(meta, property == "cc:license")$href
   testthat::expect_equal(lic, "http://creativecommons.org/publicdomain/zero/1.0/")
 
   # remove rows from nested meta elements (which there should be!)
@@ -66,7 +66,7 @@ test_that("we can correctly parse nested ResourceMeta annotations", {
 test_that("metadata tables can be requested in simplified form", {
   f <- system.file("examples", "meta_example.xml", package="RNeXML")
   nex <- read.nexml(f)
-  meta1 <- get_metadata(nex)
+  meta1 <- get_metadata(nex, simplify = FALSE)
   meta2 <- get_metadata(nex, simplify = TRUE)
   
   testthat::expect_equal(dplyr::filter(meta1, rel == "cc:license")$href,

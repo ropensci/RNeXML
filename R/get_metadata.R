@@ -21,10 +21,12 @@
 #' IDs of the parent meta elements for nested ones. This means that the
 #' resulting table can be self-joined on those columns.
 #' 
-#' If `simplify` is `TRUE`, the type-specific "LiteralMeta" and "ResourceMeta"
-#' columns will be removed if a consolidated "Meta" column is present. The
-#' values for "property" (LiteralMeta) and "rel" (ResourceMeta) will be
-#' consolidated to "property", and "rel" will be removed.
+#' If `simplify` is `FALSE`, the type-specific "LiteralMeta" and "ResourceMeta"
+#' columns will be retained even if a consolidated "Meta" column is present.
+#' Otherwise, only the consolidated column will be included in the result.
+#' Also, if `simplify` is `TRUE` the values for "property" (LiteralMeta) and
+#' "rel" (ResourceMeta) will be consolidated to "property", and "rel" will be
+#' removed from the result.
 #' 
 #' @import XML
 #' @examples \dontrun{
@@ -34,7 +36,7 @@
 #' get_metadata(nex, "otus/otu")
 #' }
 #' @export
-get_metadata <- function(nexml, level = "nexml", simplify = FALSE){
+get_metadata <- function(nexml, level = "nexml", simplify = TRUE){
   
 #  level = c("nexml", "otus", "trees", "characters", 
 #            "otus/otu", "trees/tree", "characters/format", "characters/matrix",
@@ -57,8 +59,13 @@ get_metadata <- function(nexml, level = "nexml", simplify = FALSE){
   out <- get_level(nexml, level)
   if (simplify) {
     cnames = colnames(out)
-    if ("Meta" %in% cnames)
-      out <- dplyr::select_(out, quote(-LiteralMeta), quote(-ResourceMeta))
+    if (! ("Meta" %in% cnames)) {
+      out <- dplyr::mutate(out,
+                           "Meta" = coalesce_(out$LiteralMeta,
+                                              out$ResourceMeta,
+                                              as.character(rep(NA, times=nrow(out)))))
+    }
+    out <- dplyr::mutate(out, LiteralMeta = NULL, ResourceMeta = NULL)
     if (all(c("rel","property") %in% cnames))
       out <- dplyr::mutate(out,
                            property = dplyr::if_else(is.na(out$property),
