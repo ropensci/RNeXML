@@ -112,3 +112,35 @@ test_that(".callGeneric works correctly", {
   testthat::expect_equal(XML::saveXML(xml1, indent = FALSE),
                          XML::saveXML(xml1.3, indent = FALSE))
 })
+
+test_that("coalesce_() works correctly", {
+  dta <- data.frame(col1 = rep(NA, times = 5),
+                    col2 = 1:5,
+                    col3 = letters[1:5])
+  dta[3:4, "col2"] <- NA
+  dta[2:3, "col3"] <- NA
+  last <- letters[6:10]
+  # let's start off with some tests for the presence of the problems that
+  # coalesce_ is trying to solve, because in their absence we won't need it
+  #
+  # (1) dplyr::coalesce is strict about type, and for some reason vectors
+  # that are all NAs default to type logical
+  testthat::expect_is(dta[, "col1"], "logical")
+  testthat::expect_error(dplyr::coalesce(dta$col1, dta$col3, last))
+  testthat::expect_error(dplyr::coalesce(dta$col3, last)) # col3 is a factor
+  # (2) dplyr::coalesce doesn't gracefully deal with NULL arguments, which
+  # can result from referencing column names that aren't there, requiring
+  # a conditional testing for presence of the column
+  testthat::expect_error(dplyr::coalesce(dta$col2, dta$foo, last))
+
+  # now test that coalesce_ deals with these issues and gives correct results
+  res <- ifelse(is.na(dta[,"col3"]), last, as.character(dta[,"col3"]))
+  testthat::expect_is(coalesce_(dta$col1, dta$col3, last), "character")
+  testthat::expect_false(any(is.na(coalesce_(dta$col1, dta$col3, last))))
+  testthat::expect_equal(coalesce_(dta$col1, dta$col3, last), res)
+  testthat::expect_equal(coalesce_(dta$col1, dta$col3, dta$foo, last), res)
+  testthat::expect_equal(coalesce_(dta$col1, dta$col3, NULL, last), res)
+  testthat::expect_is(coalesce_(dta$col1, dta$col2), "integer")
+  testthat::expect_equal(sum(is.na(coalesce_(dta$col1, dta$col2))), 2)
+  testthat::expect_false(any(is.na(coalesce_(dta$col1, dta$col2, 1:5))))
+})

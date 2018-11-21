@@ -94,19 +94,6 @@ nodelist_to_df <- function(node, element, fn, nodeId=NA){
   }
 }
 
-coalesce_ <- function(...) {
-  idvecs <- list(...)
-  idvecs <- lapply(idvecs,
-                   function(v, template) {
-                     if (is.null(v))
-                       as(rep(NA, times=length(template)), typeof(template))
-                     else
-                       as(v, typeof(template))
-                   },
-                   template = idvecs[[length(idvecs)]])
-  dplyr::coalesce(!!!idvecs)
-}
-
 node_id <- function(node){
   if("id" %in% slotNames(node))
     slot(node, "id")
