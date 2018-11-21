@@ -41,6 +41,18 @@ test_that("Adding meta data has some basic error checking", {
   testthat::expect_error(add_meta(m, level = "foo"))
 })
 
+test_that("ResourceMeta maps rel to property for simplicity of API", {
+  m <- meta(rel = "foo-rel", href="http://example.com/")
+  testthat::expect_is(m, "ResourceMeta")
+  testthat::expect_error(m@property)
+  testthat::expect_equal(slot(m, "rel"), "foo-rel")
+  testthat::expect_equal(slot(m, "property"), "foo-rel")
+  testthat::expect_error(m@property <- "bar-rel")
+  testthat::expect_silent(slot(m, "property") <- "bar-rel")
+  testthat::expect_equal(slot(m, "rel"), "bar-rel")
+  testthat::expect_equal(slot(m, "property"), "bar-rel")
+})
+
 test_that("Citation BibEntry objects are transformed to structured metadata", {
   nexml_cit <- nexml_citation(citation("RNeXML"))
   testthat::expect_is(nexml_cit, "list")
