@@ -1,3 +1,6 @@
+#' @include nexmlTree.R
+NULL
+
 #' add_trees
 #' 
 #' add_trees
