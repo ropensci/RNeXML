@@ -470,7 +470,7 @@ setClass("ListOfedge", slots = c(names="character"),
          contains = "list",
          validity = function(object)
                        if(!all(sapply(object, is, "edge")))
-                          "not all elements are meta objects"
+                          "not all elements are edge objects"
                        else
                          TRUE)
 
@@ -480,7 +480,7 @@ setClass("ListOfnode", slots = c(names="character"),
          contains = "list",
          validity = function(object)
                        if(!all(sapply(object, is, "node")))
-                          "not all elements are meta objects"
+                          "not all elements are node objects"
                        else
                          TRUE)
 

@@ -8,7 +8,7 @@ add_trees(phy, nexml = new("nexml"), append_to_existing_otus = FALSE)
 }
 \arguments{
 \item{phy}{a phylo object, multiPhylo object, or list of
-mulitPhylo to be added to the nexml}
+multiPhylo to be added to the nexml}
 
 \item{nexml}{a nexml object to which we should append this phylo.
 By default, a new nexml object will be created.}
