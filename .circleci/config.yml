@@ -7,4 +7,13 @@ jobs:
       - checkout
       - run: R -e "devtools::install(dep=T); rmarkdown::render('manuscripts/manuscript.Rmd')"
 
+workflows:
+  version: 2
+
+  build_only:
+    jobs:
+      - build:
+        filters:
+          branches:
+            only: master
 
