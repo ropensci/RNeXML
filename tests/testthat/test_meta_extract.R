@@ -76,6 +76,49 @@ test_that("metadata tables can be requested in simplified form", {
   testthat::expect_false(any(removedCols %in% colnames(meta2)))
 })
 
+test_that("ID assignments are correct and complete when meta are nested", {
+  f <- system.file("examples", "phenex.xml", package="RNeXML")
+  nex <- read.nexml(f)
+  m.otu <- get_metadata(nex, level = "otus/otu")
+  # the nested meta elements are actually there
+  testthat::expect_equal(sum(m.otu[,"property"] == "dwc:catalogNumber",
+                             na.rm = TRUE),
+                         5)
+  # the ID column for the containing element (here: otu) is populated in full
+  testthat::expect_false(any(is.na(m.otu[,"otu"])))
+  # the IDs for the containing element are not all the same
+  testthat::expect_gt(length(unique(m.otu[,"otu"])), 1)
+  # expect 5 groups if we group by otu ID
+  testthat::expect_length(tapply(m.otu[,"xsi.type"], m.otu[,"otu"], length), 5)
+  # expect 4 rows for each otu ID
+  testthat::expect_true(all(tapply(m.otu[,"xsi.type"], m.otu[,"otu"], length) == 4))
+  # expect 1 LiteralMeta and 3 ResourceMeta for each otu ID
+  meta.grouped <- tapply(m.otu[,"xsi.type"],
+                         list(m.otu[,"otu"], m.otu[,"xsi.type"]),
+                         length)
+  testthat::expect_true(all(meta.grouped[,"LiteralMeta"] == 1))
+  testthat::expect_true(all(meta.grouped[,"ResourceMeta"] == 3))
+  # for each otu ID, two meta are nested (have IDREF to a containing meta)
+  meta.nested <- m.otu[!is.na(m.otu[,"meta"]),]
+  testthat::expect_true(all(tapply(meta.nested[,"meta"], meta.nested[,"otu"],
+                                   length) == 2))
+  # but the two nested meta for each otu have the same IDREF
+  testthat::expect_true(all(tapply(meta.nested[,"meta"], meta.nested[,"otu"],
+                                   function(x) length(unique(x))) == 1))
+  # the IDREFs of the nested meta match up with ID of containing meta
+  xsi.type <- NULL # silence R check
+  meta.cont <- dplyr::filter(m.otu, 
+                             xsi.type == "ResourceMeta",
+                             is.na(m.otu[,"href"]))
+  testthat::expect_true(all(meta.nested[,"meta"] %in% meta.cont[,"Meta"]))
+  # they are all different
+  testthat::expect_length(unique(meta.nested[,"meta"]), 5)
+  testthat::expect_length(unique(meta.cont[,"Meta"]), 5)
+  # and every containing ID is referenced by exactly one of the nested IDREFs
+  testthat::expect_equal(sort(meta.cont[,"Meta"]),
+                         sort(unique(meta.nested[,"meta"])))
+})
+
 test_that("we can parse LiteralMeta annotations with XML literals as values", {
   f <- system.file("examples", "phenex.xml", package="RNeXML")
   nex <- read.nexml(f)
