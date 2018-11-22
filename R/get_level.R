@@ -69,9 +69,7 @@ nodelist_to_df <- function(node, element, fn, nodeId=NA){
     idRefColName(node))
   nodelist <- slot(node, element)
   if(is.list(nodelist)){ ## node has a list of elements
-    out <- suppressWarnings(lapply(nodelist, fn)) %>%
-      dplyr::bind_rows() %>%
-      dplyr::mutate_(.dots = dots)
+    out <- suppressWarnings(lapply(nodelist, fn)) %>% dplyr::bind_rows()
     if (length(nodelist) > 0 && all(sapply(nodelist, is, "meta"))) {
       # meta elements may have nested meta elements, retrieve these here too
       ids <- sapply(nodelist,
@@ -87,7 +85,7 @@ nodelist_to_df <- function(node, element, fn, nodeId=NA){
         out <- dplyr::bind_rows(mout, nested)
       }
     }
-    out
+    dplyr::mutate_(out, .dots = dots) -> out
   } else { ## handle case when node has only one element
     fn(nodelist) %>%
       dplyr::mutate_(.dots = dots)
