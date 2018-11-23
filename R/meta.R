@@ -192,8 +192,40 @@ setMethod("c",
 
           })
 
+setGeneric("slot")
+setGeneric("slot<-")
 
+#' Access or set slot of S4 object
+#'
+#' See [methods::slot()]. This version allows using "property" consistently
+#' for both LiteralMeta and ResourceMeta (which internally uses "rel" because
+#' RDFa does), which is easier to program.
+#' @param object the object
+#' @param name name of the slot
+#' @aliases slot-ResourceMeta
+#' @seealso [methods::slot()]
+#' @export
+setMethod("slot",
+          signature("ResourceMeta", "ANY"),
+          function(object, name) {
+            if (name == "property")
+              object@rel
+            else
+              callNextMethod()
+          })
 
+#' @param value the new value
+#' @rdname slot-ResourceMeta-method
+#' @export
+setMethod("slot<-",
+          signature("ResourceMeta", "ANY"),
+          function(object, name, value) {
+            if (name == "property")
+              object@rel <- value
+            else
+              object <- callNextMethod()
+            object
+          })
 
 meta_recursion <- function(elements){
   i <- 1

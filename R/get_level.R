@@ -72,8 +72,7 @@ nodelist_to_df <- function(node, element, fn, nodeId=NA){
     out <- suppressWarnings(lapply(nodelist, fn)) %>%
       dplyr::bind_rows() %>%
       dplyr::mutate_(.dots = dots)
-    if (any(colnames(out) %in% c("ResourceMeta", "LiteralMeta")) &&
-        all(sapply(nodelist, .hasSlot, "children"))) {
+    if (length(nodelist) > 0 && all(sapply(nodelist, is, "meta"))) {
       # meta elements may have nested meta elements, retrieve these here too
       ids <- sapply(nodelist,
                     function(n) if (length(n@children) > 0) uuid::UUIDgenerate() else NA)
@@ -93,19 +92,6 @@ nodelist_to_df <- function(node, element, fn, nodeId=NA){
     fn(nodelist) %>%
       dplyr::mutate_(.dots = dots)
   }
-}
-
-coalesce_ <- function(...) {
-  idvecs <- list(...)
-  idvecs <- lapply(idvecs,
-                   function(v, template) {
-                     if (is.null(v))
-                       as(rep(NA, times=length(template)), typeof(template))
-                     else
-                       as(v, typeof(template))
-                   },
-                   template = idvecs[[length(idvecs)]])
-  dplyr::coalesce(!!!idvecs)
 }
 
 node_id <- function(node){
