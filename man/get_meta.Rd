@@ -10,7 +10,7 @@ get_meta(nexml, annotated = NULL, props)
 \item{nexml}{a nexml object}
 
 \item{annotated}{the nexml component object from which to obtain metadata
-annotations, defaults to the nexml object itself}
+annotations, or a list of such objects. Defaults to the nexml object itself.}
 
 \item{props}{a character vector of property names for which to extract
 metadata annotations}

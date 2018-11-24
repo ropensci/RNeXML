@@ -116,30 +116,31 @@ get_metadata_values <- function(nexml, annotated = NULL, props){
 #' and hence does not retain the nesting hierarchy in the object's annotation. 
 #' @param nexml a nexml object
 #' @param annotated the nexml component object from which to obtain metadata
-#'   annotations, defaults to the nexml object itself
+#'   annotations, or a list of such objects. Defaults to the nexml object itself.
 #' @param props a character vector of property names for which to extract
 #'   metadata annotations
 #' @return a named list of the matching meta objects
 #' @export
 get_meta <- function(nexml, annotated = NULL, props){
   if (is.null(annotated)) annotated <- nexml
-  if (! is(annotated, "Annotated"))
-    stop("Value for 'annotated' (class(es) ",
-         paste0(class(annotated), collapse = ", "),
-         "is not a subclass of 'Annotated'")
   if (is.null(props) || length(props) == 0)
     stop("Parameter 'props' must be a non-empty vector")
   uris <- expand_prefix(props, nexml@namespaces)
-  metaList <- get_all_meta(annotated)
+  if (is(annotated, "Annotated"))
+    metaList <- get_all_meta(annotated)
+  else if (is(annotated, "list"))
+    metaList <- unlist(lapply(annotated, get_all_meta))
+  else
+    stop("'annotated' must be either an instance of 'Annotated', or a list")
   metaProps <- expand_prefix(sapply(metaList, slot, "property"), nexml@namespaces)
   isMatch <- metaProps %in% uris
   if (any(isMatch)) {
     values <- metaList[isMatch]
     mapToURIs <- match(metaProps, uris)
     names(values) <- props[mapToURIs[! is.na(mapToURIs)]]
-    values
+    New("ListOfmeta", values)
   } else
-    new("ListOfmeta")
+    New("ListOfmeta")
 }
 
 #' Get flattened list of meta annotations

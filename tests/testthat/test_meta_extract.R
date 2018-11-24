@@ -8,6 +8,33 @@ nex <- add_basic_meta(
             pubdate = "2012-04-01",
             citation = citation("ape"))
 
+test_that("get_meta() and friends have some basic parameter checking", {
+  testthat::expect_error(get_meta(nex, props = c()))
+  testthat::expect_error(get_meta(nex, props = NULL))
+  testthat::expect_error(get_meta(nex, "foo", props = "foo"))
+})
+
+test_that("get_meta() and friends return the correct types", {
+  mlist <- get_meta(nex, props = "dcterms:modified")
+  testthat::expect_is(mlist, "ListOfmeta")
+  testthat::expect_equal(names(mlist), "dcterms:modified")
+  mlist <- get_meta(nex, props = "foo")
+  testthat::expect_is(mlist, "ListOfmeta")
+  testthat::expect_length(mlist, 0)
+  mlist <- get_meta(nex, props = c("dcterms:modified", "dc:description"))
+  testthat::expect_is(mlist, "ListOfmeta")
+  testthat::expect_equal(names(mlist), c("dcterms:modified", "dc:description"))
+
+  testthat::expect_is(get_all_meta(nex), "ListOfmeta")
+  citMeta <- get_meta(nex, props = "dcterms:references")
+  testthat::expect_gt(length(citMeta), 0)
+  testthat::expect_is(citMeta, "ListOfmeta")
+  nested <- get_all_meta(citMeta[[1]])
+  testthat::expect_gt(length(nested), 0)
+  testthat::expect_is(nested, "ListOfmeta")
+
+})
+
 test_that("we can extract metadata using the dedicated functions", {
 
   testthat::expect_equivalent(get_citation(nex), format(citation("ape"), "text"))
@@ -44,16 +71,26 @@ test_that("we can parse literal meta nodes with literal node content", {
 test_that("we can extract all available metadata at a specified level of the DOM", {
   f <- system.file("examples", "ontotrace-result.xml", package = "RNeXML")
   nex <- read.nexml(f)
+
+  # otu metadata
   m.otu <- get_metadata(nex, "otus/otu")
   m.taxonId <- dplyr::filter(m.otu, property == "dwc:taxonID")
   testthat::expect_equal(nrow(m.taxonId), length(nex@otus[[1]]@otu))
   testthat::expect_gt(nrow(m.otu), nrow(m.taxonId))
+  taxonIDs <- get_metadata_values(nex, nex@otus[[1]]@otu, "dwc:taxonID")
+  testthat::expect_length(taxonIDs, nrow(m.taxonId))
+  testthat::expect_equivalent(taxonIDs, m.taxonId[,"href"])
+
+  # character metadata
   m.c <- get_metadata(nex, "characters/format/char")
   denotes <- expand_prefix(m.c[1,"property"], nex@namespaces)
   m.denotes <- dplyr::filter(m.c,
                              expand_prefix(property, nex@namespaces) == denotes)
   testthat::expect_equal(nrow(m.c), nrow(m.denotes))
   testthat::expect_equal(nrow(m.c), length(nex@characters[[1]]@format@char))
+  entityIDs <- get_metadata_values(nex, nex@characters[[1]]@format@char, denotes)
+  testthat::expect_length(entityIDs, nrow(m.denotes))
+  testthat::expect_equivalent(entityIDs, m.denotes[,"href"])
 })
 
 
