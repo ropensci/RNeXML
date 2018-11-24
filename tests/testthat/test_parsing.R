@@ -29,3 +29,23 @@ test_that("We preserve existing namespace", {
   ## Check that the new abbreviations are added 
 
 })
+
+
+test_that("files with rootedge can be parsed and roundtripped", {
+  f <- system.file("examples", "coal.xml", package = "RNeXML")
+  nex <- read.nexml(f)
+
+  tr <- nex@trees[[1]]@tree[[1]]
+  testthat::expect_true(length(tr@rootedge@target) > 0 && nchar(tr@rootedge@target) > 0)
+  testthat::expect_equal(sum(sapply(tr@node, slot, "id") == tr@rootedge@target), 1)
+  xmlOut <- as(nex, "XMLInternalNode")
+
+  nex2 <- read.nexml(xmlOut)
+  tr2 <- nex2@trees[[1]]@tree[[1]]
+  testthat::expect_true(length(tr2@rootedge@target) > 0 && nchar(tr2@rootedge@target) > 0)
+  testthat::expect_equal(sum(sapply(tr2@node, slot, "id") == tr2@rootedge@target), 1)
+  testthat::expect_equal(sum(sapply(tr2@node, slot, "id") == tr@rootedge@target), 1)
+  testthat::expect_equal(saveXML(as(tr, "XMLInternalNode")),
+                         saveXML(as(tr2, "XMLInternalNode")))
+
+})
