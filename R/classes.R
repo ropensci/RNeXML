@@ -168,8 +168,16 @@ setAs("ResourceMeta", "XMLInternalElementNode", function(from) toNeXML(from, new
 ##############################################
 
 
-setClass("ListOfmeta", slots = c(names="character"), contains = "list")
-      
+setClass("ListOfmeta",
+         slots = c(names="character"),
+         contains = "list",
+         validity = function(object)
+           if(!all(sapply(object, is, "meta")))
+             "not all elements are meta objects"
+           else
+             TRUE
+         )
+
 
 ###############################################
 
