@@ -93,7 +93,7 @@ test_that("we can concatenate a ListOfmeta and a meta", {
 
 test_that("we can read in a file with existing meta and append without overwriting", 
           {
-            f <- system.file("examples/biophylo.xml", package="RNeXML")
+            f <- system.file("examples", "biophylo.xml", package="RNeXML")
             nex <- nexml_read(f)
             g <- tempfile()
             nexml_write(nex, g)

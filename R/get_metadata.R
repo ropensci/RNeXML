@@ -78,3 +78,90 @@ get_metadata <- function(nexml, level = "nexml", simplify = TRUE){
 
   out
 }
+
+#' Get the value(s) for metadata
+#'
+#' Extracts the values from the metadata annotations for the given property
+#' or properties, and returns the result.
+#'
+#' For matching property identifiers (i.e., URIs), prefixes in the input list
+#' as well as in the `annotated` object will be expanded using the namespaces
+#' of the `nexml` object. Names in the returned vector are mapped to the
+#' (possibly prefixed) form in the input list.
+#' @param nexml a nexml object
+#' @param annotated the nexml component object from which to obtain metadata
+#'   annotations, defaults to the nexml object itself
+#' @param props a character vector of property names for which to extract
+#'   metadata annotations
+#' @return a named character vector, giving the values and names being the
+#'   property names
+#' @export
+get_metadata_values <- function(nexml, annotated = NULL, props){
+  metaList <- get_meta(nexml, annotated = annotated, props = props)
+  if (length(metaList) > 0) {
+    sapply(metaList, function(m) if (is(m, "LiteralMeta")) m@content else m@href)
+  } else
+    c()
+}
+
+#' Extracts meta objects matching properties
+#'
+#' Extracts the metadata annotations for the given property or properties,
+#' and returns the result as a list of `meta` objects.
+#'
+#' For matching property identifiers (i.e., URIs), prefixes in the input list
+#' as well as in the `annotated` object will be expanded using the namespaces
+#' of the `nexml` object. Names in the returned list are mapped to the
+#' (possibly prefixed) form in the input list. The resulting list is flat,
+#' and hence does not retain the nesting hierarchy in the object's annotation. 
+#' @param nexml a nexml object
+#' @param annotated the nexml component object from which to obtain metadata
+#'   annotations, defaults to the nexml object itself
+#' @param props a character vector of property names for which to extract
+#'   metadata annotations
+#' @return a named list of the matching meta objects
+#' @export
+get_meta <- function(nexml, annotated = NULL, props){
+  if (is.null(annotated)) annotated <- nexml
+  if (! is(annotated, "Annotated"))
+    stop("Value for 'annotated' (class(es) ",
+         paste0(class(annotated), collapse = ", "),
+         "is not a subclass of 'Annotated'")
+  if (is.null(props) || length(props) == 0)
+    stop("Parameter 'props' must be a non-empty vector")
+  uris <- expand_prefix(props, nexml@namespaces)
+  metaList <- get_all_meta(annotated)
+  metaProps <- expand_prefix(sapply(metaList, slot, "property"), nexml@namespaces)
+  isMatch <- metaProps %in% uris
+  if (any(isMatch)) {
+    values <- metaList[isMatch]
+    mapToURIs <- match(metaProps, uris)
+    names(values) <- props[mapToURIs[! is.na(mapToURIs)]]
+    values
+  } else
+    new("ListOfmeta")
+}
+
+#' Get flattened list of meta annotations
+#'
+#' Collects recursively (in the case of nested meta annotations) all meta
+#' object annotations for the given object, and returns the result as a flat
+#' list.
+#'
+#' Does not check that the input object can actually have meta annotations.
+#' An invalid slot error will be generated if it can't.
+#' @param annotated the object from which to extract meta object annotations
+#' @return a flat list of `meta` objects
+#' @export
+get_all_meta <- function(annotated) {
+  metaList <- slot(annotated, "meta")
+  if (length(metaList) > 0) {
+    containsNested <- sapply(metaList, is, "ResourceMeta")
+    if (any(containsNested)) {
+      nested <- lapply(metaList[containsNested], get_all_meta)
+      if (length(nested) > 0)
+        metaList <- c(metaList, nested)
+    }
+  }
+  metaList
+}

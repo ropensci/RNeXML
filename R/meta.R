@@ -206,7 +206,9 @@ setGeneric("slot<-")
 #'
 #' See [methods::slot()]. This version allows using "property" consistently
 #' for both LiteralMeta and ResourceMeta (which internally uses "rel" because
-#' RDFa does), which is easier to program.
+#' RDFa does), which is easier to program. It also allows using "meta"
+#' as an alias for "children" for ResourceMeta, to be consistent with the
+#' corresponding slot for instances of `Annotated`.
 #' @param object the object
 #' @param name name of the slot
 #' @aliases slot-ResourceMeta
@@ -217,6 +219,8 @@ setMethod("slot",
           function(object, name) {
             if (name == "property")
               object@rel
+            else if (name == "meta")
+              object@children
             else
               callNextMethod()
           })
@@ -229,6 +233,8 @@ setMethod("slot<-",
           function(object, name, value) {
             if (name == "property")
               object@rel <- value
+            else if (name == "meta")
+              object@children <- value
             else
               object <- callNextMethod()
             object

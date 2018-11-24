@@ -10,20 +10,21 @@ nex <- add_basic_meta(
 
 test_that("we can extract metadata using the dedicated functions", {
 
-  get_citation(nex)
-  get_license(nex)
-  get_metadata(nex)
+  testthat::expect_equivalent(get_citation(nex), format(citation("ape"), "text"))
+  testthat::expect_equivalent(get_license(nex), "http://creativecommons.org/publicdomain/zero/1.0/")
+  m <- get_metadata(nex)
+  mlist <- get_all_meta(nex)
+  testthat::expect_gte(length(m[,1]), 4)
+  testthat::expect_length(m[,1], length(mlist))
+  mvalues <- get_metadata_values(nex, props = c("dc:creator",
+                                                "dc:title",
+                                                "dc:description"))
+  testthat::expect_equivalent(mvalues["dc:creator"], "Carl Boettiger <cboettig@gmail.com>")
+  testthat::expect_equivalent(mvalues["dc:title"], "My test title")
+  testthat::expect_equivalent(mvalues["dc:description"], "A description of my test")
   summary(nex)
-
-  unlink("example.xml")
 })
 
-
-
-test_that("we can extract all available metadata at a specified level of the DOM", {
- get_metadata(nex) 
- get_metadata(nex, "trees") 
-})
 
 
 test_that("we can parse literal meta nodes with literal node content", {
@@ -35,6 +36,22 @@ test_that("we can parse literal meta nodes with literal node content", {
   testthat::expect_true(matches > 0)
   
 })
+
+test_that("we can extract all available metadata at a specified level of the DOM", {
+  f <- system.file("examples", "ontotrace-result.xml", package = "RNeXML")
+  nex <- read.nexml(f)
+  m.otu <- get_metadata(nex, "otus/otu")
+  m.taxonId <- dplyr::filter(m.otu, property == "dwc:taxonID")
+  testthat::expect_equal(nrow(m.taxonId), length(nex@otus[[1]]@otu))
+  testthat::expect_gt(nrow(m.otu), nrow(m.taxonId))
+  m.c <- get_metadata(nex, "characters/format/char")
+  denotes <- expand_prefix(m.c[1,"property"], nex@namespaces)
+  m.denotes <- dplyr::filter(m.c,
+                             expand_prefix(property, nex@namespaces) == denotes)
+  testthat::expect_equal(nrow(m.c), nrow(m.denotes))
+  testthat::expect_equal(nrow(m.c), length(nex@characters[[1]]@format@char))
+})
+
 
 test_that("we can correctly parse nested ResourceMeta annotations", {
   f <- system.file("examples", "meta_example.xml", package="RNeXML")

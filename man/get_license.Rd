@@ -2,7 +2,7 @@
 % Please edit documentation in R/get_basic_metadata.R
 \name{get_license}
 \alias{get_license}
-\title{get_license}
+\title{Get license from metadata}
 \usage{
 get_license(nexml)
 }
@@ -10,8 +10,19 @@ get_license(nexml)
 \item{nexml}{a nexml object}
 }
 \value{
-the list of taxa
+the license if the metadata asserts one that is non-empty, and
+NA otherwise.If multiple non-empty annotations are found, only the first
+one is returned.
 }
 \description{
-get_license
+Extracts the license annotation from the metadata annotation of the\code{nexml}
+object, and returns its value.
+}
+\details{
+Currently the implementation looks for \code{cc:license} and \code{dc:rights}
+annotations. (Note that these may be given with any prefix in the metadata
+so long as they expand to the same full property URIs.)
+}
+\seealso{
+\code{\link[=get_metadata_values]{get_metadata_values()}}
 }
