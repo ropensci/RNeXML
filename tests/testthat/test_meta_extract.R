@@ -14,15 +14,17 @@ test_that("we can extract metadata using the dedicated functions", {
   testthat::expect_equivalent(get_license(nex), "http://creativecommons.org/publicdomain/zero/1.0/")
   m <- get_metadata(nex)
   mlist <- get_all_meta(nex)
-  testthat::expect_gte(length(m[,1]), 4)
+  testthat::expect_gte(length(m[,1]), 6)
   testthat::expect_length(m[,1], length(mlist))
   mvalues <- get_metadata_values(nex, props = c("dc:creator",
                                                 "dc:title",
                                                 "dc:description",
+                                                "dcterms:publisher",
                                                 "dcterms:modified"))
   testthat::expect_equivalent(mvalues["dc:creator"], "Carl Boettiger <cboettig@gmail.com>")
   testthat::expect_equivalent(mvalues["dc:title"], "My test title")
   testthat::expect_equivalent(mvalues["dc:description"], "A description of my test")
+  testthat::expect_equivalent(mvalues["dcterms:publisher"], "unpublished data")
   testthat::expect_equivalent(mvalues["dcterms:modified"], "2012-04-01")
   summary(nex)
 })

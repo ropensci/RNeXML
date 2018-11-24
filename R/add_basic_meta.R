@@ -73,6 +73,8 @@ add_basic_meta <- function(title = NULL,
                       nexml)
   if(!is.null(description)) 
     nexml <- add_meta(meta("dc:description", description), nexml)
+  if (!is.null(publisher))
+    nexml <- add_meta(meta("dcterms:publisher", publisher), nexml)
   if(!is.null(rights)){
     if(is.na(get_license(nexml))) {
       if(rights == "CC0")
