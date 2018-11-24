@@ -44,6 +44,7 @@ Imports:
     lazyeval (>= 0.1.0),
     tidyr (>= 0.3.1),
     stringr (>= 1.0),
+    stringi,
     xml2
 Collate:
     'S4-utils.R'
@@ -79,6 +80,7 @@ Collate:
     'nexml_read.R'
     'nexml_validate.R'
     'nexml_write.R'
+    'prefixed-uris.R'
     'simmap.R'
     'taxize_nexml.R'
     'tbl_df.R'
