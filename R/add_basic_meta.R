@@ -53,26 +53,21 @@
 add_basic_meta <- function(title = NULL, 
                            description = NULL,
                            creator = Sys.getenv("USER"),
-                           pubdate = Sys.Date(),
+                           pubdate = NULL,
                            rights = "CC0",
                            publisher = NULL,
                            citation = NULL,
                            nexml = new("nexml")
                            ){
 
-  mymeta <- get_metadata(nexml)
-  m <- mymeta$content
-  names(m) <- mymeta$property
-  
-  
   if(!is.null(title)) 
     nexml <- add_meta(meta("dc:title", title), nexml)
   if(!is.null(creator) || creator == "") 
     nexml <- add_meta(meta("dc:creator", format(creator)), nexml)
-  if(!is.null(pubdate)) 
-    if(!is.null(m)) 
-      if(is.null(m["dc:pubdate"]) | is.na(m["dc:pubdate"]))
-        nexml <- add_meta(meta("dc:pubdate", format(pubdate)), nexml)
+  if(!is.null(pubdate))
+    nexml <- add_meta(meta("dcterms:modified",
+                           format(pubdate, tz = "GMT", usetz = TRUE)),
+                      nexml)
   if(!is.null(description)) 
     nexml <- add_meta(meta("dc:description", description), nexml)
   if(!is.null(rights)){

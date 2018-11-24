@@ -18,10 +18,12 @@ test_that("we can extract metadata using the dedicated functions", {
   testthat::expect_length(m[,1], length(mlist))
   mvalues <- get_metadata_values(nex, props = c("dc:creator",
                                                 "dc:title",
-                                                "dc:description"))
+                                                "dc:description",
+                                                "dcterms:modified"))
   testthat::expect_equivalent(mvalues["dc:creator"], "Carl Boettiger <cboettig@gmail.com>")
   testthat::expect_equivalent(mvalues["dc:title"], "My test title")
   testthat::expect_equivalent(mvalues["dc:description"], "A description of my test")
+  testthat::expect_equivalent(mvalues["dcterms:modified"], "2012-04-01")
   summary(nex)
 })
 
