@@ -62,8 +62,11 @@ add_basic_meta <- function(title = NULL,
 
   if(!is.null(title)) 
     nexml <- add_meta(meta("dc:title", title), nexml)
-  if(!is.null(creator) || creator == "") 
-    nexml <- add_meta(meta("dc:creator", format(creator)), nexml)
+  if(!is.null(creator) || creator == "") {
+    creators <- get_metadata_values(nexml, props = c("dc:creator"))
+    if (! (creator %in% creators))
+      nexml <- add_meta(meta("dc:creator", format(creator)), nexml)
+  }
   if(!is.null(pubdate))
     nexml <- add_meta(meta("dcterms:modified",
                            format(pubdate, tz = "GMT", usetz = TRUE)),
