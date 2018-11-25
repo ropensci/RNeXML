@@ -1,5 +1,10 @@
 ## Utilities for adding additional metadata
 
+#' @name nexml.meta_
+#' @aliases nexml.meta_
+#' @seealso [nexml.meta()][meta()] for documentation of `nexml.meta()`
+#' @rdname constructors
+NULL
 
 #' Constructor function for metadata nodes
 #' 
@@ -25,6 +30,7 @@
 #' meta(content="example", property="dc:title")
 #' @export 
 #' @seealso \code{\link{nexml_write}}
+#' @aliases nexml.meta
 #' @include classes.R
 meta <- function(property = NULL,
                  content = NULL,
@@ -91,10 +97,11 @@ meta <- function(property = NULL,
                                id = id,
                                'xsi:type' = type,
                                children = children))
-    do.call(new, c(clname, args))
+    do.call(New, c(clname, args))
   }
 }
 
+nexml.meta <- meta
 
 ## Common helper functions 
 
@@ -138,7 +145,7 @@ nexml_citation <- function(obj){
         meta(content=format(obj, "text"), 
              property="dcterms:bibliographicCitation")
       ))
-      citation_elements = new("ListOfmeta", list_of_metadata_nodes)
+      citation_elements = New("ListOfmeta", list_of_metadata_nodes)
       meta(rel = "dcterms:references",
            children = citation_elements)
     })
@@ -165,7 +172,7 @@ setMethod("c",
             elements <- list(x, ...)
 #            if(recursive)
             elements <- meta_recursion(elements)
-            new("ListOfmeta", elements)
+            New("ListOfmeta", elements)
 
           })
 
@@ -188,7 +195,7 @@ setMethod("c",
           function(x, ..., recursive = FALSE){
             elements <- list(x, unlist(...))
             elements <- meta_recursion(elements)
-            new("ListOfmeta", elements)
+            New("ListOfmeta", elements)
 
           })
 

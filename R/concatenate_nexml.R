@@ -28,15 +28,15 @@ setMethod("c",
           Consider regenerating ids")
   else {
 
-  nexml@otus <- new("ListOfotus", 
+  nexml@otus <- New("ListOfotus",
                     unlist(lapply(elements, 
                                   function(n) n@otus), 
                            recursive=FALSE))
-  nexml@characters <- new("ListOfcharacters", 
+  nexml@characters <- New("ListOfcharacters",
                     unlist(lapply(elements, 
                                   function(n) n@characters), 
                            recursive=FALSE))
-  nexml@trees <- new("ListOftrees", 
+  nexml@trees <- New("ListOftrees",
                     unlist(lapply(elements, 
                                   function(n) n@trees), 
                            recursive=FALSE))

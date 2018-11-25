@@ -32,7 +32,7 @@ taxize_nexml <- function(nexml, type = c("NCBI"), ...){
                 if(is.na(id))
                   warning(paste("ID for otu", nexml@otus[[j]]@otu[[i]]@label, "not found. Consider checking the spelling or alternate classification"))
                 else 
-                  nexml@otus[[j]]@otu[[i]]@meta <- new("ListOfmeta", list(
+                  nexml@otus[[j]]@otu[[i]]@meta <- New("ListOfmeta", list(
                                  meta(href = paste0("http://ncbi.nlm.nih.gov/taxonomy/", id),
                                       rel = "tc:toTaxon")))
 

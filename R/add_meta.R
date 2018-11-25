@@ -48,13 +48,13 @@ add_meta <- function(meta,
     stop("function does not yet handle at_id assignments")
     # case not written yet
   } else if(level =="nexml"){ 
-    nexml@meta <- new("ListOfmeta", c(unlist(nexml@meta), unlist(meta)))
+    nexml@meta <- New("ListOfmeta", c(unlist(nexml@meta), unlist(meta)))
   } else if(level =="otus"){ 
-    nexml@otus[[i]]@meta <- new("ListOfmeta", c(nexml@otus[[i]]@meta, meta))
+    nexml@otus[[i]]@meta <- New("ListOfmeta", c(nexml@otus[[i]]@meta, meta))
   }  else if(level =="nexml"){ 
-    nexml@trees[[i]]@meta <- new("ListOfmeta", c(nexml@trees[[i]]@meta, meta))
+    nexml@trees[[i]]@meta <- New("ListOfmeta", c(nexml@trees[[i]]@meta, meta))
   }  else if(level =="nexml"){ 
-    nexml@characters[[i]]@meta <- new("ListOfmeta", c(nexml@characters[[i]]@meta, meta))
+    nexml@characters[[i]]@meta <- New("ListOfmeta", c(nexml@characters[[i]]@meta, meta))
   } 
 
   ## append additional namespaces
