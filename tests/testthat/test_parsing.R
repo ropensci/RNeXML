@@ -41,3 +41,18 @@ test_that("We preserve existing namespace", {
                     "http://www.evolutionaryontology.org/cdao/1.0/cdao.owl#")
   expect_true(get_namespaces(nex)["cdao"] != get_namespaces(nexml())["cdao"])
 })
+
+test_that("base namespace gets added if not present", {
+  doc <- xmlParse(system.file("examples", "no-base-ns.xml", package="RNeXML"))
+  xmlroot <- xmlRoot(doc)
+
+  prefixes <- names(xmlNamespaceDefinitions(doc))
+  expect_false(any(prefixes == ""))
+
+  nex <- nexml_read(doc)
+  expect_true(any(names(get_namespaces(nex)) == ""))
+  expect_equal(expand_prefix("/nexml", get_namespaces(nex)),
+               expand_prefix("/nexml", get_namespaces(nexml())))
+  expect_equal(expand_prefix("nexml", get_namespaces(nex)),
+               expand_prefix("nex:nexml", get_namespaces(nex)))
+})
