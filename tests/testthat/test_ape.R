@@ -38,6 +38,7 @@ test_that("We can serialize the various versions of the ape format", {
   data(bird.orders)
   nexml <- as(bird.orders, "nexml")
   nexml_write(nexml, file = "test.xml")
+  expect_true_or_null(nexml_validate("test.xml"))
   unlink("test.xml")
 })
 

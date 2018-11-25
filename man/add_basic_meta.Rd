@@ -5,7 +5,7 @@
 \title{Add basic metadata}
 \usage{
 add_basic_meta(title = NULL, description = NULL,
-  creator = Sys.getenv("USER"), pubdate = Sys.Date(), rights = "CC0",
+  creator = Sys.getenv("USER"), pubdate = NULL, rights = "CC0",
   publisher = NULL, citation = NULL, nexml = new("nexml"))
 }
 \arguments{

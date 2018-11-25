@@ -1,40 +1,45 @@
-
-## Goodness, but XPATH is so much more expressive for this purpose...
-## get all top-level metadata  More extensible than hardwired functions
-## The following methods are somewhat too rigid.  Might make more sense to do get_metadata(nexml, "nexml")["dc:creator"], etc.  
-## Note that we define our namespace prefixes explicitly, so that should the NeXML use a different abberivation, this should still work.  
-
-#' get_citation
+#' Get citation from metadata
 #' 
-#' get_citation
+#' Extracts the citation annotation from the metadata annotation of the`nexml`
+#' object, and returns its value.
+#'
+#' Currently the implementation looks for `dcterms:bibliographicCitation`
+#' annotations. (Note that these may be given with any prefix in the metadata
+#' so long as they expand to the same full property URIs.)
+#' @seealso [get_metadata_values()]
 #' @param nexml a nexml object
-#' @return the list of taxa
+#' @return the citation if the metadata provides one that is non-empty, and
+#'   NA otherwise. If multiple non-empty annotations are found, only the first
+#'   one is returned.
 #' @export
 get_citation <- function(nexml){
-  b <- setxpath(as(nexml, "XMLInternalElementNode"))
-## FIXME should return a citation class nexml! 
-  cat(unname(xpathSApply(b, "/nexml/meta[@property='dcterms:bibliographicCitation']/@content", namespaces = nexml_namespaces)))
+  cit <- get_metadata_values(nexml, props = c("dcterms:bibliographicCitation"))
+  if (length(cit) > 0) {
+    # remove empty values
+    cit[sapply(cit, length) > 0][1]
+  } else
+    NA
 }
 
-#' get_license
+#' Get license from metadata
 #'
-#' get_license
+#' Extracts the license annotation from the metadata annotation of the`nexml`
+#' object, and returns its value.
+#'
+#' Currently the implementation looks for `cc:license` and `dc:rights`
+#' annotations. (Note that these may be given with any prefix in the metadata
+#' so long as they expand to the same full property URIs.)
+#' @seealso [get_metadata_values()]
 #' @param nexml a nexml object
-#' @return the list of taxa
+#' @return the license if the metadata asserts one that is non-empty, and
+#'   NA otherwise.If multiple non-empty annotations are found, only the first
+#'   one is returned.
 #' @export 
-get_license <- 
-  function(nexml){
-    b <- setxpath(as(nexml, "XMLInternalElementNode"))
-    dc_rights <- unname(xpathSApply(b, "/nexml/meta[@property='dc:rights']/@content", namespaces = nexml_namespaces))
-    cc_license <- unname(xpathSApply(b, "/nexml/meta[@rel='cc:license']/@href", namespaces = nexml_namespaces))
-  if(length(dc_rights) > 0)
-    dc_rights
-  else
-    cc_license
+get_license <- function(nexml){
+  lic <- get_metadata_values(nexml, props = c("dc:rights", "cc:license"))
+  if (length(lic) > 0) {
+    # remove empty values
+    lic[sapply(lic, length) > 0][1]
+  } else
+    NA
 }
-
-
-
-
-
-

@@ -53,6 +53,27 @@ test_that("ResourceMeta maps rel to property for simplicity of API", {
   testthat::expect_equal(slot(m, "property"), "bar-rel")
 })
 
+test_that("ResourceMeta maps meta to children for simplicity of API", {
+  nested <- c(meta(property = "foo-prop", content = "foo"),
+              meta(property = "bar-prop", content = "bar"))
+  m <- meta(rel = "foo-rel", children = nested)
+  testthat::expect_is(m, "ResourceMeta")
+  testthat::expect_error(m@meta)
+  testthat::expect_length(m@children, 2)
+  testthat::expect_length(slot(m, "meta"), 2)
+  testthat::expect_equal(slot(m, "meta"), m@children)
+  testthat::expect_equivalent(sapply(slot(m, "meta"), slot, "content"),
+                              c("foo", "bar"))
+  m <- new("ResourceMeta", rel = "baz-rel") # meta() returns NULL if no "content"
+  testthat::expect_length(m@children, 0)
+  testthat::expect_error(m@meta <- nested)
+  testthat::expect_silent(slot(m, "meta") <- nested)
+  testthat::expect_length(slot(m, "meta"), 2)
+  testthat::expect_equal(slot(m, "meta"), m@children)
+  testthat::expect_equivalent(sapply(slot(m, "meta"), slot, "content"),
+                              c("foo", "bar"))
+})
+
 test_that("Citation BibEntry objects are transformed to structured metadata", {
   nexml_cit <- nexml_citation(citation("RNeXML"))
   testthat::expect_is(nexml_cit, "list")

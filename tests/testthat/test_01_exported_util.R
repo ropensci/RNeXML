@@ -30,4 +30,7 @@ test_that("expand_prefix() works correctly", {
   testthat::expect_equal(expanded[4], "foo:bar")
   testthat::expect_length(expanded, length(uris))
   testthat::expect_true(is.na(expanded[5]))
+  # exact prefix doesn't matter so long as they expand to the same URI
+  testthat::expect_equivalent(expand_prefix("ns1:foo", c(ns1 = "http://example.org/")),
+                              expand_prefix("ns2:foo", c(ns2 = "http://example.org/")))
 })

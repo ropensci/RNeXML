@@ -53,35 +53,37 @@
 add_basic_meta <- function(title = NULL, 
                            description = NULL,
                            creator = Sys.getenv("USER"),
-                           pubdate = Sys.Date(),
+                           pubdate = NULL,
                            rights = "CC0",
                            publisher = NULL,
                            citation = NULL,
                            nexml = new("nexml")
                            ){
 
-  mymeta <- get_metadata(nexml)
-  m <- mymeta$content
-  names(m) <- mymeta$property
-  
-  
   if(!is.null(title)) 
     nexml <- add_meta(meta("dc:title", title), nexml)
-  if(!is.null(creator) || creator == "") 
-    nexml <- add_meta(meta("dc:creator", format(creator)), nexml)
-  if(!is.null(pubdate)) 
-    if(!is.null(m)) 
-      if(is.null(m["dc:pubdate"]) | is.na(m["dc:pubdate"]))
-        nexml <- add_meta(meta("dc:pubdate", format(pubdate)), nexml)
+  if(!is.null(creator) || creator == "") {
+    creators <- get_metadata_values(nexml, props = c("dc:creator"))
+    if (! (creator %in% creators))
+      nexml <- add_meta(meta("dc:creator", format(creator)), nexml)
+  }
+  if(!is.null(pubdate))
+    nexml <- add_meta(meta("dcterms:modified",
+                           format(pubdate, tz = "GMT", usetz = TRUE)),
+                      nexml)
   if(!is.null(description)) 
     nexml <- add_meta(meta("dc:description", description), nexml)
+  if (!is.null(publisher))
+    nexml <- add_meta(meta("dcterms:publisher", publisher), nexml)
   if(!is.null(rights)){
-    if(rights == "CC0")
-      if(is.null(get_license(nexml)))
-      nexml <- add_meta(meta(rel="cc:license", 
-                             href="http://creativecommons.org/publicdomain/zero/1.0/"), nexml)
-    else 
-      nexml <- add_meta(meta("dc:rights", rights), nexml)
+    if(is.na(get_license(nexml))) {
+      if(rights == "CC0")
+        nexml <- add_meta(meta(rel="cc:license",
+                               href="http://creativecommons.org/publicdomain/zero/1.0/"),
+                          nexml)
+      else
+        nexml <- add_meta(meta("dc:rights", rights), nexml)
+    }
   }
   if(!is.null(citation)) {
     if(is(citation, "BibEntry"))

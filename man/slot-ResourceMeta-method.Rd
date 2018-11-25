@@ -21,7 +21,9 @@
 \description{
 See \code{\link[methods:slot]{methods::slot()}}. This version allows using "property" consistently
 for both LiteralMeta and ResourceMeta (which internally uses "rel" because
-RDFa does), which is easier to program.
+RDFa does), which is easier to program. It also allows using "meta"
+as an alias for "children" for ResourceMeta, to be consistent with the
+corresponding slot for instances of \code{Annotated}.
 }
 \seealso{
 \code{\link[methods:slot]{methods::slot()}}

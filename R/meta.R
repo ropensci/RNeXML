@@ -32,6 +32,7 @@ NULL
 #' @seealso \code{\link{nexml_write}}
 #' @aliases nexml.meta
 #' @include classes.R
+#' @importFrom plyr compact
 meta <- function(property = NULL,
                  content = NULL,
                  rel = NULL,
@@ -158,44 +159,49 @@ nexml_citation <- function(obj){
 #' Concatenate meta elements into a ListOfmeta
 #' 
 #' Concatenate meta elements into a ListOfmeta
-#' @param x,... meta elements to be concatenated, e.g. see \code{\link{meta}}
-#' @param recursive  logical, if 'recursive=TRUE', the function 
-#' descends through lists and combines their elements into a vector.
-#' @return a listOfmeta object containing multiple meta elements. 
+#' @param x,... `meta` and `ListOfmeta` elements to be concatenated, see \code{\link{meta}}
+#' @param recursive  logical, if 'recursive=TRUE', the function recursively
+#'   descends through lists and combines their elements into a flat vector.
+#'   This method does not support `recursive=FALSE`, use [list][base::list()]
+#'   instead.
+#' @return a ListOfmeta object containing a flat list of meta elements.
 #' @examples 
 #' c(meta(content="example", property="dc:title"),
 #'   meta(content="Carl", property="dc:creator"))
-#' 
+#' @rdname c-meta
+#' @aliases c-meta
+#' @include classes.R
+#' @importFrom plyr compact
 setMethod("c", 
           signature("meta"),
-          function(x, ..., recursive = FALSE){
+          function(x, ..., recursive = TRUE){
             elements <- list(x, ...)
-#            if(recursive)
-            elements <- meta_recursion(elements)
-            New("ListOfmeta", elements)
+            if (identical(recursive, FALSE))
+              stop("Use list() to concatenate 'meta' and 'ListOfmeta' non-recursively")
+            new("ListOfmeta", unlist(elements))
 
           })
 
 
 #' Concatenate ListOfmeta elements into a ListOfmeta
 #' 
-#' Concatenate ListOfmeta elements into a ListOfmeta
-#' @param x,... meta or ListOfmeta elements to be concatenated, e.g. see \code{\link{meta}}
-#' @param recursive  logical, if 'recursive=TRUE', the function 
-#' descends through lists and combines their elements into a vector.
-#' @return a listOfmeta object containing multiple meta elements. 
-#' @include classes.R
+#' Concatenate ListOfmeta elements into a flat ListOfmeta
+#' @inheritParams c-meta
 #' @examples 
 #' metalist <- c(meta(content="example", property="dc:title"),
 #'               meta(content="Carl", property="dc:creator"))
 #' out <- c(metalist, metalist) 
 #' out <- c(metalist, meta(content="a", property="b")) 
+#' @rdname c-meta
+#' @aliases c-ListOfmeta
+#' @importFrom plyr compact
 setMethod("c", 
           signature("ListOfmeta"),
-          function(x, ..., recursive = FALSE){
-            elements <- list(x, unlist(...))
-            elements <- meta_recursion(elements)
-            New("ListOfmeta", elements)
+          function(x, ..., recursive = TRUE){
+            elements <- list(x, ...)
+            if (identical(recursive, FALSE))
+              stop("Use list() to concatenate 'meta' and 'ListOfmeta' non-recursively")
+            new("ListOfmeta", plyr::compact(unlist(elements)))
 
           })
 
@@ -206,7 +212,9 @@ setGeneric("slot<-")
 #'
 #' See [methods::slot()]. This version allows using "property" consistently
 #' for both LiteralMeta and ResourceMeta (which internally uses "rel" because
-#' RDFa does), which is easier to program.
+#' RDFa does), which is easier to program. It also allows using "meta"
+#' as an alias for "children" for ResourceMeta, to be consistent with the
+#' corresponding slot for instances of `Annotated`.
 #' @param object the object
 #' @param name name of the slot
 #' @aliases slot-ResourceMeta
@@ -217,6 +225,8 @@ setMethod("slot",
           function(object, name) {
             if (name == "property")
               object@rel
+            else if (name == "meta")
+              object@children
             else
               callNextMethod()
           })
@@ -229,24 +239,9 @@ setMethod("slot<-",
           function(object, name, value) {
             if (name == "property")
               object@rel <- value
+            else if (name == "meta")
+              object@children <- value
             else
               object <- callNextMethod()
             object
           })
-
-meta_recursion <- function(elements){
-  i <- 1
-  out <- vector("list")
-  for(e in elements){
-    if(length(e) > 0){
-      if(is(e, "meta")){
-        out[[i]] <- e
-        i <- i + 1
-      } else if(is.list(e)){
-        out <- c(out, meta_recursion(e))
-        i <- length(out) + 1 
-      }
-    }
-  }
-out
-}
