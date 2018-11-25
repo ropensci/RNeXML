@@ -357,11 +357,10 @@ setMethod("toNeXML",
           signature("edge", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            if(length(object@source) > 0)
-              addAttributes(parent, "source" = object@source)
-            else
-              # should signify the rootedge
+            if(is(object, "rootEdge"))
               xmlName(parent) <- "rootedge"
+            else
+              addAttributes(parent, "source" = object@source)
             addAttributes(parent, "target" = object@target)
             if(length(object@length) > 0)
                addAttributes(parent, "length" = object@length)
@@ -374,6 +373,16 @@ setAs("edge", "XMLInternalElementNode",
 setAs("XMLInternalElementNode", "edge",
       function(from) fromNeXML(nexml.edge(), from))
 
+# virtual class, allows asking is(edge, "rootEdge") to determine whether
+# a given edge object is a root edge or not
+setClass("rootEdge") # creates a virtual class
+setIs("edge", "rootEdge",
+      test = function(Object) {
+        length(Object@target) > 0 && length(Object@source) == 0
+      },
+      replace = function(Object, value) {
+        stop("rootEdge is virtual, cannot replace")
+      })
 
 ################################ alternatively called "Taxon" by the schema
 
@@ -490,7 +499,7 @@ setMethod("toNeXML",
             parent <- callNextMethod()
             addChildren(parent, kids = lcapply(object@node, as, "XMLInternalNode"))
             addChildren(parent, kids = lcapply(object@edge, as, "XMLInternalNode"))
-            if (length(object@rootedge@target) > 0)
+            if (is(object@rootedge, "rootEdge"))
               addChildren(parent, as(object@rootedge, "XMLInternalNode"))
             parent
           })

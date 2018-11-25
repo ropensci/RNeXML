@@ -135,7 +135,7 @@ toPhylo <- function(tree, otus){
                     c(node = unname(x@id), 
                       otu = missing_as_na(x@otu)))
   # conversion (nor ape?) can't handle rootedge, to if there is one, add source
-  if (length(tree@rootedge@target) > 0) {
+  if (is(tree@rootedge, "rootEdge")) {
     rootEdge <- tree@rootedge
     rootEdge@source <- nexml_id(prefix = "rn")
     newroot <- c(node = rootEdge@source, otu = NA)
