@@ -39,7 +39,7 @@ nex <- add_meta(list(modified,  website),
                 namespaces = c(foaf = "http://xmlns.com/foaf/0.1/"))
                 # prism prefix already included by default
 
-## Add namespace "by hand" before adding meta: 
+## Add namespace "by hand" before adding meta:
 nex <- add_namespaces(c(skos = "http://www.w3.org/2004/02/skos/core#"),
                       nexml = nex)
 history <- meta(property = "skos:historyNote",

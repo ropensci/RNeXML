@@ -85,7 +85,7 @@ Write an `ape::phylo` tree into the `nexml` format:
 
 ```{r}
 data(bird.orders)
-nexml_write(bird.orders, "test.xml")
+nexml_write(bird.orders, "test.xml", creator = "Carl Boettiger")
 ```
 
 A key feature of NeXML is the ability to formally validate the construction of the data file against the standard (the lack of such a feature in nexus files had lead to inconsistencies across different software platforms, and some files that cannot be read at all).  While it is difficult to make an invalid NeXML file from `RNeXML`, it never hurts to validate just to be sure:
@@ -101,7 +101,13 @@ Extract metadata from the NeXML file:
 ```{r } 
 birds <- nexml_read("test.xml")
 get_taxa(birds)
-get_metadata(birds) 
+get_metadata(birds, simplify = FALSE)
+```
+
+By default, the table of metadata annotations is simplified by combining
+`property` and `rel` into `property`, and the identifiers into `Meta`:
+```{r } 
+get_metadata(birds)
 ```
 
 --------------------------------------------
@@ -137,7 +143,7 @@ Advanced use requires specifying the namespace used.  Metadata follows the RDFa 
 RNeXML:::nexml_namespaces
 ```
 
-This next block defines a resource (link), described by the `rel` attribute as a homepage, a term in the `foaf` vocabulalry.  Becuase `foaf` is not a default namespace, we will have to provide its URL in the full definition below. 
+This next block defines a resource (link), described by the `rel` attribute as a homepage, a term in the `foaf` vocabulalry.  Because `foaf` is not a default namespace, we will have to provide its URL in the full definition below.
 
 ```{r}
 website <- meta(href = "http://carlboettiger.info", 
@@ -152,7 +158,7 @@ Here we create a history node using the `skos` namespace.  We can also add id va
                   id = "meta123")
 ```
 
-For this kind of richer annotation, it is best to build up our NeXML object sequentially. Frist
+For this kind of richer annotation, it is best to build up our NeXML object sequentially. First
 we will add `bird.orders` phylogeny to a new phylogenetic object, and then we will add the metadata
 elements created above to this object. Finally, we will write the object out as an XML file:
 

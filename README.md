@@ -85,7 +85,7 @@ Write an `ape::phylo` tree into the `nexml` format:
 
 ``` r
 data(bird.orders)
-nexml_write(bird.orders, "test.xml")
+nexml_write(bird.orders, "test.xml", creator = "Carl Boettiger")
 #> [1] "test.xml"
 ```
 
@@ -106,43 +106,58 @@ Extract metadata from the NeXML file:
 ``` r
 birds <- nexml_read("test.xml")
 get_taxa(birds)
-#>     otu            label about xsi.type otus
-#> 1   ou1 Struthioniformes  #ou1       NA  os1
-#> 2   ou2     Tinamiformes  #ou2       NA  os1
-#> 3   ou3      Craciformes  #ou3       NA  os1
-#> 4   ou4      Galliformes  #ou4       NA  os1
-#> 5   ou5     Anseriformes  #ou5       NA  os1
-#> 6   ou6    Turniciformes  #ou6       NA  os1
-#> 7   ou7       Piciformes  #ou7       NA  os1
-#> 8   ou8    Galbuliformes  #ou8       NA  os1
-#> 9   ou9   Bucerotiformes  #ou9       NA  os1
-#> 10 ou10      Upupiformes #ou10       NA  os1
-#> 11 ou11    Trogoniformes #ou11       NA  os1
-#> 12 ou12    Coraciiformes #ou12       NA  os1
-#> 13 ou13      Coliiformes #ou13       NA  os1
-#> 14 ou14     Cuculiformes #ou14       NA  os1
-#> 15 ou15   Psittaciformes #ou15       NA  os1
-#> 16 ou16      Apodiformes #ou16       NA  os1
-#> 17 ou17   Trochiliformes #ou17       NA  os1
-#> 18 ou18  Musophagiformes #ou18       NA  os1
-#> 19 ou19     Strigiformes #ou19       NA  os1
-#> 20 ou20    Columbiformes #ou20       NA  os1
-#> 21 ou21       Gruiformes #ou21       NA  os1
-#> 22 ou22    Ciconiiformes #ou22       NA  os1
-#> 23 ou23    Passeriformes #ou23       NA  os1
-get_metadata(birds) 
-#>   LiteralMeta                      property   datatype  content
-#> 1          m1                    dc:creator xsd:string cboettig
-#> 2        <NA>                          <NA>       <NA>     <NA>
-#> 3          m3 dcterms:bibliographicCitation xsd:string     <NA>
+#>     otu            label xsi.type otus
+#> 1   ou1 Struthioniformes       NA  os1
+#> 2   ou2     Tinamiformes       NA  os1
+#> 3   ou3      Craciformes       NA  os1
+#> 4   ou4      Galliformes       NA  os1
+#> 5   ou5     Anseriformes       NA  os1
+#> 6   ou6    Turniciformes       NA  os1
+#> 7   ou7       Piciformes       NA  os1
+#> 8   ou8    Galbuliformes       NA  os1
+#> 9   ou9   Bucerotiformes       NA  os1
+#> 10 ou10      Upupiformes       NA  os1
+#> 11 ou11    Trogoniformes       NA  os1
+#> 12 ou12    Coraciiformes       NA  os1
+#> 13 ou13      Coliiformes       NA  os1
+#> 14 ou14     Cuculiformes       NA  os1
+#> 15 ou15   Psittaciformes       NA  os1
+#> 16 ou16      Apodiformes       NA  os1
+#> 17 ou17   Trochiliformes       NA  os1
+#> 18 ou18  Musophagiformes       NA  os1
+#> 19 ou19     Strigiformes       NA  os1
+#> 20 ou20    Columbiformes       NA  os1
+#> 21 ou21       Gruiformes       NA  os1
+#> 22 ou22    Ciconiiformes       NA  os1
+#> 23 ou23    Passeriformes       NA  os1
+get_metadata(birds, simplify = FALSE)
+#>   LiteralMeta         property   datatype                 content
+#> 1          m1       dc:creator xsd:string          Carl Boettiger
+#> 2          m2 dcterms:modified xsd:string 2018-11-28 04:16:29 GMT
+#> 3        <NA>             <NA>       <NA>                    <NA>
 #>       xsi.type ResourceMeta        rel
 #> 1  LiteralMeta         <NA>       <NA>
-#> 2 ResourceMeta           m2 cc:license
-#> 3  LiteralMeta         <NA>       <NA>
+#> 2  LiteralMeta         <NA>       <NA>
+#> 3 ResourceMeta           m3 cc:license
 #>                                                href
 #> 1                                              <NA>
-#> 2 http://creativecommons.org/publicdomain/zero/1.0/
-#> 3                                              <NA>
+#> 2                                              <NA>
+#> 3 http://creativecommons.org/publicdomain/zero/1.0/
+```
+
+By default, the table of metadata annotations is simplified by combining
+`property` and `rel` into `property`, and the identifiers into `Meta`:
+
+``` r
+get_metadata(birds)
+#>           property   datatype                 content     xsi.type
+#> 1       dc:creator xsd:string          Carl Boettiger  LiteralMeta
+#> 2 dcterms:modified xsd:string 2018-11-28 04:16:29 GMT  LiteralMeta
+#> 3       cc:license       <NA>                    <NA> ResourceMeta
+#>                                                href Meta
+#> 1                                              <NA>   m1
+#> 2                                              <NA>   m2
+#> 3 http://creativecommons.org/publicdomain/zero/1.0/   m3
 ```
 
 ------------------------------------------------------------------------
@@ -189,7 +204,7 @@ RNeXML:::nexml_namespaces
 #>                                              xml 
 #>           "http://www.w3.org/XML/1998/namespace" 
 #>                                             cdao 
-#>        "http://purl.obolibrary.org/obo/cdao.owl" 
+#>                "http://purl.obolibrary.org/obo/" 
 #>                                              xsd 
 #>              "http://www.w3.org/2001/XMLSchema#" 
 #>                                               dc 
@@ -209,7 +224,7 @@ RNeXML:::nexml_namespaces
 ```
 
 This next block defines a resource (link), described by the `rel`
-attribute as a homepage, a term in the `foaf` vocabulalry. Becuase
+attribute as a homepage, a term in the `foaf` vocabulalry. Because
 `foaf` is not a default namespace, we will have to provide its URL in
 the full definition below.
 
@@ -229,7 +244,7 @@ reference externally:
 ```
 
 For this kind of richer annotation, it is best to build up our NeXML
-object sequentially. Frist we will add `bird.orders` phylogeny to a new
+object sequentially. First we will add `bird.orders` phylogeny to a new
 phylogenetic object, and then we will add the metadata elements created
 above to this object. Finally, we will write the object out as an XML
 file:
