@@ -353,7 +353,8 @@ setMethod("fromNeXML",
           function(obj, from){
             obj <- callNextMethod()
             attrs <- xmlAttrs(from)
-            obj@source <- attrs["source"]
+            if (!is.na(attrs["source"]))
+              obj@source <- attrs["source"]
             obj@target <- attrs["target"]
              if(!is.na(attrs["length"]))
                obj@length <- as.numeric(attrs["length"])
@@ -364,7 +365,10 @@ setMethod("toNeXML",
           signature("edge", "XMLInternalElementNode"),
           function(object, parent){
             parent <- callNextMethod()
-            addAttributes(parent, "source" = object@source)
+            if(is(object, "rootEdge"))
+              xmlName(parent) <- "rootedge"
+            else
+              addAttributes(parent, "source" = object@source)
             addAttributes(parent, "target" = object@target)
             if(length(object@length) > 0)
                addAttributes(parent, "length" = object@length)
@@ -377,41 +381,16 @@ setAs("edge", "XMLInternalElementNode",
 setAs("XMLInternalElementNode", "edge",
       function(from) fromNeXML(nexml.edge(), from))
 
-
-##################################################
-
-setClass("rootEdge", 
-         slots = c(source = "character",
-                        target = "character", 
-                        length = "numeric"), 
-         contains="IDTagged")
-setMethod("fromNeXML", 
-          signature("rootEdge", "XMLInternalElementNode"),
-          function(obj, from){
-            obj <- callNextMethod()
-            attrs <- xmlAttrs(from)
-            obj@target <- attrs["target"]
-             if(!is.na(attrs["length"]))
-               obj@length <- as.numeric(attrs["length"])
-             obj
-          }
-)
-setMethod("toNeXML", 
-          signature("rootEdge", "XMLInternalElementNode"),
-          function(object, parent){
-            parent <- callNextMethod()
-            addAttributes(parent, "target" = object@target)
-            if(length(object@length) > 0)
-               addAttributes(parent, "length" = object@length)
-            parent
-          })
-setAs("rootEdge", "XMLInternalNode",
-      function(from) toNeXML(from, newXMLNode("rootedge"))) 
-setAs("rootEdge", "XMLInternalElementNode",
-      function(from) toNeXML(from, newXMLNode("rootedge"))) 
-setAs("XMLInternalElementNode", "rootEdge",
-      function(from) fromNeXML(New("rootEdge"), from))
-
+# virtual class, allows asking is(edge, "rootEdge") to determine whether
+# a given edge object is a root edge or not
+setClass("rootEdge") # creates a virtual class
+setIs("edge", "rootEdge",
+      test = function(Object) {
+        length(Object@target) > 0 && length(Object@source) == 0
+      },
+      replace = function(Object, value) {
+        stop("rootEdge is virtual, cannot replace")
+      })
 
 ################################ alternatively called "Taxon" by the schema
 
@@ -502,7 +481,7 @@ setClass("ListOfnode", slots = c(names="character"),
 setClass("tree", 
          slots = c(node = "ListOfnode", 
                         edge = "ListOfedge",
-                        rootedge = "rootEdge"), # Actually AbstractRootEdge
+                        rootedge = "edge"),
          contains = "IDTagged")
 setMethod("fromNeXML", 
           signature("tree", "XMLInternalElementNode"),
@@ -516,6 +495,9 @@ setMethod("fromNeXML",
             obj@edge <- New("ListOfedge",
                             lapply(kids[names(kids) == "edge"], 
                                    as, "edge"))
+            rootEdge <- kids[names(kids) == "rootedge"]
+            if (length(rootEdge) > 0)
+              obj@rootedge <- as(rootEdge[[1]], "edge")
             obj
           })
 setMethod("toNeXML", 
@@ -525,6 +507,8 @@ setMethod("toNeXML",
             parent <- callNextMethod()
             addChildren(parent, kids = lcapply(object@node, as, "XMLInternalNode"))
             addChildren(parent, kids = lcapply(object@edge, as, "XMLInternalNode"))
+            if (is(object@rootedge, "rootEdge"))
+              addChildren(parent, as(object@rootedge, "XMLInternalNode"))
             parent
           })
 setAs("tree", "XMLInternalNode",

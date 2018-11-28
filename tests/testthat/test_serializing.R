@@ -51,9 +51,12 @@ test_that("We can correctly serialize XML literals as metadata", {
   unlink("test.xml")
 })
 
-#root <- xmlRoot(xmlParse(system.file("examples", "trees.xml", package="RNeXML")))
-#tree <- as(root, "nexml")
-#tree@trees[[1]]@tree[[1]]@node[[4]]@meta
-#as(root[["trees"]][["tree"]][[4]][["meta"]], "meta")
+test_that("we can serialize NeXML with rootedge to a valid NeXML file", {
+  f <- system.file("examples", "coal.xml", package = "RNeXML")
+  nex <- read.nexml(f)
+  write.nexml(nex, file = "test.xml")
+  expect_true_or_null(nexml_validate("test.xml"))
 
+  unlink("test.xml")
+})
 

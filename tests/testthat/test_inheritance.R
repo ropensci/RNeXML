@@ -91,3 +91,24 @@ test_that("Check that values are correct in the otus class element", {
   expect_that(otus@meta, is_a(class=c("list","ListOfmeta")))
   expect_that(otus@about, is_identical_to(character(0)))
 })
+
+test_that("Checking whether an edge is a root edge is correct", {
+  e <- nexml.edge()
+  e.xml <- as(e, "XMLInternalNode")
+  expect_is(e, "edge")
+  expect_false(is(e, "rootEdge"))
+  expect_identical(xmlName(e.xml), "edge")
+  expect_named(xmlAttrs(e.xml), expected = c("source", "target"))
+
+  e@target <- "foo"
+  e.xml <- as(e, "XMLInternalNode")
+  expect_true(is(e, "rootEdge"))
+  expect_identical(xmlName(e.xml), "rootedge")
+  expect_named(xmlAttrs(e.xml), expected = c("target"))
+
+  e@source <- "bar"
+  e.xml <- as(e, "XMLInternalNode")
+  expect_false(is(e, "rootEdge"))
+  expect_identical(xmlName(e.xml), "edge")
+  expect_named(xmlAttrs(e.xml), expected = c("source", "target"))
+})

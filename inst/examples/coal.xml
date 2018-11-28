@@ -1,0 +1,28 @@
+<nex:nexml xmlns:nex="http://www.nexml.org/2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:cdao="http://purl.obolibrary.org/obo/cdao.owl" xmlns:xsd="http://www.w3.org/2001/XMLSchema#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:ter="http://purl.org/dc/terms/" xmlns:prism="http://prismstandard.org/namespaces/1.2/basic/" xmlns:cc="http://creativecommons.org/ns#" xmlns:ncbi="http://www.ncbi.nlm.nih.gov/taxonomy#" xmlns:tc="http://rs.tdwg.org/ontology/voc/TaxonConcept#" xmlns="http://www.nexml.org/2009" version="0.9" generator="RNeXML">
+  <meta xsi:type="LiteralMeta" id="m5" property="dc:creator" datatype="xsd:string" content="lapp"/>
+  <meta xsi:type="ResourceMeta" id="m6" href="http://creativecommons.org/publicdomain/zero/1.0/" rel="cc:license"/>
+  <otus about="#os6" id="os6">
+    <otu about="#ou24" label="t2" id="ou24"/>
+    <otu about="#ou25" label="t1" id="ou25"/>
+    <otu about="#ou26" label="t4" id="ou26"/>
+    <otu about="#ou27" label="t5" id="ou27"/>
+  </otus>
+  <trees about="#ts6" id="ts6" otus="os6">
+    <tree xsi:type="FloatTree" about="#tree6" id="tree6">
+      <node about="#n49" id="n49"/>
+      <node about="#n50" id="n50"/>
+      <node about="#n51" id="n51"/>
+      <node about="#n52" id="n52" otu="ou24"/>
+      <node about="#n53" id="n53" otu="ou25"/>
+      <node about="#n54" id="n54" otu="ou26"/>
+      <node about="#n55" id="n55" otu="ou27"/>
+      <rootedge about="#e42" id="e42" target="n49" length="0.083950881"/>
+      <edge about="#e44" id="e44" source="n49" target="n50" length="0.5249018229"/>
+      <edge about="#e45" id="e45" source="n50" target="n52" length="0.04688745774"/>
+      <edge about="#e46" id="e46" source="n50" target="n53" length="0.04688745774"/>
+      <edge about="#e47" id="e47" source="n49" target="n51" length="0.4327012819"/>
+      <edge about="#e48" id="e48" source="n51" target="n54" length="0.1390879987"/>
+      <edge about="#e49" id="e49" source="n51" target="n55" length="0.1390879987"/>
+    </tree>
+  </trees>
+</nex:nexml>

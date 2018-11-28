@@ -83,3 +83,15 @@ test_that("We can convert trees with only some edge lengths into ape::phylo", {
           # We can parse it, goodness knows what anyone will do with it.  Better to hack off the branch lengths or convert to 0, but that's for the user.   
 })
 
+
+test_that("NeXML with rootedge can be converted to ape::phylo", {
+  f <- system.file("examples", "coal.xml", package = "RNeXML")
+  nex <- read.nexml(f)
+  tr <- nex@trees[[1]]@tree[[1]]
+  phy <- as(nex, "phylo")
+  testthat::expect_equal(Nnode(phy) + Ntip(phy), length(tr@node) + 1)
+  testthat::expect_equal(Nedge(phy), length(tr@edge) + 1)
+  newick <- write.tree(phy)
+  testthat::expect_true(startsWith(newick, "(("))
+  testthat::expect_true(grepl('):[0-9.]+);$', newick))
+})
