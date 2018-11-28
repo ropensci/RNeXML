@@ -567,7 +567,7 @@ nexml_namespaces <-
   c("nex"   = "http://www.nexml.org/2009",
     "xsi"   = "http://www.w3.org/2001/XMLSchema-instance",
     "xml"   = "http://www.w3.org/XML/1998/namespace",
-    "cdao"  = "http://purl.obolibrary.org/obo/cdao.owl",
+    "cdao"  = "http://purl.obolibrary.org/obo/",
     "xsd"   = "http://www.w3.org/2001/XMLSchema#",
     "dc"    = "http://purl.org/dc/elements/1.1/",
     "dcterms" = "http://purl.org/dc/terms/",
@@ -658,6 +658,13 @@ setMethod("fromNeXML",
             ns <- sapply(ns_defs, `[[`, "uri")
             obj <- add_namespaces(ns, obj)
 
+            # add our own namespaces, which will skip already present prefixes;
+            # also add a base namespace if there isn't one already
+            ourNS <- nexml_namespaces;
+            if (! any(names(obj@namespaces) == ""))
+              ourNS <- c(ourNS, unname(nexml_namespaces["nex"]))
+            obj <- add_namespaces(ourNS, nexml = obj)
+
             # Handle children
             kids <- xmlChildren(from)
             # at least 1 OTU block is required 
@@ -696,7 +703,7 @@ setAs("nexml", "XMLInternalNode",
 setAs("nexml", "XMLInternalElementNode",
       function(from) suppressWarnings(toNeXML(from, newXMLNode("nex:nexml", namespaceDefinitions = from@namespaces))))
 setAs("XMLInternalElementNode", "nexml",
-      function(from) fromNeXML(nexml(), from))
+      function(from) fromNeXML(nexml(namespaces = character(0)), from))
 
 
 
