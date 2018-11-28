@@ -124,12 +124,61 @@ test_that("We can directly add additional metadata at arbitrary level", {
   modified <- meta(property = "prism:modificationDate",
                   content = "2013-10-04")
 
-  nex@trees[[1]]@meta <- new("ListOfmeta", list(modified))
+  # For trees block, using API function
+  nex <- add_meta(modified, nexml = nex, level = "trees")
   get_metadata(nex, "trees") %>%
     dplyr::filter(property == "prism:modificationDate") %>% 
     dplyr::select(content) -> 
     tmp
   expect_identical(tmp[[1]], modified@content)
+
+  # For trees block, accessing object hierarchy directly
+  nex@trees[[1]]@meta <- c(modified)
+  get_metadata(nex, "trees") %>%
+    dplyr::filter(property == "prism:modificationDate") %>%
+    dplyr::select(content) ->
+    tmp
+  expect_identical(tmp[[1]], modified@content)
+
+  # For otus block, using API function
+  nex <- add_meta(modified, nexml = nex, level = "otus")
+  get_metadata(nex, "otus") %>%
+    dplyr::filter(property == "prism:modificationDate") %>%
+    dplyr::select(content) ->
+    tmp
+  expect_identical(tmp[[1]], modified@content)
+
+  # For otus block, accessing object hierarchy directly
+  nex@otus[[1]]@meta <- c(modified)
+  get_metadata(nex, "otus") %>%
+    dplyr::filter(property == "prism:modificationDate") %>%
+    dplyr::select(content) ->
+    tmp
+  expect_identical(tmp[[1]], modified@content)
+
+  # For characters block, using API function
+  testthat::expect_error(add_meta(modified, nexml = nex, level = "characters"))
+  # one needs to have called add_characters() first, as otherwise there won't
+  # be a characters block
+  cdata <- data.frame(trait1 = c(1, 1, 0),
+                      row.names = c("Aus bus", "Aus foo", "Aus bar"))
+  nex <- add_characters(cdata, nexml = nex)
+  # now this should work
+  testthat::expect_silent(nex <- add_meta(modified, nexml = nex, level = "characters"))
+  get_metadata(nex, "characters") %>%
+    dplyr::filter(property == "prism:modificationDate") %>%
+    dplyr::select(content) ->
+    tmp
+  expect_identical(tmp[[1]], modified@content)
+
+  # For otus block, accessing object hierarchy directly
+  nex@characters[[1]]@meta <- c(modified)
+  get_metadata(nex, "characters") %>%
+    dplyr::filter(property == "prism:modificationDate") %>%
+    dplyr::select(content) ->
+    tmp
+  expect_identical(tmp[[1]], modified@content)
+
 })
 
 

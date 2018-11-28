@@ -40,6 +40,8 @@ nex <- add_meta(list(modified,  website),
 ## Append more metadata, and specify a level: 
 history <- meta(property = "skos:historyNote",
                  content = "Mapped from the bird.orders data in the ape package using RNeXML")
+data(bird.orders)
+nex <- add_trees(bird.orders) # need to have created a trees block first
 nex <- add_meta(history, 
                 nexml = nex,
                 level = "trees",

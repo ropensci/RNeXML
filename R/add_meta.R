@@ -22,6 +22,8 @@
 #' ## Append more metadata, and specify a level: 
 #' history <- meta(property = "skos:historyNote",
 #'                  content = "Mapped from the bird.orders data in the ape package using RNeXML")
+#' data(bird.orders)
+#' nex <- add_trees(bird.orders) # need to have created a trees block first
 #' nex <- add_meta(history, 
 #'                 nexml = nex,
 #'                 level = "trees",
@@ -48,13 +50,13 @@ add_meta <- function(meta,
     stop("function does not yet handle at_id assignments")
     # case not written yet
   } else if(level =="nexml"){ 
-    nexml@meta <- New("ListOfmeta", c(unlist(nexml@meta), unlist(meta)))
+    nexml@meta <- c(nexml@meta, meta)
   } else if(level =="otus"){ 
-    nexml@otus[[i]]@meta <- New("ListOfmeta", c(nexml@otus[[i]]@meta, meta))
-  }  else if(level =="nexml"){ 
-    nexml@trees[[i]]@meta <- New("ListOfmeta", c(nexml@trees[[i]]@meta, meta))
-  }  else if(level =="nexml"){ 
-    nexml@characters[[i]]@meta <- New("ListOfmeta", c(nexml@characters[[i]]@meta, meta))
+    nexml@otus[[i]]@meta <- c(nexml@otus[[i]]@meta, meta)
+  } else if(level == "trees"){
+    nexml@trees[[i]]@meta <- c(nexml@trees[[i]]@meta, meta)
+  } else if(level == "characters"){
+    nexml@characters[[i]]@meta <- c(nexml@characters[[i]]@meta, meta)
   } 
 
   ## append additional namespaces

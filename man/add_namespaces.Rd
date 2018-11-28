@@ -2,7 +2,7 @@
 % Please edit documentation in R/add_namespaces.R
 \name{add_namespaces}
 \alias{add_namespaces}
-\title{add namespaces}
+\title{Add namespaces}
 \usage{
 add_namespaces(namespaces, nexml = new("nexml"))
 }
@@ -15,28 +15,38 @@ add_namespaces(namespaces, nexml = new("nexml"))
 a nexml object with updated namespaces
 }
 \description{
-add namespaces, avoiding duplication if prefix is already defined
+Add namespaces and their prefixes as a named vector of URIs, with the
+names being the prefixes. Namespaces have most relevance for meta objects'
+\code{rel} and \code{property}, and for embedded XML literals.
+}
+\details{
+The implementation attempts to avoid duplication, currently using the
+prefix. I.e., namespaces with prefixes already defined will not get added.
+Namespaces needed by the NeXML format, and for commonly used metadata
+terms, are already included by default, see \code{\link[=get_namespaces]{get_namespaces()}}.
+}
+\note{
+Often a user won't call this directly, but instead provide the
+namespace(s) through \code{\link[=add_meta]{add_meta()}}.
 }
 \examples{
-## Create a new nexml object with a single metadata element: 
-modified <- meta(property = "prism:modificationDate", content = "2013-10-04")
-nex <- add_meta(modified) # Note: 'prism' is defined in nexml_namespaces by default.  
-
 ## Write multiple metadata elements, including a new namespace:  
 website <- meta(href = "http://carlboettiger.info", 
-                rel = "foaf:homepage")              # meta can be link-style metadata
+                rel = "foaf:homepage")     # meta can be link-style metadata
+modified <- meta(property = "prism:modificationDate",
+                 content = "2013-10-04")
 nex <- add_meta(list(modified,  website), 
                 namespaces = c(foaf = "http://xmlns.com/foaf/0.1/"))
+                # prism prefix already included by default
 
-## Append more metadata, and specify a level: 
+## Add namespace "by hand" before adding meta: 
+nex <- add_namespaces(c(skos = "http://www.w3.org/2004/02/skos/core#"),
+                      nexml = nex)
 history <- meta(property = "skos:historyNote",
-                 content = "Mapped from the bird.orders data in the ape package using RNeXML")
-nex <- add_meta(history, 
-                nexml = nex,
-                level = "trees",
-                namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#"))
+                content = "Mapped from the bird.orders data in the ape package using RNeXML")
+nex <- add_meta(history, nexml = nex)
 
 }
 \seealso{
-\code{\link{meta}} \code{\link{add_meta}}
+\code{\link[=meta]{meta()}} \code{\link[=add_meta]{add_meta()}} \code{\link[=get_namespaces]{get_namespaces()}}
 }
