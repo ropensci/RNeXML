@@ -9,12 +9,26 @@ test_that("We can serialize ape to S4 RNeXML into valid NeXML",{
 
   nexml <- as(bird.orders, "nexml") 
 
-  as(nexml, "XMLInternalNode")
+  saveXML(as(nexml, "XMLInternalNode"), file = "test.xml")
+  expect_true_or_null(nexml_validate("test.xml"))
+
   ###  Higher level API tests
   nexml_write(bird.orders, file="test.xml")
   expect_true_or_null(nexml_validate("test.xml"))
 
- ##  Clean up
+  ## also can write with providing multiple metadata (see README.Rmd)
+  expect_silent(nexml_write(bird.orders, file="test.xml",
+                            title = "My test title",
+                            description = "A description of my test",
+                            creator = "Carl Boettiger <cboettig@gmail.com>",
+                            publisher = "unpublished data",
+                            pubdate = "2012-04-01"))
+  nex <- nexml_read("test.xml")
+  metavals <- get_metadata_values(nex, props = c("dc:creator", "dcterms:modified"))
+  expect_equivalent(metavals["dc:creator"], "Carl Boettiger <cboettig@gmail.com>")
+  expect_equivalent(metavals["dcterms:modified"], "2012-04-01")
+
+  ##  Clean up
   unlink("test.xml")
 
   })

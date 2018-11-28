@@ -64,10 +64,10 @@ nexml_write <- function(x = nexml(),
     nexml <- add_characters(characters, nexml = nexml)
   if(!is.null(meta))
     nexml <- add_meta(meta, nexml = nexml)
-  nexml <- do.call(add_basic_meta,
-                   c(list(...),
-                     # set last modification time upon writing
-                     list(pubdate = Sys.time(), nexml = nexml)))
+  argList <- list(..., nexml = nexml)
+  # set last modification time upon writing, if not set already
+  if (is.null(argList$pubdate)) argList$pubdate <- Sys.time()
+  nexml <- do.call(add_basic_meta, argList)
   
   out <- as(nexml, "XMLInternalNode")
   saveXML(out, file = file)
