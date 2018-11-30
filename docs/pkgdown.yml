@@ -3,6 +3,8 @@ pkgdown: 1.1.0.9000
 pkgdown_sha: 16c6506a153dacf99c185f0ef62488458297d301
 articles:
   S4: S4.html
+  intro: intro.html
+  manuscript: manuscripts/manuscript.html
   metadata: metadata.html
   simmap: simmap.html
   sparql: sparql.html

@@ -60,6 +60,12 @@
       <a href="articles/S4.html">The nexml S4 Object</a>
     </li>
     <li>
+      <a href="articles/intro.html">A Brief Introduction to RNeXML</a>
+    </li>
+    <li>
+      <a href="articles/manuscripts/manuscript.pdf">RNeXML: a package for reading and writing richly annotated phylogenetic, character, and trait data in R (PDF)</a>
+    </li>
+    <li>
       <a href="articles/metadata.html">Handling Metadata in RNeXML</a>
     </li>
     <li>
@@ -118,199 +124,29 @@
 </blockquote>
 <p>Although the published version of the article is paywalled, the source of the manuscript, and a much better rendered PDF, are included in this package (in the <code>manuscripts</code> folder). You can also find it <a href="http://arxiv.org/abs/1506.02722">freely available on arXiv</a>.</p>
 </div>
+<div id="installation" class="section level2">
+<h2 class="hasAnchor">
+<a href="#installation" class="anchor"></a>Installation</h2>
+<p>The latest stable release of RNeXML is on CRAN, and can be installed with the usual <code>install.packages("RNeXML")</code> command. Some of the more specialized functionality described in the Vignettes (such as RDF manipulation) requires additional packages which can be installed using:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"RNeXML"</span>, <span class="dt">deps =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<p>The development version can be installed using:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">remotes<span class="op">::</span><span class="kw"><a href="http://www.rdocumentation.org/packages/remotes/topics/install_github">install_github</a></span>(<span class="st">"ropensci/RNeXML"</span>)</a></code></pre></div>
+</div>
 <div id="getting-started" class="section level2">
 <h2 class="hasAnchor">
 <a href="#getting-started" class="anchor"></a>Getting Started</h2>
-<p>The latest stable release of RNeXML is on CRAN, and can be installed with the usual <code>install.packages("RNeXML")</code> command. Some of the more specialized functionality described in the Vignettes (such as RDF manipulation) requires additional packages which can be installed using:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw">install.packages</span>(<span class="st">"RNeXML"</span>, <span class="dt">deps=</span><span class="ot">TRUE</span>, <span class="dt">repos=</span><span class="kw">c</span>(<span class="st">"https://cran.rstudio.com"</span>, <span class="st">"http://packages.ropensci.org"</span>))</a></code></pre></div>
-<p>which will also install the development version of the RNeXML package. For most common tasks such as shown here, those additional packages are not required. The development version of RNeXML is also <a href="https://github.com/ropensci/RNeXML">available on Github</a>. With the <code>devtools</code> package installed on your system, RNeXML can be installed using:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw">library</span>(devtools)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/devtools/topics/reexports">install_github</a></span>(<span class="st">"ropensci/RNeXML"</span>)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"><span class="kw">library</span>(RNeXML)</a></code></pre></div>
-<pre><code>#&gt; Loading required package: ape</code></pre>
-<p>Read in a <code>nexml</code> file into the <code><a href="http://www.rdocumentation.org/packages/ape/topics/read.tree">ape::phylo</a></code> format:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">f &lt;-<span class="st"> </span><span class="kw">system.file</span>(<span class="st">"examples"</span>, <span class="st">"comp_analysis.xml"</span>, <span class="dt">package=</span><span class="st">"RNeXML"</span>)</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2">nexml &lt;-<span class="st"> </span><span class="kw"><a href="reference/nexml_read.html">nexml_read</a></span>(f)</a>
-<a class="sourceLine" id="cb4-3" data-line-number="3">tr &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_trees.html">get_trees</a></span>(nexml) <span class="co"># or: as(nexml, "phylo")</span></a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw">plot</span>(tr)</a></code></pre></div>
-<p><img src="tools/README-unnamed-chunk-5-1.png" width="700"></p>
-<p>Write an <code><a href="http://www.rdocumentation.org/packages/ape/topics/read.tree">ape::phylo</a></code> tree into the <code>nexml</code> format:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw">data</span>(bird.orders)</a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="kw"><a href="reference/nexml_write.html">nexml_write</a></span>(bird.orders, <span class="st">"test.xml"</span>)</a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="co">#&gt; [1] "test.xml"</span></a></code></pre></div>
-<p>A key feature of NeXML is the ability to formally validate the construction of the data file against the standard (the lack of such a feature in nexus files had lead to inconsistencies across different software platforms, and some files that cannot be read at all). While it is difficult to make an invalid NeXML file from <code>RNeXML</code>, it never hurts to validate just to be sure:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="reference/nexml_validate.html">nexml_validate</a></span>(<span class="st">"test.xml"</span>)</a>
-<a class="sourceLine" id="cb6-2" data-line-number="2"><span class="co">#&gt; [1] TRUE</span></a></code></pre></div>
-<p>Extract metadata from the NeXML file:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1">birds &lt;-<span class="st"> </span><span class="kw"><a href="reference/nexml_read.html">nexml_read</a></span>(<span class="st">"test.xml"</span>)</a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="kw"><a href="reference/get_taxa.html">get_taxa</a></span>(birds)</a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="co">#&gt;     otu            label about xsi.type otus</span></a>
-<a class="sourceLine" id="cb7-4" data-line-number="4"><span class="co">#&gt; 1   ou1 Struthioniformes  #ou1       NA  os1</span></a>
-<a class="sourceLine" id="cb7-5" data-line-number="5"><span class="co">#&gt; 2   ou2     Tinamiformes  #ou2       NA  os1</span></a>
-<a class="sourceLine" id="cb7-6" data-line-number="6"><span class="co">#&gt; 3   ou3      Craciformes  #ou3       NA  os1</span></a>
-<a class="sourceLine" id="cb7-7" data-line-number="7"><span class="co">#&gt; 4   ou4      Galliformes  #ou4       NA  os1</span></a>
-<a class="sourceLine" id="cb7-8" data-line-number="8"><span class="co">#&gt; 5   ou5     Anseriformes  #ou5       NA  os1</span></a>
-<a class="sourceLine" id="cb7-9" data-line-number="9"><span class="co">#&gt; 6   ou6    Turniciformes  #ou6       NA  os1</span></a>
-<a class="sourceLine" id="cb7-10" data-line-number="10"><span class="co">#&gt; 7   ou7       Piciformes  #ou7       NA  os1</span></a>
-<a class="sourceLine" id="cb7-11" data-line-number="11"><span class="co">#&gt; 8   ou8    Galbuliformes  #ou8       NA  os1</span></a>
-<a class="sourceLine" id="cb7-12" data-line-number="12"><span class="co">#&gt; 9   ou9   Bucerotiformes  #ou9       NA  os1</span></a>
-<a class="sourceLine" id="cb7-13" data-line-number="13"><span class="co">#&gt; 10 ou10      Upupiformes #ou10       NA  os1</span></a>
-<a class="sourceLine" id="cb7-14" data-line-number="14"><span class="co">#&gt; 11 ou11    Trogoniformes #ou11       NA  os1</span></a>
-<a class="sourceLine" id="cb7-15" data-line-number="15"><span class="co">#&gt; 12 ou12    Coraciiformes #ou12       NA  os1</span></a>
-<a class="sourceLine" id="cb7-16" data-line-number="16"><span class="co">#&gt; 13 ou13      Coliiformes #ou13       NA  os1</span></a>
-<a class="sourceLine" id="cb7-17" data-line-number="17"><span class="co">#&gt; 14 ou14     Cuculiformes #ou14       NA  os1</span></a>
-<a class="sourceLine" id="cb7-18" data-line-number="18"><span class="co">#&gt; 15 ou15   Psittaciformes #ou15       NA  os1</span></a>
-<a class="sourceLine" id="cb7-19" data-line-number="19"><span class="co">#&gt; 16 ou16      Apodiformes #ou16       NA  os1</span></a>
-<a class="sourceLine" id="cb7-20" data-line-number="20"><span class="co">#&gt; 17 ou17   Trochiliformes #ou17       NA  os1</span></a>
-<a class="sourceLine" id="cb7-21" data-line-number="21"><span class="co">#&gt; 18 ou18  Musophagiformes #ou18       NA  os1</span></a>
-<a class="sourceLine" id="cb7-22" data-line-number="22"><span class="co">#&gt; 19 ou19     Strigiformes #ou19       NA  os1</span></a>
-<a class="sourceLine" id="cb7-23" data-line-number="23"><span class="co">#&gt; 20 ou20    Columbiformes #ou20       NA  os1</span></a>
-<a class="sourceLine" id="cb7-24" data-line-number="24"><span class="co">#&gt; 21 ou21       Gruiformes #ou21       NA  os1</span></a>
-<a class="sourceLine" id="cb7-25" data-line-number="25"><span class="co">#&gt; 22 ou22    Ciconiiformes #ou22       NA  os1</span></a>
-<a class="sourceLine" id="cb7-26" data-line-number="26"><span class="co">#&gt; 23 ou23    Passeriformes #ou23       NA  os1</span></a>
-<a class="sourceLine" id="cb7-27" data-line-number="27"><span class="kw"><a href="reference/get_metadata.html">get_metadata</a></span>(birds) </a>
-<a class="sourceLine" id="cb7-28" data-line-number="28"><span class="co">#&gt;   LiteralMeta                      property   datatype  content</span></a>
-<a class="sourceLine" id="cb7-29" data-line-number="29"><span class="co">#&gt; 1          m1                    dc:creator xsd:string cboettig</span></a>
-<a class="sourceLine" id="cb7-30" data-line-number="30"><span class="co">#&gt; 2        &lt;NA&gt;                          &lt;NA&gt;       &lt;NA&gt;     &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb7-31" data-line-number="31"><span class="co">#&gt; 3          m3 dcterms:bibliographicCitation xsd:string     &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb7-32" data-line-number="32"><span class="co">#&gt;       xsi.type ResourceMeta        rel</span></a>
-<a class="sourceLine" id="cb7-33" data-line-number="33"><span class="co">#&gt; 1  LiteralMeta         &lt;NA&gt;       &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb7-34" data-line-number="34"><span class="co">#&gt; 2 ResourceMeta           m2 cc:license</span></a>
-<a class="sourceLine" id="cb7-35" data-line-number="35"><span class="co">#&gt; 3  LiteralMeta         &lt;NA&gt;       &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb7-36" data-line-number="36"><span class="co">#&gt;                                                href</span></a>
-<a class="sourceLine" id="cb7-37" data-line-number="37"><span class="co">#&gt; 1                                              &lt;NA&gt;</span></a>
-<a class="sourceLine" id="cb7-38" data-line-number="38"><span class="co">#&gt; 2 http://creativecommons.org/publicdomain/zero/1.0/</span></a>
-<a class="sourceLine" id="cb7-39" data-line-number="39"><span class="co">#&gt; 3                                              &lt;NA&gt;</span></a></code></pre></div>
-<hr>
-<p>Add basic additional metadata:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1">  <span class="kw"><a href="reference/nexml_write.html">nexml_write</a></span>(bird.orders, <span class="dt">file=</span><span class="st">"meta_example.xml"</span>,</a>
-<a class="sourceLine" id="cb8-2" data-line-number="2">              <span class="dt">title =</span> <span class="st">"My test title"</span>,</a>
-<a class="sourceLine" id="cb8-3" data-line-number="3">              <span class="dt">description =</span> <span class="st">"A description of my test"</span>,</a>
-<a class="sourceLine" id="cb8-4" data-line-number="4">              <span class="dt">creator =</span> <span class="st">"Carl Boettiger &lt;cboettig@gmail.com&gt;"</span>,</a>
-<a class="sourceLine" id="cb8-5" data-line-number="5">              <span class="dt">publisher =</span> <span class="st">"unpublished data"</span>,</a>
-<a class="sourceLine" id="cb8-6" data-line-number="6">              <span class="dt">pubdate =</span> <span class="st">"2012-04-01"</span>)</a>
-<a class="sourceLine" id="cb8-7" data-line-number="7"><span class="co">#&gt; [1] "meta_example.xml"</span></a></code></pre></div>
-<p>By default, <code>RNeXML</code> adds certain metadata, including the NCBI taxon id numbers for all named taxa. This acts a check on the spelling and definitions of the taxa as well as providing a link to additional metadata about each taxonomic unit described in the dataset.</p>
-<div id="advanced-annotation" class="section level3">
-<h3 class="hasAnchor">
-<a href="#advanced-annotation" class="anchor"></a>Advanced annotation</h3>
-<p>We can also add arbitrary metadata to a NeXML tree by define <code>meta</code> objects:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1">modified &lt;-<span class="st"> </span><span class="kw"><a href="reference/meta.html">meta</a></span>(<span class="dt">property =</span> <span class="st">"prism:modificationDate"</span>,</a>
-<a class="sourceLine" id="cb9-2" data-line-number="2">                 <span class="dt">content =</span> <span class="st">"2013-10-04"</span>)</a></code></pre></div>
-<p>Advanced use requires specifying the namespace used. Metadata follows the RDFa conventions. Here we indicate the modification date using the prism vocabulary. This namespace is included by default, as it is used for some of the basic metadata shown in the previous example. We can see from this list:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" data-line-number="1">RNeXML<span class="op">:::</span>nexml_namespaces</a>
-<a class="sourceLine" id="cb10-2" data-line-number="2"><span class="co">#&gt;                                              nex </span></a>
-<a class="sourceLine" id="cb10-3" data-line-number="3"><span class="co">#&gt;                      "http://www.nexml.org/2009" </span></a>
-<a class="sourceLine" id="cb10-4" data-line-number="4"><span class="co">#&gt;                                              xsi </span></a>
-<a class="sourceLine" id="cb10-5" data-line-number="5"><span class="co">#&gt;      "http://www.w3.org/2001/XMLSchema-instance" </span></a>
-<a class="sourceLine" id="cb10-6" data-line-number="6"><span class="co">#&gt;                                              xml </span></a>
-<a class="sourceLine" id="cb10-7" data-line-number="7"><span class="co">#&gt;           "http://www.w3.org/XML/1998/namespace" </span></a>
-<a class="sourceLine" id="cb10-8" data-line-number="8"><span class="co">#&gt;                                             cdao </span></a>
-<a class="sourceLine" id="cb10-9" data-line-number="9"><span class="co">#&gt;        "http://purl.obolibrary.org/obo/cdao.owl" </span></a>
-<a class="sourceLine" id="cb10-10" data-line-number="10"><span class="co">#&gt;                                              xsd </span></a>
-<a class="sourceLine" id="cb10-11" data-line-number="11"><span class="co">#&gt;              "http://www.w3.org/2001/XMLSchema#" </span></a>
-<a class="sourceLine" id="cb10-12" data-line-number="12"><span class="co">#&gt;                                               dc </span></a>
-<a class="sourceLine" id="cb10-13" data-line-number="13"><span class="co">#&gt;               "http://purl.org/dc/elements/1.1/" </span></a>
-<a class="sourceLine" id="cb10-14" data-line-number="14"><span class="co">#&gt;                                          dcterms </span></a>
-<a class="sourceLine" id="cb10-15" data-line-number="15"><span class="co">#&gt;                      "http://purl.org/dc/terms/" </span></a>
-<a class="sourceLine" id="cb10-16" data-line-number="16"><span class="co">#&gt;                                              ter </span></a>
-<a class="sourceLine" id="cb10-17" data-line-number="17"><span class="co">#&gt;                      "http://purl.org/dc/terms/" </span></a>
-<a class="sourceLine" id="cb10-18" data-line-number="18"><span class="co">#&gt;                                            prism </span></a>
-<a class="sourceLine" id="cb10-19" data-line-number="19"><span class="co">#&gt; "http://prismstandard.org/namespaces/1.2/basic/" </span></a>
-<a class="sourceLine" id="cb10-20" data-line-number="20"><span class="co">#&gt;                                               cc </span></a>
-<a class="sourceLine" id="cb10-21" data-line-number="21"><span class="co">#&gt;                 "http://creativecommons.org/ns#" </span></a>
-<a class="sourceLine" id="cb10-22" data-line-number="22"><span class="co">#&gt;                                             ncbi </span></a>
-<a class="sourceLine" id="cb10-23" data-line-number="23"><span class="co">#&gt;          "http://www.ncbi.nlm.nih.gov/taxonomy#" </span></a>
-<a class="sourceLine" id="cb10-24" data-line-number="24"><span class="co">#&gt;                                               tc </span></a>
-<a class="sourceLine" id="cb10-25" data-line-number="25"><span class="co">#&gt;  "http://rs.tdwg.org/ontology/voc/TaxonConcept#"</span></a></code></pre></div>
-<p>This next block defines a resource (link), described by the <code>rel</code> attribute as a homepage, a term in the <code>foaf</code> vocabulalry. Becuase <code>foaf</code> is not a default namespace, we will have to provide its URL in the full definition below.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1">website &lt;-<span class="st"> </span><span class="kw"><a href="reference/meta.html">meta</a></span>(<span class="dt">href =</span> <span class="st">"http://carlboettiger.info"</span>, </a>
-<a class="sourceLine" id="cb11-2" data-line-number="2">                <span class="dt">rel =</span> <span class="st">"foaf:homepage"</span>)</a></code></pre></div>
-<p>Here we create a history node using the <code>skos</code> namespace. We can also add id values to any metadata element to make the element easier to reference externally:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" data-line-number="1">  history &lt;-<span class="st"> </span><span class="kw"><a href="reference/meta.html">meta</a></span>(<span class="dt">property =</span> <span class="st">"skos:historyNote"</span>, </a>
-<a class="sourceLine" id="cb12-2" data-line-number="2">                  <span class="dt">content =</span> <span class="st">"Mapped from the bird.orders data in the ape package using RNeXML"</span>,</a>
-<a class="sourceLine" id="cb12-3" data-line-number="3">                  <span class="dt">id =</span> <span class="st">"meta123"</span>)</a></code></pre></div>
-<p>For this kind of richer annotation, it is best to build up our NeXML object sequentially. Frist we will add <code>bird.orders</code> phylogeny to a new phylogenetic object, and then we will add the metadata elements created above to this object. Finally, we will write the object out as an XML file:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" data-line-number="1">  birds &lt;-<span class="st"> </span><span class="kw"><a href="reference/add_trees.html">add_trees</a></span>(bird.orders)</a>
-<a class="sourceLine" id="cb13-2" data-line-number="2">  birds &lt;-<span class="st"> </span><span class="kw"><a href="reference/add_meta.html">add_meta</a></span>(<span class="dt">meta =</span> <span class="kw">list</span>(history, modified, website),</a>
-<a class="sourceLine" id="cb13-3" data-line-number="3">                    <span class="dt">namespaces =</span> <span class="kw">c</span>(<span class="dt">skos =</span> <span class="st">"http://www.w3.org/2004/02/skos/core#"</span>,</a>
-<a class="sourceLine" id="cb13-4" data-line-number="4">                                   <span class="dt">foaf =</span> <span class="st">"http://xmlns.com/foaf/0.1/"</span>),</a>
-<a class="sourceLine" id="cb13-5" data-line-number="5">                    <span class="dt">nexml=</span>birds)</a>
-<a class="sourceLine" id="cb13-6" data-line-number="6">  <span class="kw"><a href="reference/nexml_write.html">nexml_write</a></span>(birds, </a>
-<a class="sourceLine" id="cb13-7" data-line-number="7">              <span class="dt">file =</span> <span class="st">"example.xml"</span>)</a>
-<a class="sourceLine" id="cb13-8" data-line-number="8"><span class="co">#&gt; [1] "example.xml"</span></a></code></pre></div>
-</div>
-<div id="taxonomic-identifiers" class="section level3">
-<h3 class="hasAnchor">
-<a href="#taxonomic-identifiers" class="anchor"></a>Taxonomic identifiers</h3>
-<p>Add taxonomic identifier metadata to the OTU elements: <!-- This block relies on a robust internet connection that can occassionally fail.  Also it's a bit slow, so don't run it. After all, this command is tested in the unit tests.--></p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1">nex &lt;-<span class="st"> </span><span class="kw"><a href="reference/add_trees.html">add_trees</a></span>(bird.orders)</a>
-<a class="sourceLine" id="cb14-2" data-line-number="2">nex &lt;-<span class="st"> </span><span class="kw"><a href="reference/taxize_nexml.html">taxize_nexml</a></span>(nex)</a></code></pre></div>
-</div>
-</div>
-<div id="working-with-character-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#working-with-character-data" class="anchor"></a>Working with character data</h2>
-<p>NeXML also provides a standard exchange format for handling character data. The R platform is particularly popular in the context of phylogenetic comparative methods, which consider both a given phylogeny and a set of traits. NeXML provides an ideal tool for handling this metadata.</p>
-<div id="extracting-character-data" class="section level3">
-<h3 class="hasAnchor">
-<a href="#extracting-character-data" class="anchor"></a>Extracting character data</h3>
-<p>We can load the library, parse the NeXML file and extract both the characters and the phylogeny.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw">library</span>(RNeXML)</a>
-<a class="sourceLine" id="cb15-2" data-line-number="2">nexml &lt;-<span class="st"> </span><span class="kw"><a href="reference/nexml_read.html">read.nexml</a></span>(<span class="kw">system.file</span>(<span class="st">"examples"</span>, <span class="st">"comp_analysis.xml"</span>, <span class="dt">package=</span><span class="st">"RNeXML"</span>))</a>
-<a class="sourceLine" id="cb15-3" data-line-number="3">traits &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_characters.html">get_characters</a></span>(nexml)</a>
-<a class="sourceLine" id="cb15-4" data-line-number="4">tree &lt;-<span class="st"> </span><span class="kw"><a href="reference/get_trees.html">get_trees</a></span>(nexml)</a></code></pre></div>
-<p>(Note that <code>get_characters</code> would return both discrete and continuous characters together in the same data.frame, but we use <code>get_characters_list</code> to get separate data.frames for the continuous <code>characters</code> block and the discrete <code>characters</code> block).</p>
-<p>We can then fire up <code>geiger</code> and fit, say, a Brownian motion model the continuous data and a Markov transition matrix to the discrete states:</p>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1"><span class="kw">library</span>(geiger)</a>
-<a class="sourceLine" id="cb16-2" data-line-number="2"><span class="kw"><a href="http://www.rdocumentation.org/packages/geiger/topics/fitContinuous">fitContinuous</a></span>(tree, traits[<span class="dv">1</span>], <span class="dt">ncores=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb16-3" data-line-number="3"><span class="co">#&gt; GEIGER-fitted comparative model of continuous data</span></a>
-<a class="sourceLine" id="cb16-4" data-line-number="4"><span class="co">#&gt;  fitted 'BM' model parameters:</span></a>
-<a class="sourceLine" id="cb16-5" data-line-number="5"><span class="co">#&gt;  sigsq = 1.166011</span></a>
-<a class="sourceLine" id="cb16-6" data-line-number="6"><span class="co">#&gt;  z0 = 0.255591</span></a>
-<a class="sourceLine" id="cb16-7" data-line-number="7"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb16-8" data-line-number="8"><span class="co">#&gt;  model summary:</span></a>
-<a class="sourceLine" id="cb16-9" data-line-number="9"><span class="co">#&gt;  log-likelihood = -20.501183</span></a>
-<a class="sourceLine" id="cb16-10" data-line-number="10"><span class="co">#&gt;  AIC = 45.002367</span></a>
-<a class="sourceLine" id="cb16-11" data-line-number="11"><span class="co">#&gt;  AICc = 46.716652</span></a>
-<a class="sourceLine" id="cb16-12" data-line-number="12"><span class="co">#&gt;  free parameters = 2</span></a>
-<a class="sourceLine" id="cb16-13" data-line-number="13"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb16-14" data-line-number="14"><span class="co">#&gt; Convergence diagnostics:</span></a>
-<a class="sourceLine" id="cb16-15" data-line-number="15"><span class="co">#&gt;  optimization iterations = 100</span></a>
-<a class="sourceLine" id="cb16-16" data-line-number="16"><span class="co">#&gt;  failed iterations = 0</span></a>
-<a class="sourceLine" id="cb16-17" data-line-number="17"><span class="co">#&gt;  frequency of best fit = 1.00</span></a>
-<a class="sourceLine" id="cb16-18" data-line-number="18"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb16-19" data-line-number="19"><span class="co">#&gt;  object summary:</span></a>
-<a class="sourceLine" id="cb16-20" data-line-number="20"><span class="co">#&gt;  'lik' -- likelihood function</span></a>
-<a class="sourceLine" id="cb16-21" data-line-number="21"><span class="co">#&gt;  'bnd' -- bounds for likelihood search</span></a>
-<a class="sourceLine" id="cb16-22" data-line-number="22"><span class="co">#&gt;  'res' -- optimization iteration summary</span></a>
-<a class="sourceLine" id="cb16-23" data-line-number="23"><span class="co">#&gt;  'opt' -- maximum likelihood parameter estimates</span></a>
-<a class="sourceLine" id="cb16-24" data-line-number="24"><span class="kw"><a href="http://www.rdocumentation.org/packages/geiger/topics/fitDiscrete">fitDiscrete</a></span>(tree, traits[<span class="dv">2</span>], <span class="dt">ncores=</span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb16-25" data-line-number="25"><span class="co">#&gt; GEIGER-fitted comparative model of discrete data</span></a>
-<a class="sourceLine" id="cb16-26" data-line-number="26"><span class="co">#&gt;  fitted Q matrix:</span></a>
-<a class="sourceLine" id="cb16-27" data-line-number="27"><span class="co">#&gt;                 0           1</span></a>
-<a class="sourceLine" id="cb16-28" data-line-number="28"><span class="co">#&gt;     0 -0.07308302  0.07308302</span></a>
-<a class="sourceLine" id="cb16-29" data-line-number="29"><span class="co">#&gt;     1  0.07308302 -0.07308302</span></a>
-<a class="sourceLine" id="cb16-30" data-line-number="30"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb16-31" data-line-number="31"><span class="co">#&gt;  model summary:</span></a>
-<a class="sourceLine" id="cb16-32" data-line-number="32"><span class="co">#&gt;  log-likelihood = -4.574133</span></a>
-<a class="sourceLine" id="cb16-33" data-line-number="33"><span class="co">#&gt;  AIC = 11.148266</span></a>
-<a class="sourceLine" id="cb16-34" data-line-number="34"><span class="co">#&gt;  AICc = 11.648266</span></a>
-<a class="sourceLine" id="cb16-35" data-line-number="35"><span class="co">#&gt;  free parameters = 1</span></a>
-<a class="sourceLine" id="cb16-36" data-line-number="36"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb16-37" data-line-number="37"><span class="co">#&gt; Convergence diagnostics:</span></a>
-<a class="sourceLine" id="cb16-38" data-line-number="38"><span class="co">#&gt;  optimization iterations = 100</span></a>
-<a class="sourceLine" id="cb16-39" data-line-number="39"><span class="co">#&gt;  failed iterations = 0</span></a>
-<a class="sourceLine" id="cb16-40" data-line-number="40"><span class="co">#&gt;  frequency of best fit = 1.00</span></a>
-<a class="sourceLine" id="cb16-41" data-line-number="41"><span class="co">#&gt; </span></a>
-<a class="sourceLine" id="cb16-42" data-line-number="42"><span class="co">#&gt;  object summary:</span></a>
-<a class="sourceLine" id="cb16-43" data-line-number="43"><span class="co">#&gt;  'lik' -- likelihood function</span></a>
-<a class="sourceLine" id="cb16-44" data-line-number="44"><span class="co">#&gt;  'bnd' -- bounds for likelihood search</span></a>
-<a class="sourceLine" id="cb16-45" data-line-number="45"><span class="co">#&gt;  'res' -- optimization iteration summary</span></a>
-<a class="sourceLine" id="cb16-46" data-line-number="46"><span class="co">#&gt;  'opt' -- maximum likelihood parameter estimates</span></a></code></pre></div>
+<p>See the vignettes below for both a general quick start and an overview of more specialized features.</p>
+<ul>
+<li><a href="https://ropensci.github.com/RNeXML/articles/intro">A Brief Introduction to RNeXML</a></li>
+<li>
+<a href="https://ropensci.github.com/RNeXML/articles/manuscript">RNeXML: A Package for Reading and Writing Richly Annotated Phylogenetic, Character, and Trait Data in R</a> (published in MEE).</li>
+<li><a href="https://ropensci.github.com/RNeXML/articles/metadata">Handling Metadata in RNeXML</a></li>
+<li><a href="https://ropensci.github.com/RNeXML/articles/S4">The <code>nexml</code> S4 Object</a></li>
+<li><a href="https://ropensci.github.com/RNeXML/articles/SPARQL">Semantic data &amp; SPARQL with RNeXML</a></li>
+<li><a href="https://ropensci.github.com/RNeXML/articles/simmap">Extending NeXML: an example based on simmap</a></li>
+</ul>
 <hr>
 <p><a href="http://ropensci.org"><img src="http://ropensci.org/public_images/github_footer.png" alt="ropensci footer"></a></p>
-</div>
 </div>
 </div>
   </div>
