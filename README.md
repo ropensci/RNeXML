@@ -4,8 +4,8 @@
 [![DOI](https://zenodo.org/badge/11856817.svg)](https://zenodo.org/badge/latestdoi/11856817)
 [![Build
 Status](https://api.travis-ci.org/ropensci/RNeXML.png)](https://travis-ci.org/ropensci/RNeXML)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/ropensci/RNeXML?branch=master&svg=true)](https://ci.appveyor.com/project/ropensci/RNeXML)
+[![Windows build
+status](https://ci.appveyor.com/api/projects/status/dhiwp5blx2ns2yba/branch/master?svg=true)](https://ci.appveyor.com/project/cboettig/rnexml/branch/master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/RNeXML)](https://cran.r-project.org/package=RNeXML)
 [![codecov.io](https://codecov.io/github/ropensci/RNeXML/coverage.svg?branch=master)](https://codecov.io/github/ropensci/RNeXML?branch=master)

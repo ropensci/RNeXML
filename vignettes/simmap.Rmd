@@ -14,12 +14,13 @@ bibliography: references.bib
 %\VignetteIndexEntry{Extending NeXML to simmap}
 -->
 
+*Warning: this vignette is currently deprecated. Note that the proposed simmap implementation uses non-conformal nesting of LiteralMeta-type elements that need to be replaced with ResourceMeta-type elements)*
 
 ```{r compile-settings, include=FALSE}
 library("methods")
 library("knitr")
 opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE, 
-               cache = FALSE, comment = NA, verbose = TRUE)
+               cache = FALSE, comment = NA, verbose = TRUE, eval = FALSE)
 basename <- gsub(".Rmd", "", knitr:::knit_concord$get('infile')) 
 library("RNeXML")
 
