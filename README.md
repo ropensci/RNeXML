@@ -1,22 +1,23 @@
+
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
 [![DOI](https://zenodo.org/badge/11856817.svg)](https://zenodo.org/badge/latestdoi/11856817)
-[![codecov.io](https://codecov.io/github/ropensci/RNeXML/coverage.svg?branch=master)](https://codecov.io/github/ropensci/RNeXML?branch=master)
 [![Build
 Status](https://api.travis-ci.org/ropensci/RNeXML.png)](https://travis-ci.org/ropensci/RNeXML)
-[![Coverage
-Status](https://img.shields.io/codecov/c/github/ropensci/RNeXML/master.svg)](https://codecov.io/github/ropensci/RNeXML?branch=master)
+[![AppVeyor build
+status](https://ci.appveyor.com/api/projects/status/github/ropensci/RNeXML?branch=master&svg=true)](https://ci.appveyor.com/project/ropensci/RNeXML)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/RNeXML)](https://cran.r-project.org/package=RNeXML)
+[![codecov.io](https://codecov.io/github/ropensci/RNeXML/coverage.svg?branch=master)](https://codecov.io/github/ropensci/RNeXML?branch=master)
 ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/RNeXML)
 
-RNeXML: The next-generation phylogenetics format comes to R
-===========================================================
+# RNeXML: The next-generation phylogenetics format comes to R
 
--   Maintainer: Carl Boettiger
--   Authors: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia
+  - Maintainer: Carl Boettiger
+  - Authors: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia
     Shumelchyk, Rutger Vos
--   License: BSD-3
--   [Issues](https://github.com/ropensci/RNeXML/issues): Bug reports,
+  - License: BSD-3
+  - [Issues](https://github.com/ropensci/RNeXML/issues): Bug reports,
     feature requests, and development discussion.
 
 An extensive and rapidly growing collection of richly annotated
@@ -28,8 +29,7 @@ al
 2012](http://doi.org/10.1093/sysbio/sys025 "NeXML: Rich, Extensible, and Verifiable Representation of Comparative Data and Metadata.")
 for further details on the NeXML format.
 
-How to cite
------------
+## How to cite
 
 RNeXML has been published in the following article:
 
@@ -44,13 +44,13 @@ of the manuscript, and a much better rendered PDF, are included in this
 package (in the `manuscripts` folder). You can also find it [freely
 available on arXiv](http://arxiv.org/abs/1506.02722).
 
-Getting Started
----------------
+## Getting Started
 
 The latest stable release of RNeXML is on CRAN, and can be installed
 with the usual `install.packages("RNeXML")` command. Some of the more
 specialized functionality described in the Vignettes (such as RDF
-manipulation) requires additional packages which can be installed using:
+manipulation) requires additional packages which can be installed
+using:
 
 ``` r
 install.packages("RNeXML", deps=TRUE, repos=c("https://cran.rstudio.com", "http://packages.ropensci.org"))
@@ -79,7 +79,7 @@ tr <- get_trees(nexml) # or: as(nexml, "phylo")
 plot(tr)
 ```
 
-![](tools/README-unnamed-chunk-5-1.png)
+![](tools/README-unnamed-chunk-5-1.png)<!-- -->
 
 Write an `ape::phylo` tree into the `nexml` format:
 
@@ -145,7 +145,7 @@ get_metadata(birds)
 #> 3                                              <NA>
 ```
 
-------------------------------------------------------------------------
+-----
 
 Add basic additional metadata:
 
@@ -255,8 +255,7 @@ nex <- add_trees(bird.orders)
 nex <- taxize_nexml(nex)
 ```
 
-Working with character data
----------------------------
+## Working with character data
 
 NeXML also provides a standard exchange format for handling character
 data. The R platform is particularly popular in the context of
@@ -333,7 +332,7 @@ fitDiscrete(tree, traits[2], ncores=1)
 #>  'opt' -- maximum likelihood parameter estimates
 ```
 
-------------------------------------------------------------------------
+-----
 
 [![ropensci
 footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
