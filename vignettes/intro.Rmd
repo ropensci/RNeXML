@@ -99,7 +99,7 @@ Here we create a history node using the `skos` namespace.  We can also add id va
                   id = "meta123")
 ```
 
-For this kind of richer annotation, it is best to build up our NeXML object sequentially. Frist
+For this kind of richer annotation, it is best to build up our NeXML object sequentially. First
 we will add `bird.orders` phylogeny to a new phylogenetic object, and then we will add the metadata
 elements created above to this object. Finally, we will write the object out as an XML file:
 
