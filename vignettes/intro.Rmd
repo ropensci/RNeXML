@@ -84,7 +84,7 @@ Advanced use requires specifying the namespace used.  Metadata follows the RDFa 
 RNeXML:::nexml_namespaces
 ```
 
-This next block defines a resource (link), described by the `rel` attribute as a homepage, a term in the `foaf` vocabulalry.  Becuase `foaf` is not a default namespace, we will have to provide its URL in the full definition below. 
+This next block defines a resource (link), described by the `rel` attribute as a homepage, a term in the `foaf` vocabulary.  Because `foaf` is not a default namespace, we will have to provide its URL in the full definition below. 
 
 ```{r}
 website <- meta(href = "http://carlboettiger.info", 
