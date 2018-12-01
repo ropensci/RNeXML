@@ -32,7 +32,7 @@ Write an `ape::phylo` tree into the `nexml` format:
 
 ```{r}
 data(bird.orders)
-nexml_write(bird.orders, "test.xml")
+nexml_write(bird.orders, "test.xml", creator = "Carl Boettiger")
 ```
 
 A key feature of NeXML is the ability to formally validate the construction of the data file against the standard (the lack of such a feature in nexus files had lead to inconsistencies across different software platforms, and some files that cannot be read at all).  While it is difficult to make an invalid NeXML file from `RNeXML`, it never hurts to validate just to be sure:
