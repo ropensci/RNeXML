@@ -4,14 +4,15 @@
 \alias{taxize_nexml}
 \title{taxize nexml}
 \usage{
-taxize_nexml(nexml, type = c("NCBI"), ...)
+taxize_nexml(nexml, type = c("ncbi", "itis", "col", "tpl", "gbif", "wd"),
+  ...)
 }
 \arguments{
 \item{nexml}{a nexml object}
 
 \item{type}{the name of the identifier to use}
 
-\item{...}{additional arguments (not implemented yet)}
+\item{...}{additional arguments to \code{[taxald::get_ids()]}}
 }
 \description{
 Check taxonomic names against the specified service and

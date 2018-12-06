@@ -28,8 +28,8 @@ Suggests:
     rmarkdown (>= 0.3.3),
     rlang,
     xslt,
-    taxize (>= 0.2.2),
-    covr
+    covr,
+    taxald
 Depends:
     R (>= 3.0.0),
     ape (>= 3.1),
@@ -92,3 +92,5 @@ X-schema.org-keywords: metadata, nexml, phylogenetics, linked-data
 X-schema.org-isPartOf: https://ropensci.org
 Language: en-US
 Encoding: UTF-8
+Remotes: cboettig/taxald
+
