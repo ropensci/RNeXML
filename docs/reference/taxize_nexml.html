@@ -95,9 +95,6 @@ containing the corresponding identifier." />
       <a href="../articles/intro.html">A Brief Introduction to RNeXML</a>
     </li>
     <li>
-      <a href="../articles/manuscripts/manuscript.pdf">RNeXML: a package for reading and writing richly annotated phylogenetic, character, and trait data in R (PDF)</a>
-    </li>
-    <li>
       <a href="../articles/metadata.html">Handling Metadata in RNeXML</a>
     </li>
     <li>
@@ -145,7 +142,8 @@ containing the corresponding identifier.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>taxize_nexml</span>(<span class='no'>nexml</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"NCBI"</span>), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>taxize_nexml</span>(<span class='no'>nexml</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='fu'>c</span>(<span class='st'>"ncbi"</span>, <span class='st'>"itis"</span>, <span class='st'>"col"</span>, <span class='st'>"tpl"</span>, <span class='st'>"gbif"</span>, <span class='st'>"wd"</span>),
+  <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -160,7 +158,7 @@ containing the corresponding identifier.</p>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>additional arguments (not implemented yet)</p></td>
+      <td><p>additional arguments to <code>[taxald::get_ids()]</code></p></td>
     </tr>
     </table>
     

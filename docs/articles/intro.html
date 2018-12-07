@@ -60,9 +60,6 @@
       <a href="../articles/intro.html">A Brief Introduction to RNeXML</a>
     </li>
     <li>
-      <a href="../articles/manuscripts/manuscript.pdf">RNeXML: a package for reading and writing richly annotated phylogenetic, character, and trait data in R (PDF)</a>
-    </li>
-    <li>
       <a href="../articles/metadata.html">Handling Metadata in RNeXML</a>
     </li>
     <li>
@@ -123,7 +120,7 @@
 <p><img src="intro_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <p>Write an <code><a href="http://www.rdocumentation.org/packages/ape/topics/read.tree">ape::phylo</a></code> tree into the <code>nexml</code> format:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw">data</span>(bird.orders)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="../reference/nexml_write.html">nexml_write</a></span>(bird.orders, <span class="st">"test.xml"</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="../reference/nexml_write.html">nexml_write</a></span>(bird.orders, <span class="st">"test.xml"</span>, <span class="dt">creator =</span> <span class="st">"Carl Boettiger"</span>)</a></code></pre></div>
 <pre><code>## [1] "test.xml"</code></pre>
 <p>A key feature of NeXML is the ability to formally validate the construction of the data file against the standard (the lack of such a feature in nexus files had lead to inconsistencies across different software platforms, and some files that cannot be read at all). While it is difficult to make an invalid NeXML file from <code>RNeXML</code>, it never hurts to validate just to be sure:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/nexml_validate.html">nexml_validate</a></span>(<span class="st">"test.xml"</span>)</a></code></pre></div>
@@ -157,8 +154,8 @@
 ## 23 ou23    Passeriformes       NA  os1</code></pre>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/get_metadata.html">get_metadata</a></span>(birds) </a></code></pre></div>
 <pre><code>##           property   datatype                 content     xsi.type
-## 1       dc:creator xsd:string                cboettig  LiteralMeta
-## 2 dcterms:modified xsd:string 2018-11-30 18:08:48 GMT  LiteralMeta
+## 1       dc:creator xsd:string          Carl Boettiger  LiteralMeta
+## 2 dcterms:modified xsd:string 2018-12-07 01:58:08 GMT  LiteralMeta
 ## 3       cc:license       &lt;NA&gt;                    &lt;NA&gt; ResourceMeta
 ##                                                href Meta
 ## 1                                              &lt;NA&gt;   m1
@@ -206,14 +203,14 @@
 ##          "http://www.ncbi.nlm.nih.gov/taxonomy#" 
 ##                                               tc 
 ##  "http://rs.tdwg.org/ontology/voc/TaxonConcept#"</code></pre>
-<p>This next block defines a resource (link), described by the <code>rel</code> attribute as a homepage, a term in the <code>foaf</code> vocabulalry. Becuase <code>foaf</code> is not a default namespace, we will have to provide its URL in the full definition below.</p>
+<p>This next block defines a resource (link), described by the <code>rel</code> attribute as a homepage, a term in the <code>foaf</code> vocabulary. Because <code>foaf</code> is not a default namespace, we will have to provide its URL in the full definition below.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" data-line-number="1">website &lt;-<span class="st"> </span><span class="kw"><a href="../reference/meta.html">meta</a></span>(<span class="dt">href =</span> <span class="st">"http://carlboettiger.info"</span>, </a>
 <a class="sourceLine" id="cb16-2" data-line-number="2">                <span class="dt">rel =</span> <span class="st">"foaf:homepage"</span>)</a></code></pre></div>
 <p>Here we create a history node using the <code>skos</code> namespace. We can also add id values to any metadata element to make the element easier to reference externally:</p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" data-line-number="1">  history &lt;-<span class="st"> </span><span class="kw"><a href="../reference/meta.html">meta</a></span>(<span class="dt">property =</span> <span class="st">"skos:historyNote"</span>, </a>
 <a class="sourceLine" id="cb17-2" data-line-number="2">                  <span class="dt">content =</span> <span class="st">"Mapped from the bird.orders data in the ape package using RNeXML"</span>,</a>
 <a class="sourceLine" id="cb17-3" data-line-number="3">                  <span class="dt">id =</span> <span class="st">"meta123"</span>)</a></code></pre></div>
-<p>For this kind of richer annotation, it is best to build up our NeXML object sequentially. Frist we will add <code>bird.orders</code> phylogeny to a new phylogenetic object, and then we will add the metadata elements created above to this object. Finally, we will write the object out as an XML file:</p>
+<p>For this kind of richer annotation, it is best to build up our NeXML object sequentially. First we will add <code>bird.orders</code> phylogeny to a new phylogenetic object, and then we will add the metadata elements created above to this object. Finally, we will write the object out as an XML file:</p>
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">  birds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_trees.html">add_trees</a></span>(bird.orders)</a>
 <a class="sourceLine" id="cb18-2" data-line-number="2">  birds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/add_meta.html">add_meta</a></span>(<span class="dt">meta =</span> <span class="kw">list</span>(history, modified, website),</a>
 <a class="sourceLine" id="cb18-3" data-line-number="3">                    <span class="dt">namespaces =</span> <span class="kw">c</span>(<span class="dt">skos =</span> <span class="st">"http://www.w3.org/2004/02/skos/core#"</span>,</a>
