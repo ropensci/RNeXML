@@ -5,12 +5,14 @@
 \title{taxize nexml}
 \usage{
 taxize_nexml(nexml, type = c("ncbi", "itis", "col", "tpl", "gbif", "wd"),
-  ...)
+  warnings = TRUE, ...)
 }
 \arguments{
 \item{nexml}{a nexml object}
 
 \item{type}{the name of the identifier to use}
+
+\item{warnings}{should we show warning messages if no match can be found?}
 
 \item{...}{additional arguments to \code{[taxald::get_ids()]}}
 }

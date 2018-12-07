@@ -6,6 +6,7 @@
 #' containing the corresponding identifier. 
 #' @param nexml a nexml object
 #' @param type the name of the identifier to use
+#' @param warnings should we show warning messages if no match can be found?
 #' @param ... additional arguments to `[taxald::get_ids()]`
 #' @export 
 #' @examples \dontrun{
@@ -14,8 +15,11 @@
 #' birds <- taxize_nexml(birds, "NCBI")
 #' }
 # @importFrom taxize get_uid
-taxize_nexml <- function(nexml, type = c("ncbi", "itis", "col", "tpl",
-                                         "gbif", "wd"), ...){
+taxize_nexml <- function(nexml, 
+                         type = c("ncbi", "itis", "col", "tpl",
+                                  "gbif", "wd"), 
+                         warnings = TRUE,
+                         ...){
   
   ## Soft dependency on taxize
   if (!requireNamespace("taxald", quietly = TRUE)) {
@@ -35,15 +39,16 @@ taxize_nexml <- function(nexml, type = c("ncbi", "itis", "col", "tpl",
     
     for(i in 1:length(taxa_ids)){
       id <- taxa_ids[[i]]
-      if(is.na(id))
+      if(is.na(id) & warnings)
         warning(paste("ID for otu", 
                       nexml@otus[[j]]@otu[[i]]@label, 
                       "not found. Consider checking the spelling
                       or alternate classification"))
       else 
-        nexml@otus[[j]]@otu[[i]]@meta <- New("ListOfmeta", list(
+        nexml@otus[[j]]@otu[[i]]@meta <- 
+          c(nexml@otus[[j]]@otu[[i]]@meta, 
                        meta(href = taxa_ids[[i]],
-                            rel = "tc:toTaxon")))
+                            rel = "tc:toTaxon"))
 
     }
   }

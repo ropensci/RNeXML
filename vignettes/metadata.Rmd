@@ -74,10 +74,7 @@ birds <- add_basic_meta(citation = citation("ape"), nexml = birds)
 
 ## Taxonomic identifiers
 
---The `taxize_nexml()` function uses the R package `taxize` 
-[@Chamberlain_2013] to check each taxon label against the NCBI database.--
-
-RNeXML now uses `taxald` for lightning fast look-up of taxonomic information.
+RNeXML now uses `taxald` for fast look-up of taxonomic information.
 If a unique match is found, a metadata annotation is added to the taxon
 providing the unique URI to the taxonomic unit.
 
