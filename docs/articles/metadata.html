@@ -146,8 +146,7 @@
 <div id="taxonomic-identifiers" class="section level2">
 <h2 class="hasAnchor">
 <a href="#taxonomic-identifiers" class="anchor"></a>Taxonomic identifiers</h2>
-<p>–The <code><a href="../reference/taxize_nexml.html">taxize_nexml()</a></code> function uses the R package <code>taxize</code> <span class="citation">[@Chamberlain_2013]</span> to check each taxon label against the NCBI database.–</p>
-<p>RNeXML now uses <code>taxald</code> for lightning fast look-up of taxonomic information. If a unique match is found, a metadata annotation is added to the taxon providing the unique URI to the taxonomic unit.</p>
+<p>RNeXML now uses <code>taxald</code> for fast look-up of taxonomic information. If a unique match is found, a metadata annotation is added to the taxon providing the unique URI to the taxonomic unit.</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">birds &lt;-<span class="st"> </span><span class="kw"><a href="../reference/taxize_nexml.html">taxize_nexml</a></span>(birds, <span class="st">"NCBI"</span>)</a></code></pre></div>
 <p>If no perfect match is found, the user is warned to check for possible typographic errors in the taxonomic labels provided.</p>
 </div>
