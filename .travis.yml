@@ -1,26 +1,25 @@
-# R for travis: see documentation at https://docs.travis-ci.com/user/languages/r
 language: R
 dist: trusty
 cache: packages
 latex: false
-
 matrix:
   include:
-    - os: linux
-      r: devel
-    - os: linux
-      r: release
-
+  - os: linux
+    r: devel
+  - os: linux
+    r: release
 addons:
   apt:
     sources:
-      - sourceline: 'ppa:opencpu/jq'
+    - sourceline: ppa:opencpu/jq
     packages:
-      - librdf0-dev
-      - libv8-dev
-      - libjq-dev
-      - libdb-dev
-      - libxslt-dev
-      
+    - librdf0-dev
+    - libv8-dev
+    - libjq-dev
+    - libdb-dev
+    - libxslt-dev
 after_success:
-  - Rscript -e 'covr::codecov()'
+- Rscript -e 'covr::codecov()'
+env:
+  matrix:
+    secure: PFE6DVEkCXzer0FkWegNzYIf7j+Mc0BISNXSz2WQ5Ff9jg2ltbjI6aHd/dLkfNmRmrQVw0fMW7A2WXcL42gVKtro5P2njVmMLgvNGhweWTawz+oEG4pZ0/AxH8IrSWS/V+5H2wWasQhx+CsOfrYBhpdviphBaujEk5Q0inXPcYE=

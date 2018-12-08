@@ -74,19 +74,17 @@ birds <- add_basic_meta(citation = citation("ape"), nexml = birds)
 
 ## Taxonomic identifiers
 
-The `taxize_nexml()` function uses the R package `taxize` 
-[@Chamberlain_2013] to check each taxon label against the NCBI database.
+RNeXML now uses `taxald` for fast look-up of taxonomic information.
 If a unique match is found, a metadata annotation is added to the taxon
-providing the NCBI identification number to the taxonomic unit.
+providing the unique URI to the taxonomic unit.
 
 
 ```{r message=FALSE, results='hide', eval=FALSE}
 birds <- taxize_nexml(birds, "NCBI")
 ```
 
-If no match is found, the user is warned to check for possible typographic
-errors in the taxonomic labels provided. If multiple matches are found,
-the user will be prompted to choose between them.
+If no perfect match is found, the user is warned to check for possible typographic
+errors in the taxonomic labels provided.
 
 
 ## Custom metadata extensions
@@ -205,7 +203,7 @@ To begin, let's generate a `NeXML` file using the tree and trait data from the `
 data("primates")
 add_trees(primates$phy) %>% 
   add_characters(primates$dat, ., append=TRUE) %>% 
-  taxize_nexml() -> nex 
+  taxize_nexml("itis") -> nex 
 ```
 
 (Note that we've used `dplyr`'s cute pipe syntax, but unfortunately our `add_` methods take the `nexml` object as the _second_

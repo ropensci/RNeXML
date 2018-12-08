@@ -1,0 +1,162 @@
+---
+title: "A Brief Introduction to RNeXML"
+author:
+  - Carl Boettiger
+  - Scott Chamberlain
+  - Rutger Vos
+  - Hilmar Lapp
+
+output: html_vignette
+---
+
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{A Brief Introduction to RNeXMLL}
+-->
+
+
+```{r echo=FALSE}
+library(RNeXML)
+```
+
+Read in a `nexml` file into the `ape::phylo` format:
+
+```{r}
+f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
+nexml <- nexml_read(f)
+tr <- get_trees(nexml) # or: as(nexml, "phylo")
+plot(tr)
+```
+
+Write an `ape::phylo` tree into the `nexml` format:
+
+```{r}
+data(bird.orders)
+nexml_write(bird.orders, "test.xml", creator = "Carl Boettiger")
+```
+
+A key feature of NeXML is the ability to formally validate the construction of the data file against the standard (the lack of such a feature in nexus files had lead to inconsistencies across different software platforms, and some files that cannot be read at all).  While it is difficult to make an invalid NeXML file from `RNeXML`, it never hurts to validate just to be sure:
+
+```{r}
+nexml_validate("test.xml")
+```
+
+
+
+Extract metadata from the NeXML file: 
+
+```{r } 
+birds <- nexml_read("test.xml")
+get_taxa(birds)
+get_metadata(birds) 
+```
+
+--------------------------------------------
+
+
+Add basic additional metadata:  
+
+```{r}
+  nexml_write(bird.orders, file="meta_example.xml",
+              title = "My test title",
+              description = "A description of my test",
+              creator = "Carl Boettiger <cboettig@gmail.com>",
+              publisher = "unpublished data",
+              pubdate = "2012-04-01")
+
+```
+By default, `RNeXML` adds certain metadata, including the NCBI taxon id numbers for all named taxa.  This acts a check on the spelling and definitions of the taxa as well as providing a link to additional metadata about each taxonomic unit described in the dataset.  
+
+
+### Advanced annotation
+
+
+We can also add arbitrary metadata to a NeXML tree by define `meta` objects:
+
+```{r}
+modified <- meta(property = "prism:modificationDate",
+                 content = "2013-10-04")
+```
+
+Advanced use requires specifying the namespace used.  Metadata follows the RDFa conventions.  Here we indicate the modification date using the prism vocabulary. This namespace is included by default, as it is used for some of the basic metadata shown in the previous example.  We can see from this list:
+
+```{r}
+RNeXML:::nexml_namespaces
+```
+
+This next block defines a resource (link), described by the `rel` attribute as a homepage, a term in the `foaf` vocabulary.  Because `foaf` is not a default namespace, we will have to provide its URL in the full definition below. 
+
+```{r}
+website <- meta(href = "http://carlboettiger.info", 
+                rel = "foaf:homepage")
+```
+
+Here we create a history node using the `skos` namespace.  We can also add id values to any metadata element to make the element easier to reference externally: 
+
+```{r }
+  history <- meta(property = "skos:historyNote", 
+                  content = "Mapped from the bird.orders data in the ape package using RNeXML",
+                  id = "meta123")
+```
+
+For this kind of richer annotation, it is best to build up our NeXML object sequentially. First
+we will add `bird.orders` phylogeny to a new phylogenetic object, and then we will add the metadata
+elements created above to this object. Finally, we will write the object out as an XML file:
+
+```{r}
+  birds <- add_trees(bird.orders)
+  birds <- add_meta(meta = list(history, modified, website),
+                    namespaces = c(skos = "http://www.w3.org/2004/02/skos/core#",
+                                   foaf = "http://xmlns.com/foaf/0.1/"),
+                    nexml=birds)
+  nexml_write(birds, 
+              file = "example.xml")
+              
+
+```
+
+### Taxonomic identifiers
+
+Add taxonomic identifier metadata to the OTU elements:
+<!-- This block relies on a robust internet connection that can occassionally fail.  Also it's a bit slow, so don't run it. After all, this command is tested in the unit tests.-->
+
+```{r eval=FALSE}
+nex <- add_trees(bird.orders)
+nex <- taxize_nexml(nex)
+```
+
+
+
+## Working with character data
+
+NeXML also provides a standard exchange format for handling character data.  The R platform is particularly popular in the context of phylogenetic comparative methods, which consider both a given phylogeny and a set of traits.  NeXML provides an ideal tool for handling this metadata.  
+
+### Extracting character data
+
+We can load the library, parse the NeXML file and extract both the characters and the phylogeny.  
+
+```{r}
+library(RNeXML)
+nexml <- read.nexml(system.file("examples", "comp_analysis.xml", package="RNeXML"))
+traits <- get_characters(nexml)
+tree <- get_trees(nexml)
+```
+
+(Note that `get_characters` would return both discrete and continuous characters together in the same data.frame, but we use `get_characters_list` to get separate data.frames for the continuous `characters` block and the discrete `characters` block).  
+
+We can then fire up `geiger` and fit, say, a Brownian motion model the continuous data and a Markov transition matrix to the discrete states:  
+
+```{r}
+library(geiger)
+fitContinuous(tree, traits[1], ncores=1)
+fitDiscrete(tree, traits[2], ncores=1)
+```
+
+
+
+
+```{r include=FALSE}
+unlink("example.xml")
+unlink("meta_example.xml")
+unlink("test.xml")
+```
