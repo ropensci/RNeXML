@@ -13,3 +13,4 @@ tests/testthat/Rplots.pdf
 tests/testthat/tmp.xml
 tests/testthat/ex.tre
 tests/testthat/ex.xml
+.DS_Store

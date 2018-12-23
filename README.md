@@ -1,6 +1,8 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+# RNeXML <img src="man/figures/logo.svg" align="right" alt="" width="120" />
+
 [![DOI](https://zenodo.org/badge/11856817.svg)](https://zenodo.org/badge/latestdoi/11856817)
 [![Build
 Status](https://api.travis-ci.org/ropensci/RNeXML.png)](https://travis-ci.org/ropensci/RNeXML)
@@ -10,8 +12,6 @@ status](https://ci.appveyor.com/api/projects/status/dhiwp5blx2ns2yba/branch/mast
 status](https://www.r-pkg.org/badges/version/RNeXML)](https://cran.r-project.org/package=RNeXML)
 [![codecov.io](https://codecov.io/github/ropensci/RNeXML/coverage.svg?branch=master)](https://codecov.io/github/ropensci/RNeXML?branch=master)
 ![downloads](http://cranlogs.r-pkg.org/badges/grand-total/RNeXML)
-
-# RNeXML: The next-generation phylogenetics format comes to R
 
   - Maintainer: Carl Boettiger
   - Authors: Carl Boettiger, Scott Chamberlain, Hilmar Lapp, Kseniia
