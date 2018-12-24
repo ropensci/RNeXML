@@ -22,4 +22,4 @@ cran-comments.md
 ^RNeXML_.*\.tar\.gz$
 cache
 .circleci
-
+pkgdown
