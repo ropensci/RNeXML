@@ -14,7 +14,7 @@ taxize_nexml(nexml, type = c("ncbi", "itis", "col", "tpl", "gbif", "wd"),
 
 \item{warnings}{should we show warning messages if no match can be found?}
 
-\item{...}{additional arguments to \code{[taxald::get_ids()]}}
+\item{...}{additional arguments to \code{[taxadb::get_ids()]}}
 }
 \description{
 Check taxonomic names against the specified service and

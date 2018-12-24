@@ -7,7 +7,7 @@
 #' @param nexml a nexml object
 #' @param type the name of the identifier to use
 #' @param warnings should we show warning messages if no match can be found?
-#' @param ... additional arguments to `[taxald::get_ids()]`
+#' @param ... additional arguments to `[taxadb::get_ids()]`
 #' @export 
 #' @examples \dontrun{
 #' data(bird.orders)
@@ -22,11 +22,11 @@ taxize_nexml <- function(nexml,
                          ...){
   
   ## Soft dependency on taxize
-  if (!requireNamespace("taxald", quietly = TRUE)) {
-    stop("taxald package required to convert look up taxonomic ids",
+  if (!requireNamespace("taxadb", quietly = TRUE)) {
+    stop("taxadb package required to convert look up taxonomic ids",
          call. = FALSE)
   }
-  get_ids <- getExportedValue("taxald", "get_ids")
+  get_ids <- getExportedValue("taxadb", "get_ids")
   
   type <- tolower(type)
   type <- match.arg(type)
