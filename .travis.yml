@@ -18,6 +18,7 @@ addons:
     - libjq-dev
     - libdb-dev
     - libxslt-dev
+    - libmagick++-dev
 after_success:
 - Rscript -e 'covr::codecov()'
 env:
