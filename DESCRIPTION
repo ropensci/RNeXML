@@ -29,7 +29,7 @@ Suggests:
     rlang,
     xslt,
     covr,
-    taxald
+    taxadb
 Depends:
     R (>= 3.0.0),
     ape (>= 3.1),
