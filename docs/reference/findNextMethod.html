@@ -8,20 +8,25 @@
 
 <title>Finds the method that callNextMethod() should chain to — findNextMethod • RNeXML</title>
 
-<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico">
-
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 <!-- jquery -->
-<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha384-nrOSfDHtoPMzJHjVTdCopGqIqeYETSXhZDFyniQ8ZHcVy08QesyHcnOUpMpqnmWq" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
-<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.7.1/clipboard.min.js" integrity="sha384-cV+rhyOuRHc9Ub/91rihWcGmMmCXDeksTtCihMupQHSsi8GIIRDG0ThDc3HGQFJ3" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
 <!-- sticky kit -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
@@ -42,12 +47,15 @@ object). Hence, in theory one shouldn't ever need this, but unfortunately
 addNextMethod() is broken (and errors out) if one of the classes in the
 signature name-clashes with an S4 class defined in another package that is
 loaded." />
+
+<meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
 
 
 
 <!-- mathjax -->
-<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-AMS-MML_HTMLorMML'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script>
 
 <!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -71,7 +79,7 @@ loaded." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RNeXML</a>
-        <span class="label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
       </span>
     </div>
 
@@ -142,9 +150,9 @@ loaded." />
     <div class="ref-description">
     
     <p>Attempts to find the "next" method in the inheritance chain. This would
-(ideally) be the method that <code><a href='http://www.rdocumentation.org/packages/methods/topics/NextMethod'>methods::callNextMethod()</a></code> would chain to,
-as a result of the method <code><a href='http://www.rdocumentation.org/packages/methods/topics/RMethodUtils'>methods::addNextMethod()</a></code> would find (and return
-in the <code>nextMethod</code> slot of the <a href='http://www.rdocumentation.org/packages/methods/topics/MethodWithNext-class'>MethodWithNext</a>
+(ideally) be the method that <code><a href='https://www.rdocumentation.org/packages/methods/topics/NextMethod'>methods::callNextMethod()</a></code> would chain to,
+as a result of the method <code><a href='https://www.rdocumentation.org/packages/methods/topics/RMethodUtils'>methods::addNextMethod()</a></code> would find (and return
+in the <code>nextMethod</code> slot of the <a href='https://www.rdocumentation.org/packages/methods/topics/MethodWithNext-class'>MethodWithNext</a>
 object). Hence, in theory one shouldn't ever need this, but unfortunately
 <code>addNextMethod()</code> is broken (and errors out) if one of the classes in the
 signature name-clashes with an S4 class defined in another package that is
@@ -152,19 +160,19 @@ loaded.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>findNextMethod</span>(<span class='no'>method</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'>topenv</span>())</pre>
+    <pre class="usage"><span class='fu'>findNextMethod</span>(<span class='no'>method</span>, <span class='kw'>f</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>envir</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/ns-topenv'>topenv</a></span>())</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>method</th>
-      <td><p><a href='http://www.rdocumentation.org/packages/methods/topics/MethodDefinition-class'>MethodDefinition</a>), the method for which to find
+      <td><p><a href='https://www.rdocumentation.org/packages/methods/topics/MethodDefinition-class'>MethodDefinition</a>), the method for which to find
 the next method</p></td>
     </tr>
     <tr>
       <th>f</th>
-      <td><p><a href='http://www.rdocumentation.org/packages/methods/topics/RMethodUtils'>standardGeneric</a>, the standard generic for which to find
+      <td><p><a href='https://www.rdocumentation.org/packages/methods/topics/RMethodUtils'>standardGeneric</a>, the standard generic for which to find
 the next method. By default this will be obtained from <code>method</code>.</p></td>
     </tr>
     <tr>
@@ -175,7 +183,7 @@ the next method. By default this will be obtained from <code>method</code>.</p><
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>a <a href='http://www.rdocumentation.org/packages/methods/topics/MethodDefinition-class'>MethodDefinition</a> object that is the next method in the
+    <p>a <a href='https://www.rdocumentation.org/packages/methods/topics/MethodDefinition-class'>MethodDefinition</a> object that is the next method in the
 chain by inheritance</p>
     
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
@@ -185,12 +193,12 @@ this function will walk only the inheritance chain of those arguments in
 the signature that are defined in the package of the generic method from
 which this function was invoked (directly or indirectly). If there are
 no such parameters in the signature, or if there is more than one,
-finding the next method is handed off to <code><a href='http://www.rdocumentation.org/packages/methods/topics/RMethodUtils'>methods::addNextMethod()</a></code>.</p>
+finding the next method is handed off to <code><a href='https://www.rdocumentation.org/packages/methods/topics/RMethodUtils'>methods::addNextMethod()</a></code>.</p>
     
     <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
 
     <p>In theory a class name clash between packages shouldn't be a problem
-because class names can be namespaced, and the <a href='http://www.rdocumentation.org/packages/methods/topics/MethodDefinition-class'>MethodDefinition</a>
+because class names can be namespaced, and the <a href='https://www.rdocumentation.org/packages/methods/topics/MethodDefinition-class'>MethodDefinition</a>
 object passed to <code>addNextMethod()</code> has all the necessary namespace
 information. Hopefully, at some point this gets fixed in R, and then we
 don't need this anymore.</p>
@@ -218,9 +226,8 @@ don't need this anymore.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="http://pkgdown.r-lib.org/">pkgdown</a>.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.9000.</p>
 </div>
-
       </footer>
    </div>
 
