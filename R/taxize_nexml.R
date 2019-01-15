@@ -35,7 +35,8 @@ taxize_nexml <- function(nexml,
     
     # Resolve all ids at once
     labels <- unname(vapply(nexml@otus[[j]]@otu, slot, character(1L), "label"))
-    taxa_ids <- get_ids(labels, type, format = "uri", ...)
+    clean_labels <- gsub("_", " ", labels)
+    taxa_ids <- get_ids(clean_labels, type, format = "uri", ...)
     
     for(i in 1:length(taxa_ids)){
       id <- taxa_ids[[i]]
