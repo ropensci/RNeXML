@@ -6,6 +6,21 @@ For more fine-grained list of changes or to report a bug, consult
 * [The issues log](https://github.com/ropensci/RNeXML/issues)
 * [The commit log](https://github.com/ropensci/RNeXML/commits/master)
 
+v2.3.0
+-------
+
+
+This release addresses several aspecits improving the handling of metadata:
+
+- `add_meta()` now works for trees and characters (#213, PR #217)
+- Handles nested meta elements properly (#196, PR #197)
+
+Misc fixes:
+
+- enable handling of `rootEdge` (#207, PR #218)
+- Replaces taxize backend with faster alternative taxadb method. (#224, PR #226)
+- add hex
+
 v2.2.0
 ------
 
@@ -26,7 +41,7 @@ v2.1.2
 
 - Fix failing checks on CRAN that require a network connection
 
-v2.1.1
+v2.1.1 
 ------
 
 - avoid rdf-based tests on solaris architecture, where suggested
