@@ -10,7 +10,7 @@ v2.3.0
 -------
 
 
-This release addresses several aspecits improving the handling of metadata:
+This release addresses several aspects improving the handling of metadata:
 
 - `add_meta()` now works for trees and characters (#213, PR #217)
 - Handles nested meta elements properly (#196, PR #197)
@@ -29,7 +29,7 @@ v2.2.0
   characters, including obtaining a character matrix (#174), ensuring
   proper column types (#188), and serializing to NeXML (#192).
 - Adds the optional ability to, in addition to the character matrix,
-  obtain a concordantly formatted matrix of state types (standard,
+  obtain a concordant formatted matrix of state types (standard,
   polymorphic, uncertain).
 - Fixes loss of certain literal-valued metadata when serializing to
   NeXML. #193
@@ -86,7 +86,7 @@ v2.0.5  2015-12-31
 v2.0.4 2015-10-14
 -------
 
-- Fix compatibilty issue with recent phytools release.
+- Fix compatibility issue with recent phytools release.
 
 v2.0.3 2015-05-27
 ------
@@ -102,7 +102,7 @@ v2.0.2 2015-05-01
 	with simmap data as the use case, and documentation on the 
 	central S4 data structure used in the package.
 - Implements the use of Title Case in the package title, as
-  requested (on several occassions) by the CRAN maintainers.
+  requested (on several occasions) by the CRAN maintainers.
 
 
 v2.0.1 2014-12-26
