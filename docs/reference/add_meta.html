@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RNeXML</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0</span>
       </span>
     </div>
 
@@ -202,7 +202,8 @@
 <span class='no'>history</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='meta.html'>meta</a></span>(<span class='kw'>property</span> <span class='kw'>=</span> <span class='st'>"skos:historyNote"</span>,
                  <span class='kw'>content</span> <span class='kw'>=</span> <span class='st'>"Mapped from the bird.orders data in the ape package using RNeXML"</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/data'>data</a></span>(<span class='no'>bird.orders</span>)
-<span class='no'>nex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_trees.html'>add_trees</a></span>(<span class='no'>bird.orders</span>) <span class='co'># need to have created a trees block first</span></div><div class='output co'>#&gt; <span class='message'>Found more than one class "tree" in cache; using the first, from namespace 'cli'</span></div><div class='output co'>#&gt; <span class='message'>Also defined by ‘RNeXML’</span></div><div class='input'><span class='no'>nex</span> <span class='kw'>&lt;-</span> <span class='fu'>add_meta</span>(<span class='no'>history</span>,
+<span class='no'>nex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='add_trees.html'>add_trees</a></span>(<span class='no'>bird.orders</span>) <span class='co'># need to have created a trees block first</span>
+<span class='no'>nex</span> <span class='kw'>&lt;-</span> <span class='fu'>add_meta</span>(<span class='no'>history</span>,
                 <span class='kw'>nexml</span> <span class='kw'>=</span> <span class='no'>nex</span>,
                 <span class='kw'>level</span> <span class='kw'>=</span> <span class='st'>"trees"</span>,
                 <span class='kw'>namespaces</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='kw'>skos</span> <span class='kw'>=</span> <span class='st'>"http://www.w3.org/2004/02/skos/core#"</span>))</div></pre>
