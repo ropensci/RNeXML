@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">RNeXML</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.2.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.3.0</span>
       </span>
     </div>
 
@@ -170,7 +170,8 @@ for compatibility with geiger and similar packages.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='no'>comp_analysis</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/system.file'>system.file</a></span>(<span class='st'>"examples"</span>, <span class='st'>"comp_analysis.xml"</span>, <span class='kw'>package</span><span class='kw'>=</span><span class='st'>"RNeXML"</span>)
-<span class='no'>nex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='nexml_read.html'>nexml_read</a></span>(<span class='no'>comp_analysis</span>)</div><div class='output co'>#&gt; <span class='message'>Found more than one class "tree" in cache; using the first, from namespace 'cli'</span></div><div class='output co'>#&gt; <span class='message'>Also defined by ‘RNeXML’</span></div><div class='input'><span class='fu'>get_characters_list</span>(<span class='no'>nex</span>)</div><div class='output co'>#&gt; $cs15
+<span class='no'>nex</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='nexml_read.html'>nexml_read</a></span>(<span class='no'>comp_analysis</span>)
+<span class='fu'>get_characters_list</span>(<span class='no'>nex</span>)</div><div class='output co'>#&gt; $cs15
 #&gt;            NA log snout-vent length
 #&gt; taxon_8  ou10            -3.2777799
 #&gt; taxon_9  ou11             2.0959433

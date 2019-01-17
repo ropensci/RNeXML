@@ -39,7 +39,7 @@ RNeXML has been published in the following article:
 > **7**, pp. 352-357.
 > [doi:10.1111/2041-210X.12469](http://doi.org/10.1111/2041-210X.12469)
 
-Although the published version of the article is paywalled, the source
+Although the published version of the article is pay-walled, the source
 of the manuscript, and a much better rendered PDF, are included in this
 package (in the `manuscripts` folder). You can also find it [freely
 available on arXiv](http://arxiv.org/abs/1506.02722).
