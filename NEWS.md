@@ -18,7 +18,8 @@ This release addresses several aspects improving the handling of metadata:
 Misc fixes:
 
 - enable handling of `rootEdge` (#207, PR #218)
-- Replaces taxize backend with faster alternative taxadb method. (#224, PR #226)
+- Replaces taxize backend with faster alternative `taxadb` method. (#224, PR #226).
+ This remains only a suggested package and has much lighter dependencies as well.  
 - add hex
 
 v2.2.0
