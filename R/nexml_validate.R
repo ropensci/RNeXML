@@ -1,7 +1,7 @@
-ONLINE_VALIDATOR <- "http://162.13.187.155/nexml/phylows/validator"
-CANONICAL_SCHEMA <- "http://162.13.187.155/nexml/xsd/nexml.xsd"
-#ONLINE_VALIDATOR <- "http://www.nexml.org/nexml/phylows/validator"
-#CANONICAL_SCHEMA <- "http://www.nexml.org/2009/nexml.xsd"
+#ONLINE_VALIDATOR <- "http://162.13.187.155/nexml/phylows/validator"
+#CANONICAL_SCHEMA <- "http://162.13.187.155/nexml/xsd/nexml.xsd"
+ONLINE_VALIDATOR <- "http://www.nexml.org/nexml/phylows/validator"
+CANONICAL_SCHEMA <- "http://www.nexml.org/2009/nexml.xsd"
 
 #' validate nexml using the online validator tool
 #' @param file path to the nexml file to validate
