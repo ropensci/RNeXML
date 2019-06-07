@@ -75,7 +75,8 @@ test_that("we can add characters to a nexml file using a data.frame", {
 
 ## based on bug on 2014-03-12 65ae459523c529452adb699c3d5d118c0a207402 
 test_that("we can add multiple character matrices to a nexml file", {
-          skip_if_not(require(geiger))
+          skip_if_not_installed("geiger")
+          require(geiger)
           data(geospiza)
           data(primates)
           nexml <- add_characters(geospiza$dat)
