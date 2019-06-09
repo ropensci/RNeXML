@@ -99,7 +99,9 @@ get_metadata <- function(nexml, level = "nexml", simplify = TRUE){
 get_metadata_values <- function(nexml, annotated = NULL, props){
   metaList <- get_meta(nexml, annotated = annotated, props = props)
   if (length(metaList) > 0) {
-    sapply(metaList, function(m) if (is(m, "LiteralMeta")) m@content else m@href)
+    sapply(metaList,
+           function(m)
+             if (is(m, "LiteralMeta")) charzero_as_empty(m@content) else m@href)
   } else
     c()
 }

@@ -32,3 +32,18 @@ coalesce_ <- function(...) {
                    template = idvecs[[length(idvecs)]])
   dplyr::coalesce(!!!idvecs)
 }
+
+#' Treats zero-length character vectors as empty strings
+#'
+#' If the argument is a zero-length character vector (character(0)), returns
+#' an empty string (which is a character vector of length 1). Otherwise passes
+#' through the argument.
+#' @param x the object to be tested for zero-length character vector
+#' @return an empty string if `x` is a character vector of length zero, and `x`
+#'   otherwise
+charzero_as_empty <- function(x) {
+  if (is.character(x) && length(x) == 0)
+    ""
+  else
+    x
+}
