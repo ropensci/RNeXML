@@ -108,6 +108,7 @@ setMethod("show", signature("nexml"), function(object){
 #' The [show][methods::show] method uses this summary for pretty-printing a
 #' summary of the NeXML object, but it can be used on its own as well, in
 #' particular for quick inspection of key properties of a NeXML file.
+#' @param object the [nexml][nexml-class] object
 #' @return A list with the following elements:
 #'  - `nblocks` the number of trees, otus, and characters blocks
 #'  - `ncharacters` the number of characters in each characters block
@@ -139,7 +140,7 @@ setMethod("show", signature("nexml"), function(object){
 #'
 #' # pretty-printed summary:
 #' nex # this is the same as show(nex)
-#' @name summary.nexml
+#' @aliases summary.nexml
 #' @export
 setMethod("summary", signature("nexml"), function(object){
   # number of blocks of trees, OTUs, characters
