@@ -248,7 +248,10 @@ setMethod("summary", signature("nexml"), function(object){
   )
   for (elem in names(nmeta)[-1]) {
     if (length(nmeta[[elem]]) > 0) {
-      bltype <- names(nmeta[[elem]])[1]
+      if (elem %in% c("char", "state"))
+        bltype <- "characters"
+      else
+        bltype <- "otus"
       names(nmeta[[elem]]) <- paste0("block.", seq(1, length(slot(object, bltype))))
     } else {
       nmeta[[elem]] <- as.integer(nmeta[[elem]])
