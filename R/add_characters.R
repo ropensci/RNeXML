@@ -275,14 +275,13 @@ format_characters <- function(x){
 # divide a data.frame into a list of data.frames, in which each has only a unique column class
 split_by_class <- function(x){
     col.classes <- sapply(x, class)
-    if(all(sapply(col.classes, identical, col.classes[1])))
-      x <- list(x)
-    else {
+    if (any(col.classes == "numeric")) {
       ## split into numerics and non-numerics 
       cts <- unname(which(col.classes=="numeric"))
       discrete <- unname(which(col.classes!="numeric"))
       x <- list(x[cts], x[discrete])
-    }
+    } else
+      x <- list(x)
 
   x
 }
