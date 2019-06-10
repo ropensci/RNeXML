@@ -65,7 +65,35 @@ test_that("we can parse literal meta nodes with literal node content", {
   out <- get_metadata(nex, level = "nexml")
   matches <- sum(grepl("Phenoscape Knowledgebase", out$content))
   testthat::expect_true(matches > 0)
+
+  # empty literal node content
+  mlist <- get_meta(nex, props = "dc:creator")
+  testthat::expect_is(mlist, "ListOfmeta")
+  testthat::expect_length(mlist, 1)
+  testthat::expect_is(mlist[[1]], "LiteralMeta")
+  testthat::expect_is(mlist[[1]]@content, "character")
+  testthat::expect_length(mlist[[1]]@content, 0)
+  vals <- get_metadata_values(nex, props = "dc:creator")
+  testthat::expect_is(vals, "character")
+  testthat::expect_identical(names(vals), c("dc:creator"))
+  testthat::expect_length(vals, 1)
+  testthat::expect_is(vals[1], "character")
+  testthat::expect_equivalent(vals[1], "")
+  vals <- get_metadata_values(nex, props = c("dc:creator", "dc:description"))
+  testthat::expect_is(vals, "character")
+  testthat::expect_identical(names(vals), c("dc:creator", "dc:description"))
+  testthat::expect_length(vals, 2)
+  testthat::expect_is(vals["dc:creator"], "character")
+  testthat::expect_equivalent(vals["dc:creator"], "")
   
+  # test correct roundtrip
+  doc <- as(add_meta(mlist[[1]]), "XMLInternalNode")
+  nex1 <- as(doc, "nexml")
+  mlist1 <- get_meta(nex1, props = "dc:creator")
+  testthat::expect_is(mlist1, "ListOfmeta")
+  testthat::expect_length(mlist1, 1)
+  testthat::expect_is(mlist1[[1]]@content, "character")
+  testthat::expect_length(mlist1[[1]]@content, 0)
 })
 
 test_that("we can extract all available metadata at a specified level of the DOM", {

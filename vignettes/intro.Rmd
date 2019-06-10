@@ -19,11 +19,25 @@ output: html_vignette
 library(RNeXML)
 ```
 
-Read in a `nexml` file into the `ape::phylo` format:
+Read in a `nexml` file:
 
 ```{r}
 f <- system.file("examples", "comp_analysis.xml", package="RNeXML")
 nexml <- nexml_read(f)
+```
+
+Pretty-print an overview of the components and metadata that make up the nexml object:
+```{r}
+nexml  # this is the same as show(nexml)
+```
+
+Create a summary object of various component and metadata counts (the `show()` method uses this):
+```{r}
+summary(nexml)
+```
+
+Extract trees from nexml into the `ape::phylo` format:
+```{r}
 tr <- get_trees(nexml) # or: as(nexml, "phylo")
 plot(tr)
 ```
