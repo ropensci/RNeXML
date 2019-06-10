@@ -140,6 +140,7 @@ setMethod("show", signature("nexml"), function(object){
 #' # pretty-printed summary:
 #' nex # this is the same as show(nex)
 #' @name summary.nexml
+#' @export
 setMethod("summary", signature("nexml"), function(object){
   # number of blocks of trees, OTUs, characters
   s <- list(
