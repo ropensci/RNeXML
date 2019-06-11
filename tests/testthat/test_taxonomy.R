@@ -18,6 +18,7 @@ chir_super_small <- add_trees(chiroptera_super_small)
 test_that("taxize_nexml correctly collects ncbi identifiers", {
   
   testthat::skip_on_cran()
+  testthat::skip_if_not_installed("taxadb")
   
   birds <- taxize_nexml(birds, "NCBI")
   
@@ -54,6 +55,7 @@ test_that("we can extract taxonomy data from the object", {
 test_that("taxize_nexml throws appropriate warnings", {
   
   testthat::skip_on_cran()
+  testthat::skip_if_not_installed("taxadb")
   
   
   chir1 <- drop.tip(chiroptera, tip = 1:910)
