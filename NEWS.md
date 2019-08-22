@@ -6,6 +6,22 @@ For more fine-grained list of changes or to report a bug, consult
 * [The issues log](https://github.com/ropensci/RNeXML/issues)
 * [The commit log](https://github.com/ropensci/RNeXML/commits/master)
 
+
+v2.4.0
+------
+
+- Makes various tests more robust, and uses symbolic address for nexml.org (#238)
+- Provides a real `summary()` and improved pretty-print (#237)
+- Makes `character(0)` metadata value behave as empty string (#236)
+- Fixes detection of having to split matrix by class (#235)
+- Switch over to Additional_repositories for CRAN (#229)
+- Do not add `ter` namespace by default. (#227)
+- Replace taxize with taxald (#226)
+- Fixes how metadata arguments are passed on to `add_basic_meta()` (#220)
+- Fixes CDAO namespace definition [#219]
+- Enables handling of files with `rootedge` [218]
+
+
 v2.3.0
 -------
 

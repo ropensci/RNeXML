@@ -67,19 +67,19 @@ See the vignettes below for both a general quick start and an overview
 of more specialized features.
 
   - [A Brief Introduction to
-    RNeXML](https://ropensci.github.com/RNeXML/articles/intro)
+    RNeXML](https://docs.ropensci.org/RNeXML/articles/intro)
   - [RNeXML: A Package for Reading and Writing Richly Annotated
     Phylogenetic, Character, and Trait Data in
-    R](https://ropensci.github.com/RNeXML/articles/manuscript.pdf)
+    R](https://docs.ropensci.org/RNeXML/articles/manuscript.pdf)
     (published in MEE).
   - [Handling Metadata in
-    RNeXML](https://ropensci.github.com/RNeXML/articles/metadata)
+    RNeXML](https://docs.ropensci.org/RNeXML/articles/metadata)
   - [The `nexml` S4
-    Object](https://ropensci.github.com/RNeXML/articles/S4)
+    Object](https://docs.ropensci.org/RNeXML/articles/S4)
   - [Semantic data & SPARQL with
-    RNeXML](https://ropensci.github.com/RNeXML/articles/SPARQL)
+    RNeXML](https://docs.ropensci.org/RNeXML/articles/sparql)
   - [Extending NeXML: an example based on
-    simmap](https://ropensci.github.com/RNeXML/articles/simmap)
+    simmap](https://docs.ropensci.org/RNeXML/articles/simmap)
 
 -----
 
