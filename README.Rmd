@@ -70,7 +70,7 @@ Getting Started
 See the vignettes below for both a general quick start and an overview of more specialized features.
 
 - [A Brief Introduction to RNeXML](https://docs.ropensci.org/RNeXML/articles/intro)
-- [RNeXML: A Package for Reading and Writing Richly Annotated Phylogenetic, Character, and Trait Data in R](https://docs.ropensci.org/RNeXML/articles/manuscript.pdf) (published in MEE).
+- [RNeXML: A Package for Reading and Writing Richly Annotated Phylogenetic, Character, and Trait Data in R](https://github.com/ropensci/RNeXML/tree/master/manuscripts) (published in MEE).
 - [Handling Metadata in RNeXML](https://docs.ropensci.org/RNeXML/articles/metadata)
 - [The `nexml` S4 Object](https://docs.ropensci.org/RNeXML/articles/S4)
 - [Semantic data & SPARQL with RNeXML](https://docs.ropensci.org/RNeXML/articles/sparql)

@@ -70,7 +70,7 @@ of more specialized features.
     RNeXML](https://docs.ropensci.org/RNeXML/articles/intro)
   - [RNeXML: A Package for Reading and Writing Richly Annotated
     Phylogenetic, Character, and Trait Data in
-    R](https://docs.ropensci.org/RNeXML/articles/manuscript.pdf)
+    R](https://github.com/ropensci/RNeXML/tree/master/manuscripts)
     (published in MEE).
   - [Handling Metadata in
     RNeXML](https://docs.ropensci.org/RNeXML/articles/metadata)
