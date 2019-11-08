@@ -33,7 +33,8 @@ Write nexml files
 \examples{
  ## Write an ape tree to nexml, analgous to write.nexus:
  library(ape); data(bird.orders)
- write.nexml(bird.orders, file="example.xml")
+ ex <- tempfile(fileext=".xml")
+ write.nexml(bird.orders, file=ex)
 
 \dontrun{ # takes > 5s
  ## Assemble a nexml section by section and then write to file:
@@ -44,14 +45,14 @@ Write nexml files
  nexml <- add_basic_meta(title="my title", creator = "Carl Boettiger", nexml = nexml)
  nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())), nexml = nexml)
 
- write.nexml(nexml, file="example.xml")
+ write.nexml(nexml, file=ex)
 
  ## As above, but in one call (except for add_meta() call).  
  write.nexml(trees = geospiza$phy, 
              characters = geospiza$dat, 
              title = "My title", 
              creator = "Carl Boettiger",
-             file = "example.xml")
+             file = ex)
  
  ## Mix and match: identical to the section by section: 
  nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())))
@@ -60,7 +61,7 @@ Write nexml files
              characters = geospiza$dat, 
              title = "My title", 
              creator = "Carl Boettiger",
-             file = "example.xml")
+             file = ex)
 
 }
 }
