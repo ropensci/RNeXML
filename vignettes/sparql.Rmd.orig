@@ -17,6 +17,7 @@ output: html_vignette
 ```{r supplement-compile-settings, include=FALSE}
 library("methods")
 library("knitr")
+knitr::opts_chunk$set(fig.path="../man/figures/")
 opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE, 
                cache = FALSE, comment = NA, verbose = TRUE, eval = require(rdflib))
 

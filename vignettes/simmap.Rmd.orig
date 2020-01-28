@@ -19,7 +19,7 @@ bibliography: references.bib
 ```{r compile-settings, include=FALSE}
 library("methods")
 library("knitr")
-knitr::opts_chunk$set(fig.path="../man/figures")
+knitr::opts_chunk$set(fig.path="../man/figures/")
 
 opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE, 
                cache = FALSE, comment = NA, verbose = TRUE)
