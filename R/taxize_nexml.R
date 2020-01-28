@@ -21,7 +21,7 @@ taxize_nexml <- function(nexml,
                          warnings = TRUE,
                          ...){
   
-  ## Soft dependency on taxize
+  ## Soft dependency on taxadb
   if (!requireNamespace("taxadb", quietly = TRUE)) {
     stop("taxadb package required to convert look up taxonomic ids",
          call. = FALSE)

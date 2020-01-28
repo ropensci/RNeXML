@@ -4,8 +4,7 @@
 \alias{add_characters}
 \title{Add character data to a nexml object}
 \usage{
-add_characters(x, nexml = new("nexml"),
-  append_to_existing_otus = FALSE)
+add_characters(x, nexml = new("nexml"), append_to_existing_otus = FALSE)
 }
 \arguments{
 \item{x}{character data, in which character traits labels are column names

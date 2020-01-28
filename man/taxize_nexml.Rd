@@ -4,8 +4,12 @@
 \alias{taxize_nexml}
 \title{taxize nexml}
 \usage{
-taxize_nexml(nexml, type = c("ncbi", "itis", "col", "tpl", "gbif", "wd"),
-  warnings = TRUE, ...)
+taxize_nexml(
+  nexml,
+  type = c("ncbi", "itis", "col", "tpl", "gbif", "wd"),
+  warnings = TRUE,
+  ...
+)
 }
 \arguments{
 \item{nexml}{a nexml object}
@@ -14,7 +18,7 @@ taxize_nexml(nexml, type = c("ncbi", "itis", "col", "tpl", "gbif", "wd"),
 
 \item{warnings}{should we show warning messages if no match can be found?}
 
-\item{...}{additional arguments to \code{[taxadb::get_ids()]}}
+\item{...}{additional arguments to \verb{[taxadb::get_ids()]}}
 }
 \description{
 Check taxonomic names against the specified service and

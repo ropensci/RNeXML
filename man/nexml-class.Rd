@@ -20,13 +20,13 @@ functions in the API.
 \section{Slots}{
 
 \describe{
-\item{\code{trees}}{list, corresponding to the list of \code{<trees/>} elements in
+\item{\code{trees}}{list, corresponding to the list of \verb{<trees/>} elements in
 NeXML. Elements will be of class \code{trees}.}
 
-\item{\code{characters}}{list, corresponding to the list of \code{<characters/>}
+\item{\code{characters}}{list, corresponding to the list of \verb{<characters/>}
 elements in NeXML. Elements will be of class \code{characters}.}
 
-\item{\code{otus}}{list, corresponding to the list of \code{<otus/>} elements in NeXML.
+\item{\code{otus}}{list, corresponding to the list of \verb{<otus/>} elements in NeXML.
 Elements will be of class \code{otus}.}
 
 \item{\code{about}}{inherited, see \link[=Annotated-class]{Annotated}}

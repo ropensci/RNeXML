@@ -5,9 +5,12 @@
 \alias{get_item}
 \title{Get the desired element from the nexml object}
 \usage{
-nexml_get(nexml, element = c("trees", "trees_list", "flat_trees",
-  "metadata", "otu", "taxa", "characters", "characters_list",
-  "namespaces"), ...)
+nexml_get(
+  nexml,
+  element = c("trees", "trees_list", "flat_trees", "metadata", "otu", "taxa",
+    "characters", "characters_list", "namespaces"),
+  ...
+)
 }
 \arguments{
 \item{nexml}{a nexml object (from read_nexml)}

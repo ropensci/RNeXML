@@ -4,8 +4,12 @@
 \alias{nexml_add}
 \title{add elements to a new or existing nexml object}
 \usage{
-nexml_add(x, nexml = new("nexml"), type = c("trees", "characters",
-  "meta", "namespaces"), ...)
+nexml_add(
+  x,
+  nexml = new("nexml"),
+  type = c("trees", "characters", "meta", "namespaces"),
+  ...
+)
 }
 \arguments{
 \item{x}{the object to be added}

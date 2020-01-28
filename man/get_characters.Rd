@@ -4,8 +4,13 @@
 \alias{get_characters}
 \title{Get character data.frame from nexml}
 \usage{
-get_characters(nex, rownames_as_col = FALSE, otu_id = FALSE,
-  otus_id = FALSE, include_state_types = FALSE)
+get_characters(
+  nex,
+  rownames_as_col = FALSE,
+  otu_id = FALSE,
+  otus_id = FALSE,
+  include_state_types = FALSE
+)
 }
 \arguments{
 \item{nex}{a nexml object}

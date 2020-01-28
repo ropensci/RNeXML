@@ -32,6 +32,7 @@
 #'  nexml <- add_basic_meta(title="my title", creator = "Carl Boettiger", nexml = nexml)
 #'  nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())), nexml = nexml)
 #'
+#'  ex <- tempfile(fileext=".xml")
 #'  write.nexml(nexml, file=ex)
 #'
 #'  ## As above, but in one call (except for add_meta() call).  

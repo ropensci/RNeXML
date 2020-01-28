@@ -23,7 +23,7 @@ the phy$states names.}
 \value{
 a nexml representation of the simmap
 
-a simmap object (phylo object with a \code{$maps} element
+a simmap object (phylo object with a \verb{$maps} element
 for use in phytools functions).
 }
 \description{

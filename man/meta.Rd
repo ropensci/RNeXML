@@ -5,8 +5,16 @@
 \alias{nexml.meta}
 \title{Constructor function for metadata nodes}
 \usage{
-meta(property = NULL, content = NULL, rel = NULL, href = NULL,
-  datatype = NULL, id = NULL, type = NULL, children = list())
+meta(
+  property = NULL,
+  content = NULL,
+  rel = NULL,
+  href = NULL,
+  datatype = NULL,
+  id = NULL,
+  type = NULL,
+  children = list()
+)
 }
 \arguments{
 \item{property}{specify the ontological definition together with it's namespace, e.g. dc:title}
