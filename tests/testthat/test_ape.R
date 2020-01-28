@@ -89,12 +89,12 @@ test_that("Rooted trees remain rooted on conversions", {
           unlink("tmp.xml")
 })
 
-phy <- unroot(bird.orders)
 test_that("Unrooted trees remain unrooted on conversions", {
   
   ## tests are too slow for CRAN
   skip_on_cran()
   
+  phy <- unroot(bird.orders)
   expect_false(is.rooted(phy))
   expect_false(is.rooted(as(as(phy, "nexml"), "phylo")))
   write.nexml(phy, file = "tmp.xml")
