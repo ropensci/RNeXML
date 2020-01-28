@@ -160,7 +160,7 @@ tree <- get_trees(nexml)
 
 We can then fire up `geiger` and fit, say, a Brownian motion model the continuous data and a Markov transition matrix to the discrete states:  
 
-```{r}
+```r
 library(geiger)
 fitContinuous(tree, traits[1], ncores=1)
 fitDiscrete(tree, traits[2], ncores=1)

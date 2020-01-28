@@ -1,28 +1,25 @@
 {
-  "@context": [
-    "https://doi.org/doi:10.5063/schema/codemeta-2.0",
-    "http://schema.org"
-  ],
+  "@context": ["https://doi.org/10.5063/schema/codemeta-2.0", "http://schema.org"],
   "@type": "SoftwareSourceCode",
-  "@id": "https://doi.org/10.5281/zenodo.606631",
   "identifier": "RNeXML",
   "description": "Provides access to phyloinformatic data in 'NeXML' format.  The\n    package should add new functionality to R such as the possibility to\n    manipulate 'NeXML' objects in more various and refined way and compatibility\n    with 'ape' objects.",
   "name": "RNeXML: Semantically Rich I/O for the 'NeXML' Format",
   "codeRepository": "https://github.com/ropensci/RNeXML",
+  "relatedLink": ["https://docs.ropensci.org/RNeXML", "https://CRAN.R-project.org/package=RNeXML"],
   "issueTracker": "https://github.com/ropensci/RNeXML/issues",
   "license": "https://spdx.org/licenses/BSD-3-Clause",
-  "version": "2.1.1",
+  "version": "2.4.1",
   "programmingLanguage": {
     "@type": "ComputerLanguage",
     "name": "R",
-    "version": "3.5.0",
+    "version": "3.6.2",
     "url": "https://r-project.org"
   },
-  "runtimePlatform": "R version 3.5.0 (2018-04-23)",
+  "runtimePlatform": "R version 3.6.2 (2019-12-12)",
   "provider": {
     "@id": "https://cran.r-project.org",
     "@type": "Organization",
-    "name": "Central R Archive Network (CRAN)",
+    "name": "Comprehensive R Archive Network (CRAN)",
     "url": "https://cran.r-project.org"
   },
   "author": [
@@ -57,6 +54,9 @@
       "@id": "https://orcid.org/0000-0001-9254-7318"
     }
   ],
+  "contributor": {},
+  "copyrightHolder": {},
+  "funder": {},
   "maintainer": [
     {
       "@type": "Person",
@@ -67,6 +67,18 @@
     }
   ],
   "softwareSuggestions": [
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "spelling",
+      "name": "spelling",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=spelling"
+    },
     {
       "@type": "SoftwareApplication",
       "identifier": "rdflib",
@@ -159,19 +171,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "phylobase",
-      "name": "phylobase",
-      "version": ">= 0.6.8",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=phylobase"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "rmarkdown",
       "name": "rmarkdown",
       "version": ">= 0.3.3",
@@ -182,6 +181,18 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=rmarkdown"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "rlang",
+      "name": "rlang",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=rlang"
     },
     {
       "@type": "SoftwareApplication",
@@ -197,19 +208,6 @@
     },
     {
       "@type": "SoftwareApplication",
-      "identifier": "taxize",
-      "name": "taxize",
-      "version": ">= 0.2.2",
-      "provider": {
-        "@id": "https://cran.r-project.org",
-        "@type": "Organization",
-        "name": "Comprehensive R Archive Network (CRAN)",
-        "url": "https://cran.r-project.org"
-      },
-      "sameAs": "https://CRAN.R-project.org/package=taxize"
-    },
-    {
-      "@type": "SoftwareApplication",
       "identifier": "covr",
       "name": "covr",
       "provider": {
@@ -219,6 +217,11 @@
         "url": "https://cran.r-project.org"
       },
       "sameAs": "https://CRAN.R-project.org/package=covr"
+    },
+    {
+      "@type": "SoftwareApplication",
+      "identifier": "taxadb",
+      "name": "taxadb"
     }
   ],
   "softwareRequirements": [
@@ -366,6 +369,18 @@
     },
     {
       "@type": "SoftwareApplication",
+      "identifier": "stringi",
+      "name": "stringi",
+      "provider": {
+        "@id": "https://cran.r-project.org",
+        "@type": "Organization",
+        "name": "Comprehensive R Archive Network (CRAN)",
+        "url": "https://cran.r-project.org"
+      },
+      "sameAs": "https://CRAN.R-project.org/package=stringi"
+    },
+    {
+      "@type": "SoftwareApplication",
       "identifier": "xml2",
       "name": "xml2",
       "provider": {
@@ -379,11 +394,11 @@
   ],
   "applicationCategory": "DataPublication",
   "isPartOf": "https://ropensci.org",
-  "keywords": ["metadata", "nexml", "phylogenetics", "linked-data"],
-  "contIntegration": "https://travis-ci.org/ropensci/RNeXML",
+  "keywords": ["metadata", "nexml", "phylogenetics", "linked-data", "r", "rstats", "r-package"],
   "releaseNotes": "https://github.com/ropensci/RNeXML/blob/master/NEWS.md",
   "readme": "https://github.com/ropensci/RNeXML/blob/master/README.md",
-  "fileSize": "217.622KB",
+  "fileSize": "303.304KB",
+  "contIntegration": ["https://travis-ci.org/ropensci/RNeXML", "https://ci.appveyor.com/project/cboettig/rnexml/branch/master", "https://codecov.io/github/ropensci/RNeXML?branch=master"],
   "citation": [
     {
       "@type": "ScholarlyArticle",

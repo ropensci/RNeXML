@@ -7,6 +7,11 @@ For more fine-grained list of changes or to report a bug, consult
 * [The commit log](https://github.com/ropensci/RNeXML/commits/master)
 
 
+v2.4.1
+------
+
+- This update fixes a minor bug in a unit test which was introduced by a recent change to the geiger package.
+
 v2.4.0
 ------
 
