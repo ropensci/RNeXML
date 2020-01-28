@@ -1,5 +1,4 @@
 language: R
-dist: trusty
 cache: packages
 latex: false
 matrix:
