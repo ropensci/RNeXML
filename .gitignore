@@ -1,7 +1,6 @@
 manuscripts/components/cache
 manuscripts/components/figure
 vignettes/cache
-vignettes/figure
 .Rproj.user
 */*.Rhistory
 .Rhistory
