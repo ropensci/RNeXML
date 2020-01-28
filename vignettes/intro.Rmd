@@ -158,30 +158,30 @@ get_taxa(birds)
 ```
 
 ```
-##     otu            label xsi.type otus
-## 1   ou1 Struthioniformes       NA  os1
-## 2   ou2     Tinamiformes       NA  os1
-## 3   ou3      Craciformes       NA  os1
-## 4   ou4      Galliformes       NA  os1
-## 5   ou5     Anseriformes       NA  os1
-## 6   ou6    Turniciformes       NA  os1
-## 7   ou7       Piciformes       NA  os1
-## 8   ou8    Galbuliformes       NA  os1
-## 9   ou9   Bucerotiformes       NA  os1
-## 10 ou10      Upupiformes       NA  os1
-## 11 ou11    Trogoniformes       NA  os1
-## 12 ou12    Coraciiformes       NA  os1
-## 13 ou13      Coliiformes       NA  os1
-## 14 ou14     Cuculiformes       NA  os1
-## 15 ou15   Psittaciformes       NA  os1
-## 16 ou16      Apodiformes       NA  os1
-## 17 ou17   Trochiliformes       NA  os1
-## 18 ou18  Musophagiformes       NA  os1
-## 19 ou19     Strigiformes       NA  os1
-## 20 ou20    Columbiformes       NA  os1
-## 21 ou21       Gruiformes       NA  os1
-## 22 ou22    Ciconiiformes       NA  os1
-## 23 ou23    Passeriformes       NA  os1
+##      otu            label xsi.type otus
+## 1  ou618 Struthioniformes       NA os10
+## 2  ou619     Tinamiformes       NA os10
+## 3  ou620      Craciformes       NA os10
+## 4  ou621      Galliformes       NA os10
+## 5  ou622     Anseriformes       NA os10
+## 6  ou623    Turniciformes       NA os10
+## 7  ou624       Piciformes       NA os10
+## 8  ou625    Galbuliformes       NA os10
+## 9  ou626   Bucerotiformes       NA os10
+## 10 ou627      Upupiformes       NA os10
+## 11 ou628    Trogoniformes       NA os10
+## 12 ou629    Coraciiformes       NA os10
+## 13 ou630      Coliiformes       NA os10
+## 14 ou631     Cuculiformes       NA os10
+## 15 ou632   Psittaciformes       NA os10
+## 16 ou633      Apodiformes       NA os10
+## 17 ou634   Trochiliformes       NA os10
+## 18 ou635  Musophagiformes       NA os10
+## 19 ou636     Strigiformes       NA os10
+## 20 ou637    Columbiformes       NA os10
+## 21 ou638       Gruiformes       NA os10
+## 22 ou639    Ciconiiformes       NA os10
+## 23 ou640    Passeriformes       NA os10
 ```
 
 ```r
@@ -190,9 +190,9 @@ get_metadata(birds)
 
 ```
 ##           property   datatype                 content     xsi.type                                              href Meta
-## 1       dc:creator xsd:string          Carl Boettiger  LiteralMeta                                              <NA>   m1
-## 2 dcterms:modified xsd:string 2020-01-28 21:39:18 GMT  LiteralMeta                                              <NA>   m2
-## 3       cc:license       <NA>                    <NA> ResourceMeta http://creativecommons.org/publicdomain/zero/1.0/   m3
+## 1       dc:creator xsd:string          Carl Boettiger  LiteralMeta                                              <NA> m795
+## 2 dcterms:modified xsd:string 2020-01-28 21:47:09 GMT  LiteralMeta                                              <NA> m796
+## 3       cc:license       <NA>                    <NA> ResourceMeta http://creativecommons.org/publicdomain/zero/1.0/ m797
 ```
 
 --------------------------------------------

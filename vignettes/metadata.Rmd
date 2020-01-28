@@ -247,24 +247,24 @@ meta
 17                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        K. Schliep
 18                                                                                                                                                                                                                                                                                                                                                                                                                                                                 Paradis E, Schliep K (2018). "ape 5.0: an environment for modern phylogenetics and evolutionary analyses in R."\n_Bioinformatics_, *35*, 526-528.
        xsi.type                                              href Meta meta
-1   LiteralMeta                                              <NA> m293 <NA>
-2   LiteralMeta                                              <NA> m294 <NA>
-3   LiteralMeta                                              <NA> m295 <NA>
-4  ResourceMeta http://creativecommons.org/publicdomain/zero/1.0/ m296 <NA>
-5   LiteralMeta                                              <NA> m297 <NA>
-6   LiteralMeta                                              <NA> m298 <NA>
-7  ResourceMeta                                              <NA> m309 <NA>
-8   LiteralMeta                                              <NA> m310 <NA>
-9   LiteralMeta                                              <NA> <NA> m309
-10  LiteralMeta                                              <NA> <NA> m309
-11  LiteralMeta                                              <NA> <NA> m309
-12  LiteralMeta                                              <NA> <NA> m309
-13  LiteralMeta                                              <NA> <NA> m309
-14  LiteralMeta                                              <NA> <NA> m309
-15  LiteralMeta                                              <NA> <NA> m309
-16  LiteralMeta                                              <NA> <NA> m309
-17  LiteralMeta                                              <NA> <NA> m309
-18  LiteralMeta                                              <NA> <NA> m309
+1   LiteralMeta                                              <NA> m544 <NA>
+2   LiteralMeta                                              <NA> m545 <NA>
+3   LiteralMeta                                              <NA> m546 <NA>
+4  ResourceMeta http://creativecommons.org/publicdomain/zero/1.0/ m547 <NA>
+5   LiteralMeta                                              <NA> m548 <NA>
+6   LiteralMeta                                              <NA> m549 <NA>
+7  ResourceMeta                                              <NA> m560 <NA>
+8   LiteralMeta                                              <NA> m561 <NA>
+9   LiteralMeta                                              <NA> <NA> m560
+10  LiteralMeta                                              <NA> <NA> m560
+11  LiteralMeta                                              <NA> <NA> m560
+12  LiteralMeta                                              <NA> <NA> m560
+13  LiteralMeta                                              <NA> <NA> m560
+14  LiteralMeta                                              <NA> <NA> m560
+15  LiteralMeta                                              <NA> <NA> m560
+16  LiteralMeta                                              <NA> <NA> m560
+17  LiteralMeta                                              <NA> <NA> m560
+18  LiteralMeta                                              <NA> <NA> m560
 ```
 
 We can also access a table of taxonomic metadata:
@@ -277,29 +277,29 @@ get_taxa(birds)
 
 ```
      otu            label xsi.type otus
-1  ou106 Struthioniformes       NA  os6
-2  ou107     Tinamiformes       NA  os6
-3  ou108      Craciformes       NA  os6
-4  ou109      Galliformes       NA  os6
-5  ou110     Anseriformes       NA  os6
-6  ou111    Turniciformes       NA  os6
-7  ou112       Piciformes       NA  os6
-8  ou113    Galbuliformes       NA  os6
-9  ou114   Bucerotiformes       NA  os6
-10 ou115      Upupiformes       NA  os6
-11 ou116    Trogoniformes       NA  os6
-12 ou117    Coraciiformes       NA  os6
-13 ou118      Coliiformes       NA  os6
-14 ou119     Cuculiformes       NA  os6
-15 ou120   Psittaciformes       NA  os6
-16 ou121      Apodiformes       NA  os6
-17 ou122   Trochiliformes       NA  os6
-18 ou123  Musophagiformes       NA  os6
-19 ou124     Strigiformes       NA  os6
-20 ou125    Columbiformes       NA  os6
-21 ou126       Gruiformes       NA  os6
-22 ou127    Ciconiiformes       NA  os6
-23 ou128    Passeriformes       NA  os6
+1  ou362 Struthioniformes       NA  os8
+2  ou363     Tinamiformes       NA  os8
+3  ou364      Craciformes       NA  os8
+4  ou365      Galliformes       NA  os8
+5  ou366     Anseriformes       NA  os8
+6  ou367    Turniciformes       NA  os8
+7  ou368       Piciformes       NA  os8
+8  ou369    Galbuliformes       NA  os8
+9  ou370   Bucerotiformes       NA  os8
+10 ou371      Upupiformes       NA  os8
+11 ou372    Trogoniformes       NA  os8
+12 ou373    Coraciiformes       NA  os8
+13 ou374      Coliiformes       NA  os8
+14 ou375     Cuculiformes       NA  os8
+15 ou376   Psittaciformes       NA  os8
+16 ou377      Apodiformes       NA  os8
+17 ou378   Trochiliformes       NA  os8
+18 ou379  Musophagiformes       NA  os8
+19 ou380     Strigiformes       NA  os8
+20 ou381    Columbiformes       NA  os8
+21 ou382       Gruiformes       NA  os8
+22 ou383    Ciconiiformes       NA  os8
+23 ou384    Passeriformes       NA  os8
 ```
 
 Which returns text from the otu element labels, typically used to define
@@ -365,339 +365,339 @@ otu_meta
 
 ```
       property                                                                                  href     xsi.type   otu otus
-1   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572992 ResourceMeta ou129  os7
-2   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572857 ResourceMeta ou130  os7
-3   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572935 ResourceMeta ou131  os7
-4   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572936 ResourceMeta ou132  os7
-5   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=945168 ResourceMeta ou133  os7
-6   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=945164 ResourceMeta ou134  os7
-7   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572939 ResourceMeta ou135  os7
-8   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572940 ResourceMeta ou136  os7
-9   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572941 ResourceMeta ou137  os7
-10  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572942 ResourceMeta ou138  os7
-11  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944172 ResourceMeta ou139  os7
-12  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572944 ResourceMeta ou140  os7
-13  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572949 ResourceMeta ou141  os7
-14  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=945149 ResourceMeta ou142  os7
-15  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572949 ResourceMeta ou143  os7
-16  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572947 ResourceMeta ou144  os7
-17  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572945 ResourceMeta ou145  os7
-18  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572946 ResourceMeta ou146  os7
-19  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572951 ResourceMeta ou147  os7
-20  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572952 ResourceMeta ou148  os7
-21  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572887 ResourceMeta ou149  os7
-22  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572888 ResourceMeta ou150  os7
-23  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572954 ResourceMeta ou151  os7
-24  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572955 ResourceMeta ou152  os7
-25  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572957 ResourceMeta ou153  os7
-26  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572958 ResourceMeta ou154  os7
-27  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572956 ResourceMeta ou155  os7
-28  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572953 ResourceMeta ou156  os7
-29  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572881 ResourceMeta ou157  os7
-30  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572959 ResourceMeta ou158  os7
-31  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572983 ResourceMeta ou159  os7
-32  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572984 ResourceMeta ou160  os7
-33  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025131 ResourceMeta ou161  os7
-34  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025134 ResourceMeta ou162  os7
-35  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025122 ResourceMeta ou163  os7
-36  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025127 ResourceMeta ou164  os7
-37  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025112 ResourceMeta ou165  os7
-38  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025134 ResourceMeta ou166  os7
-39  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025125 ResourceMeta ou167  os7
-40  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025116 ResourceMeta ou168  os7
-41  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025119 ResourceMeta ou169  os7
-42  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025114 ResourceMeta ou170  os7
-43  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025115 ResourceMeta ou171  os7
-44  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572962 ResourceMeta ou172  os7
-45  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025106 ResourceMeta ou173  os7
-46  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572909 ResourceMeta ou174  os7
-47  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944125 ResourceMeta ou175  os7
-48  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572911 ResourceMeta ou176  os7
-49  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572912 ResourceMeta ou177  os7
-50  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572913 ResourceMeta ou178  os7
-51  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944138 ResourceMeta ou179  os7
-52  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572915 ResourceMeta ou180  os7
-53  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572916 ResourceMeta ou181  os7
-54  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572918 ResourceMeta ou182  os7
-55  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944123 ResourceMeta ou183  os7
-56  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572975 ResourceMeta ou184  os7
-57  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944156 ResourceMeta ou185  os7
-58  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572977 ResourceMeta ou186  os7
-59  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572978 ResourceMeta ou187  os7
-60  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572993 ResourceMeta ou188  os7
-61  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572994 ResourceMeta ou189  os7
-62  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572995 ResourceMeta ou190  os7
-63  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572996 ResourceMeta ou191  os7
-64  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572997 ResourceMeta ou192  os7
-65  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572998 ResourceMeta ou193  os7
-66  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572999 ResourceMeta ou194  os7
-67  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573000 ResourceMeta ou195  os7
-68  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573001 ResourceMeta ou196  os7
-69  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573002 ResourceMeta ou197  os7
-70  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573003 ResourceMeta ou198  os7
-71  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944219 ResourceMeta ou199  os7
-72  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573005 ResourceMeta ou200  os7
-73  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573006 ResourceMeta ou201  os7
-74  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573007 ResourceMeta ou202  os7
-75  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573008 ResourceMeta ou203  os7
-76  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573009 ResourceMeta ou204  os7
-77  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573010 ResourceMeta ou205  os7
-78  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=945227 ResourceMeta ou206  os7
-79  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573014 ResourceMeta ou207  os7
-80  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944221 ResourceMeta ou208  os7
-81  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573011 ResourceMeta ou209  os7
-82  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572858 ResourceMeta ou210  os7
-83  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572859 ResourceMeta ou211  os7
-84  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572985 ResourceMeta ou212  os7
-85  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572986 ResourceMeta ou213  os7
-86  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=552515 ResourceMeta ou214  os7
-87  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573035 ResourceMeta ou215  os7
-88  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573036 ResourceMeta ou216  os7
-89  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573037 ResourceMeta ou217  os7
-90  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573038 ResourceMeta ou218  os7
-91  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572886 ResourceMeta ou219  os7
-92  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573015 ResourceMeta ou220  os7
-93  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572865 ResourceMeta ou221  os7
-94  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572864 ResourceMeta ou222  os7
-95  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572866 ResourceMeta ou223  os7
-96  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572867 ResourceMeta ou224  os7
-97  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572868 ResourceMeta ou225  os7
-98  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572893 ResourceMeta ou226  os7
-99  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572894 ResourceMeta ou227  os7
-100 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944100 ResourceMeta ou228  os7
-101 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572896 ResourceMeta ou229  os7
-102 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572897 ResourceMeta ou230  os7
-103 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572898 ResourceMeta ou231  os7
-104 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572899 ResourceMeta ou232  os7
-105 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572900 ResourceMeta ou233  os7
-106 tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025177 ResourceMeta ou234  os7
-107 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573080 ResourceMeta ou235  os7
-108 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572869 ResourceMeta ou236  os7
-109 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572870 ResourceMeta ou237  os7
-110 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944072 ResourceMeta ou238  os7
-111 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=180092 ResourceMeta ou239  os7
-112 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573069 ResourceMeta ou240  os7
-113 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944286 ResourceMeta ou241  os7
-114 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944292 ResourceMeta ou242  os7
-115 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=945338 ResourceMeta ou243  os7
-116 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573073 ResourceMeta ou244  os7
-117 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573074 ResourceMeta ou245  os7
-118 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944290 ResourceMeta ou246  os7
-119 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573076 ResourceMeta ou247  os7
-120 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573077 ResourceMeta ou248  os7
-121 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573078 ResourceMeta ou249  os7
-122 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944293 ResourceMeta ou250  os7
-123 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572882 ResourceMeta ou251  os7
-124 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572961 ResourceMeta ou252  os7
-125 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944187 ResourceMeta ou253  os7
-126 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572872 ResourceMeta ou254  os7
-127 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572921 ResourceMeta ou255  os7
-128 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572920 ResourceMeta ou257  os7
-129 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572922 ResourceMeta ou258  os7
-130 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572874 ResourceMeta ou259  os7
-131 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572875 ResourceMeta ou260  os7
-132 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572876 ResourceMeta ou261  os7
-133 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572877 ResourceMeta ou262  os7
-134 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572878 ResourceMeta ou263  os7
-135 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572879 ResourceMeta ou264  os7
-136 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572880 ResourceMeta ou265  os7
-137 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573016 ResourceMeta ou266  os7
-138 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572889 ResourceMeta ou267  os7
-139 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573017 ResourceMeta ou268  os7
-140 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573018 ResourceMeta ou269  os7
-141 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573019 ResourceMeta ou270  os7
-142 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=180098 ResourceMeta ou271  os7
-143 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=555659 ResourceMeta ou272  os7
-144 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573020 ResourceMeta ou273  os7
-145 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=180099 ResourceMeta ou274  os7
-146 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573021 ResourceMeta ou275  os7
-147 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573022 ResourceMeta ou276  os7
-148 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573023 ResourceMeta ou277  os7
-149 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573024 ResourceMeta ou278  os7
-150 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573025 ResourceMeta ou279  os7
-151 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573026 ResourceMeta ou280  os7
-152 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573027 ResourceMeta ou281  os7
-153 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573028 ResourceMeta ou282  os7
-154 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573029 ResourceMeta ou283  os7
-155 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573030 ResourceMeta ou284  os7
-156 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573031 ResourceMeta ou285  os7
-157 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944041 ResourceMeta ou286  os7
-158 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572861 ResourceMeta ou287  os7
-159 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572862 ResourceMeta ou288  os7
-160 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573032 ResourceMeta ou289  os7
-161 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944263 ResourceMeta ou290  os7
-162 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573040 ResourceMeta ou291  os7
-163 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572890 ResourceMeta ou292  os7
-164 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572891 ResourceMeta ou293  os7
-165 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572902 ResourceMeta ou294  os7
-166 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572903 ResourceMeta ou295  os7
+1   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572992 ResourceMeta ou385  os9
+2   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572857 ResourceMeta ou386  os9
+3   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572935 ResourceMeta ou387  os9
+4   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572936 ResourceMeta ou388  os9
+5   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=945168 ResourceMeta ou389  os9
+6   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=945164 ResourceMeta ou390  os9
+7   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572939 ResourceMeta ou391  os9
+8   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572940 ResourceMeta ou392  os9
+9   tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572941 ResourceMeta ou393  os9
+10  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572942 ResourceMeta ou394  os9
+11  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944172 ResourceMeta ou395  os9
+12  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572944 ResourceMeta ou396  os9
+13  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572949 ResourceMeta ou397  os9
+14  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=945149 ResourceMeta ou398  os9
+15  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572949 ResourceMeta ou399  os9
+16  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572947 ResourceMeta ou400  os9
+17  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572945 ResourceMeta ou401  os9
+18  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572946 ResourceMeta ou402  os9
+19  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572951 ResourceMeta ou403  os9
+20  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572952 ResourceMeta ou404  os9
+21  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572887 ResourceMeta ou405  os9
+22  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572888 ResourceMeta ou406  os9
+23  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572954 ResourceMeta ou407  os9
+24  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572955 ResourceMeta ou408  os9
+25  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572957 ResourceMeta ou409  os9
+26  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572958 ResourceMeta ou410  os9
+27  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572956 ResourceMeta ou411  os9
+28  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572953 ResourceMeta ou412  os9
+29  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572881 ResourceMeta ou413  os9
+30  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572959 ResourceMeta ou414  os9
+31  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572983 ResourceMeta ou415  os9
+32  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572984 ResourceMeta ou416  os9
+33  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025131 ResourceMeta ou417  os9
+34  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025134 ResourceMeta ou418  os9
+35  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025122 ResourceMeta ou419  os9
+36  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025127 ResourceMeta ou420  os9
+37  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025112 ResourceMeta ou421  os9
+38  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025134 ResourceMeta ou422  os9
+39  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025125 ResourceMeta ou423  os9
+40  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025116 ResourceMeta ou424  os9
+41  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025119 ResourceMeta ou425  os9
+42  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025114 ResourceMeta ou426  os9
+43  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025115 ResourceMeta ou427  os9
+44  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572962 ResourceMeta ou428  os9
+45  tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025106 ResourceMeta ou429  os9
+46  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572909 ResourceMeta ou430  os9
+47  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944125 ResourceMeta ou431  os9
+48  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572911 ResourceMeta ou432  os9
+49  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572912 ResourceMeta ou433  os9
+50  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572913 ResourceMeta ou434  os9
+51  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944138 ResourceMeta ou435  os9
+52  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572915 ResourceMeta ou436  os9
+53  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572916 ResourceMeta ou437  os9
+54  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572918 ResourceMeta ou438  os9
+55  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944123 ResourceMeta ou439  os9
+56  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572975 ResourceMeta ou440  os9
+57  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944156 ResourceMeta ou441  os9
+58  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572977 ResourceMeta ou442  os9
+59  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572978 ResourceMeta ou443  os9
+60  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572993 ResourceMeta ou444  os9
+61  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572994 ResourceMeta ou445  os9
+62  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572995 ResourceMeta ou446  os9
+63  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572996 ResourceMeta ou447  os9
+64  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572997 ResourceMeta ou448  os9
+65  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572998 ResourceMeta ou449  os9
+66  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572999 ResourceMeta ou450  os9
+67  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573000 ResourceMeta ou451  os9
+68  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573001 ResourceMeta ou452  os9
+69  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573002 ResourceMeta ou453  os9
+70  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573003 ResourceMeta ou454  os9
+71  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944219 ResourceMeta ou455  os9
+72  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573005 ResourceMeta ou456  os9
+73  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573006 ResourceMeta ou457  os9
+74  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573007 ResourceMeta ou458  os9
+75  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573008 ResourceMeta ou459  os9
+76  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573009 ResourceMeta ou460  os9
+77  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573010 ResourceMeta ou461  os9
+78  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=945227 ResourceMeta ou462  os9
+79  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573014 ResourceMeta ou463  os9
+80  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944221 ResourceMeta ou464  os9
+81  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573011 ResourceMeta ou465  os9
+82  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572858 ResourceMeta ou466  os9
+83  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572859 ResourceMeta ou467  os9
+84  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572985 ResourceMeta ou468  os9
+85  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572986 ResourceMeta ou469  os9
+86  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=552515 ResourceMeta ou470  os9
+87  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573035 ResourceMeta ou471  os9
+88  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573036 ResourceMeta ou472  os9
+89  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573037 ResourceMeta ou473  os9
+90  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573038 ResourceMeta ou474  os9
+91  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572886 ResourceMeta ou475  os9
+92  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573015 ResourceMeta ou476  os9
+93  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572865 ResourceMeta ou477  os9
+94  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572864 ResourceMeta ou478  os9
+95  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572866 ResourceMeta ou479  os9
+96  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572867 ResourceMeta ou480  os9
+97  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572868 ResourceMeta ou481  os9
+98  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572893 ResourceMeta ou482  os9
+99  tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572894 ResourceMeta ou483  os9
+100 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944100 ResourceMeta ou484  os9
+101 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572896 ResourceMeta ou485  os9
+102 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572897 ResourceMeta ou486  os9
+103 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572898 ResourceMeta ou487  os9
+104 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572899 ResourceMeta ou488  os9
+105 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572900 ResourceMeta ou489  os9
+106 tc:toTaxon http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=1025177 ResourceMeta ou490  os9
+107 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573080 ResourceMeta ou491  os9
+108 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572869 ResourceMeta ou492  os9
+109 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572870 ResourceMeta ou493  os9
+110 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944072 ResourceMeta ou494  os9
+111 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=180092 ResourceMeta ou495  os9
+112 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573069 ResourceMeta ou496  os9
+113 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944286 ResourceMeta ou497  os9
+114 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944292 ResourceMeta ou498  os9
+115 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=945338 ResourceMeta ou499  os9
+116 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573073 ResourceMeta ou500  os9
+117 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573074 ResourceMeta ou501  os9
+118 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944290 ResourceMeta ou502  os9
+119 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573076 ResourceMeta ou503  os9
+120 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573077 ResourceMeta ou504  os9
+121 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573078 ResourceMeta ou505  os9
+122 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944293 ResourceMeta ou506  os9
+123 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572882 ResourceMeta ou507  os9
+124 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572961 ResourceMeta ou508  os9
+125 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944187 ResourceMeta ou509  os9
+126 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572872 ResourceMeta ou510  os9
+127 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572921 ResourceMeta ou511  os9
+128 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572920 ResourceMeta ou513  os9
+129 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572922 ResourceMeta ou514  os9
+130 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572874 ResourceMeta ou515  os9
+131 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572875 ResourceMeta ou516  os9
+132 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572876 ResourceMeta ou517  os9
+133 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572877 ResourceMeta ou518  os9
+134 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572878 ResourceMeta ou519  os9
+135 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572879 ResourceMeta ou520  os9
+136 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572880 ResourceMeta ou521  os9
+137 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573016 ResourceMeta ou522  os9
+138 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572889 ResourceMeta ou523  os9
+139 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573017 ResourceMeta ou524  os9
+140 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573018 ResourceMeta ou525  os9
+141 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573019 ResourceMeta ou526  os9
+142 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=180098 ResourceMeta ou527  os9
+143 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=555659 ResourceMeta ou528  os9
+144 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573020 ResourceMeta ou529  os9
+145 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=180099 ResourceMeta ou530  os9
+146 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573021 ResourceMeta ou531  os9
+147 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573022 ResourceMeta ou532  os9
+148 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573023 ResourceMeta ou533  os9
+149 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573024 ResourceMeta ou534  os9
+150 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573025 ResourceMeta ou535  os9
+151 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573026 ResourceMeta ou536  os9
+152 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573027 ResourceMeta ou537  os9
+153 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573028 ResourceMeta ou538  os9
+154 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573029 ResourceMeta ou539  os9
+155 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573030 ResourceMeta ou540  os9
+156 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573031 ResourceMeta ou541  os9
+157 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944041 ResourceMeta ou542  os9
+158 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572861 ResourceMeta ou543  os9
+159 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572862 ResourceMeta ou544  os9
+160 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573032 ResourceMeta ou545  os9
+161 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=944263 ResourceMeta ou546  os9
+162 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=573040 ResourceMeta ou547  os9
+163 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572890 ResourceMeta ou548  os9
+164 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572891 ResourceMeta ou549  os9
+165 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572902 ResourceMeta ou550  os9
+166 tc:toTaxon  http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572903 ResourceMeta ou551  os9
     Meta
-1   m312
-2   m313
-3   m314
-4   m315
-5   m316
-6   m317
-7   m318
-8   m319
-9   m320
-10  m321
-11  m322
-12  m323
-13  m324
-14  m325
-15  m326
-16  m327
-17  m328
-18  m329
-19  m330
-20  m331
-21  m332
-22  m333
-23  m334
-24  m335
-25  m336
-26  m337
-27  m338
-28  m339
-29  m340
-30  m341
-31  m342
-32  m343
-33  m344
-34  m345
-35  m346
-36  m347
-37  m348
-38  m349
-39  m350
-40  m351
-41  m352
-42  m353
-43  m354
-44  m355
-45  m356
-46  m357
-47  m358
-48  m359
-49  m360
-50  m361
-51  m362
-52  m363
-53  m364
-54  m365
-55  m366
-56  m367
-57  m368
-58  m369
-59  m370
-60  m371
-61  m372
-62  m373
-63  m374
-64  m375
-65  m376
-66  m377
-67  m378
-68  m379
-69  m380
-70  m381
-71  m382
-72  m383
-73  m384
-74  m385
-75  m386
-76  m387
-77  m388
-78  m389
-79  m390
-80  m391
-81  m392
-82  m393
-83  m394
-84  m395
-85  m396
-86  m397
-87  m398
-88  m399
-89  m400
-90  m401
-91  m402
-92  m403
-93  m404
-94  m405
-95  m406
-96  m407
-97  m408
-98  m409
-99  m410
-100 m411
-101 m412
-102 m413
-103 m414
-104 m415
-105 m416
-106 m417
-107 m418
-108 m419
-109 m420
-110 m421
-111 m422
-112 m423
-113 m424
-114 m425
-115 m426
-116 m427
-117 m428
-118 m429
-119 m430
-120 m431
-121 m432
-122 m433
-123 m434
-124 m435
-125 m436
-126 m437
-127 m438
-128 m439
-129 m440
-130 m441
-131 m442
-132 m443
-133 m444
-134 m445
-135 m446
-136 m447
-137 m448
-138 m449
-139 m450
-140 m451
-141 m452
-142 m453
-143 m454
-144 m455
-145 m456
-146 m457
-147 m458
-148 m459
-149 m460
-150 m461
-151 m462
-152 m463
-153 m464
-154 m465
-155 m466
-156 m467
-157 m468
-158 m469
-159 m470
-160 m471
-161 m472
-162 m473
-163 m474
-164 m475
-165 m476
-166 m477
+1   m563
+2   m564
+3   m565
+4   m566
+5   m567
+6   m568
+7   m569
+8   m570
+9   m571
+10  m572
+11  m573
+12  m574
+13  m575
+14  m576
+15  m577
+16  m578
+17  m579
+18  m580
+19  m581
+20  m582
+21  m583
+22  m584
+23  m585
+24  m586
+25  m587
+26  m588
+27  m589
+28  m590
+29  m591
+30  m592
+31  m593
+32  m594
+33  m595
+34  m596
+35  m597
+36  m598
+37  m599
+38  m600
+39  m601
+40  m602
+41  m603
+42  m604
+43  m605
+44  m606
+45  m607
+46  m608
+47  m609
+48  m610
+49  m611
+50  m612
+51  m613
+52  m614
+53  m615
+54  m616
+55  m617
+56  m618
+57  m619
+58  m620
+59  m621
+60  m622
+61  m623
+62  m624
+63  m625
+64  m626
+65  m627
+66  m628
+67  m629
+68  m630
+69  m631
+70  m632
+71  m633
+72  m634
+73  m635
+74  m636
+75  m637
+76  m638
+77  m639
+78  m640
+79  m641
+80  m642
+81  m643
+82  m644
+83  m645
+84  m646
+85  m647
+86  m648
+87  m649
+88  m650
+89  m651
+90  m652
+91  m653
+92  m654
+93  m655
+94  m656
+95  m657
+96  m658
+97  m659
+98  m660
+99  m661
+100 m662
+101 m663
+102 m664
+103 m665
+104 m666
+105 m667
+106 m668
+107 m669
+108 m670
+109 m671
+110 m672
+111 m673
+112 m674
+113 m675
+114 m676
+115 m677
+116 m678
+117 m679
+118 m680
+119 m681
+120 m682
+121 m683
+122 m684
+123 m685
+124 m686
+125 m687
+126 m688
+127 m689
+128 m690
+129 m691
+130 m692
+131 m693
+132 m694
+133 m695
+134 m696
+135 m697
+136 m698
+137 m699
+138 m700
+139 m701
+140 m702
+141 m703
+142 m704
+143 m705
+144 m706
+145 m707
+146 m708
+147 m709
+148 m710
+149 m711
+150 m712
+151 m713
+152 m714
+153 m715
+154 m716
+155 m717
+156 m718
+157 m719
+158 m720
+159 m721
+160 m722
+161 m723
+162 m724
+163 m725
+164 m726
+165 m727
+166 m728
  [ reached 'max' / getOption("max.print") -- omitted 66 rows ]
 ```
 
@@ -707,239 +707,239 @@ taxa
 
 ```
       otu                        label xsi.type otus
-1   ou129  Allenopithecus_nigroviridis       NA  os7
-2   ou130          Allocebus_trichotis       NA  os7
-3   ou131            Alouatta_belzebul       NA  os7
-4   ou132              Alouatta_caraya       NA  os7
-5   ou133           Alouatta_coibensis       NA  os7
-6   ou134               Alouatta_fusca       NA  os7
-7   ou135            Alouatta_palliata       NA  os7
-8   ou136               Alouatta_pigra       NA  os7
-9   ou137                Alouatta_sara       NA  os7
-10  ou138           Alouatta_seniculus       NA  os7
-11  ou139                 Aotus_azarai       NA  os7
-12  ou140              Aotus_brumbacki       NA  os7
-13  ou141           Aotus_hershkovitzi       NA  os7
-14  ou142              Aotus_infulatus       NA  os7
-15  ou143              Aotus_lemurinus       NA  os7
-16  ou144                Aotus_miconax       NA  os7
-17  ou145              Aotus_nancymaae       NA  os7
-18  ou146              Aotus_nigriceps       NA  os7
-19  ou147            Aotus_trivirgatus       NA  os7
-20  ou148             Aotus_vociferans       NA  os7
-21  ou149            Arctocebus_aureus       NA  os7
-22  ou150      Arctocebus_calabarensis       NA  os7
-23  ou151             Ateles_belzebuth       NA  os7
-24  ou152                Ateles_chamek       NA  os7
-25  ou153             Ateles_fusciceps       NA  os7
-26  ou154             Ateles_geoffroyi       NA  os7
-27  ou155            Ateles_marginatus       NA  os7
-28  ou156              Ateles_paniscus       NA  os7
-29  ou157                Avahi_laniger       NA  os7
-30  ou158      Brachyteles_arachnoides       NA  os7
-31  ou159               Cacajao_calvus       NA  os7
-32  ou160       Cacajao_melanocephalus       NA  os7
-33  ou161          Callicebus_brunneus       NA  os7
-34  ou162         Callicebus_caligatus       NA  os7
-35  ou163       Callicebus_cinerascens       NA  os7
-36  ou164           Callicebus_cupreus       NA  os7
-37  ou165      Callicebus_donacophilus       NA  os7
-38  ou166            Callicebus_dubius       NA  os7
-39  ou167        Callicebus_hoffmannsi       NA  os7
-40  ou168          Callicebus_modestus       NA  os7
-41  ou169            Callicebus_moloch       NA  os7
-42  ou170          Callicebus_oenanthe       NA  os7
-43  ou171           Callicebus_olallae       NA  os7
-44  ou172        Callicebus_personatus       NA  os7
-45  ou173         Callicebus_torquatus       NA  os7
-46  ou174            Callimico_goeldii       NA  os7
-47  ou175         Callithrix_argentata       NA  os7
-48  ou176            Callithrix_aurita       NA  os7
-49  ou177         Callithrix_flaviceps       NA  os7
-50  ou178         Callithrix_geoffroyi       NA  os7
-51  ou179      Callithrix_humeralifera       NA  os7
-52  ou180           Callithrix_jacchus       NA  os7
-53  ou181            Callithrix_kuhlii       NA  os7
-54  ou182       Callithrix_penicillata       NA  os7
-55  ou183           Callithrix_pygmaea       NA  os7
-56  ou184              Cebus_albifrons       NA  os7
-57  ou185                 Cebus_apella       NA  os7
-58  ou186              Cebus_capucinus       NA  os7
-59  ou187              Cebus_olivaceus       NA  os7
-60  ou188            Cercocebus_agilis       NA  os7
-61  ou189         Cercocebus_galeritus       NA  os7
-62  ou190         Cercocebus_torquatus       NA  os7
-63  ou191       Cercopithecus_ascanius       NA  os7
-64  ou192      Cercopithecus_campbelli       NA  os7
-65  ou193         Cercopithecus_cephus       NA  os7
-66  ou194          Cercopithecus_diana       NA  os7
-67  ou195          Cercopithecus_dryas       NA  os7
-68  ou196  Cercopithecus_erythrogaster       NA  os7
-69  ou197     Cercopithecus_erythrotis       NA  os7
-70  ou198        Cercopithecus_hamlyni       NA  os7
-71  ou199        Cercopithecus_lhoesti       NA  os7
-72  ou200          Cercopithecus_mitis       NA  os7
-73  ou201           Cercopithecus_mona       NA  os7
-74  ou202      Cercopithecus_neglectus       NA  os7
-75  ou203      Cercopithecus_nictitans       NA  os7
-76  ou204     Cercopithecus_petaurista       NA  os7
-77  ou205       Cercopithecus_pogonias       NA  os7
-78  ou206        Cercopithecus_preussi       NA  os7
-79  ou207       Cercopithecus_sclateri       NA  os7
-80  ou208        Cercopithecus_solatus       NA  os7
-81  ou209          Cercopithecus_wolfi       NA  os7
-82  ou210           Cheirogaleus_major       NA  os7
-83  ou211          Cheirogaleus_medius       NA  os7
-84  ou212         Chiropotes_albinasus       NA  os7
-85  ou213           Chiropotes_satanas       NA  os7
-86  ou214         Chlorocebus_aethiops       NA  os7
-87  ou215           Colobus_angolensis       NA  os7
-88  ou216              Colobus_guereza       NA  os7
-89  ou217            Colobus_polykomos       NA  os7
-90  ou218              Colobus_satanas       NA  os7
-91  ou219 Daubentonia_madagascariensis       NA  os7
-92  ou220           Erythrocebus_patas       NA  os7
-93  ou221            Eulemur_coronatus       NA  os7
-94  ou222               Eulemur_fulvus       NA  os7
-95  ou223               Eulemur_macaco       NA  os7
-96  ou224               Eulemur_mongoz       NA  os7
-97  ou225          Eulemur_rubriventer       NA  os7
-98  ou226         Euoticus_elegantulus       NA  os7
-99  ou227            Euoticus_pallidus       NA  os7
-100 ou228                Galago_alleni       NA  os7
-101 ou229              Galago_gallarum       NA  os7
-102 ou230             Galago_matschiei       NA  os7
-103 ou231                Galago_moholi       NA  os7
-104 ou232          Galago_senegalensis       NA  os7
-105 ou233          Galagoides_demidoff       NA  os7
-106 ou234      Galagoides_zanzibaricus       NA  os7
-107 ou235              Gorilla_gorilla       NA  os7
-108 ou236             Hapalemur_aureus       NA  os7
-109 ou237            Hapalemur_griseus       NA  os7
-110 ou238              Hapalemur_simus       NA  os7
-111 ou239                 Homo_sapiens       NA  os7
-112 ou240             Hylobates_agilis       NA  os7
-113 ou241           Hylobates_concolor       NA  os7
-114 ou242         Hylobates_gabriellae       NA  os7
-115 ou243            Hylobates_hoolock       NA  os7
-116 ou244            Hylobates_klossii       NA  os7
-117 ou245                Hylobates_lar       NA  os7
-118 ou246         Hylobates_leucogenys       NA  os7
-119 ou247             Hylobates_moloch       NA  os7
-120 ou248           Hylobates_muelleri       NA  os7
-121 ou249           Hylobates_pileatus       NA  os7
-122 ou250        Hylobates_syndactylus       NA  os7
-123 ou251                  Indri_indri       NA  os7
-124 ou252         Lagothrix_flavicauda       NA  os7
-125 ou253         Lagothrix_lagotricha       NA  os7
-126 ou254                  Lemur_catta       NA  os7
-127 ou255      Leontopithecus_caissara       NA  os7
-128 ou256    Leontopithecus_chrysomela       NA  os7
-129 ou257   Leontopithecus_chrysopygus       NA  os7
-130 ou258       Leontopithecus_rosalia       NA  os7
-131 ou259           Lepilemur_dorsalis       NA  os7
-132 ou260           Lepilemur_edwardsi       NA  os7
-133 ou261           Lepilemur_leucopus       NA  os7
-134 ou262           Lepilemur_microdon       NA  os7
-135 ou263         Lepilemur_mustelinus       NA  os7
-136 ou264       Lepilemur_ruficaudatus       NA  os7
-137 ou265    Lepilemur_septentrionalis       NA  os7
-138 ou266          Lophocebus_albigena       NA  os7
-139 ou267            Loris_tardigradus       NA  os7
-140 ou268             Macaca_arctoides       NA  os7
-141 ou269            Macaca_assamensis       NA  os7
-142 ou270              Macaca_cyclopis       NA  os7
-143 ou271          Macaca_fascicularis       NA  os7
-144 ou272               Macaca_fuscata       NA  os7
-145 ou273                 Macaca_maura       NA  os7
-146 ou274               Macaca_mulatta       NA  os7
-147 ou275            Macaca_nemestrina       NA  os7
-148 ou276                 Macaca_nigra       NA  os7
-149 ou277              Macaca_ochreata       NA  os7
-150 ou278               Macaca_radiata       NA  os7
-151 ou279               Macaca_silenus       NA  os7
-152 ou280                Macaca_sinica       NA  os7
-153 ou281              Macaca_sylvanus       NA  os7
-154 ou282             Macaca_thibetana       NA  os7
-155 ou283              Macaca_tonkeana       NA  os7
-156 ou284       Mandrillus_leucophaeus       NA  os7
-157 ou285            Mandrillus_sphinx       NA  os7
-158 ou286         Microcebus_coquereli       NA  os7
-159 ou287           Microcebus_murinus       NA  os7
-160 ou288             Microcebus_rufus       NA  os7
-161 ou289         Miopithecus_talapoin       NA  os7
-162 ou290             Nasalis_concolor       NA  os7
-163 ou291             Nasalis_larvatus       NA  os7
-164 ou292           Nycticebus_coucang       NA  os7
-165 ou293          Nycticebus_pygmaeus       NA  os7
-166 ou294      Otolemur_crassicaudatus       NA  os7
-167 ou295           Otolemur_garnettii       NA  os7
-168 ou296                 Pan_paniscus       NA  os7
-169 ou297              Pan_troglodytes       NA  os7
-170 ou298              Papio_hamadryas       NA  os7
-171 ou299           Perodicticus_potto       NA  os7
-172 ou300              Phaner_furcifer       NA  os7
-173 ou301       Pithecia_aequatorialis       NA  os7
-174 ou302            Pithecia_albicans       NA  os7
-175 ou303            Pithecia_irrorata       NA  os7
-176 ou304            Pithecia_monachus       NA  os7
-177 ou305            Pithecia_pithecia       NA  os7
-178 ou306               Pongo_pygmaeus       NA  os7
-179 ou307             Presbytis_comata       NA  os7
-180 ou308          Presbytis_femoralis       NA  os7
-181 ou309           Presbytis_frontata       NA  os7
-182 ou310              Presbytis_hosei       NA  os7
-183 ou311         Presbytis_melalophos       NA  os7
-184 ou312         Presbytis_potenziani       NA  os7
-185 ou313          Presbytis_rubicunda       NA  os7
-186 ou314            Presbytis_thomasi       NA  os7
-187 ou315            Procolobus_badius       NA  os7
-188 ou316         Procolobus_pennantii       NA  os7
-189 ou317           Procolobus_preussi       NA  os7
-190 ou318      Procolobus_rufomitratus       NA  os7
-191 ou319             Procolobus_verus       NA  os7
-192 ou320          Propithecus_diadema       NA  os7
-193 ou321      Propithecus_tattersalli       NA  os7
-194 ou322        Propithecus_verreauxi       NA  os7
-195 ou323          Pygathrix_avunculus       NA  os7
-196 ou324              Pygathrix_bieti       NA  os7
-197 ou325           Pygathrix_brelichi       NA  os7
-198 ou326            Pygathrix_nemaeus       NA  os7
-199 ou327          Pygathrix_roxellana       NA  os7
-200 ou328             Saguinus_bicolor       NA  os7
-201 ou329         Saguinus_fuscicollis       NA  os7
-202 ou330           Saguinus_geoffroyi       NA  os7
-203 ou331           Saguinus_imperator       NA  os7
-204 ou332             Saguinus_inustus       NA  os7
-205 ou333            Saguinus_labiatus       NA  os7
-206 ou334            Saguinus_leucopus       NA  os7
-207 ou335               Saguinus_midas       NA  os7
-208 ou336              Saguinus_mystax       NA  os7
-209 ou337         Saguinus_nigricollis       NA  os7
-210 ou338             Saguinus_oedipus       NA  os7
-211 ou339         Saguinus_tripartitus       NA  os7
-212 ou340          Saimiri_boliviensis       NA  os7
-213 ou341            Saimiri_oerstedii       NA  os7
-214 ou342             Saimiri_sciureus       NA  os7
-215 ou343                Saimiri_ustus       NA  os7
-216 ou344           Saimiri_vanzolinii       NA  os7
-217 ou345       Semnopithecus_entellus       NA  os7
-218 ou346             Tarsius_bancanus       NA  os7
-219 ou347               Tarsius_dianae       NA  os7
-220 ou348              Tarsius_pumilus       NA  os7
-221 ou349             Tarsius_spectrum       NA  os7
-222 ou350             Tarsius_syrichta       NA  os7
-223 ou351         Theropithecus_gelada       NA  os7
-224 ou352       Trachypithecus_auratus       NA  os7
-225 ou353     Trachypithecus_cristatus       NA  os7
-226 ou354     Trachypithecus_francoisi       NA  os7
-227 ou355          Trachypithecus_geei       NA  os7
-228 ou356        Trachypithecus_johnii       NA  os7
-229 ou357      Trachypithecus_obscurus       NA  os7
-230 ou358       Trachypithecus_phayrei       NA  os7
-231 ou359      Trachypithecus_pileatus       NA  os7
-232 ou360       Trachypithecus_vetulus       NA  os7
-233 ou361            Varecia_variegata       NA  os7
+1   ou385  Allenopithecus_nigroviridis       NA  os9
+2   ou386          Allocebus_trichotis       NA  os9
+3   ou387            Alouatta_belzebul       NA  os9
+4   ou388              Alouatta_caraya       NA  os9
+5   ou389           Alouatta_coibensis       NA  os9
+6   ou390               Alouatta_fusca       NA  os9
+7   ou391            Alouatta_palliata       NA  os9
+8   ou392               Alouatta_pigra       NA  os9
+9   ou393                Alouatta_sara       NA  os9
+10  ou394           Alouatta_seniculus       NA  os9
+11  ou395                 Aotus_azarai       NA  os9
+12  ou396              Aotus_brumbacki       NA  os9
+13  ou397           Aotus_hershkovitzi       NA  os9
+14  ou398              Aotus_infulatus       NA  os9
+15  ou399              Aotus_lemurinus       NA  os9
+16  ou400                Aotus_miconax       NA  os9
+17  ou401              Aotus_nancymaae       NA  os9
+18  ou402              Aotus_nigriceps       NA  os9
+19  ou403            Aotus_trivirgatus       NA  os9
+20  ou404             Aotus_vociferans       NA  os9
+21  ou405            Arctocebus_aureus       NA  os9
+22  ou406      Arctocebus_calabarensis       NA  os9
+23  ou407             Ateles_belzebuth       NA  os9
+24  ou408                Ateles_chamek       NA  os9
+25  ou409             Ateles_fusciceps       NA  os9
+26  ou410             Ateles_geoffroyi       NA  os9
+27  ou411            Ateles_marginatus       NA  os9
+28  ou412              Ateles_paniscus       NA  os9
+29  ou413                Avahi_laniger       NA  os9
+30  ou414      Brachyteles_arachnoides       NA  os9
+31  ou415               Cacajao_calvus       NA  os9
+32  ou416       Cacajao_melanocephalus       NA  os9
+33  ou417          Callicebus_brunneus       NA  os9
+34  ou418         Callicebus_caligatus       NA  os9
+35  ou419       Callicebus_cinerascens       NA  os9
+36  ou420           Callicebus_cupreus       NA  os9
+37  ou421      Callicebus_donacophilus       NA  os9
+38  ou422            Callicebus_dubius       NA  os9
+39  ou423        Callicebus_hoffmannsi       NA  os9
+40  ou424          Callicebus_modestus       NA  os9
+41  ou425            Callicebus_moloch       NA  os9
+42  ou426          Callicebus_oenanthe       NA  os9
+43  ou427           Callicebus_olallae       NA  os9
+44  ou428        Callicebus_personatus       NA  os9
+45  ou429         Callicebus_torquatus       NA  os9
+46  ou430            Callimico_goeldii       NA  os9
+47  ou431         Callithrix_argentata       NA  os9
+48  ou432            Callithrix_aurita       NA  os9
+49  ou433         Callithrix_flaviceps       NA  os9
+50  ou434         Callithrix_geoffroyi       NA  os9
+51  ou435      Callithrix_humeralifera       NA  os9
+52  ou436           Callithrix_jacchus       NA  os9
+53  ou437            Callithrix_kuhlii       NA  os9
+54  ou438       Callithrix_penicillata       NA  os9
+55  ou439           Callithrix_pygmaea       NA  os9
+56  ou440              Cebus_albifrons       NA  os9
+57  ou441                 Cebus_apella       NA  os9
+58  ou442              Cebus_capucinus       NA  os9
+59  ou443              Cebus_olivaceus       NA  os9
+60  ou444            Cercocebus_agilis       NA  os9
+61  ou445         Cercocebus_galeritus       NA  os9
+62  ou446         Cercocebus_torquatus       NA  os9
+63  ou447       Cercopithecus_ascanius       NA  os9
+64  ou448      Cercopithecus_campbelli       NA  os9
+65  ou449         Cercopithecus_cephus       NA  os9
+66  ou450          Cercopithecus_diana       NA  os9
+67  ou451          Cercopithecus_dryas       NA  os9
+68  ou452  Cercopithecus_erythrogaster       NA  os9
+69  ou453     Cercopithecus_erythrotis       NA  os9
+70  ou454        Cercopithecus_hamlyni       NA  os9
+71  ou455        Cercopithecus_lhoesti       NA  os9
+72  ou456          Cercopithecus_mitis       NA  os9
+73  ou457           Cercopithecus_mona       NA  os9
+74  ou458      Cercopithecus_neglectus       NA  os9
+75  ou459      Cercopithecus_nictitans       NA  os9
+76  ou460     Cercopithecus_petaurista       NA  os9
+77  ou461       Cercopithecus_pogonias       NA  os9
+78  ou462        Cercopithecus_preussi       NA  os9
+79  ou463       Cercopithecus_sclateri       NA  os9
+80  ou464        Cercopithecus_solatus       NA  os9
+81  ou465          Cercopithecus_wolfi       NA  os9
+82  ou466           Cheirogaleus_major       NA  os9
+83  ou467          Cheirogaleus_medius       NA  os9
+84  ou468         Chiropotes_albinasus       NA  os9
+85  ou469           Chiropotes_satanas       NA  os9
+86  ou470         Chlorocebus_aethiops       NA  os9
+87  ou471           Colobus_angolensis       NA  os9
+88  ou472              Colobus_guereza       NA  os9
+89  ou473            Colobus_polykomos       NA  os9
+90  ou474              Colobus_satanas       NA  os9
+91  ou475 Daubentonia_madagascariensis       NA  os9
+92  ou476           Erythrocebus_patas       NA  os9
+93  ou477            Eulemur_coronatus       NA  os9
+94  ou478               Eulemur_fulvus       NA  os9
+95  ou479               Eulemur_macaco       NA  os9
+96  ou480               Eulemur_mongoz       NA  os9
+97  ou481          Eulemur_rubriventer       NA  os9
+98  ou482         Euoticus_elegantulus       NA  os9
+99  ou483            Euoticus_pallidus       NA  os9
+100 ou484                Galago_alleni       NA  os9
+101 ou485              Galago_gallarum       NA  os9
+102 ou486             Galago_matschiei       NA  os9
+103 ou487                Galago_moholi       NA  os9
+104 ou488          Galago_senegalensis       NA  os9
+105 ou489          Galagoides_demidoff       NA  os9
+106 ou490      Galagoides_zanzibaricus       NA  os9
+107 ou491              Gorilla_gorilla       NA  os9
+108 ou492             Hapalemur_aureus       NA  os9
+109 ou493            Hapalemur_griseus       NA  os9
+110 ou494              Hapalemur_simus       NA  os9
+111 ou495                 Homo_sapiens       NA  os9
+112 ou496             Hylobates_agilis       NA  os9
+113 ou497           Hylobates_concolor       NA  os9
+114 ou498         Hylobates_gabriellae       NA  os9
+115 ou499            Hylobates_hoolock       NA  os9
+116 ou500            Hylobates_klossii       NA  os9
+117 ou501                Hylobates_lar       NA  os9
+118 ou502         Hylobates_leucogenys       NA  os9
+119 ou503             Hylobates_moloch       NA  os9
+120 ou504           Hylobates_muelleri       NA  os9
+121 ou505           Hylobates_pileatus       NA  os9
+122 ou506        Hylobates_syndactylus       NA  os9
+123 ou507                  Indri_indri       NA  os9
+124 ou508         Lagothrix_flavicauda       NA  os9
+125 ou509         Lagothrix_lagotricha       NA  os9
+126 ou510                  Lemur_catta       NA  os9
+127 ou511      Leontopithecus_caissara       NA  os9
+128 ou512    Leontopithecus_chrysomela       NA  os9
+129 ou513   Leontopithecus_chrysopygus       NA  os9
+130 ou514       Leontopithecus_rosalia       NA  os9
+131 ou515           Lepilemur_dorsalis       NA  os9
+132 ou516           Lepilemur_edwardsi       NA  os9
+133 ou517           Lepilemur_leucopus       NA  os9
+134 ou518           Lepilemur_microdon       NA  os9
+135 ou519         Lepilemur_mustelinus       NA  os9
+136 ou520       Lepilemur_ruficaudatus       NA  os9
+137 ou521    Lepilemur_septentrionalis       NA  os9
+138 ou522          Lophocebus_albigena       NA  os9
+139 ou523            Loris_tardigradus       NA  os9
+140 ou524             Macaca_arctoides       NA  os9
+141 ou525            Macaca_assamensis       NA  os9
+142 ou526              Macaca_cyclopis       NA  os9
+143 ou527          Macaca_fascicularis       NA  os9
+144 ou528               Macaca_fuscata       NA  os9
+145 ou529                 Macaca_maura       NA  os9
+146 ou530               Macaca_mulatta       NA  os9
+147 ou531            Macaca_nemestrina       NA  os9
+148 ou532                 Macaca_nigra       NA  os9
+149 ou533              Macaca_ochreata       NA  os9
+150 ou534               Macaca_radiata       NA  os9
+151 ou535               Macaca_silenus       NA  os9
+152 ou536                Macaca_sinica       NA  os9
+153 ou537              Macaca_sylvanus       NA  os9
+154 ou538             Macaca_thibetana       NA  os9
+155 ou539              Macaca_tonkeana       NA  os9
+156 ou540       Mandrillus_leucophaeus       NA  os9
+157 ou541            Mandrillus_sphinx       NA  os9
+158 ou542         Microcebus_coquereli       NA  os9
+159 ou543           Microcebus_murinus       NA  os9
+160 ou544             Microcebus_rufus       NA  os9
+161 ou545         Miopithecus_talapoin       NA  os9
+162 ou546             Nasalis_concolor       NA  os9
+163 ou547             Nasalis_larvatus       NA  os9
+164 ou548           Nycticebus_coucang       NA  os9
+165 ou549          Nycticebus_pygmaeus       NA  os9
+166 ou550      Otolemur_crassicaudatus       NA  os9
+167 ou551           Otolemur_garnettii       NA  os9
+168 ou552                 Pan_paniscus       NA  os9
+169 ou553              Pan_troglodytes       NA  os9
+170 ou554              Papio_hamadryas       NA  os9
+171 ou555           Perodicticus_potto       NA  os9
+172 ou556              Phaner_furcifer       NA  os9
+173 ou557       Pithecia_aequatorialis       NA  os9
+174 ou558            Pithecia_albicans       NA  os9
+175 ou559            Pithecia_irrorata       NA  os9
+176 ou560            Pithecia_monachus       NA  os9
+177 ou561            Pithecia_pithecia       NA  os9
+178 ou562               Pongo_pygmaeus       NA  os9
+179 ou563             Presbytis_comata       NA  os9
+180 ou564          Presbytis_femoralis       NA  os9
+181 ou565           Presbytis_frontata       NA  os9
+182 ou566              Presbytis_hosei       NA  os9
+183 ou567         Presbytis_melalophos       NA  os9
+184 ou568         Presbytis_potenziani       NA  os9
+185 ou569          Presbytis_rubicunda       NA  os9
+186 ou570            Presbytis_thomasi       NA  os9
+187 ou571            Procolobus_badius       NA  os9
+188 ou572         Procolobus_pennantii       NA  os9
+189 ou573           Procolobus_preussi       NA  os9
+190 ou574      Procolobus_rufomitratus       NA  os9
+191 ou575             Procolobus_verus       NA  os9
+192 ou576          Propithecus_diadema       NA  os9
+193 ou577      Propithecus_tattersalli       NA  os9
+194 ou578        Propithecus_verreauxi       NA  os9
+195 ou579          Pygathrix_avunculus       NA  os9
+196 ou580              Pygathrix_bieti       NA  os9
+197 ou581           Pygathrix_brelichi       NA  os9
+198 ou582            Pygathrix_nemaeus       NA  os9
+199 ou583          Pygathrix_roxellana       NA  os9
+200 ou584             Saguinus_bicolor       NA  os9
+201 ou585         Saguinus_fuscicollis       NA  os9
+202 ou586           Saguinus_geoffroyi       NA  os9
+203 ou587           Saguinus_imperator       NA  os9
+204 ou588             Saguinus_inustus       NA  os9
+205 ou589            Saguinus_labiatus       NA  os9
+206 ou590            Saguinus_leucopus       NA  os9
+207 ou591               Saguinus_midas       NA  os9
+208 ou592              Saguinus_mystax       NA  os9
+209 ou593         Saguinus_nigricollis       NA  os9
+210 ou594             Saguinus_oedipus       NA  os9
+211 ou595         Saguinus_tripartitus       NA  os9
+212 ou596          Saimiri_boliviensis       NA  os9
+213 ou597            Saimiri_oerstedii       NA  os9
+214 ou598             Saimiri_sciureus       NA  os9
+215 ou599                Saimiri_ustus       NA  os9
+216 ou600           Saimiri_vanzolinii       NA  os9
+217 ou601       Semnopithecus_entellus       NA  os9
+218 ou602             Tarsius_bancanus       NA  os9
+219 ou603               Tarsius_dianae       NA  os9
+220 ou604              Tarsius_pumilus       NA  os9
+221 ou605             Tarsius_spectrum       NA  os9
+222 ou606             Tarsius_syrichta       NA  os9
+223 ou607         Theropithecus_gelada       NA  os9
+224 ou608       Trachypithecus_auratus       NA  os9
+225 ou609     Trachypithecus_cristatus       NA  os9
+226 ou610     Trachypithecus_francoisi       NA  os9
+227 ou611          Trachypithecus_geei       NA  os9
+228 ou612        Trachypithecus_johnii       NA  os9
+229 ou613      Trachypithecus_obscurus       NA  os9
+230 ou614       Trachypithecus_phayrei       NA  os9
+231 ou615      Trachypithecus_pileatus       NA  os9
+232 ou616       Trachypithecus_vetulus       NA  os9
+233 ou617            Varecia_variegata       NA  os9
 ```
 
 ```r
@@ -968,239 +968,239 @@ taxa %>%
 
 ```
       otu                        label         x
-1   ou129  Allenopithecus_nigroviridis  8.465900
-2   ou130          Allocebus_trichotis  4.368181
-3   ou131            Alouatta_belzebul  8.729074
-4   ou132              Alouatta_caraya  8.628735
-5   ou133           Alouatta_coibensis  8.764053
-6   ou134               Alouatta_fusca  8.554489
-7   ou135            Alouatta_palliata  8.791790
-8   ou136               Alouatta_pigra  8.881836
-9   ou137                Alouatta_sara  8.796339
-10  ou138           Alouatta_seniculus  8.767173
-11  ou139                 Aotus_azarai  7.127694
-12  ou140              Aotus_brumbacki  6.401917
-13  ou141           Aotus_hershkovitzi  6.684612
-14  ou142              Aotus_infulatus  7.122867
-15  ou143              Aotus_lemurinus  6.781058
-16  ou144                Aotus_miconax  6.684612
-17  ou145              Aotus_nancymaae  6.678342
-18  ou146              Aotus_nigriceps  6.966024
-19  ou147            Aotus_trivirgatus  6.815640
-20  ou148             Aotus_vociferans  6.771936
-21  ou149            Arctocebus_aureus  5.459586
-22  ou150      Arctocebus_calabarensis  5.552960
-23  ou151             Ateles_belzebuth  8.812843
-24  ou152                Ateles_chamek  8.872067
-25  ou153             Ateles_fusciceps  9.112728
-26  ou154             Ateles_geoffroyi  8.937218
-27  ou155            Ateles_marginatus  8.738735
-28  ou156              Ateles_paniscus  9.072227
-29  ou157                Avahi_laniger  6.927558
-30  ou158      Brachyteles_arachnoides  9.268609
-31  ou159               Cacajao_calvus  8.137396
-32  ou160       Cacajao_melanocephalus  8.051978
-33  ou161          Callicebus_brunneus  6.747587
-34  ou162         Callicebus_caligatus  6.899723
-35  ou163       Callicebus_cinerascens  6.899723
-36  ou164           Callicebus_cupreus  7.021084
-37  ou165      Callicebus_donacophilus  6.801283
-38  ou166            Callicebus_dubius  6.899723
-39  ou167        Callicebus_hoffmannsi  6.975414
-40  ou168          Callicebus_modestus  6.899723
-41  ou169            Callicebus_moloch  6.872128
-42  ou170          Callicebus_oenanthe  6.899723
-43  ou171           Callicebus_olallae  6.899723
-44  ou172        Callicebus_personatus  7.237059
-45  ou173         Callicebus_torquatus  7.106606
-46  ou174            Callimico_goeldii  6.324359
-47  ou175         Callithrix_argentata  5.910797
-48  ou176            Callithrix_aurita  5.961005
-49  ou177         Callithrix_flaviceps  5.926926
-50  ou178         Callithrix_geoffroyi  5.834811
-51  ou179      Callithrix_humeralifera  5.926926
-52  ou180           Callithrix_jacchus  5.673323
-53  ou181            Callithrix_kuhlii  5.926926
-54  ou182       Callithrix_penicillata  5.828946
-55  ou183           Callithrix_pygmaea  4.828314
-56  ou184              Cebus_albifrons  7.832014
-57  ou185                 Cebus_apella  7.922986
-58  ou186              Cebus_capucinus  8.009695
-59  ou187              Cebus_olivaceus  7.937375
-60  ou188            Cercocebus_agilis  8.870663
-61  ou189         Cercocebus_galeritus  8.865029
-62  ou190         Cercocebus_torquatus  8.894259
-63  ou191       Cercopithecus_ascanius  8.171882
-64  ou192      Cercopithecus_campbelli  8.199739
-65  ou193         Cercopithecus_cephus  8.143227
-66  ou194          Cercopithecus_diana  8.382518
-67  ou195          Cercopithecus_dryas  7.930206
-68  ou196  Cercopithecus_erythrogaster  8.143227
-69  ou197     Cercopithecus_erythrotis  8.086410
-70  ou198        Cercopithecus_hamlyni  8.438150
-71  ou199        Cercopithecus_lhoesti  8.579229
-72  ou200          Cercopithecus_mitis  8.525161
-73  ou201           Cercopithecus_mona  8.289037
-74  ou202      Cercopithecus_neglectus  8.579229
-75  ou203      Cercopithecus_nictitans  8.567886
-76  ou204     Cercopithecus_petaurista  8.083329
-77  ou205       Cercopithecus_pogonias  8.183118
-78  ou206        Cercopithecus_preussi  8.544808
-79  ou207       Cercopithecus_sclateri  8.029433
-80  ou208        Cercopithecus_solatus  8.567886
-81  ou209          Cercopithecus_wolfi  8.089482
-82  ou210           Cheirogaleus_major  6.104793
-83  ou211          Cheirogaleus_medius  5.283204
-84  ou212         Chiropotes_albinasus  7.937375
-85  ou213           Chiropotes_satanas  7.996317
-86  ou214         Chlorocebus_aethiops  8.301522
-87  ou215           Colobus_angolensis  9.103868
-88  ou216              Colobus_guereza  9.210340
-89  ou217            Colobus_polykomos  9.060680
-90  ou218              Colobus_satanas  9.121509
-91  ou219 Daubentonia_madagascariensis  7.919356
-92  ou220           Erythrocebus_patas  8.988446
-93  ou221            Eulemur_coronatus  7.438384
-94  ou222               Eulemur_fulvus  7.779049
-95  ou223               Eulemur_macaco  7.816014
-96  ou224               Eulemur_mongoz  7.478735
-97  ou225          Eulemur_rubriventer  7.620705
-98  ou226         Euoticus_elegantulus  5.690359
-99  ou227            Euoticus_pallidus  5.627621
-100 ou228                Galago_alleni  5.521461
-101 ou229              Galago_gallarum  5.365976
-102 ou230             Galago_matschiei  5.267858
-103 ou231                Galago_moholi  5.375278
-104 ou232          Galago_senegalensis  5.594711
-105 ou233          Galagoides_demidoff  4.206184
-106 ou234      Galagoides_zanzibaricus  4.997212
-107 ou235              Gorilla_gorilla 11.643954
-108 ou236             Hapalemur_aureus  7.358831
-109 ou237            Hapalemur_griseus  6.862758
-110 ou238              Hapalemur_simus  7.620705
-111 ou239                 Homo_sapiens 10.980195
-112 ou240             Hylobates_agilis  8.675905
-113 ou241           Hylobates_concolor  8.768730
-114 ou242         Hylobates_gabriellae  9.047821
-115 ou243            Hylobates_hoolock  8.809863
-116 ou244            Hylobates_klossii  8.674197
-117 ou245                Hylobates_lar  8.635865
-118 ou246         Hylobates_leucogenys  8.898366
-119 ou247             Hylobates_moloch  8.677610
-120 ou248           Hylobates_muelleri  8.687779
-121 ou249           Hylobates_pileatus  8.630522
-122 ou250        Hylobates_syndactylus  9.296518
-123 ou251                  Indri_indri  9.065315
-124 ou252         Lagothrix_flavicauda  9.020390
-125 ou253         Lagothrix_lagotricha  8.743532
-126 ou254                  Lemur_catta  7.878534
-127 ou255      Leontopithecus_caissara  6.405228
-128 ou256    Leontopithecus_chrysomela  6.352629
-129 ou257   Leontopithecus_chrysopygus  6.486161
-130 ou258       Leontopithecus_rosalia  6.385194
-131 ou259           Lepilemur_dorsalis  6.232448
-132 ou260           Lepilemur_edwardsi  6.711740
-133 ou261           Lepilemur_leucopus  6.396930
-134 ou262           Lepilemur_microdon  6.863803
-135 ou263         Lepilemur_mustelinus  6.508769
-136 ou264       Lepilemur_ruficaudatus  6.637258
-137 ou265    Lepilemur_septentrionalis  6.638568
-138 ou266          Lophocebus_albigena  8.903815
-139 ou267            Loris_tardigradus  5.517453
-140 ou268             Macaca_arctoides  9.148465
-141 ou269            Macaca_assamensis  9.054855
-142 ou270              Macaca_cyclopis  8.658693
-143 ou271          Macaca_fascicularis  8.431635
-144 ou272               Macaca_fuscata  9.220291
-145 ou273                 Macaca_maura  8.894259
-146 ou274               Macaca_mulatta  8.771835
-147 ou275            Macaca_nemestrina  8.970813
-148 ou276                 Macaca_nigra  8.906529
-149 ou277              Macaca_ochreata  7.919356
-150 ou278               Macaca_radiata  8.517193
-151 ou279               Macaca_silenus  8.699515
-152 ou280                Macaca_sinica  8.446771
-153 ou281              Macaca_sylvanus  9.350102
-154 ou282             Macaca_thibetana  9.268609
-155 ou283              Macaca_tonkeana  9.220291
-156 ou284       Mandrillus_leucophaeus  9.560997
-157 ou285            Mandrillus_sphinx  9.729134
-158 ou286         Microcebus_coquereli  5.793014
-159 ou287           Microcebus_murinus  4.198705
-160 ou288             Microcebus_rufus  3.881564
-161 ou289         Miopithecus_talapoin  7.130899
-162 ou290             Nasalis_concolor  8.979354
-163 ou291             Nasalis_larvatus  9.417355
-164 ou292           Nycticebus_coucang  6.878326
-165 ou293          Nycticebus_pygmaeus  5.840642
-166 ou294      Otolemur_crassicaudatus  7.130899
-167 ou295           Otolemur_garnettii  6.701960
-168 ou296                 Pan_paniscus 10.468801
-169 ou297              Pan_troglodytes 10.716638
-170 ou298              Papio_hamadryas  9.735069
-171 ou299           Perodicticus_potto  6.984716
-172 ou300              Phaner_furcifer  6.016157
-173 ou301       Pithecia_aequatorialis  7.774856
-174 ou302            Pithecia_albicans  7.937375
-175 ou303            Pithecia_irrorata  7.749322
-176 ou304            Pithecia_monachus  7.654443
-177 ou305            Pithecia_pithecia  7.420579
-178 ou306               Pongo_pygmaeus 10.860920
-179 ou307             Presbytis_comata  9.039552
-180 ou308          Presbytis_femoralis  8.797851
-181 ou309           Presbytis_frontata  8.853665
-182 ou310              Presbytis_hosei  8.725832
-183 ou311         Presbytis_melalophos  8.748305
-184 ou312         Presbytis_potenziani  8.774931
-185 ou313          Presbytis_rubicunda  8.773385
-186 ou314            Presbytis_thomasi  8.765615
-187 ou315            Procolobus_badius  8.808369
-188 ou316         Procolobus_pennantii  9.122601
-189 ou317           Procolobus_preussi  9.094930
-190 ou318      Procolobus_rufomitratus  8.995909
-191 ou319             Procolobus_verus  8.289037
-192 ou320          Propithecus_diadema  8.794825
-193 ou321      Propithecus_tattersalli  8.171882
-194 ou322        Propithecus_verreauxi  8.202482
-195 ou323          Pygathrix_avunculus  9.164296
-196 ou324              Pygathrix_bieti  9.118225
-197 ou325           Pygathrix_brelichi  9.305651
-198 ou326            Pygathrix_nemaeus  9.417355
-199 ou327          Pygathrix_roxellana  9.510445
-200 ou328             Saguinus_bicolor  6.142037
-201 ou329         Saguinus_fuscicollis  5.976351
-202 ou330           Saguinus_geoffroyi  6.200509
-203 ou331           Saguinus_imperator  6.016157
-204 ou332             Saguinus_inustus  6.688355
-205 ou333            Saguinus_labiatus  6.234411
-206 ou334            Saguinus_leucopus  6.124683
-207 ou335               Saguinus_midas  6.293419
-208 ou336              Saguinus_mystax  6.326149
-209 ou337         Saguinus_nigricollis  6.109248
-210 ou338             Saguinus_oedipus  6.139885
-211 ou339         Saguinus_tripartitus  5.953243
-212 ou340          Saimiri_boliviensis  6.690842
-213 ou341            Saimiri_oerstedii  6.570883
-214 ou342             Saimiri_sciureus  6.620073
-215 ou343                Saimiri_ustus  6.791221
-216 ou344           Saimiri_vanzolinii  6.664409
-217 ou345       Semnopithecus_entellus  9.441452
-218 ou346             Tarsius_bancanus  4.736198
-219 ou347               Tarsius_dianae  4.709530
-220 ou348              Tarsius_pumilus  4.808111
-221 ou349             Tarsius_spectrum  5.111988
-222 ou350             Tarsius_syrichta  4.753590
-223 ou351         Theropithecus_gelada  9.680344
-224 ou352       Trachypithecus_auratus  9.181941
-225 ou353     Trachypithecus_cristatus  8.872067
-226 ou354     Trachypithecus_francoisi  9.008224
-227 ou355          Trachypithecus_geei  9.031214
-228 ou356        Trachypithecus_johnii  9.268609
-229 ou357      Trachypithecus_obscurus  8.870663
-230 ou358       Trachypithecus_phayrei  8.948976
-231 ou359      Trachypithecus_pileatus  9.323669
-232 ou360       Trachypithecus_vetulus  8.969542
-233 ou361            Varecia_variegata  8.261010
+1   ou385  Allenopithecus_nigroviridis  8.465900
+2   ou386          Allocebus_trichotis  4.368181
+3   ou387            Alouatta_belzebul  8.729074
+4   ou388              Alouatta_caraya  8.628735
+5   ou389           Alouatta_coibensis  8.764053
+6   ou390               Alouatta_fusca  8.554489
+7   ou391            Alouatta_palliata  8.791790
+8   ou392               Alouatta_pigra  8.881836
+9   ou393                Alouatta_sara  8.796339
+10  ou394           Alouatta_seniculus  8.767173
+11  ou395                 Aotus_azarai  7.127694
+12  ou396              Aotus_brumbacki  6.401917
+13  ou397           Aotus_hershkovitzi  6.684612
+14  ou398              Aotus_infulatus  7.122867
+15  ou399              Aotus_lemurinus  6.781058
+16  ou400                Aotus_miconax  6.684612
+17  ou401              Aotus_nancymaae  6.678342
+18  ou402              Aotus_nigriceps  6.966024
+19  ou403            Aotus_trivirgatus  6.815640
+20  ou404             Aotus_vociferans  6.771936
+21  ou405            Arctocebus_aureus  5.459586
+22  ou406      Arctocebus_calabarensis  5.552960
+23  ou407             Ateles_belzebuth  8.812843
+24  ou408                Ateles_chamek  8.872067
+25  ou409             Ateles_fusciceps  9.112728
+26  ou410             Ateles_geoffroyi  8.937218
+27  ou411            Ateles_marginatus  8.738735
+28  ou412              Ateles_paniscus  9.072227
+29  ou413                Avahi_laniger  6.927558
+30  ou414      Brachyteles_arachnoides  9.268609
+31  ou415               Cacajao_calvus  8.137396
+32  ou416       Cacajao_melanocephalus  8.051978
+33  ou417          Callicebus_brunneus  6.747587
+34  ou418         Callicebus_caligatus  6.899723
+35  ou419       Callicebus_cinerascens  6.899723
+36  ou420           Callicebus_cupreus  7.021084
+37  ou421      Callicebus_donacophilus  6.801283
+38  ou422            Callicebus_dubius  6.899723
+39  ou423        Callicebus_hoffmannsi  6.975414
+40  ou424          Callicebus_modestus  6.899723
+41  ou425            Callicebus_moloch  6.872128
+42  ou426          Callicebus_oenanthe  6.899723
+43  ou427           Callicebus_olallae  6.899723
+44  ou428        Callicebus_personatus  7.237059
+45  ou429         Callicebus_torquatus  7.106606
+46  ou430            Callimico_goeldii  6.324359
+47  ou431         Callithrix_argentata  5.910797
+48  ou432            Callithrix_aurita  5.961005
+49  ou433         Callithrix_flaviceps  5.926926
+50  ou434         Callithrix_geoffroyi  5.834811
+51  ou435      Callithrix_humeralifera  5.926926
+52  ou436           Callithrix_jacchus  5.673323
+53  ou437            Callithrix_kuhlii  5.926926
+54  ou438       Callithrix_penicillata  5.828946
+55  ou439           Callithrix_pygmaea  4.828314
+56  ou440              Cebus_albifrons  7.832014
+57  ou441                 Cebus_apella  7.922986
+58  ou442              Cebus_capucinus  8.009695
+59  ou443              Cebus_olivaceus  7.937375
+60  ou444            Cercocebus_agilis  8.870663
+61  ou445         Cercocebus_galeritus  8.865029
+62  ou446         Cercocebus_torquatus  8.894259
+63  ou447       Cercopithecus_ascanius  8.171882
+64  ou448      Cercopithecus_campbelli  8.199739
+65  ou449         Cercopithecus_cephus  8.143227
+66  ou450          Cercopithecus_diana  8.382518
+67  ou451          Cercopithecus_dryas  7.930206
+68  ou452  Cercopithecus_erythrogaster  8.143227
+69  ou453     Cercopithecus_erythrotis  8.086410
+70  ou454        Cercopithecus_hamlyni  8.438150
+71  ou455        Cercopithecus_lhoesti  8.579229
+72  ou456          Cercopithecus_mitis  8.525161
+73  ou457           Cercopithecus_mona  8.289037
+74  ou458      Cercopithecus_neglectus  8.579229
+75  ou459      Cercopithecus_nictitans  8.567886
+76  ou460     Cercopithecus_petaurista  8.083329
+77  ou461       Cercopithecus_pogonias  8.183118
+78  ou462        Cercopithecus_preussi  8.544808
+79  ou463       Cercopithecus_sclateri  8.029433
+80  ou464        Cercopithecus_solatus  8.567886
+81  ou465          Cercopithecus_wolfi  8.089482
+82  ou466           Cheirogaleus_major  6.104793
+83  ou467          Cheirogaleus_medius  5.283204
+84  ou468         Chiropotes_albinasus  7.937375
+85  ou469           Chiropotes_satanas  7.996317
+86  ou470         Chlorocebus_aethiops  8.301522
+87  ou471           Colobus_angolensis  9.103868
+88  ou472              Colobus_guereza  9.210340
+89  ou473            Colobus_polykomos  9.060680
+90  ou474              Colobus_satanas  9.121509
+91  ou475 Daubentonia_madagascariensis  7.919356
+92  ou476           Erythrocebus_patas  8.988446
+93  ou477            Eulemur_coronatus  7.438384
+94  ou478               Eulemur_fulvus  7.779049
+95  ou479               Eulemur_macaco  7.816014
+96  ou480               Eulemur_mongoz  7.478735
+97  ou481          Eulemur_rubriventer  7.620705
+98  ou482         Euoticus_elegantulus  5.690359
+99  ou483            Euoticus_pallidus  5.627621
+100 ou484                Galago_alleni  5.521461
+101 ou485              Galago_gallarum  5.365976
+102 ou486             Galago_matschiei  5.267858
+103 ou487                Galago_moholi  5.375278
+104 ou488          Galago_senegalensis  5.594711
+105 ou489          Galagoides_demidoff  4.206184
+106 ou490      Galagoides_zanzibaricus  4.997212
+107 ou491              Gorilla_gorilla 11.643954
+108 ou492             Hapalemur_aureus  7.358831
+109 ou493            Hapalemur_griseus  6.862758
+110 ou494              Hapalemur_simus  7.620705
+111 ou495                 Homo_sapiens 10.980195
+112 ou496             Hylobates_agilis  8.675905
+113 ou497           Hylobates_concolor  8.768730
+114 ou498         Hylobates_gabriellae  9.047821
+115 ou499            Hylobates_hoolock  8.809863
+116 ou500            Hylobates_klossii  8.674197
+117 ou501                Hylobates_lar  8.635865
+118 ou502         Hylobates_leucogenys  8.898366
+119 ou503             Hylobates_moloch  8.677610
+120 ou504           Hylobates_muelleri  8.687779
+121 ou505           Hylobates_pileatus  8.630522
+122 ou506        Hylobates_syndactylus  9.296518
+123 ou507                  Indri_indri  9.065315
+124 ou508         Lagothrix_flavicauda  9.020390
+125 ou509         Lagothrix_lagotricha  8.743532
+126 ou510                  Lemur_catta  7.878534
+127 ou511      Leontopithecus_caissara  6.405228
+128 ou512    Leontopithecus_chrysomela  6.352629
+129 ou513   Leontopithecus_chrysopygus  6.486161
+130 ou514       Leontopithecus_rosalia  6.385194
+131 ou515           Lepilemur_dorsalis  6.232448
+132 ou516           Lepilemur_edwardsi  6.711740
+133 ou517           Lepilemur_leucopus  6.396930
+134 ou518           Lepilemur_microdon  6.863803
+135 ou519         Lepilemur_mustelinus  6.508769
+136 ou520       Lepilemur_ruficaudatus  6.637258
+137 ou521    Lepilemur_septentrionalis  6.638568
+138 ou522          Lophocebus_albigena  8.903815
+139 ou523            Loris_tardigradus  5.517453
+140 ou524             Macaca_arctoides  9.148465
+141 ou525            Macaca_assamensis  9.054855
+142 ou526              Macaca_cyclopis  8.658693
+143 ou527          Macaca_fascicularis  8.431635
+144 ou528               Macaca_fuscata  9.220291
+145 ou529                 Macaca_maura  8.894259
+146 ou530               Macaca_mulatta  8.771835
+147 ou531            Macaca_nemestrina  8.970813
+148 ou532                 Macaca_nigra  8.906529
+149 ou533              Macaca_ochreata  7.919356
+150 ou534               Macaca_radiata  8.517193
+151 ou535               Macaca_silenus  8.699515
+152 ou536                Macaca_sinica  8.446771
+153 ou537              Macaca_sylvanus  9.350102
+154 ou538             Macaca_thibetana  9.268609
+155 ou539              Macaca_tonkeana  9.220291
+156 ou540       Mandrillus_leucophaeus  9.560997
+157 ou541            Mandrillus_sphinx  9.729134
+158 ou542         Microcebus_coquereli  5.793014
+159 ou543           Microcebus_murinus  4.198705
+160 ou544             Microcebus_rufus  3.881564
+161 ou545         Miopithecus_talapoin  7.130899
+162 ou546             Nasalis_concolor  8.979354
+163 ou547             Nasalis_larvatus  9.417355
+164 ou548           Nycticebus_coucang  6.878326
+165 ou549          Nycticebus_pygmaeus  5.840642
+166 ou550      Otolemur_crassicaudatus  7.130899
+167 ou551           Otolemur_garnettii  6.701960
+168 ou552                 Pan_paniscus 10.468801
+169 ou553              Pan_troglodytes 10.716638
+170 ou554              Papio_hamadryas  9.735069
+171 ou555           Perodicticus_potto  6.984716
+172 ou556              Phaner_furcifer  6.016157
+173 ou557       Pithecia_aequatorialis  7.774856
+174 ou558            Pithecia_albicans  7.937375
+175 ou559            Pithecia_irrorata  7.749322
+176 ou560            Pithecia_monachus  7.654443
+177 ou561            Pithecia_pithecia  7.420579
+178 ou562               Pongo_pygmaeus 10.860920
+179 ou563             Presbytis_comata  9.039552
+180 ou564          Presbytis_femoralis  8.797851
+181 ou565           Presbytis_frontata  8.853665
+182 ou566              Presbytis_hosei  8.725832
+183 ou567         Presbytis_melalophos  8.748305
+184 ou568         Presbytis_potenziani  8.774931
+185 ou569          Presbytis_rubicunda  8.773385
+186 ou570            Presbytis_thomasi  8.765615
+187 ou571            Procolobus_badius  8.808369
+188 ou572         Procolobus_pennantii  9.122601
+189 ou573           Procolobus_preussi  9.094930
+190 ou574      Procolobus_rufomitratus  8.995909
+191 ou575             Procolobus_verus  8.289037
+192 ou576          Propithecus_diadema  8.794825
+193 ou577      Propithecus_tattersalli  8.171882
+194 ou578        Propithecus_verreauxi  8.202482
+195 ou579          Pygathrix_avunculus  9.164296
+196 ou580              Pygathrix_bieti  9.118225
+197 ou581           Pygathrix_brelichi  9.305651
+198 ou582            Pygathrix_nemaeus  9.417355
+199 ou583          Pygathrix_roxellana  9.510445
+200 ou584             Saguinus_bicolor  6.142037
+201 ou585         Saguinus_fuscicollis  5.976351
+202 ou586           Saguinus_geoffroyi  6.200509
+203 ou587           Saguinus_imperator  6.016157
+204 ou588             Saguinus_inustus  6.688355
+205 ou589            Saguinus_labiatus  6.234411
+206 ou590            Saguinus_leucopus  6.124683
+207 ou591               Saguinus_midas  6.293419
+208 ou592              Saguinus_mystax  6.326149
+209 ou593         Saguinus_nigricollis  6.109248
+210 ou594             Saguinus_oedipus  6.139885
+211 ou595         Saguinus_tripartitus  5.953243
+212 ou596          Saimiri_boliviensis  6.690842
+213 ou597            Saimiri_oerstedii  6.570883
+214 ou598             Saimiri_sciureus  6.620073
+215 ou599                Saimiri_ustus  6.791221
+216 ou600           Saimiri_vanzolinii  6.664409
+217 ou601       Semnopithecus_entellus  9.441452
+218 ou602             Tarsius_bancanus  4.736198
+219 ou603               Tarsius_dianae  4.709530
+220 ou604              Tarsius_pumilus  4.808111
+221 ou605             Tarsius_spectrum  5.111988
+222 ou606             Tarsius_syrichta  4.753590
+223 ou607         Theropithecus_gelada  9.680344
+224 ou608       Trachypithecus_auratus  9.181941
+225 ou609     Trachypithecus_cristatus  8.872067
+226 ou610     Trachypithecus_francoisi  9.008224
+227 ou611          Trachypithecus_geei  9.031214
+228 ou612        Trachypithecus_johnii  9.268609
+229 ou613      Trachypithecus_obscurus  8.870663
+230 ou614       Trachypithecus_phayrei  8.948976
+231 ou615      Trachypithecus_pileatus  9.323669
+232 ou616       Trachypithecus_vetulus  8.969542
+233 ou617            Varecia_variegata  8.261010
                                                                                      href
 1    http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572992
 2    http://www.itis.gov/servlet/SingleRpt/SingleRpt?search_topic=TSN&search_value=572857
