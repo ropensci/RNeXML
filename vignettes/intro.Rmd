@@ -122,7 +122,7 @@ tr <- get_trees(nexml) # or: as(nexml, "phylo")
 plot(tr)
 ```
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5-1.png)
+![plot of chunk unnamed-chunk-5](../man/figuresunnamed-chunk-5-1.png)
 
 Write an `ape::phylo` tree into the `nexml` format:
 
@@ -159,29 +159,29 @@ get_taxa(birds)
 
 ```
 ##      otu            label xsi.type otus
-## 1  ou618 Struthioniformes       NA os10
-## 2  ou619     Tinamiformes       NA os10
-## 3  ou620      Craciformes       NA os10
-## 4  ou621      Galliformes       NA os10
-## 5  ou622     Anseriformes       NA os10
-## 6  ou623    Turniciformes       NA os10
-## 7  ou624       Piciformes       NA os10
-## 8  ou625    Galbuliformes       NA os10
-## 9  ou626   Bucerotiformes       NA os10
-## 10 ou627      Upupiformes       NA os10
-## 11 ou628    Trogoniformes       NA os10
-## 12 ou629    Coraciiformes       NA os10
-## 13 ou630      Coliiformes       NA os10
-## 14 ou631     Cuculiformes       NA os10
-## 15 ou632   Psittaciformes       NA os10
-## 16 ou633      Apodiformes       NA os10
-## 17 ou634   Trochiliformes       NA os10
-## 18 ou635  Musophagiformes       NA os10
-## 19 ou636     Strigiformes       NA os10
-## 20 ou637    Columbiformes       NA os10
-## 21 ou638       Gruiformes       NA os10
-## 22 ou639    Ciconiiformes       NA os10
-## 23 ou640    Passeriformes       NA os10
+## 1  ou175 Struthioniformes       NA  os9
+## 2  ou176     Tinamiformes       NA  os9
+## 3  ou177      Craciformes       NA  os9
+## 4  ou178      Galliformes       NA  os9
+## 5  ou179     Anseriformes       NA  os9
+## 6  ou180    Turniciformes       NA  os9
+## 7  ou181       Piciformes       NA  os9
+## 8  ou182    Galbuliformes       NA  os9
+## 9  ou183   Bucerotiformes       NA  os9
+## 10 ou184      Upupiformes       NA  os9
+## 11 ou185    Trogoniformes       NA  os9
+## 12 ou186    Coraciiformes       NA  os9
+## 13 ou187      Coliiformes       NA  os9
+## 14 ou188     Cuculiformes       NA  os9
+## 15 ou189   Psittaciformes       NA  os9
+## 16 ou190      Apodiformes       NA  os9
+## 17 ou191   Trochiliformes       NA  os9
+## 18 ou192  Musophagiformes       NA  os9
+## 19 ou193     Strigiformes       NA  os9
+## 20 ou194    Columbiformes       NA  os9
+## 21 ou195       Gruiformes       NA  os9
+## 22 ou196    Ciconiiformes       NA  os9
+## 23 ou197    Passeriformes       NA  os9
 ```
 
 ```r
@@ -190,9 +190,9 @@ get_metadata(birds)
 
 ```
 ##           property   datatype                 content     xsi.type                                              href Meta
-## 1       dc:creator xsd:string          Carl Boettiger  LiteralMeta                                              <NA> m795
-## 2 dcterms:modified xsd:string 2020-01-28 21:47:09 GMT  LiteralMeta                                              <NA> m796
-## 3       cc:license       <NA>                    <NA> ResourceMeta http://creativecommons.org/publicdomain/zero/1.0/ m797
+## 1       dc:creator xsd:string          Carl Boettiger  LiteralMeta                                              <NA> m306
+## 2 dcterms:modified xsd:string 2020-01-28 22:23:05 GMT  LiteralMeta                                              <NA> m307
+## 3       cc:license       <NA>                    <NA> ResourceMeta http://creativecommons.org/publicdomain/zero/1.0/ m308
 ```
 
 --------------------------------------------

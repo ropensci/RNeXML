@@ -16,6 +16,8 @@ output: html_vignette
 
 
 ```{r echo=FALSE}
+knitr::opts_chunk$set(fig.path="../man/figures")
+
 library(RNeXML)
 ```
 
