@@ -17,14 +17,16 @@ chir_super_small <- add_trees(chiroptera_super_small)
 
 test_that("taxize_nexml correctly collects ncbi identifiers", {
   
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   testthat::skip_on_cran()
   testthat::skip_if_not_installed("taxadb")
-  
-  birds <- taxize_nexml(birds, "NCBI")
-  
-  chir <- taxize_nexml(chir, "NCBI")
-  chir_super_small <- taxize_nexml(chir_super_small, "NCBI")
-  
+  suppressWarnings({
+    birds <- taxize_nexml(birds, "NCBI")
+    chir <- taxize_nexml(chir, "NCBI")
+    chir_super_small <- taxize_nexml(chir_super_small, "NCBI")
+  })
   
   expect_is(birds@otus, "ListOfotus")
   
@@ -44,6 +46,9 @@ test_that("taxize_nexml correctly collects ncbi identifiers", {
 })
 
 test_that("we can extract taxonomy data from the object", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
   
   expect_is(get_metadata(birds, "otus/otu"), "data.frame")
   expect_is(get_metadata(chir_super_small, 'otus/otu'), "data.frame")

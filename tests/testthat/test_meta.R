@@ -4,6 +4,10 @@ context("meta")
 data(bird.orders)
 
 test_that("We can add additional metadata", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   ## The short version using an RNeXML API
   nex <- add_basic_meta(
               title = "My test title",
@@ -22,6 +26,10 @@ test_that("We can add additional metadata", {
 
 
 test_that("We can add R bibentry type metadata", {
+  
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
   ## The short version using an RNeXML API
 
   nex <- add_trees(bird.orders)
@@ -35,6 +43,10 @@ test_that("We can add R bibentry type metadata", {
 })
 
 test_that("Adding meta data has some basic error checking", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   testthat::expect_error(add_meta(NULL, level = "nexml"))
   m <- meta("foo-rel", "a test")
   testthat::expect_error(add_meta(list(m, "not a meta")))
@@ -42,6 +54,10 @@ test_that("Adding meta data has some basic error checking", {
 })
 
 test_that("ResourceMeta maps rel to property for simplicity of API", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   m <- meta(rel = "foo-rel", href="http://example.com/")
   testthat::expect_is(m, "ResourceMeta")
   testthat::expect_error(m@property)
@@ -54,6 +70,10 @@ test_that("ResourceMeta maps rel to property for simplicity of API", {
 })
 
 test_that("ResourceMeta maps meta to children for simplicity of API", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   nested <- c(meta(property = "foo-prop", content = "foo"),
               meta(property = "bar-prop", content = "bar"))
   m <- meta(rel = "foo-rel", children = nested)
@@ -75,6 +95,10 @@ test_that("ResourceMeta maps meta to children for simplicity of API", {
 })
 
 test_that("Citation BibEntry objects are transformed to structured metadata", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   nexml_cit <- nexml_citation(citation("RNeXML"))
   testthat::expect_is(nexml_cit, "list")
   testthat::expect_length(nexml_cit, 1)
@@ -92,6 +116,10 @@ test_that("Citation BibEntry objects are transformed to structured metadata", {
 })
 
 test_that("We can add additional metadata", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   ## The short version using an RNeXML API
   nex <- add_trees(bird.orders)
   nex <- add_basic_meta(nexml = nex, citation=citation("ape")) 
@@ -120,7 +148,10 @@ test_that("We can add additional metadata", {
 
 
 test_that("We can directly add additional metadata at arbitrary level", {
-  nex <- add_trees(bird.orders)
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
+    nex <- add_trees(bird.orders)
   modified <- meta(property = "prism:modificationDate",
                   content = "2013-10-04")
 
@@ -184,6 +215,10 @@ test_that("We can directly add additional metadata at arbitrary level", {
 
 
 test_that("We can directly add additional metadata using concatenation notation", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   nex <- add_trees(bird.orders)
   modified <- meta(property = "prism:modificationDate",
                   content = "2013-10-04")
@@ -206,6 +241,10 @@ test_that("We can directly add additional metadata using concatenation notation"
 
 
 test_that("We can add arbitrary metadata", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   rdfa <- '<xhtml:div typeof="foaf:Person" about="http://carlboettiger.info#me">
              <a rel="foaf:account" href="https://twitter.com/cboettig">twitter</a> 
              <a rel="foaf:account" href="https://github.com/cboettig">github</a>
@@ -229,12 +268,18 @@ test_that("We can add arbitrary metadata", {
 
 
 test_that("we can write numeric types of meta elements and get correct datatype", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
           m <- meta(property="numericTest", content = 3.141)
           expect_is(m@content, "character")
           expect_match(m@datatype, ".*:decimal")
 })
 
 test_that("we can serialize nested meta elements", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
 
   f <- system.file("examples", "meta_example.xml", package="RNeXML")
   nex <- read.nexml(f)

@@ -3,6 +3,10 @@ context("parsing")
 # More lower-level parsing tests in inheritance
 
 test_that("We can parse a NeXML file to an S4 RNeXML::tree object", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   f <- system.file("examples", "trees.xml", package="RNeXML")
   doc <- xmlParse(f)
   root <- xmlRoot(doc)
@@ -13,7 +17,9 @@ test_that("We can parse a NeXML file to an S4 RNeXML::tree object", {
 
 
 test_that("We preserve existing namespace", {
-
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   f <- system.file("examples", "biophylo.xml", package="RNeXML")
   nex <- nexml_read(f)
 
@@ -43,6 +49,10 @@ test_that("We preserve existing namespace", {
 })
 
 test_that("base namespace gets added if not present", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   doc <- xmlParse(system.file("examples", "no-base-ns.xml", package="RNeXML"))
   xmlroot <- xmlRoot(doc)
 
@@ -59,6 +69,10 @@ test_that("base namespace gets added if not present", {
 
 
 test_that("files with rootedge can be parsed and roundtripped", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   f <- system.file("examples", "coal.xml", package = "RNeXML")
   nex <- read.nexml(f)
 

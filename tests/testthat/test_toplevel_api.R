@@ -3,7 +3,8 @@ context("top level API")
 
 test_that("read.nexml works", {
   ## The short version using an RNeXML API
-
+  ## tests are too slow for CRAN
+  skip_on_cran()
   f <- system.file("examples", "trees.xml", package="RNeXML")
   nex <- read.nexml(f) # check alias
   expect_is(nex, "nexml")
@@ -12,7 +13,8 @@ test_that("read.nexml works", {
 
 test_that("write.nexml works (from ape::phylo)", {
   ## The short version using an RNeXML API
-
+  ## tests are too slow for CRAN
+  skip_on_cran()
   data(bird.orders)
   nexml_write(bird.orders, file="example.xml")
   write.nexml(bird.orders, file="example.xml") # check alias too
@@ -27,15 +29,19 @@ test_that("write.nexml works (from ape::phylo)", {
 
 
 test_that("write.nexml can write multiple trees at once ", {
+  ## tests are too slow for CRAN
+  skip_on_cran()
   f <- system.file("examples", "trees.xml", package="RNeXML")
   nex <- nexml_read(f)
   trees <- get_trees(nex)
 
   ##  We can write a listOfmultiPhylo if the argument is named
+  
   nexml_write(trees = trees, file="example.xml")
   expect_true_or_null(nexml_validate("example.xml"))
 
   # we can write a multiPhylo (or phylo) by attempting coercion on the first argument instead:  
+  
   nexml_write(trees[[1]], file="example.xml")
   expect_true_or_null(nexml_validate("example.xml"))
 
@@ -47,6 +53,8 @@ test_that("write.nexml can write multiple trees at once ", {
 
 
 test_that("We can get the right level of lists of trees ", {
+  ## tests are too slow for CRAN
+  skip_on_cran()
 
   f <- system.file("examples", "trees.xml", package="RNeXML")
   nex <- nexml_read(f)

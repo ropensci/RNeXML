@@ -4,6 +4,10 @@ context("serializing")
 ## More tests at lower-level serializing from S4 to XML in inheritance.R
 
 test_that("We can serialize ape to S4 RNeXML into valid NeXML",{
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   data(bird.orders)
 
 
@@ -35,6 +39,10 @@ test_that("We can serialize ape to S4 RNeXML into valid NeXML",{
 
 
 test_that("We can serialize parsed NeXML to S4 RNeXML into valid NeXML",{
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   root <- xmlRoot(xmlParse(system.file("examples", "trees.xml", package="RNeXML")))
   tree <- as(root, "nexml")
   nexml_write(tree, file="test.xml")
@@ -48,6 +56,10 @@ test_that("We can serialize parsed NeXML to S4 RNeXML into valid NeXML",{
   })
 
 test_that("We can correctly serialize XML literals as metadata", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   nex1 <- read.nexml(system.file("examples", "phenex.xml", package="RNeXML"))
   m_xml1 <- get_metadata(nex1, "characters/format/states/state") %>%
     dplyr::filter(property == "ps:describesPhenotype")
@@ -66,6 +78,10 @@ test_that("We can correctly serialize XML literals as metadata", {
 })
 
 test_that("we can serialize NeXML with rootedge to a valid NeXML file", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   f <- system.file("examples", "coal.xml", package = "RNeXML")
   nex <- read.nexml(f)
   write.nexml(nex, file = "test.xml")

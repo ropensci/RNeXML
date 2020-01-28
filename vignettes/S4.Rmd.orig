@@ -14,9 +14,18 @@ output: html_vignette
 -->
 
 
+```{r supplement-compile-settings, include=FALSE}
+library("methods")
+library("knitr")
+opts_chunk$set(tidy = FALSE, warning = FALSE, message = FALSE, 
+               cache = FALSE, comment = NA, verbose = TRUE)
+basename <- 'S4' 
 
+```
 
-
+```{r include=FALSE}
+library("RNeXML")
+```
 
 
 ## Understanding the `nexml` S4 object
@@ -44,51 +53,21 @@ the single exception that both XML attributes and children are represented as sl
 S4 objects have constructor functions to initialize them.  We create a new `nexml` 
 object with the command:
 
-
-```r
+```{r}
 nex <- new("nexml")
 ```
 
 We can see a list of slots contained in this object with
 
-
-```r
+```{r}
 slotNames(nex)
-```
-
-```
- [1] "version"            "generator"          "xsi:schemaLocation" "namespaces"         "otus"              
- [6] "trees"              "characters"         "meta"               "about"              "xsi:type"          
 ```
 
 Some of these slots have already been populated for us, for instance, the schema version and default namespaces:
 
-
-```r
+```{r}
 nex@version
-```
-
-```
-[1] "0.9"
-```
-
-```r
 nex@namespaces
-```
-
-```
-                                             nex                                              xsi 
-                     "http://www.nexml.org/2009"      "http://www.w3.org/2001/XMLSchema-instance" 
-                                             xml                                             cdao 
-          "http://www.w3.org/XML/1998/namespace"                "http://purl.obolibrary.org/obo/" 
-                                             xsd                                               dc 
-             "http://www.w3.org/2001/XMLSchema#"               "http://purl.org/dc/elements/1.1/" 
-                                         dcterms                                            prism 
-                     "http://purl.org/dc/terms/" "http://prismstandard.org/namespaces/1.2/basic/" 
-                                              cc                                             ncbi 
-                "http://creativecommons.org/ns#"          "http://www.ncbi.nlm.nih.gov/taxonomy#" 
-                                              tc                                                  
- "http://rs.tdwg.org/ontology/voc/TaxonConcept#"                      "http://www.nexml.org/2009" 
 ```
 
 Recognize that `nex@namespaces` serves the same role as `get_namespaces`
@@ -100,60 +79,35 @@ advised.
 Some slots can contain multiple elements of the same type, such as
 `trees`, `characters`, and `otus`.  For instance, we see that
 
-
-```r
+```{r}
 class(nex@characters)
-```
-
-```
-[1] "ListOfcharacters"
-attr(,"package")
-[1] "RNeXML"
 ```
 
 is an object of class `ListOfcharacters`, and is currently empty,
 
-
-```r
+```{r}
 length(nex@characters)
-```
-
-```
-[1] 0
 ```
 
 In order to assign an object to a slot, it must match the class definition
 of the slot.  We can create a new element of any given class with the
 `new` function,
 
-
-```r
+```{r}
 nex@characters <- new("ListOfcharacters", list(new("characters")))
 ```
 
 and now we have a length-1 list of character matrices,
 
-
-```r
+```{r}
 length(nex@characters)
-```
-
-```
-[1] 1
 ```
 
 and we access the first character matrix using the list notation,
 `[[1]]`. Here we check the class is a `characters` object.
 
-
-```r
+```{r}
 class(nex@characters[[1]])
-```
-
-```
-[1] "characters"
-attr(,"package")
-[1] "RNeXML"
 ```
 
 Direct subsetting has two primary use cases: (a) useful in looking up
@@ -161,28 +115,20 @@ Direct subsetting has two primary use cases: (a) useful in looking up
 metadata annotations to specific elements. Consider the example file
 
 
-
-```r
+```{r}
 f <- system.file("examples", "trees.xml", package="RNeXML")
 nex <- nexml_read(f)
 ```
 
 We can look up the species label of the first `otu` in the first `otus` block:
 
-
-```r
+```{r}
 nex@otus[[1]]@otu[[1]]@label
-```
-
-```
-      label 
-"species 1" 
 ```
 
 We can add metadata to this particular OTU using this subsetting format
 
-
-```r
+```{r}
 nex@otus[[1]]@otu[[1]]@meta <- 
   c(meta("skos:note", 
           "This species was incorrectly identified"),

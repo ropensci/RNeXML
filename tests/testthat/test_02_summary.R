@@ -1,6 +1,10 @@
 testthat::context("summary for nexml objects")
 
 test_that("summary() doesn't error on various inputs", {
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   files <- list.files(path = system.file("examples", package = "RNeXML"),
                       pattern = ".*\\.xml$", full.names = TRUE)
   for (f in files) {

@@ -2,6 +2,9 @@ context("Comparative analysis")
 
 test_that("We can extract tree and trait data to run fitContinuous and fitDiscrete", {
   skip_if_not_installed("geiger")
+  
+  ## tests are too slow for CRAN
+  skip_on_cran()
 
   nexml <- read.nexml(system.file("examples", "comp_analysis.xml", package="RNeXML"))
   traits <- get_characters(nexml)
@@ -13,6 +16,9 @@ test_that("We can extract tree and trait data to run fitContinuous and fitDiscre
 
 
 test_that("We can serialize tree and trait data for a comparative analysis", {
+  ## tests are too slow for CRAN
+  skip_on_cran()
+  
   skip_if_not_installed("geiger")
 
   require("geiger")
