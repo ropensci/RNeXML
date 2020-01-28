@@ -194,4 +194,4 @@ plot(collapsed,
      label.offset=-9)
 ```
 
-![plot of chunk unnamed-chunk-8](../man/figures/unnamed-chunk-8-1.png)
+![plot of chunk unnamed-chunk-8](sparql-unnamed-chunk-8-1.png)
