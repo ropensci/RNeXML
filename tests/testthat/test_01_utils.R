@@ -116,7 +116,7 @@ test_that(".callGeneric works correctly", {
 test_that("coalesce_() works correctly", {
   dta <- data.frame(col1 = rep(NA, times = 5),
                     col2 = 1:5,
-                    col3 = letters[1:5])
+                    col3 = as.factor(letters[1:5]))
   dta[3:4, "col2"] <- NA
   dta[2:3, "col3"] <- NA
   last <- letters[6:10]
