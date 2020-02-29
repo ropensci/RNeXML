@@ -6,6 +6,11 @@ For more fine-grained list of changes or to report a bug, consult
 * [The issues log](https://github.com/ropensci/RNeXML/issues)
 * [The commit log](https://github.com/ropensci/RNeXML/commits/master)
 
+v2.4.3
+------
+
+- This update fixes a minor bug in a unit test for compatibilty 
+  with R-devel (4.0.0) as requested by CRAN (#245)
 
 v2.4.2
 ------
