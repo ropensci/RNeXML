@@ -14,7 +14,6 @@ Description: Provides access to phyloinformatic data in 'NeXML' format.  The
     with 'ape' objects.
 URL: https://docs.ropensci.org/RNeXML, https://github.com/ropensci/RNeXML
 BugReports: https://github.com/ropensci/RNeXML/issues
-Additional_repositories: https://cboettig.github.io/drat/
 License: BSD_3_clause + file LICENSE
 VignetteBuilder: knitr
 Suggests:
