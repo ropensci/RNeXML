@@ -22,9 +22,9 @@ SKIP = c("meta", "children", "member", "row", "cell", "seq", "matrix", "format",
 #' 
 #' The return object is a data frame whose columns are the attribute names of the elements
 #' specified. The column names match the attribute names except for "id" attribute, for which the column
-#' is renamed using the node itself. (Thus <otus id="os2"> would be rendered in a data.frame with column
+#' is renamed using the node itself. (Thus `<otus id="os2">` would be rendered in a data.frame with column
 #' called "otus" instead of "id"). Additional columns are
-#' added for each parent element in the path; e.g. get_level(nex, "otus/otu") would include a column
+#' added for each parent element in the path; e.g. `get_level(nex, "otus/otu")` would include a column
 #' named "otus" with the id of each otus block.  Even though the method always returns the data frame 
 #' for all matching nodes in all blocks, these ids let you see which otu values came from which 
 #' otus block.  This is identical to the function call `get_taxa()`.  

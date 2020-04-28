@@ -86,7 +86,7 @@ Collate:
     'tbl_df.R'
     'utils.R'
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.0
 X-schema.org-applicationCategory: Data Publication
 X-schema.org-keywords: metadata, nexml, phylogenetics, linked-data
 X-schema.org-isPartOf: https://ropensci.org
