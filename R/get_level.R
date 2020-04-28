@@ -82,7 +82,7 @@ nodelist_to_df <- function(node, element, fn, nodeId=NA){
                          n = nodelist,
                          id = mout[,"Meta"])
         if (is.null(names(nested))) nested <- as.data.frame(nested[,1])
-        out <- dplyr::bind_rows(mout, nested)
+        out <- dplyr::bind_rows(mout, unname(nested))
       }
     }
     dplyr::mutate_(out, .dots = dots) -> out
