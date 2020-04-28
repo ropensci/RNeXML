@@ -186,7 +186,6 @@ setMethod("c",
 #' Concatenate ListOfmeta elements into a ListOfmeta
 #' 
 #' Concatenate ListOfmeta elements into a flat ListOfmeta
-#' @inheritParams c-meta
 #' @examples 
 #' metalist <- c(meta(content="example", property="dc:title"),
 #'               meta(content="Carl", property="dc:creator"))
