@@ -1,6 +1,6 @@
 Dear CRAN maintainers,
 
-This update fixes a minor bug as requested, see NEWS.md
+This update accomodates upcoming changes in dplyr.
 
 Carl
 

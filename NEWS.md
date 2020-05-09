@@ -6,6 +6,11 @@ For more fine-grained list of changes or to report a bug, consult
 * [The issues log](https://github.com/ropensci/RNeXML/issues)
 * [The commit log](https://github.com/ropensci/RNeXML/commits/master)
 
+v2.4.4
+------
+
+Compatibility with upcoming `dplyr` release.
+
 v2.4.3
 ------
 
