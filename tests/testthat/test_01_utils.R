@@ -126,8 +126,12 @@ test_that("coalesce_() works correctly", {
   # (1) dplyr::coalesce is strict about type, and for some reason vectors
   # that are all NAs default to type logical
   testthat::expect_is(dta[, "col1"], "logical")
-  testthat::expect_error(dplyr::coalesce(dta$col1, dta$col3, last))
-  testthat::expect_error(dplyr::coalesce(dta$col3, last)) # col3 is a factor
+  
+  # EDIT: I believe these ungraceful behaviors in dplyr are resolved
+  # in the most recent version, and so these no longer throw errors:
+  
+  ## testthat::expect_error(dplyr::coalesce(dta$col1, dta$col3, last))
+  ## testthat::expect_error(dplyr::coalesce(dta$col3, last)) # col3 is a factor
   # (2) dplyr::coalesce doesn't gracefully deal with NULL arguments, which
   # can result from referencing column names that aren't there, requiring
   # a conditional testing for presence of the column
