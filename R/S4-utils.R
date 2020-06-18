@@ -3,9 +3,9 @@
 #' Finds the method that callNextMethod() should chain to
 #'
 #' Attempts to find the "next" method in the inheritance chain. This would
-#' (ideally) be the method that [methods::callNextMethod()] would chain to,
-#' as a result of the method [methods::addNextMethod()] would find (and return
-#' in the `nextMethod` slot of the [MethodWithNext][methods::MethodWithNext-class]
+#' (ideally) be the method that `methods::callNextMethod()` would chain to,
+#' as a result of the method `methods::addNextMethod()` would find (and return
+#' in the `nextMethod` slot of the `MethodWithNext`
 #' object). Hence, in theory one shouldn't ever need this, but unfortunately
 #' `addNextMethod()` is broken (and errors out) if one of the classes in the
 #' signature name-clashes with an S4 class defined in another package that is
@@ -16,18 +16,18 @@
 #' the signature that are defined in the package of the generic method from
 #' which this function was invoked (directly or indirectly). If there are
 #' no such parameters in the signature, or if there is more than one,
-#' finding the next method is handed off to [methods::addNextMethod()].
+#' finding the next method is handed off to `methods::addNextMethod()`.
 #' @note In theory a class name clash between packages shouldn't be a problem
-#'   because class names can be namespaced, and the [MethodDefinition][methods::MethodDefinition-class]
+#'   because class names can be namespaced, and the `MethodDefinition`
 #'   object passed to `addNextMethod()` has all the necessary namespace
 #'   information. Hopefully, at some point this gets fixed in R, and then we
 #'   don't need this anymore.
-#' @param method [MethodDefinition][methods::MethodDefinition-class]), the method for which to find
+#' @param method `MethodDefinition`, the method for which to find
 #'   the next method
-#' @param f [standardGeneric][methods::standardGeneric-class], the standard generic for which to find
+#' @param f `standardGeneric`, the standard generic for which to find
 #'   the next method. By default this will be obtained from `method`.
 #' @param envir the environment in which to find the method
-#' @return a [MethodDefinition][methods::MethodDefinition-class] object that is the next method in the
+#' @return a `MethodDefinition` object that is the next method in the
 #'   chain by inheritance
 #' @importFrom methods getClassDef selectMethod addNextMethod
 #' @importFrom utils packageName
@@ -74,17 +74,17 @@ findNextMethod <- function(method, f = NULL, envir = topenv()) {
 #' Saves the next method in the method meta data
 #'
 #' Promotes the given method definition to an instance of
-#' [MethodWithNext][methods::MethodWithNext-class], thereby recording the next
+#' `MethodWithNext`, thereby recording the next
 #' method in the `nextMethod` slot.
 #' @note `MethodWithNext` objects are normally returned by
-#'   [methods::addNextMethod()], but a constructor function for the class
+#'   `methods::addNextMethod()`, but a constructor function for the class
 #'   seems missing (or is undocumented?). This provides one.
-#' @param method the [MethodDefinition][methods::MethodDefinition-class] object to promote
-#' @param nextMethod the [MethodDefinition][methods::MethodDefinition-class]
+#' @param method the `MethodDefinition` object to promote
+#' @param nextMethod the `MethodDefinition`
 #'   object to record as the next method
 #' @param .cache whether to cache the promoted method definition object
-#'   (using [methods::cacheMethod()])
-#' @return an instance of [MethodWithNext][methods::MethodWithNext-class],
+#'   (using `methods::cacheMethod()`)
+#' @return an instance of `MethodWithNext`,
 #'   which has the next method in the `nextMethod` slot
 #' @importFrom methods getGeneric cacheMethod
 #' @importClassesFrom methods MethodWithNext
@@ -108,9 +108,9 @@ findNextMethod <- function(method, f = NULL, envir = topenv()) {
 #' Creates a label for a signature mirroring the result of `.sigLabel()`
 #' in the `methods` package, which unfortunately does not export the function.
 #' This is needed, for example, for the `excluded` slot in the
-#' [MethodWithNext][methods::MethodWithNext-class] class.
+#' `MethodWithNext` class.
 #' @param signature the signature for which to create a label, as a vector
-#'   or list of strings, or as an instance of [signature][methods::signature-class].
+#'   or list of strings, or as an instance of `signature`.
 #' @return a character string
 .sigLabel <- function(signature) {
   if (is(signature, "signature")) signature <- signature@.Data
@@ -121,13 +121,13 @@ findNextMethod <- function(method, f = NULL, envir = topenv()) {
 #'
 #' If the calling environment does not have the next method to be invoked
 #' in the inheritance chain cached yet, this will find the next method
-#' (using [findNextMethod()]), and cache it in the calling environment such
-#' that a subsequent call to [methods::callNextMethod()] will find and use
+#' (using `findNextMethod()`, and cache it in the calling environment such
+#' that a subsequent call to `methods::callNextMethod()` will find and use
 #' it.
 #'
 #' As per the description, what this function does would normally already
-#' be done by invoking [methods::callNextMethod()], so in theory this should
-#' be entirely redundant at best. However, [methods::addNextMethod()], which
+#' be done by invoking `methods::callNextMethod()`, so in theory this should
+#' be entirely redundant at best. However, `methods::addNextMethod()`, which
 #' is invoked by `callNextMethod()` if a next method isn't cached yet, is
 #' broken (errors out) if one of the classes in the signature name-clashes
 #' with a class defined in another package. Calling this function prior to
@@ -162,15 +162,15 @@ findNextMethod <- function(method, f = NULL, envir = topenv()) {
 #' Calls the given generic with the given arguments, using the method
 #' whose signature matches the arguments.
 #'
-#' Uses [methods::selectMethod()] to find the matching method. In theory,
+#' Uses `methods::selectMethod()` to find the matching method. In theory,
 #' this is at best wholly redundant with what standard S4 generics already
 #' do by themselves. However, the generics dispatch for S4 seems (at least
 #' currently) broken at least if the first argument in the signature is
 #' a class that name-clashes with a class defined in another package. In
 #' that case, whether the standard dispatch works correctly or not can depend
-#' on [search order][base::search()], and can change within a session
+#' on `search()` order, and can change within a session
 #' depending on the order in which packages are loaded.
-#' @param f the generic, as a character string or a [standardGeneric][methods::standardGeneric-class]
+#' @param f the generic, as a character string or a `standardGeneric`
 #'   object
 #' @param ... the arguments (named and/or unnamed) with which to call the
 #'   matching method

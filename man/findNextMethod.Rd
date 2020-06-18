@@ -7,23 +7,23 @@
 findNextMethod(method, f = NULL, envir = topenv())
 }
 \arguments{
-\item{method}{\link[methods:MethodDefinition-class]{MethodDefinition}), the method for which to find
+\item{method}{\code{MethodDefinition}, the method for which to find
 the next method}
 
-\item{f}{\link[methods:standardGeneric-class]{standardGeneric}, the standard generic for which to find
+\item{f}{\code{standardGeneric}, the standard generic for which to find
 the next method. By default this will be obtained from \code{method}.}
 
 \item{envir}{the environment in which to find the method}
 }
 \value{
-a \link[methods:MethodDefinition-class]{MethodDefinition} object that is the next method in the
+a \code{MethodDefinition} object that is the next method in the
 chain by inheritance
 }
 \description{
 Attempts to find the "next" method in the inheritance chain. This would
-(ideally) be the method that \code{\link[methods:callNextMethod]{methods::callNextMethod()}} would chain to,
-as a result of the method \code{\link[methods:addNextMethod]{methods::addNextMethod()}} would find (and return
-in the \code{nextMethod} slot of the \link[methods:MethodWithNext-class]{MethodWithNext}
+(ideally) be the method that \code{methods::callNextMethod()} would chain to,
+as a result of the method \code{methods::addNextMethod()} would find (and return
+in the \code{nextMethod} slot of the \code{MethodWithNext}
 object). Hence, in theory one shouldn't ever need this, but unfortunately
 \code{addNextMethod()} is broken (and errors out) if one of the classes in the
 signature name-clashes with an S4 class defined in another package that is
@@ -35,11 +35,11 @@ this function will walk only the inheritance chain of those arguments in
 the signature that are defined in the package of the generic method from
 which this function was invoked (directly or indirectly). If there are
 no such parameters in the signature, or if there is more than one,
-finding the next method is handed off to \code{\link[methods:addNextMethod]{methods::addNextMethod()}}.
+finding the next method is handed off to \code{methods::addNextMethod()}.
 }
 \note{
 In theory a class name clash between packages shouldn't be a problem
-because class names can be namespaced, and the \link[methods:MethodDefinition-class]{MethodDefinition}
+because class names can be namespaced, and the \code{MethodDefinition}
 object passed to \code{addNextMethod()} has all the necessary namespace
 information. Hopefully, at some point this gets fixed in R, and then we
 don't need this anymore.

@@ -17,8 +17,8 @@ nexml_read(x, ...)
 \method{nexml_read}{XMLInternalNode}(x, ...)
 }
 \arguments{
-\item{x}{Path to the file to be read in. Or an \code{\link[XML]{XMLInternalDocument-class}}
-or \code{\link[XML]{XMLInternalNode-class}}}
+\item{x}{Path to the file to be read in. Or an \code{\link[XML]{XMLDocument-class}}
+or \code{\link[XML]{XMLNode-class}}}
 
 \item{...}{Further arguments passed on to \code{\link[XML]{xmlParse}}}
 }

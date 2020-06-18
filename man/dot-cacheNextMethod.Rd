@@ -9,14 +9,14 @@
 \description{
 If the calling environment does not have the next method to be invoked
 in the inheritance chain cached yet, this will find the next method
-(using \code{\link[=findNextMethod]{findNextMethod()}}), and cache it in the calling environment such
-that a subsequent call to \code{\link[methods:callNextMethod]{methods::callNextMethod()}} will find and use
+(using \code{findNextMethod()}, and cache it in the calling environment such
+that a subsequent call to \code{methods::callNextMethod()} will find and use
 it.
 }
 \details{
 As per the description, what this function does would normally already
-be done by invoking \code{\link[methods:callNextMethod]{methods::callNextMethod()}}, so in theory this should
-be entirely redundant at best. However, \code{\link[methods:addNextMethod]{methods::addNextMethod()}}, which
+be done by invoking \code{methods::callNextMethod()}, so in theory this should
+be entirely redundant at best. However, \code{methods::addNextMethod()}, which
 is invoked by \code{callNextMethod()} if a next method isn't cached yet, is
 broken (errors out) if one of the classes in the signature name-clashes
 with a class defined in another package. Calling this function prior to

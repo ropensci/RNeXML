@@ -8,7 +8,7 @@
 }
 \arguments{
 \item{signature}{the signature for which to create a label, as a vector
-or list of strings, or as an instance of \link[methods:signature-class]{signature}.}
+or list of strings, or as an instance of \code{signature}.}
 }
 \value{
 a character string
@@ -17,5 +17,5 @@ a character string
 Creates a label for a signature mirroring the result of \code{.sigLabel()}
 in the \code{methods} package, which unfortunately does not export the function.
 This is needed, for example, for the \code{excluded} slot in the
-\link[methods:MethodWithNext-class]{MethodWithNext} class.
+\code{MethodWithNext} class.
 }

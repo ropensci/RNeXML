@@ -7,7 +7,7 @@
 .callGeneric(f, ..., .package = NULL)
 }
 \arguments{
-\item{f}{the generic, as a character string or a \link[methods:standardGeneric-class]{standardGeneric}
+\item{f}{the generic, as a character string or a \code{standardGeneric}
 object}
 
 \item{...}{the arguments (named and/or unnamed) with which to call the
@@ -24,12 +24,12 @@ Calls the given generic with the given arguments, using the method
 whose signature matches the arguments.
 }
 \details{
-Uses \code{\link[methods:selectMethod]{methods::selectMethod()}} to find the matching method. In theory,
+Uses \code{methods::selectMethod()} to find the matching method. In theory,
 this is at best wholly redundant with what standard S4 generics already
 do by themselves. However, the generics dispatch for S4 seems (at least
 currently) broken at least if the first argument in the signature is
 a class that name-clashes with a class defined in another package. In
 that case, whether the standard dispatch works correctly or not can depend
-on \link[base:search]{search order}, and can change within a session
+on \code{search()} order, and can change within a session
 depending on the order in which packages are loaded.
 }

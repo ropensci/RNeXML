@@ -7,25 +7,25 @@
 .methodWithNext(method, nextMethod, .cache = FALSE)
 }
 \arguments{
-\item{method}{the \link[methods:MethodDefinition-class]{MethodDefinition} object to promote}
+\item{method}{the \code{MethodDefinition} object to promote}
 
-\item{nextMethod}{the \link[methods:MethodDefinition-class]{MethodDefinition}
+\item{nextMethod}{the \code{MethodDefinition}
 object to record as the next method}
 
 \item{.cache}{whether to cache the promoted method definition object
-(using \code{\link[methods:cacheMethod]{methods::cacheMethod()}})}
+(using \code{methods::cacheMethod()})}
 }
 \value{
-an instance of \link[methods:MethodWithNext-class]{MethodWithNext},
+an instance of \code{MethodWithNext},
 which has the next method in the \code{nextMethod} slot
 }
 \description{
 Promotes the given method definition to an instance of
-\link[methods:MethodWithNext-class]{MethodWithNext}, thereby recording the next
+\code{MethodWithNext}, thereby recording the next
 method in the \code{nextMethod} slot.
 }
 \note{
 \code{MethodWithNext} objects are normally returned by
-\code{\link[methods:addNextMethod]{methods::addNextMethod()}}, but a constructor function for the class
+\code{methods::addNextMethod()}, but a constructor function for the class
 seems missing (or is undocumented?). This provides one.
 }
