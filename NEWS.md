@@ -14,7 +14,7 @@ Compatibility with upcoming `dplyr` release.
 v2.4.3
 ------
 
-- This update fixes a minor bug in a unit test for compatibilty 
+- This update fixes a minor bug in a unit test for compatibility 
   with R-devel (4.0.0) as requested by CRAN (#245)
 
 v2.4.2

@@ -4,6 +4,7 @@ bugfix
 Bugfixes
 BugReports
 callNextMethod
+CDAO
 cladogram
 codecov
 datatypes
@@ -22,19 +23,15 @@ lapply
 ListOfmeta
 LiteralMeta
 MEE
-MethodDefinition
-MethodWithNext
 multiphylo
 multiPhylo
 namespaced
 newick
 Newick
-nex
 nexml
 NeXML
 NeXML's
 OmegaHat
-os
 otu
 OTU
 otus
@@ -60,8 +57,7 @@ ropensci
 simmap
 solaris
 SPARQL
-standardGeneric
-taxadb
+taxald
 taxize
 testthat
 tidyr
