@@ -9,7 +9,7 @@ New(Class, ...)
 \arguments{
 \item{Class}{the name of the S4 class to be instantiated}
 
-\item{...}{additional parameters for \code{\link[methods:new]{methods::new()}}}
+\item{...}{additional parameters for \code{methods::new()}}
 }
 \description{
 Convenience function for \code{\link[methods:new]{methods::new()}} that ensures that the provided
@@ -17,7 +17,7 @@ class name is namespaced with a package name.
 }
 \details{
 If the provided class name is not already namespaced (see
-\code{\link[methods:packageSlot]{methods::packageSlot()}}), it will be namespaced with this package. This
+\code{methods::packageSlot()}), it will be namespaced with this package. This
 mechanism is used by \code{new()} to disambiguate if the class name clashes
 with a class defined in another package.
 }
@@ -25,5 +25,5 @@ with a class defined in another package.
 This may not completely eliminate messages on standard error about
 classes with the same name having been found in different packages. If
 they appear, they will most likely have come from the call to the
-\code{\link[methods:initialize]{methods::initialize()}} generic that \code{new()} issues at the end.
+\code{methods::initialize()} generic that \code{new()} issues at the end.
 }

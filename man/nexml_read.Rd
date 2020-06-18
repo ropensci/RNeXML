@@ -17,10 +17,10 @@ nexml_read(x, ...)
 \method{nexml_read}{XMLInternalNode}(x, ...)
 }
 \arguments{
-\item{x}{Path to the file to be read in. Or an \code{\link[XML]{XMLDocument-class}}
+\item{x}{Path to the file to be read in. An \code{XML::XMLDocument-class}
 or \code{\link[XML]{XMLNode-class}}}
 
-\item{...}{Further arguments passed on to \code{\link[XML]{xmlParse}}}
+\item{...}{Further arguments passed on to \code{\link[XML]{xmlTreeParse}}}
 }
 \description{
 Read NeXML files into various R formats

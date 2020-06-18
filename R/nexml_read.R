@@ -1,8 +1,8 @@
 #' Read NeXML files into various R formats
 #' 
-#' @param x Path to the file to be read in. Or an \code{\link[XML]{XMLDocument-class}} 
+#' @param x Path to the file to be read in. An `XML::XMLDocument-class`
 #' or \code{\link[XML]{XMLNode-class}} 
-#' @param ... Further arguments passed on to \code{\link[XML]{xmlParse}}
+#' @param ... Further arguments passed on to \code{\link[XML]{xmlTreeParse}}
 #' @import XML
 #' @import httr
 #' @aliases nexml_read read.nexml 
