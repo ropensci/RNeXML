@@ -20,8 +20,7 @@ test_that("taxize_nexml correctly collects ncbi identifiers", {
   ## tests are too slow for CRAN
   skip_on_cran()
   
-  testthat::skip_on_cran()
-  testthat::skip_if_not_installed("taxadb")
+  testthat::skip_if_not_installed("taxalight")
   suppressWarnings({
     birds <- taxize_nexml(birds, "NCBI")
     chir <- taxize_nexml(chir, "NCBI")
