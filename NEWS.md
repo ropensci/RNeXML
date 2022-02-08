@@ -11,6 +11,7 @@ v2.4.5
 ------
 
 - CRAN-requested patch for collision with {cli} namespace (#251)
+- taxadb -> taxalight for fast resolution of taxon ids
 
 v2.4.4
 ------

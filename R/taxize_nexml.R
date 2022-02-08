@@ -22,11 +22,11 @@ taxize_nexml <- function(nexml,
                          ...){
   
   ## Soft dependency on taxadb
-  if (!requireNamespace("taxadb", quietly = TRUE)) {
+  if (!requireNamespace("taxalight", quietly = TRUE)) {
     stop("taxadb package required to convert look up taxonomic ids",
          call. = FALSE)
   }
-  get_ids <- getExportedValue("taxadb", "get_ids")
+  get_ids <- getExportedValue("taxalight", "get_ids")
   
   type <- tolower(type)
   type <- match.arg(type)
