@@ -483,6 +483,7 @@ setClass("ListOfnode", slots = c(names="character"),
 tryCatch({
   rlang::env_unlock(asNamespace("cli"))
   removeClass("tree", asNamespace("cli"))
+  rlang::env_lock(asNamespace("cli"))
 }, error = function(err) NULL)
 
 setClass("tree", 
