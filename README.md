@@ -26,7 +26,7 @@ state-of-the-art data exchange technology to provide a format that can
 be both validated and extended, providing a data quality assurance and
 adaptability to the future that is lacking in other formats. See [Vos et
 al
-2012](http://doi.org/10.1093/sysbio/sys025 "NeXML: Rich, Extensible, and Verifiable Representation of Comparative Data and Metadata.")
+2012](https://doi.org/10.1093/sysbio/sys025 "NeXML: Rich, Extensible, and Verifiable Representation of Comparative Data and Metadata.")
 for further details on the NeXML format.
 
 ## How to cite
@@ -37,12 +37,12 @@ RNeXML has been published in the following article:
 > Package for Reading and Writing Richly Annotated Phylogenetic,
 > Character, and Trait Data in R.” *Methods in Ecology and Evolution*,
 > **7**, pp. 352-357.
-> [doi:10.1111/2041-210X.12469](http://doi.org/10.1111/2041-210X.12469)
+> [doi:10.1111/2041-210X.12469](https://doi.org/10.1111/2041-210X.12469)
 
 Although the published version of the article is pay-walled, the source
 of the manuscript, and a much better rendered PDF, are included in this
 package (in the `manuscripts` folder). You can also find it [freely
-available on arXiv](http://arxiv.org/abs/1506.02722).
+available on arXiv](https://arxiv.org/abs/1506.02722).
 
 ## Installation
 
@@ -84,4 +84,4 @@ of more specialized features.
 -----
 
 [![ropensci
-footer](http://ropensci.org/public_images/github_footer.png)](http://ropensci.org)
+footer](https://ropensci.org//public_images/github_footer.png)](https://ropensci.org/)

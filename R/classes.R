@@ -478,6 +478,14 @@ setClass("ListOfnode", slots = c(names="character"),
 
 ################################## actually AbstractTree
 
+## Thanks Gabor for work-around from S4 namespaces collision issue
+# https://github.com/ropensci/RNeXML/issues/251#issuecomment-1031996431
+tryCatch({
+  rlang::env_unlock(asNamespace("cli"))
+  removeClass("tree", asNamespace("cli"))
+  rlang::env_lock(asNamespace("cli"))
+}, error = function(err) NULL)
+
 setClass("tree", 
          slots = c(node = "ListOfnode", 
                         edge = "ListOfedge",

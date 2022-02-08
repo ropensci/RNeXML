@@ -22,11 +22,11 @@ taxize_nexml <- function(nexml,
                          ...){
   
   ## Soft dependency on taxadb
-  if (!requireNamespace("taxadb", quietly = TRUE)) {
+  if (!requireNamespace("taxalight", quietly = TRUE)) {
     stop("taxadb package required to convert look up taxonomic ids",
          call. = FALSE)
   }
-  get_ids <- getExportedValue("taxadb", "get_ids")
+  get_ids <- getExportedValue("taxalight", "get_ids")
   
   type <- tolower(type)
   type <- match.arg(type)
@@ -36,7 +36,7 @@ taxize_nexml <- function(nexml,
     # Resolve all ids at once
     labels <- unname(vapply(nexml@otus[[j]]@otu, slot, character(1L), "label"))
     clean_labels <- gsub("_", " ", labels)
-    taxa_ids <- get_ids(clean_labels, type, format = "uri", ...)
+    taxa_ids <- get_ids(clean_labels, type, ...)
     
     for(i in 1:length(taxa_ids)){
       id <- taxa_ids[[i]]
