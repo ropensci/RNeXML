@@ -6,6 +6,13 @@ For more fine-grained list of changes or to report a bug, consult
 * [The issues log](https://github.com/ropensci/RNeXML/issues)
 * [The commit log](https://github.com/ropensci/RNeXML/commits/master)
 
+v2.4.7
+------
+* ensure geiger is used conditionally in examples
+
+v2.4.6
+-------
+* minor compatibility fix for CRAN
 
 v2.4.5
 ------

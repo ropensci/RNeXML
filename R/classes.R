@@ -103,7 +103,7 @@ setMethod("toNeXML",
           function(object, parent){
             parent <- callNextMethod()
             cnt <- object@content
-            if (length(cnt) > 0 && class(cnt) == "XMLString") {
+            if (length(cnt) > 0 && is(cnt, "XMLString")) {
               # need to add back in the namespace definitions used by the
               # XML value to avoid a stream of warnings, even if this will
               # probably be redundant with the doc root

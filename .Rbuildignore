@@ -26,3 +26,4 @@ pkgdown
 ^doc$
 ^Meta$
 ^\.github$
+^geospiza.xml$

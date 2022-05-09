@@ -13,9 +13,11 @@ NULL
 #' @return a nexml object containing the phy in nexml format. 
 #' @export 
 #' @examples 
-#' library("geiger")
+#' 
+#' if( require("geiger") ) {
 #' data(geospiza)
 #' geiger_nex <- add_trees(geospiza$phy)
+#' }
 add_trees <- function(phy, 
                       nexml=new("nexml"), 
                       append_to_existing_otus=FALSE){

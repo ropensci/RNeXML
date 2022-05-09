@@ -36,8 +36,8 @@ RNeXML has been published in the following article:
 > Boettiger C, Chamberlain S, Vos R and Lapp H (2016). “RNeXML: A
 > Package for Reading and Writing Richly Annotated Phylogenetic,
 > Character, and Trait Data in R.” *Methods in Ecology and Evolution*,
-> **7**, pp. 352-357.
-> [doi:10.1111/2041-210X.12469](https://doi.org/10.1111/2041-210X.12469)
+> **7**, pp. 352-357.
+> doi:10.1111/2041-210X.12469
 
 Although the published version of the article is pay-walled, the source
 of the manuscript, and a much better rendered PDF, are included in this

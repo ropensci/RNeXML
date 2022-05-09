@@ -14,7 +14,6 @@ if(is(status, "try-error") || (is(status, "response") && status$status_code != 2
 } else {
 
 
-
 ## Create example file
   library(geiger)
   data(geospiza)
