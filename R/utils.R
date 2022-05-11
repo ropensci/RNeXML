@@ -47,3 +47,12 @@ charzero_as_empty <- function(x) {
   else
     x
 }
+
+# rlang is used in classes.R to deal with the incorrect way in which
+# the S4 system handles class collisions. 
+# R check incorrectly fails to recognize it there and objects to rlang
+# being in Imports. 
+# So here's another cludgy hack
+dummy <- function() {
+  rlang::as_character(1)
+}

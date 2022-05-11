@@ -14,13 +14,6 @@
 #' though it may contain duplicate taxa to those already present.  While
 #' FALSE is the safe option, TRUE may be appropriate when building nexml
 #' files from scratch with both characters and trees.  
-#' @include classes.R
-#' @examples
-#' if( require("geiger") ) {
-#' library("geiger")
-#' data(geospiza)
-#' geiger_nex <- add_characters(geospiza$dat)
-#' }
 #' @export 
 add_characters <- function(x, 
                            nexml = new("nexml"), 
