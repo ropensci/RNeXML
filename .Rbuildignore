@@ -27,3 +27,4 @@ pkgdown
 ^Meta$
 ^\.github$
 ^geospiza.xml$
+^CRAN-SUBMISSION$

@@ -23,7 +23,9 @@ a nexml object containing the phy in nexml format.
 add_trees
 }
 \examples{
-library("geiger")
+
+if( require("geiger") ) {
 data(geospiza)
 geiger_nex <- add_trees(geospiza$phy)
+}
 }

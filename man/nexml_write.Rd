@@ -44,7 +44,7 @@ Write nexml files
 
 \dontrun{ # takes > 5s
  ## Assemble a nexml section by section and then write to file:
- library(geiger)
+if( require("geiger") ) {
  data(geospiza)
  nexml <- add_trees(geospiza$phy) # creates new nexml
  nexml <- add_characters(geospiza$dat, nexml = nexml) # pass the nexml obj to append character data
@@ -69,7 +69,7 @@ Write nexml files
              title = "My title", 
              creator = "Carl Boettiger",
              file = ex)
-
+}
 }
 }
 \seealso{
