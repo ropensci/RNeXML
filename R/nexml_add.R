@@ -10,14 +10,7 @@
 #'
 #' @return a nexml object with the additional data
 #' @seealso \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_meta}} \code{\link{add_namespaces}}    
-#' @export 
-#' @examples
-#' #' if( require("geiger") ) {
-#' library("geiger")
-#' data(geospiza)
-#' geiger_nex <- nexml_add(geospiza$phy, type="trees")
-#' geiger_nex <- nexml_add(geospiza$dat, nexml = geiger_nex, type="characters")
-#' }
+#' @export
 nexml_add <- function(x, 
                       nexml = new("nexml"), 
                       type = c("trees", 

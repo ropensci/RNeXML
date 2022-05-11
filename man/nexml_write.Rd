@@ -41,36 +41,6 @@ Write nexml files
  library(ape); data(bird.orders)
  ex <- tempfile(fileext=".xml")
  write.nexml(bird.orders, file=ex)
-
-\dontrun{ # takes > 5s
- ## Assemble a nexml section by section and then write to file:
-if( require("geiger") ) {
- data(geospiza)
- nexml <- add_trees(geospiza$phy) # creates new nexml
- nexml <- add_characters(geospiza$dat, nexml = nexml) # pass the nexml obj to append character data
- nexml <- add_basic_meta(title="my title", creator = "Carl Boettiger", nexml = nexml)
- nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())), nexml = nexml)
-
- ex <- tempfile(fileext=".xml")
- write.nexml(nexml, file=ex)
-
- ## As above, but in one call (except for add_meta() call).  
- write.nexml(trees = geospiza$phy, 
-             characters = geospiza$dat, 
-             title = "My title", 
-             creator = "Carl Boettiger",
-             file = ex)
- 
- ## Mix and match: identical to the section by section: 
- nexml <- add_meta(meta("prism:modificationDate", format(Sys.Date())))
- write.nexml(x = nexml,
-             trees = geospiza$phy, 
-             characters = geospiza$dat, 
-             title = "My title", 
-             creator = "Carl Boettiger",
-             file = ex)
-}
-}
 }
 \seealso{
 \code{\link{add_trees}} \code{\link{add_characters}} \code{\link{add_meta}} \code{\link{nexml_read}}
