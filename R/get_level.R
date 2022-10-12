@@ -61,6 +61,7 @@ recursion <- function(i, level){
 
 ## Assumes slot(node, element) is a list
 #' @importFrom dplyr bind_rows coalesce mutate %>%
+#' @importFrom rlang :=
 #' @importFrom uuid UUIDgenerate
 nodelist_to_df <- function(node, element, fn, nodeId=NA){
   idRefCol <- idRefColName(node)
@@ -108,6 +109,8 @@ idRefColName <- function(node){
     clname
 }
 
+#' @importFrom rlang :=
+#' @importFrom dplyr rename
 attributes_to_row <- function(node){
   who <- slotNames(node)
   
