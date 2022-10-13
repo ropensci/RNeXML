@@ -17,7 +17,7 @@
 #'  and the NeXML char labels to name the traits (columns).  If these are unavailable or not unique, the NeXML
 #'  id values for the otus or traits will be used instead.
 #' @importFrom tidyr spread
-#' @importFrom dplyr left_join select_ matches
+#' @importFrom dplyr left_join select mutate mutate_at matches any_of
 #' @importFrom stringr str_replace
 #' @importFrom stats setNames
 #' @export
@@ -54,23 +54,23 @@ get_characters <- function(nex,
                            rownames_as_col=FALSE, otu_id=FALSE, otus_id=FALSE,
                            include_state_types=FALSE) {
   
-  drop = lazyeval::interp(~-dplyr::matches(x), x = "about|xsi.type|format")
+  drop = c("about","xsi.type","format")
   
   otus <- get_level(nex, "otus/otu") %>% 
-    dplyr::select_(drop) %>%
+    dplyr::select(!any_of(drop)) %>%
     optional_labels(id_col = "otu")
   
   char <- get_level(nex, "characters/format/char") %>% 
-    dplyr::select_(drop) %>%
+    dplyr::select(!any_of(drop)) %>%
     optional_labels(id_col = "char")
   
   ## Rows have otu information
   rows <- get_level(nex, "characters/matrix/row") %>% 
-    dplyr::select_(.dots = c("otu", "row"))
+    dplyr::select(c("otu", "row"))
 
   cellLevel <- get_level(nex, "characters/matrix/row/cell")
   cells <- cellLevel %>% 
-    dplyr::select_(.dots = c("char", "state", "row")) %>% 
+    dplyr::select(c("char", "state", "row")) %>%
     dplyr::left_join(rows, by = "row")
     
   characters <- get_level(nex, "characters")
@@ -102,24 +102,24 @@ get_characters <- function(nex,
     states <- states %>% dplyr::mutate_at(c("symbol"), as.character) %>%
                          dplyr::bind_rows(uncertain)
   }
-  states <- dplyr::select_(states, drop)
+  states <- dplyr::select(states, !any_of(drop))
 
 
   if(dim(states)[1] > 0) 
     cells <- cells %>% 
     dplyr::left_join(states, by = c("state"))  %>% 
-    dplyr::select_(.dots = c("char", "symbol", "otu", "state", "state.type"))
+    dplyr::select(c("char", "symbol", "otu", "state", "state.type"))
   
   ## Join the matrices.  Note that we select unique column names after each join to avoid collisions
   cells <- cells %>% 
     dplyr::left_join(char, by = c("char")) %>% 
-    dplyr::rename_(.dots = c("trait" = "label")) %>% 
+    dplyr::rename(c("trait" = "label")) %>% 
     dplyr::left_join(otus, by = c("otu")) %>%
-    dplyr::rename_(.dots = c("taxa" = "label"))
+    dplyr::rename(c("taxa" = "label"))
   # character state matrix with symbols:
   cells %>%
     na_symbol_to_state() %>% 
-    dplyr::select_(.dots = c("taxa", "symbol", "trait", "otu", "otus")) %>% 
+    dplyr::select(c("taxa", "symbol", "trait", "otu", "otus")) %>% 
     tidyr::spread("trait", "symbol") ->
     out
   # state type matrix
@@ -128,7 +128,7 @@ get_characters <- function(nex,
     cells <- dplyr::mutate(cells, state.type = "standard")
   }
   cells %>%
-      dplyr::select_(.dots = c("taxa", "state.type", "trait", "otu", "otus")) %>%
+      dplyr::select(c("taxa", "state.type", "trait", "otu", "otus")) %>%
       dplyr::mutate_at("state.type", as.factor) %>%
       tidyr::spread("trait", "state.type") ->
       state_types
@@ -142,13 +142,13 @@ get_characters <- function(nex,
   
   type <-
     cellLevel  %>% 
-    dplyr::select_(drop) %>%
+    dplyr::select(!any_of(drop)) %>%
     dplyr::left_join(characters, by = "characters") %>%
-    dplyr::select_(.dots = c( "xsi.type", "char", "characters")) %>%
+    dplyr::select(c( "xsi.type", "char", "characters")) %>%
     dplyr::left_join(char, by = c("char")) %>%
-    dplyr::select_(.dots = c("label", "xsi.type")) %>% 
+    dplyr::select(c("label", "xsi.type")) %>% 
     dplyr::distinct() %>%
-    dplyr::mutate_(.dots = setNames(list(~cellclass(xsi.type)), "class"))
+    dplyr::mutate(class = cellclass(xsi.type))
   
   for(i in 1:dim(type)[1]) {
     if (all(state_types[[type$label[i]]] == "standard", na.rm = TRUE)) {
@@ -158,21 +158,21 @@ get_characters <- function(nex,
   
   ## drop unwanted columns if requested (default)
   if(!otu_id){
-    out <- dplyr::select_(out, quote(-otu))
+    out <- dplyr::select(out, !"otu")
     if (include_state_types)
-      state_types <- dplyr::select_(state_types, quote(-otu))
+      state_types <- dplyr::select(state_types, !"otu")
   }
   if(!otus_id){
-    out <- dplyr::select_(out, quote(-otus))
+    out <- dplyr::select(out, !"otus")
     if (include_state_types)
-      state_types <- dplyr::select_(state_types, quote(-otus))
+      state_types <- dplyr::select(state_types, !"otus")
   }
   if(!rownames_as_col){
     taxa <- out$taxa
-    out <- as.data.frame(dplyr::select_(out, quote(-taxa)))
+    out <- as.data.frame(dplyr::select(out, !"taxa"))
     rownames(out) <- taxa
     if (include_state_types) {
-      state_types <- as.data.frame(dplyr::select_(state_types, quote(-taxa)))
+      state_types <- as.data.frame(dplyr::select(state_types, !"taxa"))
       rownames(state_types) <- taxa
     }
   }
@@ -202,3 +202,6 @@ na_symbol_to_state <- function(df){
   df$symbol[is.na(df$symbol)] <- suppressWarnings(as.numeric(df$state[is.na(df$symbol)]))
   df
   }
+
+## silence R CHECK warning
+xsi.type <- NULL

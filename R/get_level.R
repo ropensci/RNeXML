@@ -37,7 +37,7 @@ SKIP = c("meta", "children", "member", "row", "cell", "seq", "matrix", "format",
 get_level <- function(nex, level){
   lvl <- strsplit(level, "/")[[1]]
   out <- recursion(1, lvl)(nex) %>% 
-    dplyr::select_(quote(-nexml))
+    dplyr::select(!"nexml")
 
   ## drop columns that are all-na?
 #  all_na <- sapply(out, function(x) all(is.na(x)))
@@ -60,13 +60,13 @@ recursion <- function(i, level){
 
 
 ## Assumes slot(node, element) is a list
-#' @importFrom lazyeval interp
-#' @importFrom dplyr bind_rows coalesce mutate mutate_ %>%
+#' @importFrom dplyr bind_rows coalesce mutate %>%
+#' @importFrom rlang :=
 #' @importFrom uuid UUIDgenerate
 nodelist_to_df <- function(node, element, fn, nodeId=NA){
-  dots <- setNames(
-    list(lazyeval::interp(~x, x = if (is.na(nodeId)) node_id(node) else nodeId)),
-    idRefColName(node))
+  idRefCol <- idRefColName(node)
+  if (is.na(nodeId))
+    nodeId <- node_id(node)
   nodelist <- slot(node, element)
   if(is.list(nodelist)){ ## node has a list of elements
     out <- suppressWarnings(lapply(nodelist, fn)) %>% dplyr::bind_rows()
@@ -85,10 +85,10 @@ nodelist_to_df <- function(node, element, fn, nodeId=NA){
         out <- dplyr::bind_rows(mout, unname(nested))
       }
     }
-    dplyr::mutate_(out, .dots = dots) -> out
+    dplyr::mutate(out, "{idRefCol}" := {{ nodeId }}) -> out
   } else { ## handle case when node has only one element
     fn(nodelist) %>%
-      dplyr::mutate_(.dots = dots)
+      dplyr::mutate("{idRefCol}" := {{ nodeId }})
   }
 }
 
@@ -109,6 +109,8 @@ idRefColName <- function(node){
     clname
 }
 
+#' @importFrom rlang :=
+#' @importFrom dplyr rename
 attributes_to_row <- function(node){
   who <- slotNames(node)
   
@@ -125,7 +127,7 @@ attributes_to_row <- function(node){
   ## Coerce into a row of a data.frame & rename id column to match class
   out <- data.frame(as.list(tmp), stringsAsFactors=FALSE) 
   if("id" %in% who)
-    out <- dplyr::rename_(out, .dots = setNames("id", class(node)))
+    out <- dplyr::rename(out, "{class(node)}" := "id")
   
   out
 }
