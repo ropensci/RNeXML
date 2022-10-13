@@ -202,3 +202,6 @@ na_symbol_to_state <- function(df){
   df$symbol[is.na(df$symbol)] <- suppressWarnings(as.numeric(df$state[is.na(df$symbol)]))
   df
   }
+
+## silence R CHECK warning
+xsi.type <- NULL
