@@ -6,6 +6,12 @@ For more fine-grained list of changes or to report a bug, consult
 * [The issues log](https://github.com/ropensci/RNeXML/issues)
 * [The commit log](https://github.com/ropensci/RNeXML/commits/master)
 
+
+v2.4.8
+------
+
+* replace deprecated dplyr use [#253](https://github.com/ropensci/RNeXML/pull/253)
+
 v2.4.7
 ------
 * ensure geiger is used conditionally in examples
