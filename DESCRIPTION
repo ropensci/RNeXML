@@ -1,7 +1,7 @@
 Package: RNeXML
 Type: Package
 Title: Semantically Rich I/O for the 'NeXML' Format
-Version: 2.4.8
+Version: 2.4.9
 Authors@R: c(person("Carl", "Boettiger", role = c("cre", "aut"),
     email="cboettig@gmail.com", comment = c(ORCID="0000-0002-1642-628X")), 
     person("Scott", "Chamberlain", role ="aut", comment = c(ORCID="0000-0003-1444-9135")), 

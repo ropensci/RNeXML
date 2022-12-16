@@ -10,6 +10,12 @@ For more fine-grained list of changes or to report a bug, consult
 v2.4.8
 ------
 
+* replace deprecated dplyr test behavior [#254](https://github.com/ropensci/RNeXML/pull/253)
+
+
+v2.4.8
+------
+
 * replace deprecated dplyr use [#253](https://github.com/ropensci/RNeXML/pull/253)
 
 v2.4.7
