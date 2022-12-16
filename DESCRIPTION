@@ -28,7 +28,8 @@ Suggests:
     rmarkdown (>= 0.3.3),
     xslt,
     covr,
-    taxalight
+    taxalight,
+    progress
 Depends:
     R (>= 3.0.0),
     ape (>= 3.1),
