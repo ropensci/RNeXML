@@ -201,8 +201,7 @@ test_that("ID assignments are correct and complete when meta are nested", {
   testthat::expect_length(unique(meta.nested[,"meta"]), 5)
   testthat::expect_length(unique(meta.cont[,"Meta"]), 5)
   # and every containing ID is referenced by exactly one of the nested IDREFs
-  testthat::expect_equal(sort(meta.cont[,"Meta"]),
-                         sort(unique(meta.nested[,"meta"])))
+  testthat::expect_true(all(sort(meta.cont[,"Meta"]) == sort(unique(meta.nested[,"meta"]))))
 })
 
 test_that("we can parse LiteralMeta annotations with XML literals as values", {
