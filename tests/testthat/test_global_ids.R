@@ -1,7 +1,8 @@
 context("Set global (uuid) identifiers")
 
 test_that("We can generate valid EML with uuid ids on all elements", {
-
+  skip_on_cran()
+  
   skip_if_not_installed("geiger")
   skip_if_not_installed("uuid")
   

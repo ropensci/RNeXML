@@ -4,12 +4,14 @@
 \alias{nexml_validate}
 \title{validate nexml using the online validator tool}
 \usage{
-nexml_validate(file, schema = CANONICAL_SCHEMA)
+nexml_validate(file, schema = CANONICAL_SCHEMA, local = TRUE)
 }
 \arguments{
 \item{file}{path to the nexml file to validate}
 
 \item{schema}{URL of schema (for fallback method only, set by default).}
+
+\item{local}{logical, if TRUE we skip the online validator and rely only on pure XML-schema validation.  This may fail to detect invalid use of some semantic elements.}
 }
 \value{
 TRUE if the file is valid, FALSE or error message otherwise
@@ -18,7 +20,7 @@ TRUE if the file is valid, FALSE or error message otherwise
 validate nexml using the online validator tool
 }
 \details{
-Requires an internet connection.  see http://www.nexml.org/nexml/phylows/validator for more information in debugging invalid files
+Requires an internet connection if local=FALSE.  see http://www.nexml.org/nexml/phylows/validator for more information in debugging invalid files
 }
 \examples{
 \dontrun{

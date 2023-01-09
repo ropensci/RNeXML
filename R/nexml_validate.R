@@ -5,8 +5,9 @@ CANONICAL_SCHEMA <- "http://www.nexml.org/2009/nexml.xsd"
 
 #' validate nexml using the online validator tool
 #' @param file path to the nexml file to validate
-#' @param schema URL of schema (for fallback method only, set by default).  
-#' @details Requires an internet connection.  see http://www.nexml.org/nexml/phylows/validator for more information in debugging invalid files
+#' @param schema URL of schema (for fallback method only, set by default).
+#' @param local logical, if TRUE we skip the online validator and rely only on pure XML-schema validation.  This may fail to detect invalid use of some semantic elements.
+#' @details Requires an internet connection if local=FALSE.  see http://www.nexml.org/nexml/phylows/validator for more information in debugging invalid files
 #' @return TRUE if the file is valid, FALSE or error message otherwise
 #' @export
 #' @import httr XML
@@ -16,7 +17,12 @@ CANONICAL_SCHEMA <- "http://www.nexml.org/2009/nexml.xsd"
 #' nexml_validate("birds_orders.xml")
 #' unlink("birds_orders.xml") # delete file to clean up
 #' }
-nexml_validate <- function(file, schema=CANONICAL_SCHEMA){
+nexml_validate <- function(file, schema=CANONICAL_SCHEMA, local = TRUE){
+  
+  if(local) {
+    return( nexml_schema_validate(file, schema=schema) )
+  }
+  
   a = POST(ONLINE_VALIDATOR, body=list(file = upload_file(file)))
   if(a$status_code %in% c(200,201)){
     TRUE

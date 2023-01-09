@@ -33,9 +33,9 @@ Convert nexml object with simmap to phylo
 }
 \section{Functions}{
 \itemize{
-\item \code{nexml_to_simmap}: Convert nexml object with simmap to phylo
-}}
+\item \code{nexml_to_simmap()}: Convert nexml object with simmap to phylo
 
+}}
 \examples{
 simmap_ex <- read.nexml(system.file("examples","simmap_ex.xml", package="RNeXML"))
 phy <- nexml_to_simmap(simmap_ex)
