@@ -2,7 +2,7 @@
 #CANONICAL_SCHEMA <- "http://162.13.187.155/nexml/xsd/nexml.xsd"
 ONLINE_VALIDATOR <- "http://www.nexml.org/nexml/phylows/validator"
 CANONICAL_SCHEMA <- "http://www.nexml.org/2009/nexml.xsd"
-
+CANONICAL_SCHEMA <-  "https://github.com/nexml/nexml/raw/master/xsd/nexml.xsd"
 #' validate nexml using the online validator tool
 #' @param file path to the nexml file to validate
 #' @param schema URL of schema (for fallback method only, set by default).
@@ -17,7 +17,7 @@ CANONICAL_SCHEMA <- "http://www.nexml.org/2009/nexml.xsd"
 #' nexml_validate("birds_orders.xml")
 #' unlink("birds_orders.xml") # delete file to clean up
 #' }
-nexml_validate <- function(file, schema=CANONICAL_SCHEMA, local = TRUE){
+nexml_validate <- function(file, schema=system.file("xsd/nexml.xsd", package="RNeXML"), local = TRUE){
   
   if(local) {
     return( nexml_schema_validate(file, schema=schema) )
@@ -46,24 +46,9 @@ nexml_validate <- function(file, schema=CANONICAL_SCHEMA, local = TRUE){
 
 
 nexml_schema_validate <- function(file, schema=CANONICAL_SCHEMA){
-  a = GET(schema)
-  if(a$status_code == 200){
-    if(is.null(xmlSchemaParse(schema))){
-        warning(paste("Schema not accessible at", schema))
-        NULL
-    } else {
-      result <- xmlSchemaValidate(schema, file) 
-      if(length(result$errors) == 0){
-        TRUE
-      } else {
-        warning(paste(result$errors))
-        FALSE
-      }
-    }
-  } else {
-    warning("Unable to obtain schema, couldn't validate")
-    NULL
-  }
+
+      xml2::xml_validate(xml2::read_xml(file), xml2::read_xml(schema)) 
+   
     
 }
 #xmlSchemaValidate(xmlSchemaParse(content(a, "text"), asText=TRUE), file)   # fails to get other remote resources

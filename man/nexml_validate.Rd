@@ -4,7 +4,11 @@
 \alias{nexml_validate}
 \title{validate nexml using the online validator tool}
 \usage{
-nexml_validate(file, schema = CANONICAL_SCHEMA, local = TRUE)
+nexml_validate(
+  file,
+  schema = system.file("xsd/nexml.xsd", package = "RNeXML"),
+  local = TRUE
+)
 }
 \arguments{
 \item{file}{path to the nexml file to validate}
