@@ -7,7 +7,7 @@ For more fine-grained list of changes or to report a bug, consult
 * [The commit log](https://github.com/ropensci/RNeXML/commits/master)
 
 
-v2.4.9
+v2.4.10
 ------
 
 * Avoid validation failures
