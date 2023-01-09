@@ -31,13 +31,8 @@ test_that("Validation can fail gracefully", {
   
   f <- system.file("examples/sparql.newick", package="RNeXML")
   
-  testthat::expect_warning(
+  expect_error(
   o <- nexml_validate(f)
   )
-  if(!is.null(o)) { 
-    expect_false(o)
-  } else {
-    expect_null(o)
-  }
 })
 
