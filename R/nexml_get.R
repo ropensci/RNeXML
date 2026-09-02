@@ -7,7 +7,7 @@
 #' @param ... additional arguments, if applicable to certain elements 
 #' @details
 #'  
-#' \itemize{
+#' \describe{
 #'  \item{"tree"}{ an ape::phylo tree, if only one tree is represented.  Otherwise returns a list of lists of multiphylo trees.  To consistently receive the list of lists format (preserving the hierarchical nature of the nexml), use \code{trees} instead.}
 #'  \item{"trees"}{ returns a list of lists of multiphylo trees, even if all trees are in the same `trees` node (and hence the outer list will be of length 1) or if there is only a single tree (and hence the inner list will also be of length 1.  This ensures a consistent return type regardless of the number of trees present in the nexml file, and also preserves any hierarchy/grouping of trees.  }
 #'  \item{"flat_trees"}{ a multiPhylo object (list of ape::phylo objects) Note that this method collapses any hierarchical structure that may have been present as multiple `trees` nodes in the original nexml (though such a feature is rarely used).  To preserve that structure, use `trees` instead.}
