@@ -188,7 +188,7 @@ findNextMethod <- function(method, f = NULL, envir = topenv()) {
     }
   }
   where <- asNamespace(.package)
-  if (!is(f, "standardGeneric")) f <- getGeneric(f, where = where)
+  if (!is(f, "genericFunction")) f <- getGeneric(f, where = where)
   .Args <- list(...)
   sigArgs <- .Args[seq_along(f@signature)]
   sigClasses <- sapply(sigArgs, .classForSig, f)
